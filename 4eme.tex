@@ -1,0 +1,101 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Modèle pour la 4ème de couverture des thèses préparées à l'Institut Polytechnique de Paris, basé sur le modèle produit par Nikolas STOTT / Template for back cover of thesis made at Institut Polytechnique de Paris, based on the template made by Nikolas STOTT
+%%% Mis à jour par Aurélien ARNOUX (École polytechnique)/ Updated by Aurélien ARNOUX (École polytechnique)
+%%% Les instructions concernant chaque donnée à remplir sont données en bloc de commentaire / Rules to fill this file are given in comment blocks
+%%% ATTENTION Ces informations doivent tenir sur une seule page une fois compilées / WARNING These informations must contain in no more than one page once compiled
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Version du 28 avril 2020 : utilisation de .png au lieu de .jpg pour les logos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\familydefault}{\sfdefault}\selectfont
+\normalfont
+
+\label{form4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Formulaire / Form
+%%% Remplacer les paramètres des \newcommand par les informations demandées / Replace \newcommand parameters by asked informations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\logoEd}{EDMH}																		%% Logo de l'école doctorale. Indiquer le sigle (EDIPP, EDMH) / Doctoral school logo. Indicate the acronym : EDMH, EDIPP
+\newcommand{\PhDTitleFR}{\PhDTitle}													%% Titre de la thèse en français / Thesis title in french
+\newcommand{\keywordsFR}{Prior objectif, Analyse bayésienne, Aléa sismique, Courbe de fragilité, Quantification des incertitudes}														%% Mots clés en français, séprarés par des , / Keywords in french, separated by ,
+\newcommand{\abstractFR}{Dans le cadre de l’évaluation de la sûreté sismique des structures et des équipements d’installations industrielles, les courbes de fragilité des structures de génie civil et des équipements représentent un outil d’aide à la décision. Issu des études probabilistes de sûreté menées sur ces installations, elles expriment la probabilité d’une défaillance de l’entité conditionnée à une intensité de mesure de l’aléa sismique, ou bien même en pratique d’autre phénomènes tels que le vent ou la houle. L’évaluation de ces courbes par méthodes de Monte-Carlo et l’emploi de simulations numériques de mécanique et de signaux sismiques générés est la méthode la plus souvent plébiscitée mais dont la fiabilité est questionnée lorsque le jeu de données à disposition est faible. A ce titre et en connaissance de la nécessité de compréhension de comportement « ultime » de la structure pour permettre sa simulation de réponse à l’événement sismique considéré, alors que celles-ci présentent dans la majorité des cas un comportement non linéaire, l’enrichissement d’une base de données présente une complexité qui impliquent des temps de calculs prohibitifs. L’apport du cadre bayésien s’inscrit donc dans cette démarche d’un apprentissage plus efficace sous connaissance a priori de la répartition probabiliste des paramètres du modèle que constitue la courbe de fragilité. Leur indicateur de confiance se dirige alors dans le choix de cette loi de probabilité a priori, pour lequel toute subjectivité serait critiquable. Les méthodes de choix et de calcul de prior objectifs répondent à ce problème en s’appuyant sur des critères définis et objectifs, enrichissant la théorie des prior de références en l’appliquant à la problématique des courbes de fragilité sismiques.}															%% Résumé en français / abstract in french
+
+\newcommand{\PhDTitleEN}{Bayesian estimation of seismic fragility for industrial structures and equipments}													%% Titre de la thèse en anglais / Thesis title in english
+\newcommand{\keywordsEN}{Objective prior, Bayesian analysis, Seismic hazard, Fragility curve, Uncertainties quantification}														%% Mots clés en anglais, séprarés par des , / Keywords in english, separated by ,
+\newcommand{\abstractEN}{As part of the assessment of the seismic safety of industrial installations, fragility curves of civil engineering structures represent a decision-making tool. From Probabilistic Safety Studies, they express the probability of failure of the quantity of interest conditionally to an intensity measure of the seismic hazard, or in practice of other phenomena such as wind or swell. The evaluation of these curves from Monte-Carlo methods and numerical simulations of mechanics and generated seismic signals are common, yet have a lower reliability when the number of data items is low. This issue and the necessity of the « extreme » behavior understanding of the structure for simulating its response to a considered seismic signal, when in most cases it is non-linear, makes the obtention of more data complex and requiring long time calculation that are prohibitive. The Bayesian point of view allows a more efficient learning conditionally of the a priori distribution of the parameters that constitute the fragility curve. Therefore, the confidence indicator for these methods is now directed to the choice of this prior probability distribution, for which any subjectivity would be questionable. Objective prior choice and computation methods answer this problematic as they are based on defined and objective criteria, supplementing the reference prior theory by applying it to seismic fragility curves.}															%% Résumé en anglais / abstract in english
+
+\label{layout4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Mise en page / Page layout      
+%%% NE RIEN MODIFIER / DO NOT MODIFY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\pagestyle{empty}
+
+%%% Logo de l'école doctorale. Le nom du fichier correspond au sigle de l'ED / Doctoral school logo. Filename correspond to doctoral school acronym
+%%% Les noms valides sont / Valid names are : EDMH, (EDIPP)
+\begin{textblock*}{61mm}(16mm,3mm)\textblockcolour{white}
+	\noindent\includegraphics[height=24mm]{media/ed/\logoEd.png}
+\end{textblock*}
+
+
+
+%%%Titre de la thèse en français / Thesis title in french
+\begin{center}
+\fcolorbox{black}{white}{\parbox{0.95\textwidth}{
+{\bf Titre:} \PhDTitleFR 
+\medskip
+
+%%%Mots clés en français, séprarés par des ; / Keywords in french, separated by ;
+{\bf Mots clés:} \keywordsFR 
+\vspace{-2mm}
+
+%%% Résumé en français / abstract in french
+\begin{multicols}{2}
+{\bf Résumé:} 
+\abstractFR 
+\end{multicols}
+}}
+\end{center}
+
+\vspace*{0mm}
+
+%%%Titre de la thèse en anglais / Thesis title in english
+\begin{center}
+\fcolorbox{black}{white}{\parbox{0.95\textwidth}{
+{\bf Title:} \PhDTitleEN 
+
+\medskip
+
+%%%Mots clés en anglais, séprarés par des ; / Keywords in english, separated by ;
+{\bf Keywords:}  \keywordsEN %%3 à 6 mots clés%%
+\vspace{-2mm}
+\begin{multicols}{2}
+	
+%%% Résumé en anglais / abstract in english
+{\bf Abstract:} 
+\abstractEN
+\end{multicols}
+}}
+\end{center}
+
+
+\begin{textblock*}{161mm}(10mm,270mm)\textblockcolour{white}
+\color{black}
+{\bf\noindent Institut Polytechnique de Paris	         }
+
+\noindent
+\noindent 91120 Palaiseau, France 
+\end{textblock*}
+
+\begin{textblock*}{20mm}(175mm,265mm)\textblockcolour{white}
+\includegraphics[width=20mm]{media/IPPARIS-petit}
+\end{textblock*}
+
