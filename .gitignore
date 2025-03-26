@@ -7,3 +7,7 @@
 *.gz
 *.toc
 /.vscode
+*.blg
+*.bbl
+*.bcf
+*.xml
