@@ -33,6 +33,8 @@ jobs:
           run: |
             cd ${{ env.DIR }}
             pdflatex ${{ env.FILE }}
+            bibtex ${{ env.FILE }}
+            pdflatex ${{ env.FILE }}
             pdflatex ${{ env.FILE }}
       - name: move
         run: mkdir -p github_artifacts && mv ${{ env.DIR }}/${{ env.FILE }}.pdf ./github_artifacts/
