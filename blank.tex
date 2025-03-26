@@ -1,6 +1,9 @@
 \documentclass[a4paper]{book}
 \include{preambule/commons}
 
+\usepackage[backend=biber, style=authoryear]{biblatex}
+\addbibresource{biblio.bib}
+
 \title{Brouillon de manuscrit de thèse}
 \author{Antoine Van Biesbroeck}
 
@@ -71,9 +74,9 @@
 \chapter{Design of experiments in low fidelity model of seismic fragility curves}
 
 
-\bibliographystyle{agsm}
-\bibliography{biblio.bib}
-
+%\bibliographystyle{agsm}
+%\bibliography{biblio.bib}
+\printbibliography 
 
 
 \end{document}
