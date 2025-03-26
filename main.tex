@@ -32,7 +32,8 @@
 \fi
 
 \usepackage{fancyhdr}
-
+\usepackage[backend=biber, style=authoryear]{biblatex}
+\addbibresource{biblio.bib}
 
 \title{\hrule\vspace*{0.5em}
     \textbf{Bayesian estimation of seismic fragility for industrial installations and structures}
@@ -121,7 +122,7 @@ Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour m
 \part{Seismic fragility curve estimation}
 
 
-\chapter{Seismic probabilistic risk assessment framework}
+\chapter{Seismic fragility curves in probabilistic risk assessment studies}
 
 
 
@@ -149,11 +150,13 @@ Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour m
 
 
 
+ 
+\printbibliography 
+\addcontentsline{toc}{chapter}{Bibliography}
+
 
 \renewcommand{\familydefault}{\sfdefault}
 \include{4eme}
-
-
 
  
 
