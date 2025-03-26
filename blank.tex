@@ -11,23 +11,30 @@
 \tableofcontents
 
 
+%\section{}
+
+
 \include{include_texs/intro}
-
-
-
-\chapter*{Review of the reference prior theory}
-
-\include{include_texs/ref-priors/intro-ref-priors}
 
 
 
 \part{Contribution to the reference prior theory}
 
+
 \chapter{Review of the reference prior theory}
+
+
+\include{include_texs/ref-priors/intro-ref-priors}
 
 \chapter{Generalized mutual information and their reference priors}
 
+\include{include_texs/ref-priors/generalized-diveregences}
+
+
 \chapter{Properly constrained generalized reference priors}
+
+\include{include_texs/ref-priors/constrained-ref-priors}
+
 
 \chapter{Variational approximation of the reference priors}
 
@@ -40,7 +47,8 @@
 \chapter{Seismic probabilistic risk assessment framework}
 
 
-\chapter{Bayesian estimation of seismic fragility: irregular regularisation}
+
+\chapter{Bayesian estimation of seismic fragility: irregular regularization}
 
 
 \chapter{Design of experiments in a Bayesian framework}
@@ -54,9 +62,19 @@
 \part{Conclusion \& perspectives}
 
 
-
+\appendix
 \part*{Appendix}
+\addcontentsline{toc}{part}{Appendix}
 
+%\renewcommand{\thechapter}{\Alph{chapter}}
+
+\chapter{Design of experiments in low fidelity model of seismic fragility curves}
+
+
+
+
+\renewcommand{\familydefault}{\sfdefault}
+\include{4eme}
 
 
 
