@@ -9,15 +9,34 @@
 
 \subsection{Uncertainty quantification in seismic probabilistic risk assessment studies}
 
+% This section should be consituted by a introductory paragraph on the PRA, its rise of popularity over the deterministic method.
+% How it covers a wide range of studies but which become essential in the context of nuclear industry and parasismic
+% Eventually, how it is considered in France, and what is the role of the CEA in that whole concept
+
+
+%Then, another paragraph relate to what does the concept of probabilistic introduction brings to the safety assessment studies, it can cite the essantialism of uncertainty quantification methods and sensitivity analysis tool. Indeed, those concepts have gained in popularity especially in the domains of fiability and safety. They regroup essential tools to provide margins and study the uncertainty between the inputs and the outputs of a model or a system (and as we should have said earlier, the nuclear industry is full of uncertainties). Uncertainties because of the thing that we do not control (epistemic ones?) and uncertainties because they are still things that we donnot understand (aleatoric ones)
+
+
 \begin{itemize}
-    \item The concept
+    \item The concept of probabilistic safety assessment studies
     \item The criticality of nuclear industry, risen of methods, PBEE, fragility curves in this context
-    \item The SPRA in France, and in the CEA \cite{roger_seisme_2020}
+    \item The SPRA in France, and in the CEA %\cite{roger_seisme_2020}
     \item Tools of UQ, Sensitivity analysis
 \end{itemize}
 
 
 \subsection{The choice of the prior in Bayesian studies}
+
+
+% Here we should explian the basical concept of Bayesian inference as a comparison with the frequentist inference.
+% In real world study, it can be seen as a way to manage uncertainty in a modeling, either by providing addtional information than the one provided by the data (so that by lowering the uncertainty) or in opposition by adding a substential uncertainty to avoid to ''overfit'' the data (idea to check).
+% This modification of the uncertainty is defined through the prior that can have a significant influence on the posterior distribution: the distribution after the knowledge of the data. 
+% Therefore, that distribution has to be sought very carefully. And the diffuctulty of that choice represents one of the principal ''holes'' in the Bayesian workflow according to Gelman.
+% Examples of impact that the information might have on the data
+
+% Because the prior impact results, which take the form of a interval, maybe it is interesting to clarify what such interval means, in comparison with a frequentist confidence interval.
+
+
 
 \begin{itemize}
     \item Bayesian studies
@@ -25,8 +44,28 @@
     \item The impact of the prior and the research of objectivity
 \end{itemize}
 
-
 \subsection{Motivating prior elicitation research for SPRA studies}
+
+%% We'll see if that section should not be part of the previous one.
+
+
+% As the prior is chosen and has a significant influence on the result, its choice can be motivated by different needs. 
+% In the case of the nuclear context and especially SPRA studies we seek a mthod that provide results which are auditable. The method must remains explainable, and thus, a subjective choice of a prior has to be aboided.
+
+% As a matter of fact, a ''good'' study in SPRA for nuclear industry is not a study within which the predicted margins are small, or suggest that the system is safe. A good study is a study whose results can be trusted.
+% The paradigm is complicated, as the operater seeks to prove that its structure belongs with a high probability in the margins fixed by the authority, but the safety expert want to be sure that all the uncertainty has been covered.
+
+% A good prior, then, does not provide the smallest possible intervals of interest. But It must be supported by a proof of objectivity. A statement that would rensure the authority that the choice does not introduce a subjectivity that arange the operator
+
+
+
+
+
+
+
+
+
+
 
 \begin{itemize}
     \item Bayes as a practical tool for prediction in UQ in SPRA
@@ -38,8 +77,10 @@
 \section{Outline of the manuscript and contributions}
 
 \begin{itemize}
-    \item The questions that this manuscript seeks to answer
-    \item Some objective of the thesis
+    \item The questions that this manuscript seeks to answer 
+    \item Some objective of the thesis 
+    % What are the ways to define objectively a prior? Are they totally objective? Are the objective priors the most intersting priors to consider, or should we discriminate judiciously some class of priors? How to compute and implement the objective priors? 
+    % What does they look like in the context of SPRA? How to use them in that context and what are the obstacles of the Bayesian approach in the context? 
     \item Contributions in two areas: theory and practice. They actually are subtly intricate: practical needs motivated theoretical developments and theoretical results provided practical solutions to enhance the state-of-the-art
     \item Exhaustive list of contributions
 \end{itemize}
@@ -53,4 +94,204 @@
 
 \section{Motivation et positionnement de la thèse}
 
-\section{Esquisse du manuscrit et constributions}
+\subsection{Etudes probabilistes de sureté}
+%
+
+\subsubsection{Historique}
+
+Les études probabilistes de sureté (EPS) désignent un ensemble de méthodes d'analyses techniques qui permettent de quantifier un risque encourut par une installation lorsqu'elle est sujette à un évenement. L'évenement peut être d'origine naturelle comme artificielle, il peut être de provenance interne comme externe ; il peut s'agir d'un séisme, d'une inondation, d'une chutte d'avion, entre autres.  % (qui peut être d'origine naturelle comme artificielle, qui peut être interne comme externe). 
+
+Faisant suite au premières recommandations de F. R. Farmer (expert sûreté à la UK atomic authority) dans les années 1960 pour la fiabilité des installations nucléaires,
+ces méthodes ont pour caractéristique commune l'introduction de la notion d'incertitude dans la qualification de l'évenement, ses phénomènes et ses caractéristiques (on parle alors d'aléa).
+%
+%Elles ont été introduites par F. R. Farmer dans les années 1960 [], qui plébiscitait cette idée d'étudier la fiabilité des installations nucléaires en prenant en compte l'aspect probabiliste et incertain des évenements auqelles elle est sujette.
+%
+Leur cadre et leur concept ont été rapidement adoptés et développés aux Etats-Unis (cf. le raport de la Nuclear Regulatory Commission, \cite{nrc_pra_1983}). En particulier, de nombreuses études sont venues dès 1968 (\cite{cornell_engineering_1968}) 
+y inscrire les analyses de fiabilité parasismique, définissant alors le cadre des études simsiques probabilistes de sureté (SPRA en anglais). %, en particulier en ce qui concerne le cadre de la fiabilité parasismque.
+
+
+
+Le séisme représente en effet un facteur de risque remarquable des études de sureté.
+Premièrement, bien que communément caractérisé par sa magnitude et sa distance à la source, son signal est bien plus riche qu'une fonction bivariée et deux séismes de même magnitue et de même source peuvent avoir des caractéristiques (et des conséquences) significativement différentes.
+Deuxèmement, puisqu'il touche à la fois tous les élements aussi bien externes qu'internes à l'installations, il est la potentielle source de conséquences lourdes sur les équipements et structures.
+%voir de réactions en chaîne 
+%qui atteindraient le ``noyau dur'' de l'installation (défini comme un ensemble d'élements critiques à l'installation). %, impliquant ainsi un coût élevé.
+Le coût potentiel des conséquences d'un aléa sismique peut alors être élevé et critique dans le contexte nucléaire, ce qui fait en fait un évenement d'intérêt majeur et décisif même dans les zones géographiques où il est rare.
+
+
+%La prise en compte du séisme comme un aléa s'est confronté à la
+
+Aujourd'hui, la prise en compte de l'aléa sismique sous le cadre des études probabilistes de sûreté est une recommandation internationale dans le contexte de l'industrie nucléaire. Leur cadre d'application dans l'industrie nucléaire française est précisé par l'autorité de sureté nucléaire et de radioprotection (ASNR)\footnote{Anciennement ASN: l'autorité de sûreté nuclaire (ASN), a été unifiée avec l'institut de radiprotection et de sûreté nucléarie (IRSN) le 1\textsuperscript{er} janvier 2025.} dans la règle fondamentale de sûreté (\cite{asn_regle_2002}).
+
+
+
+
+
+
+
+
+
+\subsubsection{L'évolution des EPS en France, au CEA, et dans cette thèse}
+
+
+
+%Le rôle des études de sûreté d'une manière générale est de produire une quantification du risque d'une installation, d'une marge de fiabilité, et de démontrer son repsect d'un seuil défini par une autorité de régulation.
+% Deux visions s'oppose relativement au sujet de l'avolution des méthodes et des conaissances relatives aux études de sûreté.
+%Lors de la mise en place de de seuil et de la règle, plusieur point de vue, motivés par plusieurs intérêts peuvent alors se heurter. Il y a d'une part les exploitants, pour qui la notion de robustesse perdure d'elle même, les marges prises sont là pour tenir compte du manque de conaissances, et il y a ceux pour lesquels la robustess est sans cesse remise en question par les avancées des méthodes et des connaissances (\cite{roger_seisme_2020}).
+
+
+
+%L'évolutions des méthodes et des conaissances relatives à la sûreté de 
+L'évolution des méthodes et des conaissances relatives à la sûerté des installations nucléaires se fait de manière parallèle à l'évolution de la règle et de la norme imposées à celles-ci. 
+Sur le sujet de l'aléa sismique, le rapport à l'évolution de la règle et de la méthode (et donc des EPS) oppose différents points de vue, princpalement entre le principal exploitant (EDF) et les experts de l'autorité de sûreté (anciennement l'IRSN, maintenant unifié avec l'autorité de sûreté nucléaire devenue l'ASNR). 
+Pour le premier, la robstesse de l'installation n'est normalement pas remise en question par l'avancée des conaissances et des méthodes puisque l’incertitudes sur celles-ci fait parti des marges prises en comptes à la construction de l'équipement et calculées pour. Le second pense au contraire que la robustesse est une question perpétuelle et que la marge n’est pas pas faite pour être mordue au fil des connaissances qui s’ajoutent (\cite{roger_seisme_2020}). 
+% L'évolution des méthodes EPS reste un champ de voies ouverte, pour lequel les approches s'opposent fondamentalement.
+%Il est complxe de définir une voie d'évolution des EPS, et il n'y a pas de vision qui fait l'unanimté
+L'ASNR se place alors en arbitre dans ce dialogue, entre autre elle définit le ``séisme majoré de sécurité'' (qui est une majoration du spectre du ``séisme maximal historiquement vraisemblable'') qui sert de marge de référence dans la démonstration de robustesse parasismique d'un équipement. % la marge de fiablité et séisme maximal à prendre en compte. %En ce qui concerne l'aléa sismique, le dialogue 
+%
+%Un tel dialogue n'est pas propre à la France, et 
+
+
+Cet arbitrage est donc à la fois sensible et critique.
+L'incident survenu en 2011 à la centrale de Fukushima le démontre. L'aléa sismique (qui est la cause du tsunami) de référence
+%fixé par le concensus des experts japonais
+a été sous-évalué par le consensus des experts japonais, et c'est cette sous-évaluation qui est au final la cause de l'incident (cf. le rapport de l'agence internationale de l'énergie atomique, \cite{iaea_fukushima_2015}).
+%En 2011, a eu lieu un incident 
+Suite à cet évenement, l'ASNR a pris la décision de majorer d'un facteur 1.5 le séisme majoré de sécurité en France, imposant une démonstration amplifiée de la robustesse des différentes installations par leur exploitant.
+
+
+
+%En 2011, à la suite de l'incident à la centrale de Fukushima suite au séisme survenu au large des côtes japonaises, ce dialogue s'est conclut par une imposition de la part de l'autorité de sûreté d'une majoration d'un facteur de 1.5 de ce séisme majoré de sécurité en France. % de la marge de fiabilité sismique des équipements nucléaires en France. 
+
+%Devant le coût induit par 
+
+%Cette différence démontre de la complexité du sujet
+
+
+
+
+
+
+% Le séisme ne fait pas exception
+% la place des EPS simsique dans cette différence de vision est très marquée puisque l'aléa du séisme reste une quesiton ouverte en soi, la moindre différence de choix de séisme maximim possible peut donner lieu à une ampleur de changement d'un coût très élevé pour l'exploitant
+
+
+
+%Les études probabilistes de sureté ont été adoptées progressivement en France 
+
+
+%En France, l'industrie nucléaire est réduite à un nombre restreint d'acteurs, exploitants, experts indépendants, et autorité.
+
+% Ambivalence de la robustesse, deux notions 
+% deux visions
+% Le CEA, à la fois exploitatn et expert
+
+La place du CEA est ambivalente dans l'échiquier nucléaire français.
+D'une part, il est exploitant d'installations nucléaires de recherche 
+et joue alors son propre rôle quant à la démonstration de robustesse de ses équipements.
+Aussi,
+%, et ausi %titulaire d'une mission d'expertise de sûreté.
+il participe à l'expertise conjointe des expertises de sûreté relatives au parc nuicléair civil exploité par EDF. 
+%Le CEA joue son propre rôle dans l'évolution de la démonstration de la robustesse de ses propres equipements et installations. 
+La recherche et l'expertise sur les causes de l'aléa sismique % études simqiques de sûreté au CEA 
+se fait au CEA au laboratoire EMSI, qui dispose d'une plateforme experimentale (Tamaris) qui permet de procéeder à divers tests mécaniques sur des équipements sous séismes. 
+%Le laboratoire d'etudes mécaniques et sismiques (EMSI) s'inscrit pleinenemnt dans cette ambivalence. Propriétaire de la plateforme d'expérimentation sismique Tamaris, le labortoire se place souvent au centre des études de fiabilité sismique et du dialogue entre EDF et les experts de l'ASNR.
+L'approfondisemnt des méthodes des études sismiques probabilistes de sûreté est un enjeux du CEA qui s'inscrit dans ce laboratoire. Le CEA étant responsable devant les autorités de sûrété de ses installations, il cherche %alors 
+à développer des méthodes toujours rigoureuses devant leur vieillissement. %de ces installations et de leurs équipements.
+
+
+
+% Le rôle du CEA est ambivalent dans cete equation, à la fois exploitant instut de recherche.
+% Le CEA joue son propre rôle dans l'évolutions de la démonstration de robstesse de ses propres installations. Aussi il participe à l'expertise conjointe de méthodes d'EPS avec EDF.
+
+
+% Le CEA est lui même exploitant, d'unstallations de recherche.
+% Il a 
+
+% L'evolutio des EPS y est toujours un enjeux pour être capable de produire une étude plus efficace, et des résultats plus convaincants aurpès des autorités.
+% Le CEA est responsable auprès des autorités concernant ses installations et cherche à développer des méthodes toujours rigoureuses devant le vieillissemnt des installations
+
+% Sur le sujet de l'aléa sismique, la démonstration de robustesse reste complexe vis à vis de la complexité de l'aléa lui-même, et de sa fréquence.
+% Les EPS sont en constantes ré-évaluation à la demande des autorités de sûreté sur cette aspect, principalement depuis l'accident sur la centrale de Fukushima en 2011. %%% Peut etre mettre ca plus haut
+
+% Au CEA, la recherche sur les études sismiques probabilistes de sûerté est portée par le laboratoire EMSI, qui dispose d'une plateforme experimentale (Tamaris) qui permet de procéeder à divers tests mécaniques sur des équipements sous séismes. 
+
+Cette thèse s'inscrit dans la démarche d'évolution du SPRA et de démonstration de sûreté. Financée par le CEA dans le cadre d'un contrat de formation par la recherche, elle a pour objectif d'étoffer l'état de l'art en terme d'estimation de fragilité sismique des equipements et des installations.
+L'objectif est de développer des méthodes qui doivent le mieux possible être (i) efficaces devant la complexité des objets étudiés et de la définition de l'aléa, (ii) être robustes dans le temps et devant une potentielle réévaluation des critères de sûreté, et (iii) être transparentes et auditable par les autorité de sûreté.
+
+%lieu à des méthodes qui savent être efficace devant la complexité technique représentée efficaces devant la c
+
+%en cherchant un cadre plus robuste, plus efficace.
+%%%% Principalement en appuyant l'étude bayésienne de celles-ci.
+
+
+
+
+\subsubsection{Les outils mathématiques dans les EPS}
+
+
+%Le cadre des EPS regroupe un certains nmb
+%Différents outils mathématiques sont employés dans le cadre des EPS et composent
+
+
+La définiton des EPS est fondamentalement liée aux outils mathématiques qui les composent. 
+Rpincipalment, elles sont appuyées par le cadre %des méthodes de quantification d'incertitu
+de la quantification d'incertitude. Cette branche des statistiques regroupe plusieurs méthodes.
+
+Mathélmatiquement, c'est le cadre de la quantification d'incertitutde qui s'impose.
+
+La quantification d'incertitude est une branche des statistiques qui cherche à faire le lie entre l'entrée d'un systeme $X$ et sa sortie $Y$, à partir d'observations 
+Le principe est de prendre en compte les diverses sources d'incertitutdes 
+
+
+
+Voici un certain nombre non exhaustif de méthodes employées en quantification d'incertitutdes
+
+Ces différentes méthodes jouent souvent un rôle en simbiose.
+
+
+1. Métamodélisation 
+
+
+2. Analyse de senibilité
+
+
+3. Analyse Bayésienne
+
+
+
+
+\subsection{Le choix du prior dans les études Bayésienne}
+
+L'inférence Bayésienne s'inscrit dans le domaine de l'inféérence statistique.
+% ici paradigmes freq bayes et intervalles cred conf
+
+
+
+
+
+\subsection{Ce qui motive la recherche sur l'elicitation de prior pour les EPS}
+
+
+L'étude Bayésienne a gagné en popularité dans le cadre des études probabilistes dans de nombreux domaines, y comprit en sûreté. Elle fait partie des outils proposés dans le référentiel de sûreté de l'ASNR. 
+Elles sont plébiscité par leur capacité dites 'régularisatrices' et leur ouverture à l'introduction de jugement d'experts a priori.
+
+En réalité, c'est surtout ce dernier point qui fait débat. Dans denombreux cas, les jugement sd'experts ne sont pas unanimes, et si on trouve autant de jugements qu'il y a d'experts, alors on se questionnera sur leur aspect objectif.
+
+
+
+
+
+
+
+
+
+\section{Esquisse du manuscrit et contributions}
+
+
+
+
+
+
+
+
