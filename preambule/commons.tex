@@ -14,12 +14,14 @@
 \usepackage{mathrsfs}
 \usepackage{bbm}
 \usepackage{enumitem}
+\usepackage{cleveref}
 
 \hypersetup{colorlinks, linkcolor=red, citecolor=blue, urlcolor=blue}
 
 
 
 % mathbb
+\newcommand{\CC}{\mathbb{C}}
 \newcommand{\EE}{\mathbb{E}}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\PP}{\mathbb{P}}
@@ -32,6 +34,7 @@
 \newcommand{\cD}{\mathcal{D}}
 \newcommand{\cE}{\mathcal{E}}
 \newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
 \newcommand{\cI}{\mathcal{I}}
 \newcommand{\cJ}{\mathcal{J}}
 \newcommand{\cL}{\mathcal{L}}
@@ -41,6 +44,7 @@
 \newcommand{\cQ}{\mathcal{Q}}
 \newcommand{\cT}{\mathcal{T}}
 \newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
 \newcommand{\cY}{\mathcal{Y}}
 \newcommand{\cZ}{\mathcal{Z}}
 
@@ -84,3 +88,6 @@
 \newcommand{\indic}{\mathbbm{1}}
 \let\eps\varepsilon
 \let\to\longrightarrow
+
+
+\newcommand{\citet}[1]{\citeauthor{#1} (\cite{#1})}

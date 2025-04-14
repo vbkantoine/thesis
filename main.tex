@@ -51,6 +51,8 @@
 \usepackage[osf]{mathpazo} %sc
 \linespread{1.05} 
 
+\setlength{\parskip}{0.25em}
+
 \begin{document}
 \pagestyle{empty}
 \include{1ere}
@@ -129,14 +131,18 @@ Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour m
 
 \chapter{Bayesian estimation of seismic fragility: irregular regularization}
 
+\include{include_texs/fragility-curves/jeffreys-probit}
 
+
+\chapter{Integration of a properly constrained reference prior}
+
+\include{include_texs/fragility-curves/constrained-ref-probit}
 
 
 \chapter{Design of experiments in a Bayesian framework}
 
 
-\chapter{Integration of a properly constrained reference prior}
-
+\include{include_texs/fragility-curves/DoE}
 
 
 
@@ -151,6 +157,7 @@ Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour m
 
 \chapter{Design of experiments in low fidelity model of seismic fragility curves}
 
+\include{include_texs/fragility-curves/low-fidelity-doe}
 
  
  
