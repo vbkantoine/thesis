@@ -243,7 +243,7 @@ prise en compte et la quantification des incertitudes qui apparaissent dans le p
 La quantification d'incertitudes représente en fait une démarche qui consiste à modéliser et analyser méthodiquement l'incertitude, sa source, et sa propagation au sein de la modélisation du système physique étudié. %étudié. %système phyisique?
 Elle se construit alors à l'intéraction de la physique, de l'ingéniérie et des mathématiques appliquées, et s'érige même comme une branche des statistiques à part entière.
 
-Elle concentre son étude sur 3 éléments qui décrivent l'intéraction entre le système physique et l'aléa : des paramètres d'entrées $\mbf X$, une réponse physique du système $\mbf Y$, et une modélisation de celle-ci selon : $\mbf Y=\cM(\mbf X)$. % ($\cM$ peut-être définit comme la ).
+Elle concentre son étude sur 3 éléments qui décrivent l'intéraction entre le système physique et l'aléa : des paramètres d'entrées $\mbf X$, une réponse physique du système $ Y$, et une modélisation de celle-ci selon : $ Y=\cM(\mbf X)$. % ($\cM$ peut-être définit comme la ).
 Cette fonction $\cM$ est liée à la modélisation, souvent complexe, du système et de ses proporiétés physiques (il peut s'agir de la résolution d'équations physiques, de simulation numériques, ou même du résultat d'une expérience mécanique).
 %L'objet de la quantification d'incertitude est alors d'évaluer une quantité d'intérêt qui dépend de $\mbf Y$ : comme une variance, une probabilité de défaillance, etc ; plus généralement une quantité de la forme $\EE\,\phi(\mbf Y)$.
 %
@@ -253,7 +253,7 @@ La démarche générale de la quantification d'incertitudes est souvent décrite
 \begin{enumerate}
     \item L'identification des sources incertitudes : 
         il est usuel de classifier les incertitudes selon deux grandes catégories. D'une part les incertitudes irréductibles, qui proviennent du hasard ``naturel'' embarqué dans l'aléa et le système physique. D'autre part, les incertitudes épistemiques, qui existent par manque d'information, et qui sont alors considérées comme réductibles en opposition aux précédentes (\cite{hullermeier_aleatoric_2019}). Il s'en suit une modélisation probabiliste de l'entrée $\mbf X$. 
-    \item La propagation des incertitudes : cette étape correspondant à l'approximation de la distribution du modèle $\cM(\mbf X)$, et de l'évaluation d'une quantité d'intérêt qui dépend de celle-ci : comme une variance, une probabilité de défaillance, etc ; plus généralement une quantité de la forme $\EE\,\phi(\mbf Y)$.
+    \item La propagation des incertitudes : cette étape correspondant à l'approximation de la distribution du modèle $\cM(\mbf X)$, et de l'évaluation d'une quantité d'intérêt qui dépend de celle-ci : comme une variance, une probabilité de défaillance, etc ; plus généralement une quantité de la forme $\EE\,\phi( Y)$.
 %     et de celle de la quantité d'intérêt $\phi(\mbf Y)$. %De nombreuses méthodes mathématiques viennent en appui à cette étape, et sont évoquées plus bas.
     \item L'analyse de sensibilité : son rôle est de comprendre avec plus de recul la manière dont l'incertitude se propage dans un système, en identifiant l'impact d'un ou de plusieurs des paramètres d'entrées sur la sortie $\mbf Y$ (\cite{iooss_review_2015}).
     %L'analyse de sensibilité se construit depuis les premier travaux de Sobol' (\cite{sobol_sensitivity_1993})
@@ -265,21 +265,21 @@ La démarche générale de la quantification d'incertitudes est souvent décrite
 
 %L'étape 1 sus-mentionnée s'ajoute à la modélisation du  modélisation
 %Les étapes 2 et 3 ci-dessus mentionnées 
-De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. Bien que ce manuscrit n'a pas pour but d'en décrire un pannel exhaustif, ci-dessous sont listés quelques exemples.
+De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. Bien que ce manuscrit n'a pas pour but d'en décrire un pannel exhaustif, ci-dessous sont listés quelques exemples qui reviennent dans les travaux de cette thèse.
 %en voici quelques uns qui sont omniprésents dans le domaine
 
 \begin{itemize}
     \item La métamodélisation %, %le plus souvent par processus gaussien (appellé aussi krigeage), ou par polynomes du chaos, 
-    permet de contrevenir la complexité d'évaluation du modèle $\cM$, en construisant un métamodèle $\tilde\cM$, entraîné à partir d'une base de données d'observations $(\mbf X_1,\mbf Y_1),\dots,(\mbf X_k,\mbf Y_k)$. Le méta-modèle se veut par principe plus simple à évaluer que le modèle réel. 
-    Rien ne limite sa définiton explicitement qui peut aller d'un simple modèle paramétrique à la sortie d'un réseau de neurones ; parmi les plus commun on distringue la méta-modélisation par processus gaussien (ou krigeage) et par polynômes du chaos.
-    \item Les indices globaux de sensibilité s'inscrive pleinement dans l'étape d'analyse de sensibilité du système. Ils consistuent depuis les premiers travaux de Sobol' (\cite{sobol_sensitivity_1993}) des outils essentiels pour mesurer statistiquement comment $\mbf Y$ est impactée par un ou plusieurs des $X_i$ (où $(X_1,\dots,X_p)=\mbf X$). Dans ce cadre, l'impact, noté $S_i$, de l'entrée $X_i$ sur $\mbf Y$ s'exprime comme une divergence moyenne entre la distribution $\PP_{\mbf Y}$ de $\mbf Y$ et sa distribution conditionalement à $\mbf X$, $\PP_{\mbf Y|\mbf X}$ (\cite{da_veiga_global_2015}) : 
+    permet de contrevenir la complexité d'évaluation du modèle $\cM$, en construisant un métamodèle $\tilde\cM$, entraîné à partir d'une base de données d'observations $(\mbf x_1, y_1),\dots,(\mbf x_k,y_k)$. Le méta-modèle se veut par principe plus simple à évaluer que le modèle réel. 
+    Rien ne limite sa définiton explicitement qui peut aller d'un simple modèle paramétrique à la sortie d'un réseau de neurones ; parmi les plus commun on peut évoquer la méta-modélisation par processus gaussien (ou krigeage) et par polynômes du chaos.
+    \item Les indices globaux de sensibilité s'inscrive pleinement dans l'étape d'analyse de sensibilité du système. Ils consistuent depuis les premiers travaux de \citet{sobol_sensitivity_1993} des outils essentiels pour mesurer statistiquement comment $ Y$ est impactée par un ou plusieurs des $X_i$ (où $(X_1,\dots,X_p)=\mbf X$). Dans ce cadre, l'impact, noté $S_i$, de l'entrée $X_i$ sur $ Y$ s'exprime comme une divergence moyenne entre la distribution $\PP_{ Y}$ de $ Y$ et sa distribution conditionalement à $\mbf X$, $\PP_{Y|\mbf X}$ \citep{da_veiga_global_2015} : 
         \begin{equation}
-            S_i = \EE_{X_i}[D(\PP_{\mbf Y}||\PP_{\mbf Y|X_i})],
+            S_i = \EE_{X_i}[D(\PP_{ Y}||\PP_{Y|X_i})],
         \end{equation}
     où $D$ est une mesure de dissimilarité entre deux mesures de probabilité.
     Le choix de $D$ est alors décisif dans l'étude de $S_i$. %, qui revient à une étude de divergence entre deux mesures de probabilité. 
     On peut noter, par example, que choisir $D$ définie par $D(P||Q) = \|\EE_{X\sim P}X-\EE_{X\sim Q}X\|^2$ revient à étudier un indice de Sobol' du premier ordre.
-    Le choix de $D$ peut être motivé par divers intérêts, par exemple, celui de discriminer  l'indépendance entre $X_i$ et $\mbf Y$. Le point suivant détail un large pannel de choix possible pour $D$.
+    Le choix de $D$ peut être motivé par divers intérêts, par exemple, celui de discriminer  l'indépendance entre $X_i$ et $ Y$. Le point suivant détail un large pannel de choix possible pour $D$.
 
     \item La théorie de l'information est au centre de la comparaison de mesures de probabilité et donc de la quantification d'incertitudes. Par essence, les manières de comparer la façon qu'ont deux mesures de probabilité de  distribuer l'information dans un espace sont vastes. 
     Dans la définition de $S_i$ plus haut, le choix de $D$ (et donc le choix de définition de $S_i$) relève de la théorie de l'information.
@@ -308,7 +308,7 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
             D_{f_\alpha}(P||Q) = \text{KL}(P||Q)\ \text{si\ }\alpha=1,\quad D_{f_\alpha}(P||Q) = \text{KL}(Q||P)\ \text{si\ }\alpha=0.
         \end{equation}
 
-    Bien sûr, il existe aussi de nombreuses mesures de dissimilarité qui ne sont pas des $f$-divergences, à ce titre, les indices de Sobol' du premier ordre évoqués plus haut font offices d'exemple. Un autre exemple notable présenté ici est celui des normes maximales de dicrépences (MMD). Soient $P$, $Q$ deux mesures de probabilités définies sur un ensemble $\cX$, et soit $\cH$ un espace de Hilbert à noyau reproduisant (RKHS) sur $\cX$,  dont le noyau reproduisant est noté $k:\cX\times\cX\to\CC$. %On peut définir les imbrications moyennes  \cite{gretton_kernel_2012}
+    Bien sûr, il existe aussi de nombreuses mesures de dissimilarité qui ne sont pas des $f$-divergences, à ce titre, les indices de Sobol' du premier ordre évoqués plus haut font offices d'exemple. Un autre exemple notable présenté ici est celui des normes maximales de discrépences (MMD). Soient $P$, $Q$ deux mesures de probabilité définies sur un ensemble $\cX$, et soit $\cH$ un espace de Hilbert à noyau reproduisant (RKHS) sur $\cX$,  dont le noyau reproduisant est noté $k:\cX\times\cX\to\CC$. %On peut définir les imbrications moyennes  \cite{gretton_kernel_2012}
     On définit la MMD (\cite{gretton_kernel_2012}) par
         \begin{equation}
             \text{MMD}(\cH;\,P||Q) = \sup_{\substack{f\in\cH\\ \|f\|_\cH\leq1}} |\EE_{X\sim P}f(x) - \EE_{X\sim Q}f(X)|,
@@ -320,7 +320,7 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
         %
     \item L'analyse bayésienne est outil incontournable de la quantification d'incertitude, puisqu'elle a pour principe fondamental d'introduire une forme d'incertitude dans un ou plusieurs des paramètres du modèle étudié. 
     L'incertitude incorporée par le cadre bayésien peut prendre diverse forme, et se traduit au travers de la définiton de l'\emph{a priori}. 
-    La propagation d'incertitudes au travers de ce canevas se quantifie en calculant l'\emph{a posteriori}.
+    La propagation d'incertitudes au travers de ce canevas se quantifie en calculant l'\emph{a posteriori}, à partir d'observations statistiques $(\mbf x_1,y_1),\dots,(\mbf x_k, y_k)$.
     La définition de l'\emph{a priori} est critique, elle prend place dans l'étape d'identification des incertitudes, et se révèle impactante sur l'\emph{a posteriori}, et donc, dans un contexte d'étude probabiliste de sûreté, sur le risque.
     
     Puisque ce dernier outil, qui est en fait un paradigme à lui tout seul, est au centre de cette thèse, la section qui suit lui est pleinement dévoué.
@@ -343,20 +343,116 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
 
 \subsection{Le choix du prior dans les études Bayésienne}
 
-L'inférence Bayésienne s'inscrit dans le domaine de l'inféérence statistique.
+%L'inférence Bayésienne s'inscrit dans le domaine de l'inféérence statistique.
 % ici paradigmes freq bayes et intervalles cred conf
 
 
+L'analyse bayésienne est une théorie des statistiques qui se construit selon une interprétation des probabilités qui sont vues comme des degrés de plausibilité des évenements, on parle généralement de ``crédibilité''. 
+%Comme toute théorie statistique =
+Comme toute étude statistique, elle cherche à faire le lien entre des observations statistiques et leur distribution probabiliste. %, avec comme particul identifier la distribution de données observée.
+Elle s'appuie sur le théorème de Bayes, en considérant l'inconnu qui permet de définir la distribution des données comme étant aléatoire. Les observations statistiques informent alors la distribution de cette inconnue, ce qui met alors à jour le degré de crédibilité attribué à une distribution que suivraient les données par rapport à une autre.
+
+
+Le raisonemement contraire, dit fréquentiste, considère la probabilité comme une fréquence d'occurence observable au prix de reproduire l'expérience. Sous ce paradigme, l'inconnue existe, 
+et les fréquences données par la répétition de l'expérience sont plus probables selon que l'on considère certaines valeurs de l'inconnue plutôt que d'autres, on parle généralement de ``confiance''.
+
+
+Au final, il est important de noter que ces deux raisonement se complètent, voir parfois se confondent suivant les cas, et ils sont loin d'être antinomiques. Dans un contexte pratique, le cas d'étude et ses spécificités peuvent néanmoins orienter le choix de favoriser l'un par rapport à l'autre.
+
+%et c'est alors l'aléatoire observé lors de cette répétition qui traduit la confiance en une distribution pluôt qu'en une autre %de l'observation aléatoire qui définit
+
+Dans cette thèse, on se concentre sur l'analyse bayésienne dans le cadre de l'inférence statistique. Dans ce contexte, une variable d'intérêt $Y\in\cY$ est modélisée selon une distribution paramétrique $\PP_{Y|\theta}$, $\theta\in\Theta$ étant l'inconnue, alors considérée comme étant une variable aléatoire dans le canevas Bayésien.
+En toute logique, $\theta$ admet une distribution, que l'on appelle le \textbf{prior}.
+Lorsque des réalisations de $Y$ successives et indépendantes conditionnelement à $\theta$ sont observées, le \textbf{posterior} se définit comme la distribution de $\theta$ condtionnelement à ces observations. Une région de crédibilité à un niveau $r$ se définit comme une région de $\Theta$ dont la probabilité selon le posterior est au moins égale à $r$.
+On notera que dans ce contexte, divers résultats lient les approches bayésienne et fréquentiste d'estimation de $\theta$. Le théorème de Berstein Von-Mises (voir par ex. \cite{van_der_vaart_asymptotic_1992}) en est un exemple.
+
+
+Notons $\mbf y = (y_1,\dots,y_k)$ les valeurs observées de $k$ réalisations de $Y$. En supposant que tous ces objets existent et sont bien définis, notons $\pi$ la densité du prior (selon une mesure $\nu$), $\ell(\cdot|\theta)$ les densités de $\PP_{Y|\theta}$ (selon une mesure $\mu$) et  $\ell_k(\mbf y|\theta)=\prod_{i=1}^k\ell(y_i|\theta)$, appelée la vraisemblance du modèle. Alors avec ces notations le théorème de Bayes définit la densité du posterior (par rapport à $\nu$) selon :
+    \begin{equation}
+        p(\theta|\mbf y) = \frac{\ell_k(\mbf y|\theta)\pi(\theta)}{\int_{\Theta}\ell_k(\mbf y|\theta)\pi(\theta)d\nu(\theta)  }.
+    \end{equation}
+Cette formule fait le lien entre le prior, le modèle (représenté par la vraisemblance), les données, et le posterior qui traduit la prédiction crédible. Elle permet de schématiser le canevas bayésien comme une chaine de transmission d'information vers l'\emph{a posteriori}, depuis deux sources : le ``réel'' (les observations) et l'\emph{a priori}. Ce schéma est celui présenté ci-dessous.
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}
+
+            \draw[-{Latex[length=1.5mm]}] (-0.4, 0) -- (.5, 0); % english (0, 0) -- (.9, 0); 
+            \draw (-0.4, 0) node[left] {Base de données $\mbf y=(y_i)_{i=1}^k\in\cY^k$}; %english (0,0)
+             
+            \draw (2.4, 0) node {vraisemblance ${\ell_k(\mbf y|\theta)}$}; %englih (2.5,0)
+            
+            \draw[-{Latex[length=1.5mm]}] (-0.4, -0.6) -- (0.5, -0.6); % english (0, -0.6) -- (0.9, -0.6); 
+            \draw (-0.4,-0.6) node[left] {Paramètre $\theta\in\Theta$}; %english (0,-0.6)
+            
+            \draw (2.4,-0.6) node {prior $\pi(\theta)$}; % english (2.5,-0.6)
+
+            \draw [-] plot [smooth] coordinates {(4.3,0) (4.6,-0.03) (5.05,-0.27) (5.5,-0.3)};
+            \draw [-{Latex[length=1.5mm]}] plot [smooth] coordinates {(4.3,-0.6) (4.6,-0.57) (5.05,-0.33) (5.5,-0.3)};
+
+            \draw (5.7,-0.3) node[right] {posterior $p(\theta|\mbf y)\propto{\ell_k(\mbf y|\theta)}{\pi(\theta)}$};
+            
+        \end{tikzpicture}
+    \end{figure}
+
+%D'une certaine manière
+
+Si l'information issue des données ne pose normalement pas question, c'est l'information \emph{a priori} qui concentre l'attention. Par essence, elle est la source de l'incertitude dans le résultat,  sa construction doit se faire de manière attentive lors de l'étape de modélisation et ne peut être arbitraire. 
+%On peut noter également que l'information issue des données passe aussi bien au travers du modèle, tel que la vraisemblance le décrit. Cette modélisation qui est alors au centre 
+%Différents auteurs placent aujourd'hui la sélection, la validation et la mise à jour du modèle au centre des études bayésienne, définissant cette démarche comme le worflow bayésien \cite{gelman_bayesian_2020}.
+Cependant, la formulation bayésienne lui attribue un impact significatif sur le postrior, particulièrement dans des cas où la taille de la base de données est limitée. Une illustration de ce phénomène est proposée en figure ??, où différents priors, en apparence proche, donnent lieu à des posteriors très différents, à partir des même observations.
+Bien sûr, le diable est dans les détails, et ici, ce sont les queues de distributions des priors, discrètes sur l'illustration, qui produisent cette différence. Malgré tout cet exemple questionne, et à juste titre, sur le choix du prior.
+
+%On peut déduire d'un tel exemple que les queue de distribution repésente une information décisive au sein d'un prior. Cela illustre 
+
+La question de la construction du prior reste une question ouverte dans la littérature. %tout le worflow bayésien \citep{gelman_bayesian_2020}, elle oppose souvent deux répons%es possibles
+%Elle oppose souvent deux axes de refléxions : la définiton de p
+Pour certains, elle est l'opportunité d'ajouter de l'information provenant d'une source extérieure, il peut s'agir d'un jugement d'expert, de données historiques, ou de conaissances sur certaines propriétés attendues du résultats. Leurs priors sont plutôt qualifiés d'informatifs.
+Pour d'autres, elle est au contraire le moyen d'introduire une incertitude dans le modèle, l'\emph{a priori} est alors dans un tel cas une absence de conaissance, qui vient laisser l'information provenir essentiellement des données. Ces derniers ont confiance en la modélisation de la vraisemblance, et leur prior sera qualifié de non-informatif.
+
+
+On comprend au travers de ces paragraphes introductifs que cette question est insoluble. Elle illustre même l'un des ``trous'' du worflow bayésien selon \citet{gelman_holes_2020} : les priors trop informés ne permttent pas d'avoir confiance en le moindre résultat tandis que les priors trop peu informés %n'exerguent que trop peu d'estimation crédible.
+donnent lieu a des zones de crédibilité parfois trop larges.
+%Il ne s'agit pas de décrédibiliser le bayésien 
+Ce n'est pas pour autant que l'approche bayésienne perd son intérêt et cette section n'est pas vouée à discréditer la démarche, la suite du manuscrit le prouvera. %Comme toute méthode elle doit être construite 
+Mais elle doit laisser celui ou celle qui l'emploi conscient ou consciente des impactes et des limites de ses choix. Le choix d'un prior est aussi critique que le choix du modèle lui-même.
 
 
 
-\subsection{Ce qui motive la recherche sur l'elicitation de prior pour les Etudes probabilistes de sûreté}
 
 
-L'étude Bayésienne a gagné en popularité dans le cadre des études probabilistes dans de nombreux domaines, y comprit en sûreté. Elle fait partie des outils proposés dans le référentiel de sûreté de l'ASNR. 
-Elles sont plébiscité par leur capacité dites 'régularisatrices' et leur ouverture à l'introduction de jugement d'experts a priori.
 
-En réalité, c'est surtout ce dernier point qui fait débat. Dans denombreux cas, les jugement sd'experts ne sont pas unanimes, et si on trouve autant de jugements qu'il y a d'experts, alors on se questionnera sur leur aspect objectif.
+
+
+%Lorsque l'on observe plusieurs réalisations de $Y$ sont observées : $(Y_1,\dots,Y_k)$
+
+
+
+
+
+
+\subsection{Ce qui motive la recherche sur l'elicitation de prior pour les études sismiques probabilistes de sûreté}
+
+L'analyse bayésienne a gagné en popularité dans de nombreuseux domaines, y compris dans des études de fiabilité ou de sûreté. 
+En effet, elle est plébiscitée pour sa capacité (i) à introduire et propager une incertitude dans un problème d'inférence, et (ii) à être plus régulière que beaucoup de méthodes fréquentistes, en particulier lorsque le nombre de données observées est limité.
+
+Le cadre de l'inférence bayésienne s'introduit en effet bien dans la démarche de quantification d'incertitudes. 
+L'identification des incertitudes sur l'entrée $\mbf X$ ou sur le modèle même $\cM$ (ou bien le méta-modèle) peut se faire au travers d'une paramétrisation de celles-ci, en donnant lieu à une distribution paramétrique de $\mbf Y$ : $\PP_{\mbf Y|\mbf X,\theta}$. La variable $\theta$, aléatoire sous le paradigme bayésien, peut alors représenter diverses sources d'incertitudes, de différentes natures.
+
+
+Parfois, certaines études adoptent la démarche pour la possibilité qu'elle offre d'introduire un jugement  ou une conaissance \emph{a priori}.
+C'est pourtant ce même point qui fait aussi débat puisqu'il est la potentielle source d'une subjectivité difficile à justifier.
+Dans le cadre des études sismiques probabilistes de sûreté en industrie nucléaire, la démonstration de robustesse est centrale. Les cas d'études y étant souvent très complexes, on trouvera alors parfois autant de priors qu'il y a d'experts en suivant cette démarche.
+De tels cas caricaturaux mettent en péril l'auditabilité de la moindre région de crédibilité \emph{a posteriori}.
+
+%De fait, il est essentiel de se chercher à se prévaloir 
+De telles études, compatibles et 
+nécessite l'apport d'un cadre méthodique et rigoureux de 
+
+
+
+
+
+
 
 
 
