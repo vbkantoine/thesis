@@ -411,7 +411,7 @@ Pour d'autres, elle est au contraire le moyen d'introduire une incertitude dans 
 
 
 On comprend au travers de ces paragraphes introductifs que cette question est insoluble : il ne peut pas exister de méthode unanime de sélection de prior. Elle illustre même l'un des ``trous'' du worflow bayésien selon \citet{gelman_holes_2020} : les priors trop informés ne permettent pas d'avoir confiance en le moindre résultat tandis que les priors trop peu informés %n'exerguent que trop peu d'estimation crédible.
-donnent lieu a des zones de crédibilité parfois trop larges.
+donnent lieu a des zones de crédibilité parfois trop larges et inutilisable.
 %Il ne s'agit pas de décrédibiliser le bayésien 
 Ce n'est pas pour autant que l'approche bayésienne perd son intérêt et cette section n'est pas vouée à discréditer la démarche, la suite du manuscrit le prouvera. %Comme toute méthode elle doit être construite 
 Mais elle doit laisser celui ou celle qui l'emploi conscient ou consciente des impactes et des limites de ses choix. Le choix d'un prior est aussi critique que le choix du modèle lui-même.
@@ -445,13 +445,12 @@ Dans le cadre des études sismiques probabilistes de sûreté en industrie nucl�
 De tels cas caricaturaux mettent en péril l'auditabilité de la moindre région de crédibilité \emph{a posteriori}.
 
 %De fait, il est essentiel de se chercher à se prévaloir 
-De telles études, compatibles et 
-nécessite l'apport d'un cadre méthodique et rigoureux de 
+%De telles études, compatibles et 
+%nécessite l'apport d'un cadre méthodique et rigoureux de 
 
+On comprend en fait que dans une étude de sûreté qui se veut auditable, une ``bonne'' région de credibilité sur un paramètre estimé n'est pas une région necessairement étroite, même si elle suggère que la sûreté est satisfaite. A l'inverse, une région trop large n'est pas pour autant ``bonne'' car elle ne permet pas de démontrer la robustesse attendue de l'equipement. L'équilibre est complexe, et le ``bon'' prior est celui qui, bien que démontrant au mieux la capacité où l'incapacité de l'equipement à résister à l'aléa, produit un résultat inspirant confiance. %Il doit être assuré qu'il est affranchi de l'introduction d
 
-
-
-
+Toutes ces réflexions mettent en lumières l'intérêt d'une construction méthodique du prior dans le cadre des études sismiques probabilistes de sûreté, au travers d'un cadre rigoureux qui évite l'introduction de la moindre subjectivité dans la démarche.
 
 
 
@@ -463,6 +462,28 @@ nécessite l'apport d'un cadre méthodique et rigoureux de
 
 
 \section{Esquisse du manuscrit et contributions}
+
+
+Plusieurs questions principales se détachent de cette introduction et de ces premières refléxions. Elles sont listées ci-dessous, et décrivent les probablématiques majeures qui se sont manifestées au cours de cette thèse et auxquelles les travaux présentés dans ce manuscrit cherchent à répondre.
+
+\begin{itemize}
+    \item[\textbf{Question 1}] how to define objective priors ?
+    \item[\textbf{Question 2}] if they are non informative how to workaround their issues ?
+    \item[\textbf{Question 3}] how to construct them in practice ?
+    \item[\textbf{Question 4}] what does they look like in the context of the spra ?
+    \item[\textbf{Question 5}] what are their limit in this context and how to enhence them ?
+    \item[\textbf{Question 6}] how can we leverage the best the objective priors in the bayesian  information worflow to provide the best possible estimation of seismic fragility curves ?
+\end{itemize}
+
+
+
+
+
+  % What are the ways to define objectively a prior? Are they totally objective? Are the objective priors the most intersting priors to consider, or should we discriminate judiciously some class of priors? How to compute and implement the objective priors? 
+    % What does they look like in the context of SPRA? How to use them in that context and what are the obstacles of the Bayesian approach in the context? 
+
+
+
 
 
 
