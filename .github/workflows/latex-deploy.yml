@@ -38,8 +38,10 @@ jobs:
             pdflatex ${{ env.FILE }}
       - name: move
         run: mkdir -p github_artifacts && mv ${{ env.DIR }}/${{ env.FILE }}.pdf ./github_artifacts/
-      - name: readmefile
-        run: printf "Brouillon de manuscrit de thèse\n- [blank](https://github.com/vbkantoine/thesis/blob/build/blank.pdf)\n" > ./github_artificats/readme.md
+      - name: create readme file
+        run: |
+            touch ./github_artificats/readme.md
+            printf "Brouillon de manuscrit de thèse\n- [blank](https://github.com/vbkantoine/thesis/blob/build/blank.pdf)\n" > ./github_artificats/readme.md
       - name: Upload pdf as artifact
         uses: actions/upload-artifact@v4
         with:
