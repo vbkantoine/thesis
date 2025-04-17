@@ -3,6 +3,11 @@
 \chapter{Introduction}
 
 
+\begin{abstract}
+abstract
+\end{abstract}
+
+\minitoc
 
 
 \section{Motivation and positioning of the thesis}
@@ -91,6 +96,8 @@
 
 
 \chapter{Introduction en français}
+
+\minitoc
 
 \section{Motivation et positionnement de la thèse}
 
@@ -436,7 +443,7 @@ L'analyse bayésienne a gagné en popularité dans de nombreuseux domaines, y co
 En effet, elle est plébiscitée pour sa capacité (i) à introduire et propager une incertitude dans un problème d'inférence, et (ii) à être plus régulière que beaucoup de méthodes fréquentistes, en particulier lorsque le nombre de données observées est limité.
 
 Le cadre de l'inférence bayésienne s'introduit en effet bien dans la démarche de quantification d'incertitudes. 
-L'identification des incertitudes sur l'entrée $\mbf X$ ou sur le modèle même $\cM$ (ou bien le méta-modèle) peut se faire au travers d'une paramétrisation de celles-ci, en donnant lieu à une distribution paramétrique de $\mbf Y$ : $\PP_{\mbf Y|\mbf X,\theta}$. La variable $\theta$, aléatoire sous le paradigme bayésien, peut alors représenter diverses sources d'incertitudes, de différentes natures.
+L'identification des incertitudes sur l'entrée $\mbf X$ ou sur le modèle même $\cM$ (ou bien s'il y a lieu le méta-modèle) peut se faire au travers d'une paramétrisation de celles-ci, en donnant lieu à une distribution paramétrique de $Y$ : $\PP_{Y|\mbf X,\theta}$. La variable $\theta$, aléatoire sous le paradigme bayésien, peut alors représenter diverses sources d'incertitudes, de différentes natures.
 
 
 Parfois, certaines études adoptent la démarche pour la possibilité qu'elle offre d'introduire un jugement  ou une conaissance \emph{a priori}.
@@ -466,13 +473,29 @@ Toutes ces réflexions mettent en lumières l'intérêt d'une construction méth
 
 Plusieurs questions principales se détachent de cette introduction et de ces premières refléxions. Elles sont listées ci-dessous, et décrivent les probablématiques majeures qui se sont manifestées au cours de cette thèse et auxquelles les travaux présentés dans ce manuscrit cherchent à répondre.
 
+% \newlength{\questlenght}
+% \settowidth{\questlenght}{\textbf{Question 1}}
+% \newcommand{\ques}[2]{%
+% \noindent\textbf{Question #1} 
+% \begin{minipage}[t]{\textwidth-\questlenght}
+%     #2
+% \end{minipage}    
+% }
+
+% \ques{1}{Test}
+
 \begin{itemize}
-    \item[\textbf{Question 1}] how to define objective priors ?
-    \item[\textbf{Question 2}] if they are non informative how to workaround their issues ?
-    \item[\textbf{Question 3}] how to construct them in practice ?
-    \item[\textbf{Question 4}] what does they look like in the context of the spra ?
-    \item[\textbf{Question 5}] what are their limit in this context and how to enhence them ?
-    \item[\textbf{Question 6}] how can we leverage the best the objective priors in the bayesian  information worflow to provide the best possible estimation of seismic fragility curves ?
+    \item[\textbf{Question 1}] Comment peut-on définir et appuyer l'objectivité d'un prior ?
+    \item[\textbf{Question 2}] Quelles sont les limites de l'emploi d'un tel prior, peu informatif par essence, et comment concilier son usage avec les besoins pratiques ?
+    % Par essence, un tel prior est peu inf
+    % Où s'inscrivent ces priors entre priors entre priors très peu informatifs et priors très inform ?
+    \item[\textbf{Question 3}] Comment construire et implémenter de tels priors dans un cas pratique ?
+    \item[\textbf{Question 4}] Dans le contexte des études sismiques probabilistes de sûreté, comment s'implémente ces priors objectifs dans un modèle concrêt d'estimation de fiabilité sismique ?
+    \item[\textbf{Question 5}] Quelles conséquences peuvent avoir le manque d'information \emph{a priori} ou provenant des données dans ce modèle et comment les solutionner ?
+    % what are their limit in this context and how to enhence them ?
+    \item[\textbf{Question 6}] Comment peut-on finalement bénéficier au mieux des différentes sources d'information dans le workflow bayésien du modèle étudié dans son ensemble ?
+    % \item[] 
+    % how can we leverage the best the objective priors in the bayesian  information worflow to provide the best possible estimation of seismic fragility curves ?
 \end{itemize}
 
 

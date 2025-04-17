@@ -1,0 +1,25 @@
+
+% full arabic numbering of the pages
+
+\makeatletter
+\renewcommand{\frontmatter}{\cleardoublepage\@mainmatterfalse}
+\renewcommand{\mainmatter}{\cleardoublepage\@mainmattertrue}
+\makeatother
+
+
+\renewcommand{\beforeminitoc}{\hypersetup{linkcolor=blue}}
+\renewcommand{\afterminitoc}{\hypersetup{linkcolor=red}}
+
+\mtcsetrules{minitoc}{off}
+
+\renewcommand{\mtctitle}{}
+
+\usepackage{anyfontsize}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\Huge\raggedleft}{\fontsize{40}{45}\selectfont\thechapter}{0pt}{\vspace*{0.5em}}
+
+
+\titleformat{\part}[block]{\Huge\MakeUppercase\centering}{\begin{center}\fontsize{40}{45}\selectfont\Roman{part}\end{center}}{0pt}{\Huge\scshape}
+
+% \titlelabel{\thepar}
+% \titleformat*{\part}{\fontsize{30}{35}\selectfont\scshape\centering}

@@ -31,9 +31,13 @@
   \DeclareGraphicsRule{.ai}{pdf}{.ai}{}
 \fi
 
-\usepackage{fancyhdr}
+
 \usepackage[backend=biber, style=authoryear, natbib=true]{biblatex}
 \addbibresource{biblio.bib}
+
+
+\include{preambule/template}
+
 
 \title{\hrule\vspace*{0.5em}
     \textbf{Bayesian estimation of seismic fragility for industrial installations and structures}
@@ -54,6 +58,7 @@
 \setlength{\parskip}{0.25em}
 
 \begin{document}
+\frontmatter
 \pagestyle{empty}
 \include{1ere}
 tests
@@ -78,6 +83,9 @@ et Maminette
 Heureux sont les coeurs purs, car ils verront Dieu.
 
 \newpage
+\mainmatter
+\pagestyle{plain}
+
 \chapter*{Remerciements}
 
 Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour moi (même si elle rechigne à lire mes articles de thèse). Je t'aime fort. 
@@ -89,10 +97,12 @@ Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour m
 \chapter*{Résumé}
 
 
+\dominitoc
 \tableofcontents
 \newpage
 %\section{}
 
+\pagestyle{fancy}\thispagestyle{plain}
 
 \include{include_texs/intro}
 
@@ -164,7 +174,10 @@ Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour m
 \printbibliography 
 \addcontentsline{toc}{chapter}{Bibliography}
 
-
+\newpage
+\pagestyle{empty}
+\ \cleardoublepage
+% \pagestyle{empty}
 \renewcommand{\familydefault}{\sfdefault}
 \include{4eme}
 
