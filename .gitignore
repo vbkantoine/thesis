@@ -1,7 +1,8 @@
 *.aux
 *.log
 *.out
-*.pdf
+main.pdf
+blank.pdf
 .DS_Store
 *.DS_Store
 *.gz
