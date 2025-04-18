@@ -1,5 +1,18 @@
 
 
+\newlength{\questlenght}
+\settowidth{\questlenght}{\textbf{Question iii}\ \ }
+\newlength{\textminusquest}
+\setlength{\textminusquest}{\textwidth}
+\addtolength{\textminusquest}{-\questlenght}
+\newcommand{\ques}[2]{%
+\noindent\textbf{Question #1}\ \ 
+\begin{minipage}[t]{\textminusquest}
+    #2
+\end{minipage}    
+}
+
+
 \chapter{Introduction}
 
 
@@ -299,20 +312,20 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
             D_f(P||Q) = \int_\cX f\left( \frac{p(x)}{q(x)} \right) q(x)d\mu(x),
         \end{equation}
     en notant $p$, $q$ des densités associées à $P$ et à $Q$ par raport à une mesure commune $\mu$ sur leur ensemble de définition $\cX$.     
-    Les $f$-divergences réduisent le choix de $D$ à celui de $f$, les plus communément employées étant les $\alpha$-divergences (\cite{zhu_information_1995}) définies en fixant $f=f_\alpha$ où
+    Les $f$-divergences réduisent le choix de $D$ à celui de $f$, les plus communément employées étant les $\delta$-divergences (\cite{zhu_information_1995}) définies en fixant $f=f_\delta$ où
         \begin{equation}
-            f_\alpha(x) = \left\lbrace\begin{array}{l l} \frac{x^\alpha-\alpha t-(1-\alpha)}{\alpha(\alpha-1)} & \text{si\ }\alpha\not\in\{0,1\},\\ 
-                t\log t-t+1  & \text{si\ }\alpha=1, \\
-                -\log t +t -1 & \text{si\ }\alpha=0.
+            f_\delta(x) = \left\lbrace\begin{array}{l l} \frac{x^\delta-\delta t-(1-\delta)}{\delta(\delta-1)} & \text{si\ }\delta\not\in\{0,1\},\\ 
+                t\log t-t+1  & \text{si\ }\delta=1, \\
+                -\log t +t -1 & \text{si\ }\delta=0.
             \end{array}\right. 
         \end{equation}    
-    Il est remarquable que la peut-être plus connue des mesure de dissimilarité (la divergence de Kullback-Leibler) peut être vu comme un cas particulier des $\alpha$-divergences. En effet, rappelons que la divergence de Kullback-Leibler, notée $\text{KL}$, est définie par 
+    Il est remarquable que la peut-être plus connue des mesure de dissimilarité (la divergence de Kullback-Leibler) peut être vu comme un cas particulier des $\delta$-divergences. En effet, rappelons que la divergence de Kullback-Leibler, notée $\text{KL}$, est définie par 
         \begin{equation}
             \text{KL}(Q||P) = \int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\mu(x)
         \end{equation}
         (en adoptant les même notations qu'en équation \eqref{eq:intro-fdiv}), si bien que 
         \begin{equation}
-            D_{f_\alpha}(P||Q) = \text{KL}(P||Q)\ \text{si\ }\alpha=1,\quad D_{f_\alpha}(P||Q) = \text{KL}(Q||P)\ \text{si\ }\alpha=0.
+            D_{f_\delta}(P||Q) = \text{KL}(P||Q)\ \text{si\ }\delta=1,\quad D_{f_\delta}(P||Q) = \text{KL}(Q||P)\ \text{si\ }\delta=0.
         \end{equation}
 
     Bien sûr, il existe aussi de nombreuses mesures de dissimilarité qui ne sont pas des $f$-divergences, à ce titre, les indices de Sobol' du premier ordre évoqués plus haut font offices d'exemple. Un autre exemple notable présenté ici est celui des normes maximales de discrépences (MMD). Soient $P$, $Q$ deux mesures de probabilité définies sur un ensemble $\cX$, et soit $\cH$ un espace de Hilbert à noyau reproduisant (RKHS) sur $\cX$,  dont le noyau reproduisant est noté $k:\cX\times\cX\to\CC$. %On peut définir les imbrications moyennes  \cite{gretton_kernel_2012}
@@ -470,35 +483,111 @@ Toutes ces réflexions mettent en lumières l'intérêt d'une construction méth
 
 \section{Esquisse du manuscrit et contributions}
 
+\subsection{Problématiques et plan}
+
+% \subsubsection{Problématiques}
+
 
 Plusieurs questions principales se détachent de cette introduction et de ces premières refléxions. Elles sont listées ci-dessous, et décrivent les probablématiques majeures qui se sont manifestées au cours de cette thèse et auxquelles les travaux présentés dans ce manuscrit cherchent à répondre.
 
-% \newlength{\questlenght}
-% \settowidth{\questlenght}{\textbf{Question 1}}
-% \newcommand{\ques}[2]{%
-% \noindent\textbf{Question #1} 
-% \begin{minipage}[t]{\textwidth-\questlenght}
-%     #2
-% \end{minipage}    
-% }
 
-% \ques{1}{Test}
+\ques{i}{Comment peut-on définir et appuyer l'objectivité d'un prior ?}
+
+\ques{ii}{Quelles sont les limites de l'emploi d'un tel prior, peu informatif par essence, et comment concilier son usage avec les besoins pratiques ?}
+
+\ques{iii}{Comment construire et implémenter de tels priors dans un cas pratique ?}
+
+\ques{iv}{Dans le contexte des études sismiques probabilistes de sûreté, comment s'implémente ces priors objectifs dans un modèle concrêt d'estimation de fiabilité sismique ?}
+
+\ques{v}{Quelles conséquences peuvent avoir le manque d'information \emph{a priori} ou provenant des données dans ce modèle et comment les solutionner ?}
+
+\ques{vi}{Comment peut-on finalement bénéficier au mieux des différentes sources d'information dans le workflow bayésien du modèle étudié dans son ensemble ?}
+
+
+Dans cette thèse, nous tentons de répondre à ces six problématiques au travers d'une étude selon deux axes. Le premier axe a une dimension qualifiée de théorique, en adressant les problématique liée à la construction de prior dits `òbjectifs'' dans son ensemble. Il se concentre sur le dévelopement d'une théorie appelée la théorie des priors de référence. Le second axe est alors plutôt qualifié de pratique, en étudiant la mise en oeuvre des dévelopement théoriques sur des cas d'études réels, en se concentrant sur l'estimation de courbes de fragilité sismiques, qui représentent un outil important du cadre des études sismiques probabilistes de sûreté.
+Il reste important de rappeler que, bien qu'indépendants, les deux grands axes de travails sus-mentionnés s'alimentent l'un l'autre. Ce sont autant les problématiques pratiques qui ont motivés les recherches théoriques, que les découvertes pratiques qui ont permis les études pratiques.\\
+
+
+%l'un étant plutôt théorique et adresse les questions de construction, de définiton, et d'objectivité des priors ; l'autre étant plut
+% Ainsi, la premère partie de ce manuscrit est 
+
+
+
+
+La \textbf{première partie} de ce manuscrit est alors dévouée au dévelopement de la théorie des priors de référence.
+
+\noindent
+Dans le \textbf{chapitre 3}, on introduit la théorie et on développe son état-de-l'art. Il permet d'introduire la notion de priors de références telle qu'elle est communément définie dans la littérature, et leur place parmis les priors objectifs. Ce chapitre permet aussi de formaliser le cadre mathématique de travail pour la suite de la partie.
+
+\noindent
+Dans le \textbf{chapitre 4}, on observe que la définiton des priors de références s'appuient sur une mesure de dissimilarité. On cherche alors dans ce chapitre à généraliser la définition de cette dernière afin d'appuyer le caractère objectif des priors de référence. Ce chapitre apporte une réponse à la \textbf{question i}.
+
+\noindent
+Dans le \textbf{chapitre 5}, on cherche une ouverture au cadre des priors de référence, lorsqu'il donne lieu à des priors difficilement utilisable en pratique. On propose alors une définiton de ce qu'on appelle priors de références contraints. Les solutions de cette définiton apportent une réponse à la \textbf{question ii}.
+
+\noindent
+Dans le \textbf{chapitre 6}, on développe une méthode numérique d'approximation des priors de références. Cette méthode s'appuie sur l'inférence variationelle en définissant le prior comme la sortie d'un réseau de neurone, afin d'éviter un calcul explicite de celui-ci. Ce chapitre apporte une réponse à la \textbf{question iii}. \\
+
+
+La \textbf{deuxième partie} de ce manuscrit aborde le sujet de l'estimation bayésienne dite objective des courbes de fragilité sismiques.
+
+\noindent
+Dans le \textbf{chapitre 7}, on introduit les courbes de fragilité sismiques, leur définition, leur historique et leur intéégration dans le cadre des études sismiques probabilistes de sûreté. Un état-de-l'art des méthodes d'estimation de ces courbes suivant les différents types de données à disposition y est proposé.
+
+\noindent
+Dans le \textbf{chapitre 8}, on propose un calcul et une étide en profondeur du prior de référence pour un modèle classique emplyé pour l'estimation de ces courbes de fragilité. L'inférence bayésienne via l'emploi de ce prior y est comparé à d'autres méthodes. Ce chapitre apporte une réponse à la \textbf{question iv}.
+
+\noindent
+Dans le \textbf{chapitre 9}, on s'intéresse en profondeur aux limites du modèle considéré pour l'estimation des courbes de fragilité. On propose une solution qui est appuyé par les développement théoriques de la première partie. Ce chapitre apporte une réponse à la \textbf{question v}.
+
+\noindent
+Dans le \textbf{chapitre 10}, on termine notre étude en proposant une méthode qui ient appuyer l'estimation bayésienne en optimisant l'information issue des données non plus seulement  lors du choix du prior mais également lors de la sélection de celles-ci, au travers d'une méthode de planification d'expériences. Ce chapitre apporte une réponse à la \textbf{question vi}.\\
+
+
+Une conclusion générale viendra clore le manuscrit enuite.
+
+
+\subsection{Liste des contributions}
+
+La recherche conduite au cours de cette thèse a donné lieu à plusieurs contributions dans la littérature scientifique. Ci après sont listés les travaux publiés pendant celle-ci.
+
+%\nocite{van_biesbroeck_design_2024,van_biesbroeck_generalized_2024,van_biesbroeck_influence_2023,van_biesbroeck_properly_2024,van_biesbroeck_reference_2024,baillie_variational_2025}
 
 \begin{itemize}
-    \item[\textbf{Question 1}] Comment peut-on définir et appuyer l'objectivité d'un prior ?
-    \item[\textbf{Question 2}] Quelles sont les limites de l'emploi d'un tel prior, peu informatif par essence, et comment concilier son usage avec les besoins pratiques ?
-    % Par essence, un tel prior est peu inf
-    % Où s'inscrivent ces priors entre priors entre priors très peu informatifs et priors très inform ?
-    \item[\textbf{Question 3}] Comment construire et implémenter de tels priors dans un cas pratique ?
-    \item[\textbf{Question 4}] Dans le contexte des études sismiques probabilistes de sûreté, comment s'implémente ces priors objectifs dans un modèle concrêt d'estimation de fiabilité sismique ?
-    \item[\textbf{Question 5}] Quelles conséquences peuvent avoir le manque d'information \emph{a priori} ou provenant des données dans ce modèle et comment les solutionner ?
-    % what are their limit in this context and how to enhence them ?
-    \item[\textbf{Question 6}] Comment peut-on finalement bénéficier au mieux des différentes sources d'information dans le workflow bayésien du modèle étudié dans son ensemble ?
-    % \item[] 
-    % how can we leverage the best the objective priors in the bayesian  information worflow to provide the best possible estimation of seismic fragility curves ?
+    \item \textbf{A. Van Biesbroeck}, C. Feau \& J. Garnier (2025). ``Design of experiments for efficient and conform Bayesian learning of seismic fragility curves''. \emph{Proceedings of the 28th conference on Structural Mechanics in Reactor Techology (SMiRT).}
+    \item N. Baillie, \textbf{A. Van Biesbroeck}, C. Feau \& C. Gauchy (2025). ``Bayesian estimation of seismic fragility curves based on variational reference priors using neural networks''. \emph{Proceedings of the 6th Thematic Conference on Uncertainty Quantification in Computational Sciences and Engineering (UNCECOMP)}.
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, C. Feau \& J. Garnier (2025). ``Robust a posteriori estimation of probit-lognormal seismic fragility curves via sequential design of experiments and constrained reference prior''. \emph{arXiv} 2503.07343. \textsc{doi:} \href{https://dx.doi.org/10.48550/arXiv.2503.07343}{10.48550/arXiv.2503.07343}.
+    \item N. Baillie, \textbf{A. Van Biesbroeck} \& C. Gauchy (2025). ``Variational inference for approximate reference priors using neural networks''. \emph{arXiv} 2502.02364. \textsc{doi:} \href{https://dx.doi.org/10.48550/arXiv.2502.02364}{10.48550/arXiv.2502.02364}
+    \item \textbf{A. Van Biesbroeck} (2024). ``Properly constrained reference priors decay rates for efficient and robust posterior inference'', \emph{arXiv} 2409.13041. \textsc{doi:} \href{https://dx.doi.org/10.48550/arXiv.2409.13041}{10.48550/arXiv.2409.13041}
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, C. Feau \& J. Garnier (2025). ``Design of experiments based on a low fidelity model for seismic fragility curves estimation''. \emph{ESAIM: ProcS} (to appear). \textsc{hal:} \href{https://hal.science/hal-04719458v1}{hal-04719458v1}
+    \item \textbf{A. Van Biesbroeck} (2023). ``Generalized mutual information and their reference priors under Csizar f-divergence''. \emph{arXiv} 2310.10530. \textsc{doi:} \href{https://dx.doi.org/10.48550/arXiv.2310.10530}{10.48550/arXiv.2310.10530}
+    % \item C. Gauchy, \textbf{A. Van Biesbroeck}, C. Feau \& J. Garnier (2023). ``Inférence variationelle de lois a priori de référence''. \emph{Proceedings des 54èmes Journées de Statistiques (JdS)}. \textsc{url}
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, J. Garnier \& C. Feau (2023). ``Connections between reference prior theory and global sensitivity analysis, an illustration with f-divergences''. \emph{Proceedings des 54èmes Journées de Statistiques (JdS)}. \textsc{hal:} \href{https://hal.science/hal-04171446}{hal-04171446}
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, C. Feau \& J. Garnier (2023). ``Influence of the choice of the seismic intensity measure on fragility curves estimation in a Bayesian framework based on reference prior''. \emph{Proceedings of the 5th Thematic Conference on Uncertainty Quantification in Computational Sciences and Engineering (UNCECOMP)}, pp. 94-111. \textsc{doi:} \href{https://dx.doi.org/10.7712/120223.10327.19899}{10.7712/120223.10327.19899}
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, C. Feau \& J. Garnier (2024). ``Reference prior for Bayesian estimation of seismic fragility curves''. \emph{Probabilistic Engineering Mechanics}, 76, pp 103622. \textsc{doi:} \href{https://dx.doi.org/10.1016/j.probengmech.2024.103622}{10.1016/j.probengmech.2024.103622}
 \end{itemize}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%Pour répondre à ces problématiques, 
 
 
 
