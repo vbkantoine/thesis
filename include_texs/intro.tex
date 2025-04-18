@@ -263,7 +263,7 @@ prise en compte et la quantification des incertitudes qui apparaissent dans le p
 La quantification d'incertitudes représente en fait une démarche qui consiste à modéliser et analyser méthodiquement l'incertitude, sa source, et sa propagation au sein de la modélisation du système physique étudié. %étudié. %système phyisique?
 Elle se construit alors à l'intéraction de la physique, de l'ingéniérie et des mathématiques appliquées, et s'érige même comme une branche des statistiques à part entière.
 
-Elle concentre son étude sur 3 éléments qui décrivent l'intéraction entre le système physique et l'aléa : des paramètres d'entrées $\mbf X$, une réponse physique du système $ Y$, et une modélisation de celle-ci selon : $ Y=\cM(\mbf X)$. % ($\cM$ peut-être définit comme la ).
+Elle concentre son étude sur 3 éléments qui décrivent l'intéraction entre le système physique et l'aléa : des paramètres d'entrée $\mbf X$, une réponse physique du système $ Y$, et une modélisation de celle-ci selon : $ Y=\cM(\mbf X)$. % ($\cM$ peut-être définit comme la ).
 Cette fonction $\cM$ est liée à la modélisation, souvent complexe, du système et de ses proporiétés physiques (il peut s'agir de la résolution d'équations physiques, de simulation numériques, ou même du résultat d'une expérience mécanique).
 %L'objet de la quantification d'incertitude est alors d'évaluer une quantité d'intérêt qui dépend de $\mbf Y$ : comme une variance, une probabilité de défaillance, etc ; plus généralement une quantité de la forme $\EE\,\phi(\mbf Y)$.
 %
@@ -275,7 +275,7 @@ La démarche générale de la quantification d'incertitudes est souvent décrite
         il est usuel de classifier les incertitudes selon deux grandes catégories. D'une part les incertitudes irréductibles, qui proviennent du hasard ``naturel'' embarqué dans l'aléa et le système physique. D'autre part, les incertitudes épistemiques, qui existent par manque d'information, et qui sont alors considérées comme réductibles en opposition aux précédentes (\cite{hullermeier_aleatoric_2019}). Il s'en suit une modélisation probabiliste de l'entrée $\mbf X$. 
     \item La propagation des incertitudes : cette étape correspondant à l'approximation de la distribution du modèle $\cM(\mbf X)$, et de l'évaluation d'une quantité d'intérêt qui dépend de celle-ci : comme une variance, une probabilité de défaillance, etc ; plus généralement une quantité de la forme $\EE\,\phi( Y)$.
 %     et de celle de la quantité d'intérêt $\phi(\mbf Y)$. %De nombreuses méthodes mathématiques viennent en appui à cette étape, et sont évoquées plus bas.
-    \item L'analyse de sensibilité : son rôle est de comprendre avec plus de recul la manière dont l'incertitude se propage dans un système, en identifiant l'impact d'un ou de plusieurs des paramètres d'entrées sur la sortie $\mbf Y$ (\cite{iooss_review_2015}).
+    \item L'analyse de sensibilité : son rôle est de comprendre avec plus de recul la manière dont l'incertitude se propage dans un système, en identifiant l'impact d'un ou de plusieurs des paramètres d'entrées sur la sortie $ Y$ (\cite{iooss_review_2015}).
     %L'analyse de sensibilité se construit depuis les premier travaux de Sobol' (\cite{sobol_sensitivity_1993})
     %, lorsque les entrées sont multivariées ($X=(X_1,\dots,X_p)$), quelles sont celles  
 \end{enumerate}
@@ -308,7 +308,7 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
     % , puisque deux distributions difères par la manière dont elles 
     Un choix alors commun, perçu comme une extention de l'entropy de Shanon, est celui des $f$-divergences de \citet{csiszar_information-type_1967}. On peut noter qu'elles sont employées dans des domaines variés, au delà de l'analyse de sensibilité, tel que l'inférence variationnelle (\cite{minka_divergence_2005,bach_sum--squares_2023}), le design de méta-modèles (\cite{nguyen_surrogate_2009}), l'apprentissage PAC-bayésien (\cite{picard-weibel_change_2022}).
     Lorsque $f$ est convexe que $f(1)=0$, elle sont définies selon :
-        \begin{equation}\label{eq:intro-fdiv}
+        \begin{equation}\label{eq:intro-fdiv-french}
             D_f(P||Q) = \int_\cX f\left( \frac{p(x)}{q(x)} \right) q(x)d\mu(x),
         \end{equation}
     en notant $p$, $q$ des densités associées à $P$ et à $Q$ par raport à une mesure commune $\mu$ sur leur ensemble de définition $\cX$.     
@@ -323,7 +323,7 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
         \begin{equation}
             \text{KL}(Q||P) = \int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\mu(x)
         \end{equation}
-        (en adoptant les même notations qu'en équation \eqref{eq:intro-fdiv}), si bien que 
+        (en adoptant les même notations qu'en équation \eqref{eq:intro-fdiv-french}), si bien que 
         \begin{equation}
             D_{f_\delta}(P||Q) = \text{KL}(P||Q)\ \text{si\ }\delta=1,\quad D_{f_\delta}(P||Q) = \text{KL}(Q||P)\ \text{si\ }\delta=0.
         \end{equation}
@@ -361,7 +361,7 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
 
 
 
-\subsection{Le choix du prior dans les études Bayésienne}
+\subsection{Le choix du prior dans les études Bayésiennes}
 
 %L'inférence Bayésienne s'inscrit dans le domaine de l'inféérence statistique.
 % ici paradigmes freq bayes et intervalles cred conf
@@ -370,7 +370,7 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
 L'analyse bayésienne est une théorie des statistiques qui se construit selon une interprétation des probabilités qui sont vues comme des degrés de plausibilité des évenements, on parle généralement de ``crédibilité''. 
 %Comme toute théorie statistique =
 Comme toute étude statistique, elle cherche à faire le lien entre des observations statistiques et leur distribution probabiliste. %, avec comme particul identifier la distribution de données observée.
-Elle s'appuie sur le théorème de Bayes, en considérant l'inconnu qui permet de définir la distribution des données comme étant aléatoire. Les observations statistiques informent alors la distribution de cette inconnue, ce qui met alors à jour le degré de crédibilité attribué à une distribution que suivraient les données par rapport à une autre.
+Elle s'appuie sur le théorème de Bayes, en considérant l'inconnu qui permet de définir la distribution des données comme étant aléatoire. Les observations statistiques informent alors la distribution de cette inconnue, ce qui met  à jour le degré de crédibilité attribué à une distribution que suivraient les données par rapport à une autre.
 
 
 Le raisonemement contraire, dit fréquentiste, considère la probabilité comme une fréquence d'occurence observable au prix de reproduire l'expérience. Sous ce paradigme, l'inconnue existe, 
@@ -419,8 +419,19 @@ Cette formule fait le lien entre le prior, le modèle (représenté par la vrais
 Si l'information issue des données ne pose normalement pas question, c'est l'information \emph{a priori} qui concentre l'attention. Par essence, elle est la source de l'incertitude dans le résultat,  sa construction doit se faire de manière attentive lors de l'étape de modélisation et ne peut être arbitraire. 
 %On peut noter également que l'information issue des données passe aussi bien au travers du modèle, tel que la vraisemblance le décrit. Cette modélisation qui est alors au centre 
 %Différents auteurs placent aujourd'hui la sélection, la validation et la mise à jour du modèle au centre des études bayésienne, définissant cette démarche comme le worflow bayésien \cite{gelman_bayesian_2020}.
-Cependant, la formulation bayésienne lui attribue un impact significatif sur le postrior, particulièrement dans des cas où la taille de la base de données est limitée. Une illustration de ce phénomène est proposée en figure ??, où différents priors, en apparence proche, donnent lieu à des posteriors très différents, à partir des même observations.
-Bien sûr, le diable est dans les détails, et ici, ce sont les queues de distributions des priors, discrètes sur l'illustration, qui produisent cette différence. Malgré tout cet exemple questionne, et à juste titre, sur le choix du prior.
+Cependant, la formulation bayésienne lui attribue un impact significatif sur le postrior, particulièrement dans des cas où la taille de la base de données est limitée. Une illustration de ce phénomène est proposée en figure~\ref{fig:intro-differentsposteriors}, où différents priors, en apparence proche, donnent lieu à des posteriors très différents, à partir des même observations.
+Bien sûr, le diable est dans les détails, et ici, ce sont les queues de distributions des priors, peu discernable sur l'illustration, qui produisent cette différence. Malgré tout cet exemple questionne, et à juste titre, sur le choix du prior.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5cm]{figures/intro/posterior1.pdf}
+    \includegraphics[width=5cm]{figures/intro/posterior2.pdf}
+    \includegraphics[width=5cm]{figures/intro/posterior3.pdf}   
+    \caption{Différents calculs de postériors (en pointillé) à partir d'une même vraisemblance (bleu) mais de différents priors (rouge).%De gauche à droite le prior est : une gaussienne $\cN(5,)}
+    }
+    \label{fig:intro-differentsposteriors}
+\end{figure}
+
 
 %On peut déduire d'un tel exemple que les queue de distribution repésente une information décisive au sein d'un prior. Cela illustre 
 
@@ -450,13 +461,13 @@ Mais elle doit laisser celui ou celle qui l'emploi conscient ou consciente des i
 
 
 
-\subsection{Ce qui motive la recherche sur l'elicitation de prior pour les études sismiques probabilistes de sûreté}
+\subsection{Ce qui motive la recherche sur l'elicitation de priors pour les études sismiques probabilistes de sûreté}
 
 L'analyse bayésienne a gagné en popularité dans de nombreuseux domaines, y compris dans des études de fiabilité ou de sûreté. 
-En effet, elle est plébiscitée pour sa capacité (i) à introduire et propager une incertitude dans un problème d'inférence, et (ii) à être plus régulière que beaucoup de méthodes fréquentistes, en particulier lorsque le nombre de données observées est limité.
+En effet, elle est plébiscitée pour sa capacité (i) à introduire et propager une incertitude dans un problème d'inférence, et (ii) à être plus régulière que beaucoup de métodes fréquentistes, en particulier lorsque le nombre de données observées est limité.
 
 Le cadre de l'inférence bayésienne s'introduit en effet bien dans la démarche de quantification d'incertitudes. 
-L'identification des incertitudes sur l'entrée $\mbf X$ ou sur le modèle même $\cM$ (ou bien s'il y a lieu le méta-modèle) peut se faire au travers d'une paramétrisation de celles-ci, en donnant lieu à une distribution paramétrique de $Y$ : $\PP_{Y|\mbf X,\theta}$. La variable $\theta$, aléatoire sous le paradigme bayésien, peut alors représenter diverses sources d'incertitudes, de différentes natures.
+L'identification des incertitudes sur l'entrée $\mbf X$ ou sur le modèle même $\cM$ (ou bien s'il y a lieu le méta-modèle) peut se faire au travers d'une paramétrisation de celles-ci, en donnant lieu à une distribution paramétrique de $Y$ : $\PP_{Y|\mbf X,\theta}$. La variable $\theta$, aléatoire sous le paradigme bayésien, peut alors représenter diverses sources d'incertitudes, de différentes natures selon les cas.
 
 
 Parfois, certaines études adoptent la démarche pour la possibilité qu'elle offre d'introduire un jugement  ou une conaissance \emph{a priori}.
@@ -468,7 +479,7 @@ De tels cas caricaturaux mettent en péril l'auditabilité de la moindre région
 %De telles études, compatibles et 
 %nécessite l'apport d'un cadre méthodique et rigoureux de 
 
-On comprend en fait que dans une étude de sûreté qui se veut auditable, une ``bonne'' région de credibilité sur un paramètre estimé n'est pas une région necessairement étroite, même si elle suggère que la sûreté est satisfaite. A l'inverse, une région trop large n'est pas pour autant ``bonne'' car elle ne permet pas de démontrer la robustesse attendue de l'equipement. L'équilibre est complexe, et le ``bon'' prior est celui qui, bien que démontrant au mieux la capacité où l'incapacité de l'equipement à résister à l'aléa, produit un résultat inspirant confiance. %Il doit être assuré qu'il est affranchi de l'introduction d
+On comprend en fait que dans une étude de sûreté qui se veut auditable, une ``bonne'' région de credibilité sur un paramètre estimé n'est pas une région nécessairement étroite, même si elle suggère que la sûreté est satisfaite. A l'inverse, une région trop large n'est pas pour autant ``bonne'' car elle ne permet pas de démontrer la robustesse attendue de l'equipement. L'équilibre est complexe, et le ``bon'' prior est celui qui, bien que démontrant au mieux la capacité où l'incapacité de l'equipement à résister à l'aléa, produit un résultat inspirant confiance. %Il doit être assuré qu'il est affranchi de l'introduction d
 
 Toutes ces réflexions mettent en lumières l'intérêt d'une construction méthodique du prior dans le cadre des études sismiques probabilistes de sûreté, au travers d'un cadre rigoureux qui évite l'introduction de la moindre subjectivité dans la démarche.
 
@@ -491,7 +502,7 @@ Toutes ces réflexions mettent en lumières l'intérêt d'une construction méth
 Plusieurs questions principales se détachent de cette introduction et de ces premières refléxions. Elles sont listées ci-dessous, et décrivent les probablématiques majeures qui se sont manifestées au cours de cette thèse et auxquelles les travaux présentés dans ce manuscrit cherchent à répondre.
 
 
-\ques{i}{Comment peut-on définir et appuyer l'objectivité d'un prior ?}
+\ques{i}{Comment peut-on définir et appuyer l'objectivité d'un prior ?\\ }
 
 \ques{ii}{Quelles sont les limites de l'emploi d'un tel prior, peu informatif par essence, et comment concilier son usage avec les besoins pratiques ?}
 
@@ -501,10 +512,10 @@ Plusieurs questions principales se détachent de cette introduction et de ces pr
 
 \ques{v}{Quelles conséquences peuvent avoir le manque d'information \emph{a priori} ou provenant des données dans ce modèle et comment les solutionner ?}
 
-\ques{vi}{Comment peut-on finalement bénéficier au mieux des différentes sources d'information dans le workflow bayésien du modèle étudié dans son ensemble ?}
+\ques{vi}{Comment peut-on finalement bénéficier au mieux des différentes sources d'information dans le workflow bayésien du modèle étudié dans son ensemble ?}\\
 
 
-Dans cette thèse, nous tentons de répondre à ces six problématiques au travers d'une étude selon deux axes. Le premier axe a une dimension qualifiée de théorique, en adressant les problématique liée à la construction de prior dits `òbjectifs'' dans son ensemble. Il se concentre sur le dévelopement d'une théorie appelée la théorie des priors de référence. Le second axe est alors plutôt qualifié de pratique, en étudiant la mise en oeuvre des dévelopement théoriques sur des cas d'études réels, en se concentrant sur l'estimation de courbes de fragilité sismiques, qui représentent un outil important du cadre des études sismiques probabilistes de sûreté.
+Dans cette thèse, nous tentons de répondre à ces six problématiques au travers d'une étude selon deux axes. Le premier axe a une dimension qualifiée de théorique, en adressant les problématiques liées à la construction de prior dits ``objectifs'' dans son ensemble. Il se concentre sur le dévelopement d'une théorie appelée la théorie des priors de référence. Le second axe est alors plutôt qualifié de pratique, en étudiant la mise en oeuvre des dévelopement théoriques sur des cas d'études réels, en se concentrant sur l'estimation de courbes de fragilité sismiques, qui représentent un outil important du cadre des études sismiques probabilistes de sûreté.
 Il reste important de rappeler que, bien qu'indépendants, les deux grands axes de travails sus-mentionnés s'alimentent l'un l'autre. Ce sont autant les problématiques pratiques qui ont motivés les recherches théoriques, que les découvertes pratiques qui ont permis les études pratiques.\\
 
 
@@ -517,16 +528,16 @@ Il reste important de rappeler que, bien qu'indépendants, les deux grands axes 
 La \textbf{première partie} de ce manuscrit est alors dévouée au dévelopement de la théorie des priors de référence.
 
 \noindent
-Dans le \textbf{chapitre 3}, on introduit la théorie et on développe son état-de-l'art. Il permet d'introduire la notion de priors de références telle qu'elle est communément définie dans la littérature, et leur place parmis les priors objectifs. Ce chapitre permet aussi de formaliser le cadre mathématique de travail pour la suite de la partie.
+Dans le \textbf{chapitre 3}, on introduit la théorie et on développe son état-de-l'art. Il permet d'introduire la notion de prior de référence telle qu'elle est communément définie dans la littérature, et leur place parmis les priors objectifs. Ce chapitre permet aussi de formaliser le cadre mathématique de travail pour la suite de la partie.
 
 \noindent
-Dans le \textbf{chapitre 4}, on observe que la définiton des priors de références s'appuient sur une mesure de dissimilarité. On cherche alors dans ce chapitre à généraliser la définition de cette dernière afin d'appuyer le caractère objectif des priors de référence. Ce chapitre apporte une réponse à la \textbf{question i}.
+Dans le \textbf{chapitre 4}, on observe que la définiton des priors de référence s'appuient sur une mesure de dissimilarité. On cherche alors dans ce chapitre à généraliser la définition de cette dernière afin d'appuyer le caractère objectif des priors de référence. Ce chapitre apporte une réponse à la \textbf{question i}.
 
 \noindent
-Dans le \textbf{chapitre 5}, on cherche une ouverture au cadre des priors de référence, lorsqu'il donne lieu à des priors difficilement utilisable en pratique. On propose alors une définiton de ce qu'on appelle priors de références contraints. Les solutions de cette définiton apportent une réponse à la \textbf{question ii}.
+Dans le \textbf{chapitre 5}, on cherche une ouverture au cadre des priors de référence, lorsqu'il donne lieu à des priors difficilement utilisable en pratique. On propose alors une définiton de ce qu'on appelle priors de référence contraints. Les solutions de cette définiton apportent une réponse à la \textbf{question ii}.
 
 \noindent
-Dans le \textbf{chapitre 6}, on développe une méthode numérique d'approximation des priors de références. Cette méthode s'appuie sur l'inférence variationelle en définissant le prior comme la sortie d'un réseau de neurone, afin d'éviter un calcul explicite de celui-ci. Ce chapitre apporte une réponse à la \textbf{question iii}. \\
+Dans le \textbf{chapitre 6}, on développe une méthode numérique d'approximation des priors de référence. Cette méthode s'appuie sur l'inférence variationelle en définissant le prior comme la sortie d'un réseau de neurone, afin d'éviter un calcul explicite de celui-ci. Ce chapitre apporte une réponse à la \textbf{question iii}. \\
 
 
 La \textbf{deuxième partie} de ce manuscrit aborde le sujet de l'estimation bayésienne dite objective des courbes de fragilité sismiques.
@@ -551,7 +562,7 @@ Une conclusion générale viendra clore le manuscrit enuite.
 
 La recherche conduite au cours de cette thèse a donné lieu à plusieurs contributions dans la littérature scientifique. Ci après sont listés les travaux publiés pendant celle-ci.
 
-%\nocite{van_biesbroeck_design_2024,van_biesbroeck_generalized_2024,van_biesbroeck_influence_2023,van_biesbroeck_properly_2024,van_biesbroeck_reference_2024,baillie_variational_2025}
+\nocite{van_biesbroeck_design_2024,van_biesbroeck_generalized_2024,van_biesbroeck_influence_2023,van_biesbroeck_properly_2024,van_biesbroeck_reference_2024,baillie_variational_2025}
 
 \begin{itemize}
     \item \textbf{A. Van Biesbroeck}, C. Feau \& J. Garnier (2025). ``Design of experiments for efficient and conform Bayesian learning of seismic fragility curves''. \emph{Proceedings of the 28th conference on Structural Mechanics in Reactor Techology (SMiRT).}
