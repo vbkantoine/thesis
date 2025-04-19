@@ -6,7 +6,7 @@
 \setlength{\textminusquest}{\textwidth}
 \addtolength{\textminusquest}{-\questlenght}
 \newcommand{\ques}[2]{%
-\noindent\textbf{Question #1}\ \ 
+\noindent\textbf{Question #1}\hfill
 \begin{minipage}[t]{\textminusquest}
     #2
 \end{minipage}    
@@ -24,6 +24,11 @@ abstract
 
 
 \section{Motivation and positioning of the thesis}
+
+
+
+
+
 
 \subsection{Probabilistic risk assessment studies}
 
@@ -61,12 +66,16 @@ abstract
 
 \chapter{Introduction en français}\label{chap:intro-french}
 
+\renewcommand{\chaptername}{Chapitre}
+\renewcommand{\partname}{Partie}
+
+
 \begin{abstract}[Résumé]
     Ce chapitre ne diffère du \hyperref[chap:intro-english]{chapitre 1} que par sa rédaction en langue française.
     Dans ce chapitre, nous introduisons et motivons les travaux de recherche qui ont été conduit au court de cette thèse. Les travaux sont motivés
     principalement par le besoin d'évolution des méthodes d'études sismiques probabilistes de sûreté, mais aussi par le manque de réponse qu'apporte l'état-de-l'art à la question du choix du prior en inférence bayésienne.
     Ces problématiques sont détaillées et
-    les travaux sont alors introduits comme s'inscrivant dans celles-ci, le tout donnant lieu à à une organisation consistante du manuscrit.
+    les travaux sont alors introduits comme s'inscrivant dans celles-ci, le tout donnant lieu à une organisation consistante du manuscrit.
     %en introduisant à la fois leur inscription dans le cadre des études sismiques probabilistes de sûreté et dans le
     %
     %D'une part, nous introduisons le cadre des études sismiques probabilistes de dûreté, et 
@@ -263,7 +272,7 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
     où $D$ est une mesure de dissimilarité entre deux mesures de probabilité.
     Le choix de $D$ est alors décisif dans l'étude de $S_i$. %, qui revient à une étude de divergence entre deux mesures de probabilité. 
     On peut noter, par example, que choisir $D$ définie par $D(P||Q) = \|\EE_{X\sim P}X-\EE_{X\sim Q}X\|^2$ revient à étudier un indice de Sobol' du premier ordre.
-    Le choix de $D$ peut être motivé par divers intérêts, par exemple, celui de discriminer  l'indépendance entre $X_i$ et $ Y$. Le point suivant détail un large pannel de choix possible pour $D$.
+    Le choix de $D$ peut être motivé par divers intérêts, par exemple, celui de discriminer  l'indépendance entre $X_i$ et $ Y$. Le point suivant détail un large pannel de choix possibles pour $D$.
 
     \item La théorie de l'information est au centre de la comparaison de mesures de probabilité et donc de la quantification d'incertitudes. Par essence, les manières de comparer la façon qu'ont deux mesures de probabilité de  distribuer l'information dans un espace sont vastes. 
     Dans la définition de $S_i$ plus haut, le choix de $D$ (et donc le choix de définition de $S_i$) relève de la théorie de l'information.
@@ -431,7 +440,7 @@ L'analyse bayésienne a gagné en popularité dans de nombreux domaines, y compr
 En effet, elle est plébiscitée pour sa capacité (i) à introduire et propager une incertitude dans un problème d'inférence, et (ii) à être plus régulière que beaucoup de métodes fréquentistes, en particulier lorsque le nombre de données observées est limité.
 
 Le cadre de l'inférence bayésienne s'introduit en effet bien dans la démarche de quantification d'incertitudes. 
-L'identification des incertitudes sur l'entrée $\mbf X$ ou sur le modèle même $\cM$ (ou bien s'il y a lieu le méta-modèle) peut se faire au travers d'une paramétrisation de celles-ci, en donnant lieu à une distribution paramétrique de $Y$ : $\PP_{Y|\mbf X,\theta}$. La variable $\theta$, aléatoire sous le paradigme bayésien, peut alors représenter diverses sources d'incertitudes, de différentes natures selon les cas.
+L'identification des incertitudes sur l'entrée $\mbf X$ ou sur le modèle même $\cM$ (ou bien s'il y a lieu le méta-modèle) peut se faire au travers d'une paramétrisation de celles-ci, en donnant lieu à une distribution paramétrique de $Y$ : $\PP_{Y|\mbf X,\theta}$. La variable $\theta$, aléatoire sous le paradigme bayésien, peut alors représenter diverses sources d'incertitudes, de différentes natures selon les cas \citep{bousquet_contributions_2024}.
 
 
 Parfois, certaines études adoptent la démarche pour la possibilité qu'elle offre d'introduire un jugement  ou une conaissance \emph{a priori}.
@@ -489,37 +498,37 @@ Il reste important de rappeler que, bien qu'indépendants, les deux grands axes 
 
 
 
-La \textbf{première partie} de ce manuscrit est alors dévouée au dévelopement de la théorie des priors de référence.
+La \textbf{\cref{part:ref-theory}} de ce manuscrit est alors dévouée au dévelopement de la théorie des priors de référence.
 
 \noindent
-Dans le \textbf{chapitre 3}, on introduit la théorie et on développe son état-de-l'art. Il permet d'introduire la notion de prior de référence telle qu'elle est communément définie dans la littérature, et leur place parmis les priors objectifs. Ce chapitre permet aussi de formaliser le cadre mathématique de travail pour la suite de la partie.
+Dans le \cref{chap:intro-ref}, on introduit la théorie et on développe son état-de-l'art. Il permet d'introduire la notion de prior de référence telle qu'elle est communément définie dans la littérature, et leur place parmis les priors objectifs. Ce chapitre permet aussi de formaliser le cadre mathématique de travail pour la suite de la partie.
 
 \noindent
-Dans le \textbf{chapitre 4}, on observe que la définiton des priors de référence s'appuient sur une mesure de dissimilarité. On cherche alors dans ce chapitre à généraliser la définition de cette dernière afin d'appuyer le caractère objectif des priors de référence. Ce chapitre apporte une réponse à la \textbf{question i}.
+Dans le \cref{chap:ref-generalized}, on observe que la définiton des priors de référence s'appuient sur une mesure de dissimilarité. On cherche alors dans ce chapitre à généraliser la définition de cette dernière afin d'appuyer le caractère objectif des priors de référence. Ce chapitre apporte une réponse à la \textbf{question i}.
 
 \noindent
-Dans le \textbf{chapitre 5}, on cherche une ouverture au cadre des priors de référence, lorsqu'il donne lieu à des priors difficilement utilisable en pratique. On propose alors une définiton de ce qu'on appelle priors de référence contraints. Les solutions de cette définiton apportent une réponse à la \textbf{question ii}.
+Dans le \cref{chap:constrained-prior}, on cherche une ouverture au cadre des priors de référence, lorsqu'il donne lieu à des priors difficilement utilisable en pratique. On propose alors une définiton de ce qu'on appelle priors de référence contraints. Les solutions de cette définiton apportent une réponse à la \textbf{question ii}.
 
 \noindent
-Dans le \textbf{chapitre 6}, on développe une méthode numérique d'approximation des priors de référence. Cette méthode s'appuie sur l'inférence variationelle en définissant le prior comme la sortie d'un réseau de neurone, afin d'éviter un calcul explicite de celui-ci. Ce chapitre apporte une réponse à la \textbf{question iii}. \\
+Dans le \cref{chap:varp}, on développe une méthode numérique d'approximation des priors de référence. Cette méthode s'appuie sur l'inférence variationelle en définissant le prior comme la sortie d'un réseau de neurone, afin d'éviter un calcul explicite de celui-ci. Ce chapitre apporte une réponse à la \textbf{question iii}. \\
 
 
-La \textbf{deuxième partie} de ce manuscrit aborde le sujet de l'estimation bayésienne dite objective des courbes de fragilité sismiques.
-
-\noindent
-Dans le \textbf{chapitre 7}, on introduit les courbes de fragilité sismiques, leur définition, leur historique et leur intéégration dans le cadre des études sismiques probabilistes de sûreté. Un état-de-l'art des méthodes d'estimation de ces courbes suivant les différents types de données à disposition y est proposé.
+La \textbf{\cref{part:spra}} de ce manuscrit aborde le sujet de l'estimation bayésienne dite objective des courbes de fragilité sismiques.
 
 \noindent
-Dans le \textbf{chapitre 8}, on propose un calcul et une étide en profondeur du prior de référence pour un modèle classique emplyé pour l'estimation de ces courbes de fragilité. L'inférence bayésienne via l'emploi de ce prior y est comparé à d'autres méthodes. Ce chapitre apporte une réponse à la \textbf{question iv}.
+Dans le \cref{chap:frags-intro}, on introduit les courbes de fragilité sismiques, leur définition, leur historique et leur intégration dans le cadre des études sismiques probabilistes de sûreté. Un état-de-l'art des méthodes d'estimation de ces courbes suivant les différents types de données à disposition y est proposé.
 
 \noindent
-Dans le \textbf{chapitre 9}, on s'intéresse en profondeur aux limites du modèle considéré pour l'estimation des courbes de fragilité. On propose une solution qui est appuyé par les développement théoriques de la première partie. Ce chapitre apporte une réponse à la \textbf{question v}.
+Dans le \cref{chap:prem}, on propose un calcul et une étide en profondeur du prior de référence pour un modèle classique emplyé pour l'estimation de ces courbes de fragilité. L'inférence bayésienne via l'emploi de ce prior y est comparé à d'autres méthodes. Ce chapitre apporte une réponse à la \textbf{question iv}.
 
 \noindent
-Dans le \textbf{chapitre 10}, on termine notre étude en proposant une méthode qui ient appuyer l'estimation bayésienne en optimisant l'information issue des données non plus seulement  lors du choix du prior mais également lors de la sélection de celles-ci, au travers d'une méthode de planification d'expériences. Ce chapitre apporte une réponse à la \textbf{question vi}.\\
+Dans le \cref{chap:constrained-frags}, on s'intéresse en profondeur aux limites du modèle considéré pour l'estimation des courbes de fragilité. On propose une solution qui est appuyé par les développement théoriques de la première partie. Ce chapitre apporte une réponse à la \textbf{question v}.
+
+\noindent
+Dans le \cref{chap:doe}, on termine notre étude en proposant une méthode qui ient appuyer l'estimation bayésienne en optimisant l'information issue des données non plus seulement  lors du choix du prior mais également lors de la sélection de celles-ci, au travers d'une méthode de planification d'expériences. Ce chapitre apporte une réponse à la \textbf{question vi}.\\
 
 
-Une conclusion générale viendra clore le manuscrit enuite.
+Une conclusion générale viendra clore le manuscrit dans une \textbf{\cref{part:conclusion}} finale.
 
 
 \subsection{Liste des contributions}
@@ -578,4 +587,6 @@ La recherche conduite au cours de cette thèse a donné lieu à plusieurs contri
 
 
 
-
+\newpage
+\renewcommand{\chaptername}{Chapter}
+\renewcommand{\partname}{Part}
