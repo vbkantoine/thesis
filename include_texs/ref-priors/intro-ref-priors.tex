@@ -1,34 +1,282 @@
 
 
+\begin{abstract}
+    The reference prior theory is a perfect tool 
+    We provide a comprehensive state-of-the-art. 
+    this chapter is also the occasion to introduce 
+    %We review the reference prior theory
+\end{abstract}
+
+\minitoc
+
 
 \section{Introduction}
 
+Bayesian analysis offers a coherent framework for integrating prior information and updating beliefs with data. The incorporation of prior knowledge can be motivated by various needs, such as enhancing interpretability, introducing uncertainty, or embedding existing knowledge into the analysis. Actually, the selection of this a priori centralizes a lot of attention in Bayesian inference and can be a critical aspect of the method. As a matter of fact, it can significantly influence the posterior distribution and, consequently, the conclusions drawn from the analysis. Thus, an inconsistent or insufficiently justified choice of prior can jeopardize the validity of the entire study, a concern now well identified in the modern Bayesian workflow described in \cite{gelman_bayesian_2020}, and echoed across applied domains.
+
+A plethora of approaches exist in the literature to address the prior elicitation problem. They offer different strategies for different purposes. 
+Comprehensive reviews of such methods are proposed in \cite{mikkola_prior_2023}
+and in \cite{consonni_prior_2018}, for instance.
+Among the different challenges that are commonly addressed by these methods, we can emphasize (i) the incorporation of information, (ii) the ease of posterior inference, or (iii) the research for interpretability.\\
+The former refers to the so-called ``informative priors'', because their distributions tend to concentrate the information. %in some area of the doamin.  significantly inform the posterior distribution with strong distribution tails.
+They aim to incorporate genuine prior knowledge about parameters, often arising from past data, domain expertise, physical constraints, or theoretical understanding. %They are particularly common in fields like clinical trials, risk analysis, ecology, and engineering, where historical information is abundant or regulatory frameworks encourage explicit prior modeling.
+The difficulty lies in doing so transparently, reproducibly, and justifiably, especially when seeking to avoid subjective bias.\\
+Regarding the second, we can recall conjugate priors (see e.g. \cite{robert_bayesian_2007}) that are designed to provide a simple formulation of the posterior. Penalized Complexity (PC) priors \citep{simpson_penalising_2017} and sparse priors \citep{castillo_bayesian_2015} are made to be suitable for high-dimensional problems; and g-priors \citep{liang_mixtures_2008} are used for variable selection in normal regression models.\\
+Thirdly, in order to provide a better interpretability of the information transmission process, several studies favor a hierarchical design, in which the prior is the result of a latent prior modeling. This approach allows the use of historical data, as in power priors \citep{chen_relationship_2006} and Information Matrix priors \citep{gupta_information_2009}; or even imaginary data \citep{perez_expectedposterior_2002,spitzner_neutral-data_2011}. Posterior priors, developed for sensitivity analysis studies \citep{bousquet_discussion_2024}, are also part of this approach. %with imaginary data. 
+These hierarchical constructions are appreciated for their ability to tackle the improper aspect (they integrate to infinity) of most low-informative priors
+(priors whose distribution is more diffuse through the parameter's space, in opposition with informative priors)
+
+
+
+Many of these  methods involve subjective choices that remain open to criticism. Often, they are based on the selection of a class and hyperparameters that remain to be tuned.
+
+
+The research for so-called ``objective priors'' arose in contexts where the incorporation of uncritical beliefs is impossible (either by lack of available beliefs, or by lack of confidence within the existing ones).
+In those contexts, there is consensus that an appropriate prior belongs within the non-informative ones. In this respect, \citet{lindley_measure_1956} already suggested the maximization of the Shannon's entropy, as a way to choose a prior that would provide the least possible information.
+The same philosophy has been the source of several rules \citep{kass_selection_1996, datta_invariance_1996,berger_objective_2008}, which lead to different definitions for objective priors.
+
+In this chapter and in this thesis, we focus on the reference prior theory, first introduced by \citet{bernardo_expected_1979}. 
+Based on an ``expected utility maximization'',
+the idea was to shift from minimizing the information in the prior to maximizing the knowledge brought by the observations over prior distribution itself.
+This notion of expected information, is defined with the support of the mutual information which allows for a formal construction of priors that are designed to let the data dominate the inference.
+
+The reference prior theory has been extensively studied since its deepen formalization by \citet{berger_formal_2009}. For instance, \citet{mure_objective_2018} provides a comprehensive review of the theory.
+This chapter proposes a novel brief review of the reference prior theory, fixing the framework (in section ??) and defining its main tools, such as the mutual information (in section ??). The reference prior are formally defined in section ??, and we review its different properties that are proven in the literature.
+Eventually, this section is the occasion to discuss the limitations of the standard framework of the reference prior, and to suggest a solution based on novel formalization of the Bayesian inference tools.  The latter fixes the mathematical elements and notations that we will manipulate through the whole manuscript.
+
+
+
+
+
+
+%The different approaches are generally categorized within two classes: informative and non-informative priors.
+
+
+%Despite their variety, many of them involve subjective choices that remain open to criticism. Indeed, prior elicitation methods generally con- sist of choosing a way to inform a prior. They are often based on the selection of a class and hyperparameters that remain to be tuned.
+
+% Informative priors aim to incorporate genuine prior knowledge about parameters, often arising from past data, domain expertise, physical constraints, or theoretical understanding. They are particularly common in fields like clinical trials, risk analysis, ecology, and engineering, where historical information is abundant or regulatory frameworks encourage explicit prior modeling.
+
+
 \section{The standard Bayesian framework}
 
-\section{Prior elicitation: an open literature}
+\subsection{A minimal framework}
 
-\subsection{Examples, methods, motivations}
+The Bayesian framework is commonly defined from the given of statistical model.
+Let $(\Omega,\sP,\PP)$ be a probability space, and define $Y$, a random variable defined on $\Omega$ and taking values on a measurable space $(\cY,\sY)$.
+A statistical model is characterized by a collection of parameterize probability measure $(\PP_{Y|\theta})_{\theta\in\Theta}$ on $(\cY,\sY)$.
+The Bayesian viewpoint considers a random variable $T:\Omega\to\Theta$ taking values in a measurable space $(\Theta,\sT)$, following a prior distribution denoted $\Pi$, and which is such that the conditional distribution of $Y$ to $T=\theta$ is $\PP_{Y|\theta}$. In other terms:
+    \begin{equation}
+        \forall A\in\sY,\,B\in\sT,\, \PP(Y\in A,\, T\in B) = \int_B \PP_{Y|\theta}(A) d\Pi(\theta).
+    \end{equation}
+Note that the above quantities are well-defined and are almost surely unique, at least while $(\cY,\sY)$, $(\Theta,\sT)$ and $(\PP_{Y|\theta})$ align with the statements of the disintegration theorem (see e.g. \cite{chang_conditioning_1997}).
 
-\subsection{Informative or non-informative priors? Objective priors and mutual information}
+In practice, $k$ realizations $\mbf y= (y_1,\dots,y_k)$ of the r.v. $Y$ are observed, they are supposed to be identically distributed and independent conditionally to $T$, meaning they are the realization of a random vector $\mbf Y = (Y_1,\dots,Y_k)$, whose distribution $\PP_{\mbf Y}$ is defined on $(\cY^k,\,\sY^{\otimes k})$ by:
+\begin{equation}
+    \forall A\in\sY^{\otimes k},\, \PP_{\mbf Y}(A) = \int_\Theta \PP_{\mbf Y|\theta}(A)d\Pi(\theta),
+\end{equation}
+where $\PP_{\mbf Y|\theta}:=\PP_{Y|\theta}^{\otimes k}$. The distribution $\PP_{\mbf Y}$ is called the marginal distribution.
+
+Given the observations $\mbf y$, the posterior distribution, denoted $P_{T|\mbf y}$, is then defined as the a.s. unique one verifying
+    \begin{equation}
+        \forall A\in\sY^{\otimes k},\,\forall B\in\sT,\, \int_{A}\PP_{T|\mbf y}(B)d\PP_{\mbf Y}(\mbf y) = \int_B \PP_{\mbf Y|\theta}(A)d\Pi(\theta).
+    \end{equation}
+We can notice that the posterior distribution is always absolutely continuous w.r.t. the prior distribution.
 
 
-%\subsection{Limitations of the State-of-the-art}
-
-\section{Reference priors}
+\subsection{Likelihood and densities}
 
 
-\subsection{Definitions and concepts}
+It is common to assume that the statistical model admits a likelihood: there exists a collection of density functions $(\ell(\cdot|\theta))_{\theta\in\Theta}$  w.r.t. a common  $\sigma$-finite measure $\mu$ on $\cY$ such that for $\Pi$-a.e. $\theta\in\Theta$:
+    \begin{equation}
+        \forall A\in\sY,\,\PP_{Y|\theta} = \int_A\ell(y|\theta)d\mu(y).
+    \end{equation}
+This way, $\PP_{\mbf Y}$ admits a \textbf{marginal density} $p_{\mbf Y}$ w.r.t. $\mu^{\otimes k}$ defined as
+    \begin{equation}
+        \forall\mbf y\in\cY^k,\, p_{\mbf Y}(\mbf y) = \int_\Theta\prod_{i=1}^k\ell(y_i|\theta) d\pi(\theta) = \int_\Theta \ell_k(\mbf y|\theta)d\pi(\theta),
+    \end{equation}
+where $\ell_k(\mbf y|\theta)$ denotes $\prod_{i=1}^k\ell(y_i|\theta)$ and is called the likelihood.
+
+Also, we can suppose that $\Pi$ admits a \textbf{prior density} $\pi$ w.r.t. a $\sigma$-finite measure $\nu$ on $\Theta$ (usually, it is simply assumed that $\Theta\subset\RR^d$ and $\nu$ is the Lebesgue measure). 
+%We acknowledge that it is usual to make the confusion between the prior distribution and its density, while there is no ambiguity doing so. 
+%Thus, we denote by $\pi$ the density of $\i$ w.r.t. $\nu$. 
+The posterior distribution admits a \textbf{posterior density} $p(\cdot|\mbf y)$ w.r.t. $\nu$ defined by
+    \begin{equation}
+        \forall\theta\in\Theta,\, p(\theta|\mbf y) = \frac{\ell_k(\mbf y|\theta)\pi(\theta)}{p_{\mbf Y}(\mbf y)}\text{\ if\ } p_{\mbf Y}(\mbf y)\ne0,\ p(\theta|\mbf y)=1 \text{\ otherwise}.
+    \end{equation}
+%The same way, 
+To conclude this section, we acknowledge the usual confusion between the notation for the random variable $T$ and notation for the values it takes $\theta$. Thus, we might refer as ``the distribution of $\theta$'' or the ``distribution conditionally to $\theta$'' to respectively mention the prior distribution or the conditional distributions to $T=\theta$.
 
 
-\subsection{The reference prior theory in the appropriate framework, review of the definitions and the properties of the reference priors}
+\subsection{Improper priors}
+
+It is common when dealing with non-informative priors in Bayesian analysis to define improper ones.
+Improper priors are defined as distributions whose density $\pi$ integrates to infinity: $\int_\Theta\pi(\theta)d\nu(\theta)=\infty$. 
+
+Of course, such a prior is not a probability distribution anymore, so that the framework elucidated in Section ?? does not stand. 
+A way-around to be able to use improper priors is to focus on restrictions of the model. In precise terms,  as $\nu$ is a $\sigma$-finite measure, there exist an increasing sequence $(B_n)$ of elements in $\Theta$ such that 
+$\Theta=\bigcup{n\in\NN}B_n$ and $\nu(B_n) <\infty$.
+An improper prior is said to be admissible if for any $n$, $\int_{B_n}\pi(\theta)d\nu(\theta)<\infty$, and if there exists $n_0$ such that $\int_{B_n}\pi(\theta)d\nu(\theta)>0$.
+
+In this case, on any $\tilde\Theta\in\sT$ such that there exists $N\in\NN$ verifying $\tilde\Theta\subset\bigcup_{n\geq n_0}^NB_n$ and such that $B_{n_0}\subset\tilde\Theta$, one can define the probability space $(\tilde\Theta,\tilde\sT,\tilde\Pi)$ with:
+    \begin{equation}
+        \tilde\sT = \{B\cap\tilde\Theta,\,B\in\sT\},\quad\forall \tilde B\in\tilde\sT,\,\tilde\Pi(\tilde B) = \frac{\int_{\tilde B}\pi(\theta)d\nu(\theta)}{\int_{\tilde\Theta}\pi(\theta)d\nu(\theta)}.
+    \end{equation}
+Thus, restricting the study to $\tilde\Theta$ let the modeling of previous sections to stand, that modeling is the restricted modeling driven by $\tilde\Theta$. 
+The probability $\Tilde\Pi$ (respectively its density) is referred as the restriction of the prior $\Pi$ (resp. of the prior density $\pi$) to $\tilde\Theta$.
+
+On any restricted model, the posterior and the marginal distributions exist. 
+Given two restrictions driven by $\tilde\Theta_1$ and $\tilde\Theta_2$, the restricted prior densities $\tilde\pi_1$ and $\tilde\pi_2$ are equal on $\tilde\Theta_1\cap\tilde\Theta_2$ up to a constant:
+    \begin{equation}
+        \tilde\pi_1(\theta) = K\tilde\pi_2(\theta),\quad\text{so that}\quad \forall \mbf y\in\cY^k,\,\tilde p_{1,\mbf Y}(\mbf y) = K\tilde p_{2,\mbf Y}(\mbf y),
+    \end{equation}
+where $\tilde p_{1,\mbf Y}$ (reps. $\tilde p_{2,\mbf Y}$) denotes the marginal density in the restricted model driven by $\tilde\Theta_1$ (resp. $\tilde\Theta_2$). Thus, calling $\tilde p_1(\cdot | \mbf y)$ (resp. $\tilde p_2(\cdot | \mbf y)$) the posterior density given the observations $\mbf y$ and under the restricted model driven by $\tilde\Theta_1$ (resp. $\tilde\Theta_2$), we have
+    \begin{equation}
+        \forall\theta\in\tilde\Theta_1\cap\tilde\Theta_2,\, \tilde p_1(\theta | \mbf y) =\tilde p_2(\theta | \mbf y).
+    \end{equation}
+We conclude that the posterior density is always well defined on $\Theta$ when the improper prior is admissible.
+If the posterior density integrates to $\infty$, the posterior is said to be improper.
 
 
+
+
+%We denote that density by $\pi$ as well, this slight abuse 
+
+\section{Mutual information and reference priors}
+
+\subsection{Mutual information}
+
+
+The principle of the theory 
+is to minimize the role of the prior within the posterior, in order to maximize the information gain from the data.
+Thus, it amounts to maximize how ``away'' is the prior to the posterior.
+
+When it resorts to compare information between probability distributions, we generally consider dissimilarity measures. The most common one is the Kullback-Leibler divergence, it is the one that is considered in the historical settings of the reference prior theory.
+We recall below the expression of the Kullback-Leibler divergence between two distribution $P$ and $Q$ on $\cX$, which admit densities w.r.t. a common measure $\omega$:
+    \begin{equation}
+        \text{KL}(Q||P)=\int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\omega(x).
+    \end{equation}
+
+Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\Pi)$. As observed sample $\mbf y$ is unknown, we consider the average value of the divergence:
+\begin{defi}[Mutual information]\label{def:intro-ref-MI}
+    Given a Bayesian framework defined as in Section ??, and given a number of observations $k$, the mutual information is defined as the quantity
+    \begin{equation}
+        \sI^k(\Pi) =  \EE_{\mbf Y\sim \PP_{\mbf Y}}[\text{KL}(\PP_{T|\mbf Y}||\Pi)] =  \int_{\cY^k}\text{KL}(\PP_{T|\mbf y}||\Pi) p_{\mbf Y}(\mbf y)d\mbf y.
+    \end{equation}
+\end{defi}
+
+
+%This quantity is called the mutual information.
+
+We recall that the definition of the mutual information is not limited to the scope of Bayesian analysis. In information theory it is common to refer to the mutual information $\sI(X,Z)$ between a random variable $X$ and a random variable $Z$. The quantity in \cref{def:intro-ref-MI} aligns with their definition of the mutual information $\sI(T,\mbf Y)$ between the random parameter $T$ and the random data $\mbf Y$.
+
+One can apply Fubini-Lebesgue's theorem to write the mutual information as
+\begin{equation}
+    \sI^k(\Pi) =  \EE_{\mbf Y\sim \PP_{\mbf Y}}[\text{KL}(\PP_{T|\mbf Y}||\Pi)] =  \EE_{T\sim\Pi}[\text{KL}(\PP_{\mbf Y|\theta}||\PP_{\mbf Y}) ]
+\end{equation}
+This second expression allows an interpretation of the mutual information from another viewpoint: it measures how the parameter $T$ impacts the distribution of $\mbf Y$.
+
+
+This construction is called a way-around because the framework remains incomplete: $T$ is not appropriately defined anymore, nor the marginal distribution $\PP_{\mbf Y}$. Later in this chapter, we will introduce a novel construction that authorize the definition of improper prior in a more suitable way.
+Before that, the current construction is enough to define the reference priors among the admissible priors: priors that are either proper, either admissible improper priors.
+%In the next section, a classe of 
+
+
+
+
+
+
+
+\subsection{Reference priors}
+
+Reference priors are defined as the priors that are expected to maximize the role of the observed data within the posterior distribution.
+Consequently, they are historically sought as maximizer of the mutual information.
+
+However, formally maximizing the mutual information $\sI^k(\Pi)$ w.r.t. $\Pi$ presents three main issues. %, as its expression depends on the value of $k$.
+First, its expression depends on the value of the number of  observations $k$, and $k$ alters the form of its maximal argument. %The prior expression comes, by nature, prior to the observations, and should depend neither on $k$, neither on $\mbf y$. A 
+%In normal settings, there are no knowledge on the v
+This problem is tackled arguing that $\sI^k$ only measures a limited quantity of information brought by $T$ onto the distribution of the data $\mbf Y$. The Bayesian framework does considerate the data $(Y_1,\dots,Y_k)$ to be independent, so that the distribution of $\mbf Y$ is enriched as $k$ rises.
+According to \citet{bernardo_bayesian_1994}, the limit $\sI^\infty$ (if it exists) measures the knowledge missing form the prior.
+Thus, the formal definition tends to maximize $\sI^k$ as $k$ diverges to $\infty$.\\
+The second issue comes with the fact that the quantity $\sI^k(\Pi)$ does not often admit a finite limit as $k\to\infty$.\\
+The third issue is that the mutual information is only correctly defined when the prior is proper, while many non-informative priors used in Bayesian analysis are improper.
+
+The commonly admitted definition for the reference prior, which takes into account the three issues aforementioned is the following, adapted from \cite{dey_reference_2005}.
+\begin{defi}[Reference priors]\label{def:intro-ref:ref-priors}
+    Let $\cP$ be class of priors on $\Theta$, a prior $\Pi\in\cP$ %whose prior density is $\pi$ 
+    is a reference prior over $\cP$ if there exist an increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\Pi(\Theta_i)<\infty  $ and
+        \begin{equation}
+            \lim_{k\rightarrow\infty} (\sI^k_i(\Pi_i) - \sI^k_i(P_i) )\geq 0 \text{\ for all\ } P\in\cP_i
+        \end{equation}
+    with equality if and only if $\Pi_i=P$; with $\Pi_i$ (resp. $P_i$) being the restriction of $\Pi$ (resp. $P$) on $\Theta_i$, $\sI_i^k$ denoting the mutual information on the restricted modeling driven by $\Theta_i$, and $\cP_i=\{P\in\cP,\,0<P(\Theta_i)<\infty\}$.
+\end{defi}
+
+
+This definition will serve as a reference. It considers a set $\cP$ called a class of priors. 
+We provide a thorough definition of such a class in Section ??.
+Until then, it refers to a set of priors that are admissible as described in the section ??.
+
+
+We must note that other definition of the reference priors exist.
+In the geneses of the reference prior theory, \citet{bernardo_reference_1979} suggested maximizing the mutual information $\sI^k$, and derive the limit of the maximizers when $k\to\infty$ to define reference priors.
+In \cite{berger_formal_2009}, the authors prove that in the real and one parameter case (i.e. $\Theta\subset\RR$), this strategy is consistent with \cref{def:intro-ref:ref-priors}. Their result is the following, sometimes taken as a defintion.
+
+\begin{thm}[Explicit for of the reference prior]\label{thm:intro-ref:explicitRP}
+    Assume $\Theta\subset\RR$ with $\nu$ being the Lebesgue measure.\\
+    Call $\cP_s$ the class of admissible priors that are positive and continuous, and that issue proper posterior distributions.\\
+    Let $\Pi^\ast\in\cP_s$ we call $p^\ast(\cdot|\cdot)$ its posterior and define for any interior point $\theta_0\in\Theta$,
+        \begin{equation}
+            % \begin{aligned}
+                f_k(\theta) = \exp\left(\int_{\cY^k}\ell_k(\mbf y|\theta)\log(p^\ast(\theta|\mbf y)) d\mbf y \right) \quad\text{and}\quad  %\\
+                f(\theta) = \lim_{k\rightarrow\infty}\frac{f_k(\theta)}{f_k(\theta_0)}.
+            % \end{aligned}
+        \end{equation}
+    If: (i) $ \forall \theta,\eps>0,\,\int_{|\tau-\theta|} p^\ast(\tau|\mbf y)d\tau \conv[\PP_{\mbf Y|\theta}]{k\rightarrow\infty}1$,\\ (ii) each $f_k$ is continuous with $\forall k,\theta,\, \frac{f_k(\theta)}{f_k(\theta_0)} <h(\theta)$ such that $h$ is integrable on any compact set, and\\
+    (iii) $f$ is the density of $F\in\cP_s$  and is such that for any increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ that covers $\Theta$, calling $g_i$ the restricted posterior density of $F$ on $\Theta_i$, we have $\forall \mbf y,\, \int_{\Theta_i}g_i(\theta|\mbf y)\log\frac{g_i(\theta|\mbf y)}{g(\theta|\mbf y)}d\theta \conv{i\rightarrow\infty}0$ where $g$ is $F$'s posterior,\\
+    then $F$ is the reference prior
+ \end{thm}
+
+
+%
+
+
+\Cref{def:intro-ref:ref-priors} and \cref{thm:intro-ref:explicitRP}
+both define reference prior as maximizer of the mutual information.
+While there is consensus that such an approach leads to appropriate objective priors in low-dimensional cases, it is not always the case in high-dimensional settings.
+Indeed, the prior maximizing the mutual information has often non-desirable properties in such scenarios, according to \citet{berger_overall_2015}. %They say that the actual maximizer of the mutual information is either too diffuse either too con
+In \cite{berger_development_1992}, the authors details their suggestion to define the reference priors hierarchically, by considering an ordering of the parameters:
+ \begin{equation}\label{eq:intro-ref:hierartheta}
+     \theta = (\theta_1,\dots,\theta_r) \in \Theta=\Theta_1\times\dots\times\Theta_r,
+ \end{equation}
+Typically, it is recommended to assume $\Theta_j\subset\RR^{d_j}$ with small dimensions $d_j$ (e.g., lower or equal than $2$) for any $j\in\{1,\dots,r\}$, and to sequentially build a reference prior on the $\Theta_j$,  $j\in\{1,\dots,r\}$:
+ \begin{enumerate}
+     \item initially fix $\ell_k^1=\ell_k$;
+     \item for any values of $\theta_{j+1},\dots,\theta_r\in\Theta_{j+1}\times\dots\times\Theta_r$, compute a reference prior (in the sense of \cref{def:intro-ref:ref-priors}) $\pi_j(\cdot|\theta_{j+1},\dots,\theta_r)$ under the model with likelihood $\theta_j\mapsto\ell_k^j(\mbf y|\theta_j,\dots,\theta_r)$;
+     \item derive $\ell_k^{j+1}$ such as 
+         \begin{equation}\label{eq:hier:condlikeint}
+            \ell_k^{j+1}(\mbf y|\theta_{j+1},\dots,\theta_r) =  \int_{\Theta_j}\ell_k^j(\mbf y|\theta_j,\dots,\theta_r)d\pi_j(\theta_j|\theta_{j+1},\dots,\theta_r).
+         \end{equation}
+ \end{enumerate}
+
+
+This construction is often considered in the literature when it resorts to define reference prior in multidimensional context. 
+However, it relies on the hierarchization of the parameter fixed in \cref{eq:intro-ref:hierartheta}, and the recommended  one depend on the model of interest.
+There are a few models, such as the multinomial one for which the different reference priors resulting from this construction have been extensively studied. In the case of the multinomial model, it is claimed that this construction with an ordering where $r=d$ when $\Theta\subset\RR^d$ must be favored  \citep{berger_ordered_1992,berger_overall_2015}.
+
+
+
+
+\subsection{Properties}
+
+
+travaux de clarke
 
 %\section{The concept of objective priors and the role of mutual information}
 
 %\section{Reference prior definition and properties}
 
 \section{A framework for Bayesian inference with improper priors}
+
+Framework et discussion sur ce qu'on a dit avant, comment ça tient toujours
 
 \section{Open paths and conclusion}
 
