@@ -264,7 +264,8 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
 \begin{itemize}
     \item La métamodélisation %, %le plus souvent par processus gaussien (appellé aussi krigeage), ou par polynomes du chaos, 
     permet de contrevenir la complexité d'évaluation du modèle $\cM$, en construisant un métamodèle $\tilde\cM$, entraîné à partir d'une base de données d'observations $(\mbf x_1, y_1),\dots,(\mbf x_k,y_k)$. Le méta-modèle se veut par principe plus simple à évaluer que le modèle réel. 
-    Rien ne limite sa définiton explicitement qui peut aller d'un simple modèle paramétrique à la sortie d'un réseau de neurones ; parmi les plus commun on peut évoquer la méta-modélisation par processus gaussien (ou krigeage) et par polynômes du chaos.
+    Rien ne limite sa définiton explicitement qui peut aller d'un simple modèle paramétrique à la sortie d'un réseau de neurones ``boite noire'' ; parmi les plus commun on peut évoquer la méta-modélisation par processus gaussien (ou krigeage) et par polynômes du chaos. 
+    %
     \item Les indices globaux de sensibilité s'inscrive pleinement dans l'étape d'analyse de sensibilité du système. Ils consistuent depuis les premiers travaux de \citet{sobol_sensitivity_1993} des outils essentiels pour mesurer statistiquement comment $ Y$ est impactée par un ou plusieurs des $X_i$ (où $(X_1,\dots,X_p)=\mbf X$). Dans ce cadre, l'impact, noté $S_i$, de l'entrée $X_i$ sur $ Y$ s'exprime comme une divergence moyenne entre la distribution $\PP_{ Y}$ de $ Y$ et sa distribution conditionalement à $\mbf X$, $\PP_{Y|\mbf X}$ \citep{da_veiga_global_2015} : 
         \begin{equation}
             S_i = \EE_{X_i}[D(\PP_{ Y}||\PP_{Y|X_i})],
@@ -440,7 +441,9 @@ L'analyse bayésienne a gagné en popularité dans de nombreux domaines, y compr
 En effet, elle est plébiscitée pour sa capacité (i) à introduire et propager une incertitude dans un problème d'inférence, et (ii) à être plus régulière que beaucoup de métodes fréquentistes, en particulier lorsque le nombre de données observées est limité.
 
 Le cadre de l'inférence bayésienne s'introduit en effet bien dans la démarche de quantification d'incertitudes. 
-L'identification des incertitudes sur l'entrée $\mbf X$ ou sur le modèle même $\cM$ (ou bien s'il y a lieu le méta-modèle) peut se faire au travers d'une paramétrisation de celles-ci, en donnant lieu à une distribution paramétrique de $Y$ : $\PP_{Y|\mbf X,\theta}$. La variable $\theta$, aléatoire sous le paradigme bayésien, peut alors représenter diverses sources d'incertitudes, de différentes natures selon les cas \citep{bousquet_contributions_2024}.
+L'identification des incertitudes sur l'entrée $\mbf X$ ou sur le modèle même $\cM$ (ou bien s'il y a lieu le méta-modèle) peut se faire au travers d'une paramétrisation de celles-ci, en donnant lieu à une distribution paramétrique de $Y$ : $\PP_{Y|\mbf X,\theta}$.
+La variable $\theta$, aléatoire sous le paradigme bayésien, peut alors représenter diverses sources d'incertitudes, de différentes natures selon les cas \citep{bousquet_contributions_2024}. Cette approche a été employée à pléthore dans divers types de modèles, on peut citer par exemple le cas de processus gaussiens (par ex. \cite{gu_parallel_2016}) ou des réseaux de neurones \citep{arbel_bayes_2023}. 
+
 
 
 Parfois, certaines études adoptent la démarche pour la possibilité qu'elle offre d'introduire un jugement  ou une conaissance \emph{a priori}.
@@ -525,7 +528,7 @@ Dans le \cref{chap:prem}, on propose un calcul et une étide en profondeur du pr
 Dans le \cref{chap:constrained-frags}, on s'intéresse en profondeur aux limites du modèle considéré pour l'estimation des courbes de fragilité. On propose une solution qui est appuyé par les développement théoriques de la première partie. Ce chapitre apporte une réponse à la \textbf{question v}.
 
 \noindent
-Dans le \cref{chap:doe}, on termine notre étude en proposant une méthode qui ient appuyer l'estimation bayésienne en optimisant l'information issue des données non plus seulement  lors du choix du prior mais également lors de la sélection de celles-ci, au travers d'une méthode de planification d'expériences. Ce chapitre apporte une réponse à la \textbf{question vi}.\\
+Dans le \cref{chap:doe}, on termine notre étude en proposant une méthode qui vient appuyer l'estimation bayésienne en optimisant l'information issue des données non plus seulement  lors du choix du prior mais également lors de la sélection de celles-ci, au travers d'une méthode de planification d'expériences. Ce chapitre apporte une réponse à la \textbf{question vi}.\\
 
 
 Une conclusion générale viendra clore le manuscrit dans une \textbf{\cref{part:conclusion}} finale.
