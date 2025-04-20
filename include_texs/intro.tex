@@ -7,7 +7,7 @@
 \addtolength{\textminusquest}{-\questlenght}
 \newcommand{\ques}[2]{%
 \noindent\textbf{Question #1}\hfill
-\begin{minipage}[t]{\textminusquest}
+\begin{minipage}[t][25pt][t]{\textminusquest}
     #2
 \end{minipage}    
 }
@@ -307,7 +307,7 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
     Bien sûr, il existe aussi de nombreuses mesures de dissimilarité qui ne sont pas des $f$-divergences, à ce titre, les indices de Sobol' du premier ordre évoqués plus haut font offices d'exemple. Un autre exemple notable présenté ici est celui des normes maximales de discrépances (MMD). Soient $P$, $Q$ deux mesures de probabilité définies sur un ensemble $\cX$, et soit $\cH$ un espace de Hilbert à noyau reproduisant (RKHS ; un rappel sur cette notion et ses définitions est proposé en annexe) sur $\cX$,  dont le noyau reproduisant est noté $k:\cX\times\cX\to\CC$. %On peut définir les imbrications moyennes  \cite{gretton_kernel_2012}
     On définit la MMD (\cite{gretton_kernel_2012}) par
         \begin{equation}
-            \text{MMD}(\cH;\,P||Q) = \sup_{\substack{f\in\cH\\ \|f\|_\cH\leq1}} |\EE_{X\sim P}f(x) - \EE_{X\sim Q}f(X)|,
+            \text{MMD}(\cH;\,P||Q) = \sup_{\substack{f\in\cH\\ \|f\|_\cH\leq1}} |\EE_{X\sim P}f(X) - \EE_{X\sim Q}f(X)|,
         \end{equation}
     ou, dans une forme plus simple :
         \begin{equation}
