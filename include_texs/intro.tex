@@ -264,9 +264,11 @@ De nombreux outils mathématiques viennent appuyer les etapes sus-mentionnées. 
 \begin{itemize}
     \item La métamodélisation %, %le plus souvent par processus gaussien (appellé aussi krigeage), ou par polynomes du chaos, 
     permet de contrevenir la complexité d'évaluation du modèle $\cM$, en construisant un métamodèle $\tilde\cM$, entraîné à partir d'une base de données d'observations $(\mbf x_1, y_1),\dots,(\mbf x_k,y_k)$. Le méta-modèle se veut par principe plus simple à évaluer que le modèle réel. 
-    Rien ne limite sa définiton explicitement qui peut aller d'un simple modèle paramétrique à la sortie d'un réseau de neurones ``boite noire'' ; parmi les plus commun on peut évoquer la méta-modélisation par processus gaussien (ou krigeage) et par polynômes du chaos. 
+    Rien ne limite sa définiton explicitement qui peut aller d'un simple modèle paramétrique à la sortie d'un réseau de neurones ``boite noire'' ; parmi les plus commun on peut évoquer la méta-modélisation par processus gaussien (ou krigeage) et par polynômes du chaos. %Dans le cadre d'études de sûreté, on citera par exemple \cite{}
     %
-    \item Les indices globaux de sensibilité s'inscrive pleinement dans l'étape d'analyse de sensibilité du système. Ils consistuent depuis les premiers travaux de \citet{sobol_sensitivity_1993} des outils essentiels pour mesurer statistiquement comment $ Y$ est impactée par un ou plusieurs des $X_i$ (où $(X_1,\dots,X_p)=\mbf X$). Dans ce cadre, l'impact, noté $S_i$, de l'entrée $X_i$ sur $ Y$ s'exprime comme une divergence moyenne entre la distribution $\PP_{ Y}$ de $ Y$ et sa distribution conditionalement à $\mbf X$, $\PP_{Y|\mbf X}$ \citep{da_veiga_global_2015} : 
+    \item Les indices globaux de sensibilité s'inscrive pleinement dans l'étape d'analyse de sensibilité du système.
+    % 
+    Ils consistuent depuis les premiers travaux de \citet{sobol_sensitivity_1993} des outils essentiels pour mesurer statistiquement comment $ Y$ est impactée par un ou plusieurs des $X_i$ (où $(X_1,\dots,X_p)=\mbf X$). Dans ce cadre, l'impact, noté $S_i$, de l'entrée $X_i$ sur $ Y$ s'exprime comme une divergence moyenne entre la distribution $\PP_{ Y}$ de $ Y$ et sa distribution conditionalement à $\mbf X$, $\PP_{Y|\mbf X}$ \citep{da_veiga_global_2015} : 
         \begin{equation}
             S_i = \EE_{X_i}[D(\PP_{ Y}||\PP_{Y|X_i})],
         \end{equation}
