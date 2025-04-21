@@ -10,9 +10,9 @@
 \minitoc
 
 
-\section{Introduction}
+\section{Introduction}\label{sec:intro-ref:intro}
 
-Bayesian analysis offers a coherent framework for integrating prior information and updating beliefs with data. The incorporation of prior knowledge can be motivated by various needs, such as enhancing interpretability, introducing uncertainty, or embedding existing knowledge into the analysis. Actually, the selection of this a priori centralizes a lot of attention in Bayesian inference and can be a critical aspect of the method. As a matter of fact, it can significantly influence the posterior distribution and, consequently, the conclusions drawn from the analysis. Thus, an inconsistent or insufficiently justified choice of prior can jeopardize the validity of the entire study, a concern now well identified in the modern Bayesian workflow described in \cite{gelman_bayesian_2020}, and echoed across applied domains.
+Bayesian analysis offers a coherent framework for integrating prior information and updating beliefs with data. The incorporation of prior knowledge can be motivated by various needs, such as enhancing interpretability, introducing uncertainty, or embedding existing knowledge into the analysis. Actually, the selection of this a priori centralizes a lot of attention in Bayesian inference and can be a critical aspect of the method. As a matter of fact, it can significantly influence the posterior distribution and, consequently, the conclusions drawn from the analysis. Thus, an inconsistent or insufficiently justified choice of prior can jeopardize the validity of the entire study, a concern now well identified in the modern Bayesian workflow described in \cite{gelman_bayesian_2020}, and echoed across applied domains.\\
 
 A plethora of approaches exist in the literature to address the prior elicitation problem. They offer different strategies for different purposes. 
 Comprehensive reviews of such methods are proposed in \cite{mikkola_prior_2023}
@@ -20,16 +20,17 @@ and in \cite{consonni_prior_2018}, for instance.
 Among the different challenges that are commonly addressed by these methods, we can emphasize (i) the incorporation of information, (ii) the ease of posterior inference, or (iii) the research for interpretability.\\
 The former refers to the so-called ``informative priors'', because their distributions tend to concentrate the information. %in some area of the doamin.  significantly inform the posterior distribution with strong distribution tails.
 They aim to incorporate genuine prior knowledge about parameters, often arising from past data, domain expertise, physical constraints, or theoretical understanding. %They are particularly common in fields like clinical trials, risk analysis, ecology, and engineering, where historical information is abundant or regulatory frameworks encourage explicit prior modeling.
-The difficulty lies in doing so transparently, reproducibly, and justifiably, especially when seeking to avoid subjective bias.\\
-Regarding the second, we can recall conjugate priors (see e.g. \cite{robert_bayesian_2007}) that are designed to provide a simple formulation of the posterior. Penalized Complexity (PC) priors \citep{simpson_penalising_2017} and sparse priors \citep{castillo_bayesian_2015} are made to be suitable for high-dimensional problems; and g-priors \citep{liang_mixtures_2008} are used for variable selection in normal regression models.\\
+The difficulty lies in doing so transparently, reproducibly, and justifiably, especially when seeking to avoid subjective bias.
+
+Regarding the second, we can recall conjugate priors (see e.g. \cite{robert_bayesian_2007}) that are designed to provide a simple formulation of the posterior. Penalized Complexity (PC) priors \citep{simpson_penalising_2017} and sparse priors \citep{castillo_bayesian_2015} are made to be suitable for high-dimensional problems; and g-priors \citep{liang_mixtures_2008} are used for variable selection in normal regression models.
+
 Thirdly, in order to provide a better interpretability of the information transmission process, several studies favor a hierarchical design, in which the prior is the result of a latent prior modeling. This approach allows the use of historical data, as in power priors \citep{chen_relationship_2006} and Information Matrix priors \citep{gupta_information_2009}; or even imaginary data \citep{perez_expectedposterior_2002,spitzner_neutral-data_2011}. Posterior priors, developed for sensitivity analysis studies \citep{bousquet_discussion_2024}, are also part of this approach. %with imaginary data. 
 These hierarchical constructions are appreciated for their ability to tackle the improper aspect (they integrate to infinity) of most low-informative priors
-(priors whose distribution is more diffuse through the parameter's space, in opposition with informative priors)
+(priors whose distribution is more diffuse through the parameter's space, in opposition with informative priors).\\
 
 
 
 Many of these  methods involve subjective choices that remain open to criticism. Often, they are based on the selection of a class and hyperparameters that remain to be tuned.
-
 
 The research for so-called ``objective priors'' arose in contexts where the incorporation of uncritical beliefs is impossible (either by lack of available beliefs, or by lack of confidence within the existing ones).
 In those contexts, there is consensus that an appropriate prior belongs within the non-informative ones. In this respect, \citet{lindley_measure_1956} already suggested the maximization of the Shannon's entropy, as a way to choose a prior that would provide the least possible information.
@@ -41,8 +42,9 @@ the idea was to shift from minimizing the information in the prior to maximizing
 This notion of expected information, is defined with the support of the mutual information which allows for a formal construction of priors that are designed to let the data dominate the inference.
 
 The reference prior theory has been extensively studied since its deepen formalization by \citet{berger_formal_2009}. For instance, \citet{mure_objective_2018} provides a comprehensive review of the theory.
-This chapter proposes a novel brief review of the reference prior theory, fixing the framework (in section ??) and defining its main tools, such as the mutual information (in section ??). The reference prior are formally defined in section ??, and we review its different properties that are proven in the literature.
-Eventually, this section is the occasion to discuss the limitations of the standard framework of the reference prior, and to suggest a solution based on novel formalization of the Bayesian inference tools.  The latter fixes the mathematical elements and notations that we will manipulate through the whole manuscript.
+This chapter proposes a novel brief review of the reference prior theory, fixing the framework and defining its main tools (in \cref{sec:intro-ref:classical-framework}). %, such as the mutual information. 
+The reference priors are formally defined in \cref{sec:intro-ref:mutalinfo-ref-priors}, and we review its different properties that are proven in the literature.
+Eventually, this chapter is the occasion to discuss the limitations of the standard framework of the reference prior, and to suggest a solution based on an original formalization of the Bayesian inference tools.  The latter in done in \cref{sec:intro-ref:novelframework} and fixes the mathematical elements and notations that we will manipulate through the whole manuscript.
 
 
 
@@ -57,14 +59,14 @@ Eventually, this section is the occasion to discuss the limitations of the stand
 % Informative priors aim to incorporate genuine prior knowledge about parameters, often arising from past data, domain expertise, physical constraints, or theoretical understanding. They are particularly common in fields like clinical trials, risk analysis, ecology, and engineering, where historical information is abundant or regulatory frameworks encourage explicit prior modeling.
 
 
-\section{The standard Bayesian framework}
+\section{The standard Bayesian framework}\label{sec:intro-ref:classical-framework}
 
-\subsection{A minimal framework}
+\subsection{A minimal framework}\label{sec:intro-ref:minimalclassicframework}
 
 The Bayesian framework is commonly defined from the given of statistical model.
 Let $(\Omega,\sP,\PP)$ be a probability space, and define $Y$, a random variable defined on $\Omega$ and taking values on a measurable space $(\cY,\sY)$.
-A statistical model is characterized by a collection of parameterize probability measure $(\PP_{Y|\theta})_{\theta\in\Theta}$ on $(\cY,\sY)$.
-The Bayesian viewpoint considers a random variable $T:\Omega\to\Theta$ taking values in a measurable space $(\Theta,\sT)$, following a prior distribution denoted $\Pi$, and which is such that the conditional distribution of $Y$ to $T=\theta$ is $\PP_{Y|\theta}$. In other terms:
+A statistical model is characterized by a collection of parameterized probability measures $(\PP_{Y|\theta})_{\theta\in\Theta}$ on $(\cY,\sY)$.
+The Bayesian viewpoint considers a random variable $T:\Omega\to\Theta$ taking values in a measurable space $(\Theta,\sT)$, following a \textbf{prior distribution} denoted $\Pi$, and which is such that the conditional distribution of $Y$ to $T=\theta$ is $\PP_{Y|\theta}$. In other terms:
     \begin{equation}
         \forall A\in\sY,\,B\in\sT,\, \PP(Y\in A,\, T\in B) = \int_B \PP_{Y|\theta}(A) d\Pi(\theta).
     \end{equation}
@@ -74,16 +76,16 @@ In practice, $k$ realizations $\mbf y= (y_1,\dots,y_k)$ of the r.v. $Y$ are obse
 \begin{equation}
     \forall A\in\sY^{\otimes k},\, \PP_{\mbf Y}(A) = \int_\Theta \PP_{\mbf Y|\theta}(A)d\Pi(\theta),
 \end{equation}
-where $\PP_{\mbf Y|\theta}:=\PP_{Y|\theta}^{\otimes k}$. The distribution $\PP_{\mbf Y}$ is called the marginal distribution.
+where $\PP_{\mbf Y|\theta}:=\PP_{Y|\theta}^{\otimes k}$. The distribution $\PP_{\mbf Y}$ is called the \textbf{marginal distribution}.
 
-Given the observations $\mbf y$, the posterior distribution, denoted $P_{T|\mbf y}$, is then defined as the a.s. unique one verifying
+Given the observations $\mbf y$, the \textbf{posterior distribution}, denoted $P_{T|\mbf y}$, is then defined as the a.s. unique one verifying
     \begin{equation}
         \forall A\in\sY^{\otimes k},\,\forall B\in\sT,\, \int_{A}\PP_{T|\mbf y}(B)d\PP_{\mbf Y}(\mbf y) = \int_B \PP_{\mbf Y|\theta}(A)d\Pi(\theta).
     \end{equation}
 We can notice that the posterior distribution is always absolutely continuous w.r.t. the prior distribution.
 
 
-\subsection{Likelihood and densities}
+\subsection{Likelihood and densities}\label{sec:intro-ref:likelihoods}
 
 
 It is common to assume that the statistical model admits a likelihood: there exists a collection of density functions $(\ell(\cdot|\theta))_{\theta\in\Theta}$  w.r.t. a common  $\sigma$-finite measure $\mu$ on $\cY$ such that for $\Pi$-a.e. $\theta\in\Theta$:
@@ -107,14 +109,14 @@ The posterior distribution admits a \textbf{posterior density} $p(\cdot|\mbf y)$
 To conclude this section, we acknowledge the usual confusion between the notation for the random variable $T$ and notation for the values it takes $\theta$. Thus, we might refer as ``the distribution of $\theta$'' or the ``distribution conditionally to $\theta$'' to respectively mention the prior distribution or the conditional distributions to $T=\theta$.
 
 
-\subsection{Improper priors}
+\subsection{Improper priors}\label{sec:intro-ref:improperway-around}
 
 It is common when dealing with non-informative priors in Bayesian analysis to define improper ones.
 Improper priors are defined as distributions whose density $\pi$ integrates to infinity: $\int_\Theta\pi(\theta)d\nu(\theta)=\infty$. 
 
-Of course, such a prior is not a probability distribution anymore, so that the framework elucidated in Section ?? does not stand. 
+Of course, such a prior is not a probability distribution anymore, so that the framework elucidated in \cref{sec:intro-ref:minimalclassicframework,sec:intro-ref:likelihoods} does not stand. 
 A way-around to be able to use improper priors is to focus on restrictions of the model. In precise terms,  as $\nu$ is a $\sigma$-finite measure, there exist an increasing sequence $(B_n)$ of elements in $\Theta$ such that 
-$\Theta=\bigcup{n\in\NN}B_n$ and $\nu(B_n) <\infty$.
+$\Theta=\bigcup_{n\in\NN}B_n$ and $\nu(B_n) <\infty$.
 An improper prior is said to be admissible if for any $n$, $\int_{B_n}\pi(\theta)d\nu(\theta)<\infty$, and if there exists $n_0$ such that $\int_{B_n}\pi(\theta)d\nu(\theta)>0$.
 
 In this case, on any $\tilde\Theta\in\sT$ such that there exists $N\in\NN$ verifying $\tilde\Theta\subset\bigcup_{n\geq n_0}^NB_n$ and such that $B_{n_0}\subset\tilde\Theta$, one can define the probability space $(\tilde\Theta,\tilde\sT,\tilde\Pi)$ with:
@@ -138,12 +140,15 @@ If the posterior density integrates to $\infty$, the posterior is said to be imp
 
 
 
+This construction is called a way-around because the framework remains incomplete: $T$ is not appropriately defined anymore, nor the marginal distribution $\PP_{\mbf Y}$. Later in this chapter, we will introduce a novel construction that authorize the definition of improper prior in a more suitable way.
+Before that, the current construction is enough to define the reference priors among the admissible priors: priors that are either proper, either admissible improper priors.
+
 
 %We denote that density by $\pi$ as well, this slight abuse 
 
-\section{Mutual information and reference priors}
+\section{Mutual information and reference priors}\label{sec:intro-ref:mutalinfo-ref-priors}
 
-\subsection{Mutual information}
+\subsection{Mutual information}\label{sec:intro-ref:mutualinfo}
 
 
 The principle of the theory 
@@ -151,14 +156,14 @@ is to minimize the role of the prior within the posterior, in order to maximize 
 Thus, it amounts to maximize how ``away'' is the prior to the posterior.
 
 When it resorts to compare information between probability distributions, we generally consider dissimilarity measures. The most common one is the Kullback-Leibler divergence, it is the one that is considered in the historical settings of the reference prior theory.
-We recall below the expression of the Kullback-Leibler divergence between two distribution $P$ and $Q$ on $\cX$, which admit densities w.r.t. a common measure $\omega$:
+We recall below the expression of the Kullback-Leibler divergence between two distribution $P$ and $Q$ on $\cX$, which admit densities $p,q$ w.r.t. a common measure $\omega$:
     \begin{equation}
         \text{KL}(Q||P)=\int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\omega(x).
     \end{equation}
 
-Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\Pi)$. As observed sample $\mbf y$ is unknown, we consider the average value of the divergence:
+Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\Pi)$. As the observed sample $\mbf y$ is unknown, the average value of the divergence is considered:
 \begin{defi}[Mutual information]\label{def:intro-ref-MI}
-    Given a Bayesian framework defined as in Section ??, and given a number of observations $k$, the mutual information is defined as the quantity
+    Given a Bayesian framework defined as in \cref{sec:intro-ref:classical-framework}, and given a number of observations $k$, the mutual information is defined as the quantity
     \begin{equation}
         \sI^k(\Pi) =  \EE_{\mbf Y\sim \PP_{\mbf Y}}[\text{KL}(\PP_{T|\mbf Y}||\Pi)] =  \int_{\cY^k}\text{KL}(\PP_{T|\mbf y}||\Pi) p_{\mbf Y}(\mbf y)d\mbf y.
     \end{equation}
@@ -167,7 +172,7 @@ Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\Pi)$. A
 
 %This quantity is called the mutual information.
 
-We recall that the definition of the mutual information is not limited to the scope of Bayesian analysis. In information theory it is common to refer to the mutual information $\sI(X,Z)$ between a random variable $X$ and a random variable $Z$. The quantity in \cref{def:intro-ref-MI} aligns with their definition of the mutual information $\sI(T,\mbf Y)$ between the random parameter $T$ and the random data $\mbf Y$.
+We recall that the definition of the mutual information is not limited to the scope of Bayesian analysis. In information theory it is common to refer to the mutual information $\sI(X,Z)$ between a random variable $X$ and a random variable $Z$ \citep{mackay_information_2003}. The quantity in \cref{def:intro-ref-MI} aligns with their definition of the mutual information $\sI(T,\mbf Y)$ between the random parameter $T$ and the random data $\mbf Y$.
 
 One can apply Fubini-Lebesgue's theorem to write the mutual information as
 \begin{equation}
@@ -176,8 +181,7 @@ One can apply Fubini-Lebesgue's theorem to write the mutual information as
 This second expression allows an interpretation of the mutual information from another viewpoint: it measures how the parameter $T$ impacts the distribution of $\mbf Y$.
 
 
-This construction is called a way-around because the framework remains incomplete: $T$ is not appropriately defined anymore, nor the marginal distribution $\PP_{\mbf Y}$. Later in this chapter, we will introduce a novel construction that authorize the definition of improper prior in a more suitable way.
-Before that, the current construction is enough to define the reference priors among the admissible priors: priors that are either proper, either admissible improper priors.
+
 %In the next section, a classe of 
 
 
@@ -186,39 +190,50 @@ Before that, the current construction is enough to define the reference priors a
 
 
 
-\subsection{Reference priors}
+\subsection{Reference priors}\label{sec:intro-ref:refpriors}
 
 Reference priors are defined as the priors that are expected to maximize the role of the observed data within the posterior distribution.
-Consequently, they are historically sought as maximizer of the mutual information.
+Consequently, they are historically sought as maximizers of the mutual information.
 
-However, formally maximizing the mutual information $\sI^k(\Pi)$ w.r.t. $\Pi$ presents three main issues. %, as its expression depends on the value of $k$.
-First, its expression depends on the value of the number of  observations $k$, and $k$ alters the form of its maximal argument. %The prior expression comes, by nature, prior to the observations, and should depend neither on $k$, neither on $\mbf y$. A 
-%In normal settings, there are no knowledge on the v
-This problem is tackled arguing that $\sI^k$ only measures a limited quantity of information brought by $T$ onto the distribution of the data $\mbf Y$. The Bayesian framework does considerate the data $(Y_1,\dots,Y_k)$ to be independent, so that the distribution of $\mbf Y$ is enriched as $k$ rises.
-According to \citet{bernardo_bayesian_1994}, the limit $\sI^\infty$ (if it exists) measures the knowledge missing form the prior.
-Thus, the formal definition tends to maximize $\sI^k$ as $k$ diverges to $\infty$.\\
-The second issue comes with the fact that the quantity $\sI^k(\Pi)$ does not often admit a finite limit as $k\to\infty$.\\
-The third issue is that the mutual information is only correctly defined when the prior is proper, while many non-informative priors used in Bayesian analysis are improper.
+However, formally maximizing the mutual information $\sI^k(\Pi)$ w.r.t. $\Pi$ presents three main issues: %, as its expression depends on the value of $k$.
+\begin{enumerate}
+    \item First, its expression depends on the value of the number of  observations $k$, and $k$ alters the form of its maximal argument. %The prior expression comes, by nature, prior to the observations, and should depend neither on $k$, neither on $\mbf y$. A 
+    %In normal settings, there are no knowledge on the v
+    This problem is tackled arguing that $\sI^k$ only measures a limited quantity of information brought by $T$ onto the distribution of the data $\mbf Y$. The Bayesian framework does considerate the data $(Y_1,\dots,Y_k)$ to be independent, so that the distribution of $\mbf Y$ is enriched as $k$ rises.
+    According to \citet{bernardo_bayesian_1994}, the limit $\sI^\infty$ (if it exists) measures the knowledge missing form the prior.
+    Thus, the formal definition tends to maximize $\sI^k$ as $k$ diverges to $\infty$.
+    \item The second issue comes with the fact that the quantity $\sI^k(\Pi)$ generally does not admit a finite limit as $k$ diverges to $\infty$.
+    \item The third issue is that the mutual information is only correctly defined when the prior is proper, while many non-informative priors used in Bayesian analysis are improper.
+\end{enumerate}
 
 The commonly admitted definition for the reference prior, which takes into account the three issues aforementioned is the following, adapted from \cite{dey_reference_2005}.
 \begin{defi}[Reference priors]\label{def:intro-ref:ref-priors}
     Let $\cP$ be class of priors on $\Theta$, a prior $\Pi\in\cP$ %whose prior density is $\pi$ 
-    is a reference prior over $\cP$ if there exist an increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\Pi(\Theta_i)<\infty  $ and
+    is a reference prior over $\cP$ if there exist an appropriate increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\Pi(\Theta_i)<\infty  $ and
         \begin{equation}
             \lim_{k\rightarrow\infty} (\sI^k_i(\Pi_i) - \sI^k_i(P_i) )\geq 0 \text{\ for all\ } P\in\cP_i
         \end{equation}
     with equality if and only if $\Pi_i=P$; with $\Pi_i$ (resp. $P_i$) being the restriction of $\Pi$ (resp. $P$) on $\Theta_i$, $\sI_i^k$ denoting the mutual information on the restricted modeling driven by $\Theta_i$, and $\cP_i=\{P\in\cP,\,0<P(\Theta_i)<\infty\}$.
 \end{defi}
 
+%This definition differs slightly from the one in \cite{berger_formal_2009}
+%This definition will serve as a reference. I
+This first definition considers a set $\cP$ called a class of priors. 
+We provide a thorough definition of such a class in \cref{sec:intro-ref:novelframework}.
+Until then, it refers to a set of priors that are admissible as described in the \cref{sec:intro-ref:improperway-around}.
+This definition also
+requires the sequence $(\Theta_i)$ to be ``appropriate''.
+Actually,  the original definition does not restrict the choice that sequence, so that this word can be ignored in this section.
+However, we will see in the sequel that some studies on reference priors requires to impose some assumptions on $(\Theta_i)_i$. 
+%we will that some assumptions are mode on them by 
 
-This definition will serve as a reference. It considers a set $\cP$ called a class of priors. 
-We provide a thorough definition of such a class in Section ??.
-Until then, it refers to a set of priors that are admissible as described in the section ??.
 
 
-We must note that other definition of the reference priors exist.
+
+
+We must note that other definitions of reference priors exist.
 In the geneses of the reference prior theory, \citet{bernardo_reference_1979} suggested maximizing the mutual information $\sI^k$, and derive the limit of the maximizers when $k\to\infty$ to define reference priors.
-In \cite{berger_formal_2009}, the authors prove that in the real and one parameter case (i.e. $\Theta\subset\RR$), this strategy is consistent with \cref{def:intro-ref:ref-priors}. Their result is the following, sometimes taken as a defintion.
+In \cite{berger_formal_2009}, the authors prove that in the real and one parameter case (i.e. $\Theta\subset\RR$), this strategy is consistent with \cref{def:intro-ref:ref-priors}. Their result is the following, sometimes taken as a definition.
 
 \begin{thm}[Explicit for of the reference prior]\label{thm:intro-ref:explicitRP}
     Assume $\Theta\subset\RR$ with $\nu$ being the Lebesgue measure.\\
@@ -240,7 +255,7 @@ In \cite{berger_formal_2009}, the authors prove that in the real and one paramet
 
 
 \Cref{def:intro-ref:ref-priors} and \cref{thm:intro-ref:explicitRP}
-both define reference prior as maximizer of the mutual information.
+both define reference priors as maximizers of the mutual information.
 While there is consensus that such an approach leads to appropriate objective priors in low-dimensional cases, it is not always the case in high-dimensional settings.
 Indeed, the prior maximizing the mutual information has often non-desirable properties in such scenarios, according to \citet{berger_overall_2015}. %They say that the actual maximizer of the mutual information is either too diffuse either too con
 In \cite{berger_development_1992}, the authors details their suggestion to define the reference priors hierarchically, by considering an ordering of the parameters:
@@ -258,27 +273,352 @@ Typically, it is recommended to assume $\Theta_j\subset\RR^{d_j}$ with small dim
  \end{enumerate}
 
 
-This construction is often considered in the literature when it resorts to define reference prior in multidimensional context. 
+This construction is often considered in the literature when it resorts to define reference priors in multidimensional context. 
 However, it relies on the hierarchization of the parameter fixed in \cref{eq:intro-ref:hierartheta}, and the recommended  one depend on the model of interest.
-There are a few models, such as the multinomial one for which the different reference priors resulting from this construction have been extensively studied. In the case of the multinomial model, it is claimed that this construction with an ordering where $r=d$ when $\Theta\subset\RR^d$ must be favored  \citep{berger_ordered_1992,berger_overall_2015}.
+There are a few models, such as the multinomial one, for which the different reference priors resulting from this construction have been extensively studied. In the case of the multinomial model, it is claimed that this construction with an ordering where $r=d$ when $\Theta\subset\RR^d$ must be favored  \citep{berger_ordered_1992,berger_overall_2015}.
 
 
 
 
-\subsection{Properties}
+\subsection{Properties and Jeffreys prior}\label{sec:intro-ref:properties}
 
 
-travaux de clarke
+%The formulation of the reference prior in \cref{thm:intro-ref:explicitRP} comes from the maximization of the mutual information. The heuristic developed in \cite{bernardo_bayesian_1994} solve the optimization problem applying a Lagrangian theorem to maximize $\sI^k$ w.r.t. the prior density $\pi$, subject to the optimization constraint $\int\pi =1$.
+
+%Beyond maximizing the mutual information, and so being a good candidate for being qualified as objective, the reference priors satisfy the  following properties.
+
+
+
+
+The elucidating of the reference priors remains an open question for some restricted class of priors $\cP$ or when we lack of regularity assumptions on the model.
+%Generally, it is common 
+In most studies, $\cP$ remains as large as possible and is restricted only by some mild regularity assumptions, such as that the priors admit continuous densities.
+%As we solve an optimization problem, \citet{mure_objective_2018} has pointed out that the class $\cP$ should be 
+% The most general properties satisfied by the reference priors are recalled in \cite{berger_formal_2009}.
+% \begin{prop}[Independence from sample size]
+    
+%     Theorem 2.19 (Independence from sample size). A reference prior for a model (Pθ)θ∈Θ  remains the same for the model (P ⊗n  θ )θ∈Θ regardless of n ∈ Z+.  Proof. This is because the definition of a reference prior relies on asymptotics.  Theorem 2.20 (Compatibility with sufficient statistics). If the observed data are restricted  to a sufficient statistic, reference priors remain unchanged
+% \end{prop}
+
+
+
+% \citet{berger_formal_2009} recall the following general properties of the reference priors.
+
+
+
+
+
+
+In the general case, \citet{mure_objective_2018} studied the uniqueness of the reference priors. 
+His study requires to define the sequence $(\Theta_i)_i$ in \cref{def:intro-ref:ref-priors} ``appropriate'' if and only if the $\Theta_i$ are open subsets of $\Theta$.
+%Considering the class of admissible priors 
+%
+We summarize his result as follows:
+\begin{thm}
+    Let $\cP$ be the class of admissible priors. 
+    Call an ``appropriate'' increasing sequence of subsets $(\Theta_i)_i$, an increasing sequence such that each for any $i$, $\Theta_i$ is open.
+    Under the assumption that there exist a weakly estimator of $\theta$, the reference prior over $\cP$, if it exists, is unique.
+\end{thm}
+
+This result allows referring to ``the reference prior'' instead to ``reference priors'' in some cases. %However, it is limited to cases where a very general class $\cP$. %is considered
+Also, there exist not in our knowledge a result about the existence of the reference prior in the general case.
+% That makes the study
+
+Actually, the reference priors are mostly studied in what are called regular cases.
+The following assumption is a regularity assumption on the statistical model, it ensures useful tools to be well-defined.
+\begin{assu}\label{assu:intro-ref:jeffreysexist}
+    $\Theta$ is an open subset of $\RR^d$, and the likelihood is such that
+    \begin{enumerate}
+        \item for $\mu$-a.e. $y$, $\theta\mapsto\ell(y|\theta)$ is twice differentiable, with $\nabla^2_\theta\ell(y|\theta)$ being negative definite,
+        \item for any $\hat\theta\in\Theta$, there exists $\tau>0$ such that
+        \begin{equation}
+            \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta} \|\nabla^2_\theta\log\ell(Y|\theta')\| \right]\quad\text{and}\quad \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta}\|\nabla_\theta\log\ell(Y|\theta')\|^2\right]
+        \end{equation}
+        are bounded for $\theta\in B(\hat\theta,\tau)$.
+    \end{enumerate}
+\end{assu}
+
+Under \cref{assu:intro-ref:jeffreysexist}, the Fisher information matrix and the Jeffreys prior are well-defined (see \cite{lehmann_elements_1999}). The Fisher information matrix $\cI$ is expressed as
+    \begin{equation}
+        \cI(\theta) = (\cI(\theta)_{i,j})_{i,j=1}^d\quad \text{with}\quad \cI(\theta)_{i,j}= - \int_\cY[\partial^2_{\theta_i\theta_j}\log\ell(y|\theta)]\, \ell(y|\theta)d\mu(y),
+    \end{equation}
+and the Jeffreys prior refers to the prior whose density is $J$, defined by
+    \begin{equation}
+        J(\theta) = \sqrt{\det\cI(\theta)}.
+    \end{equation}
+Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive function on $\Theta$. \citet{clarke_jeffreys_1994} have shown that it actually is the reference prior over the priors with continuous and positive densities on $\Theta$. Their result can be expressed as follows.
+    \begin{thm}\label{thm:intro-ref:clarke}
+        Under \cref{assu:intro-ref:jeffreysexist}. Call an ``appropriate'' increasing sequence of set $(\Theta)_i$, an increasing sequence such that for any $i$ $\Theta_i$ is compact. Assume $\nu$ is the Lebesgue measure and let $\cP$ be the class of priors admitting a continuous and positive density. Then the Jeffreys prior is the unique reference prior over $\cP$.
+    \end{thm}
+\citet{mure_objective_2018} has shown that the above theorem still stands when ``appropriate'' refers to open subsets of $\Theta$.
+
+
+The Jeffreys prior arises as a cornerstone in the reference prior theory.
+This prior has been introduced by \citet{jeffreys_invariant_1946}. It is a prior that is already praised in Bayesian statistics for its main property to be invariant by re-parametrization of the model:
+define $\phi=g(\theta)$ with $g$ being a diffeomorphism, and define the model induced considering $\phi$ instead of $\theta$. Then the Jeffreys prior for this re-parameterized model admits the density $J_g$:
+    \begin{equation}
+        J_g(\phi) = J(\theta) \left|\frac{dg^{-1}}{d\phi} (\theta)\right|.
+    \end{equation}
+This ensures that inference is not affected by the choice of parameterization, preserving coherence.
+We also recall that the Jeffreys prior is known to be improper in most cases.
+
+
+%While the above let
+
+%\Cref{thm:intro-ref:clarke} tempts to  limit the study to the one of the Jeffreys prior of the considered model.
+%The Jeffreys prior has been introduced by \citet{jeffreys_invariant_1946}. It is a prior that is already praised in Bayesian statistics for its main property to be invarient by reparametrization of the model
+
+
+
+
+
+
+
+
+
+
+
+
 
 %\section{The concept of objective priors and the role of mutual information}
 
 %\section{Reference prior definition and properties}
 
-\section{A framework for Bayesian inference with improper priors}
+\section{Limits of the classical framework of reference priors and solution}\label{sec:intro-refs:limits}
 
-Framework et discussion sur ce qu'on a dit avant, comment ça tient toujours
 
-\section{Open paths and conclusion}
+%The reference prior definition is complex as
+
+During this brief review, we mentioned some limits in the framework of the reference priors definition.
+They are related to the incorporation of improper priors in the admissible priors. As a matter of fact, when dealing with non-informative distribution, it is common to find one of the main assumption on probability distributions (that is, their total mass is $1$) limiting.
+The fact is that in some cases, improper distribution seems really ``close'' to proper ones.
+As an example, we could mention that the improper uniform distribution on $\RR$ can be seen as a Gaussian distribution with a variance that diverges to infinity. A logarithmic re-parametrization of the latter gives the improper distribution of density proportional to $x\mapsto1/x$.
+
+Additionally, when dealing with densities, nothing strongly forbid the definition of the posterior density when the prior is improper (see \cref{sec:intro-ref:improperway-around}). It became therefore common to normalize the use of improper prior, and to carry on \emph{a posteriori} inference from them when the issued posterior is proper.
+
+Even though the way-around works, we lose the existence of a latent probability space with random variables expressing formally the existence of a path that links the ``chaos'' of a universe to the phenomena observed and modeled.
+This section is dedicated to the elucidating of such construction, in a framework that allows priors to be improper.
+
+
+
+\subsection{Novel framework for Bayesian inference with improper priors}\label{sec:intro-ref:novelframework}
+
+
+
+%The purpose of statistics is to observe real phenomena, and to construct their interaction with probability theory. Thus, s
+Since the early work of \citet{kolmogorov_foundations_1933}, it is appreciated to be reminded that there exists an abstract, underlying structure from which result the probabilistic description and tools that are used to perform inference. This structure, which takes the form of a probability space in the axiomatic of Kolmogorov, represents the indescribable phenomena that induce randomness in the observations.
+
+However, the usual Kolmogorov's axiomatic does not take  into account improper distributions to construct the underlying space that provides the usual statistical modeling. 
+In this section, we
+construct from scratch a framework for Bayesian statistics, in a way that allows priors to be improper.
+We re-define the objects defined in \cref{sec:intro-ref:classical-framework}.
+
+%when we work with probabilistic tools,
+
+
+%The Bayesian framework is standardly defined from a collection of probability measures $(\PP_{Y|\theta})_{\theta\in\Theta}$ that constitutes a statistical model, alongside with a prior $\pi$ on $\Theta$ ---namely, a probability distribution---. It is therefore possible to construct a probability space $\mbf\Omega$ that models the observations: they are modeled as the independent realizations of a random variable $Y\in\cY$, with $Y$ being distributed according to $\PP_{Y|\theta}$ conditionally to $T=\theta$ where $T$ is a random variable with distribution  $\pi$.  
+
+%However, it is common when it resorts to Bayesian analysis to allow a construction based on an `improper' prior, namely, a prior defined from a $\sigma$-finite measure, whose total mass is not necessarily finite. 
+%Their consideration rests essential within the reference prior theory because %, as it will be developed later on, 
+%the reference priors are known to be often improper.
+%It is not singular to allow such priors ---even though it is recommended that they are limits\footnote{Different authors in the literature propose different ways to define such limits; a review of them is not the purpose of this study.} of proper priors--- 
+%While it is not singular to allow such prior %---on the condition they --- when they issue proper posterior distribution,
+
+%A solution for this purpose is often to expect that the prior is at least a limit of proper priors and to refer to 
+
+%In this section we review 
+Our suggestion is based on the work of \citet{taraldsen_conditional_2016}, who adapted the propositions of \citet{renyi_foundations_1970}. Their idea is to extend the notion of a probability space when the probability is only a $\sigma$-finite measure. Up to a multiplicative constant, their framework is shown to coincide with standard probability spaces when the measure has a finite total mass, or when conditioning on a set with finite mass.
+%Below is given a construction for a definition of a prior.
+
+
+We let $(\Theta,\sT)$ be a measurable space. If $\Pi_1$ and $\Pi_2$ are two non-null, non-negative and $\sigma$-finite  measures we can define the relation $\simeq$ by
+    \begin{equation}
+        \pi_1\simeq\pi_2\Longleftrightarrow\exists\delta>0,\,\pi_1=\delta\pi_2.
+    \end{equation}
+Define by $\sM$ the space of non-null, non-negative and $\sigma$-finite measures on $\Theta$. The following properties are verified:
+    \begin{itemize}
+        \item The relation $\simeq$ is an equivalence relation on $\sM$. We note $[\Pi]$ the class of a $\Pi\in\sM$.
+        %\item If $(\Theta,\sT)$ is a Borel space, then $\widehat\sM$, the space of the non-null non-negative Radon measures, is stable by $\sim$, i.e., $\pi\in\widehat\sM\Longrightarrow[\pi]\subset\widehat\sM$. %It implies that $\sim$ is an equivalence relation on  and $\hat\sM$ with $\hat\sM/\!\simeq\,\subset\sM/\!\simeq$.
+        \item Denote by $\sM^\nu$ the space of absolutely continuous measures w.r.t. $\nu\in\sM$. It is stable by $\simeq$.
+        \item Define by $\sR$ the space of non-negative non-null measurable functions from $\Theta$ to $\RR$. The relation%Let $\nu\in\sM$, the relation $\propto$ defined by
+            \begin{equation}
+                f\propto g \Longleftrightarrow\exists\delta>0,\,f=\delta g%\ \ \text{$\nu$-a.e.}
+            \end{equation}
+        is an equivalence relation on $\sR$. %, the quotient space is denoted by $\sR/\!\propto$.    
+        Let $\nu\in\sM$, the Radon-Nikodym Theorem defines a natural surjection from the quotient space $\sR/\!\propto$ to $\sM^\nu/\!\simeq$. 
+        A class in $\sR/\!\propto$ is called a density class of the unique class in $\sM^\nu/\!\simeq$ that it induces by this mapping. If two elements $[f]$, $[g]$ of $\sR/\!\propto$ are density classes of a same element in $\sM^\nu/\!\simeq$, they are equal $\nu$-a.e. in the sense $\exists\delta>0$, $f=\delta g$ $\nu$-a.e.
+        %the quotient space of $\sR/\!\propto$ by the relation of equaity $\nu$-a.e. is in bijection with $\sM^\nu/\!\simeq$. For a class in $\sM^\nu/\!\simeq$, its associated class in $\sR/\!\propto$ is called its density class w.r.t. $\nu$.
+    \end{itemize}
+
+\citet{bioche_approximation_2016} consider such a definition of $\sigma$-finite measures equal up-to-a constant to formalize the notion of prior and posterior approximations, whether they are proper or improper. Notably, they define a topology induced by a convergence in $\sM/\!\simeq$: the Q-vague convergence. %provide a topology on $\sM/\!\simeq$ baed on  %They show that $\sM/\!\simeq$
+
+
+A general prior is then defined as a class in $\sM/\!\simeq$.
+%It corresponds to what \citet{Taraldsen2016} call a $C$-measure: a measure defined up to a constant. 
+The tuple $(\Theta,\sT,[\pi])$ corresponds to what \citet{taraldsen_conditional_2016} call a conditional probability space for any $[\pi]\in\sM/\!\simeq$.
+For any $U \in \sT$ such that 
+$\pi(U)\in (0,+\infty)$, 
+%$\pi(U) < +\infty$, 
+that space issues a unique probability space on $U$, with the probability $\pi(\cdot|U)=\pi(\cdot\cap U)/\pi(U)$, it is independent of the choice of the representative of $[\pi]$.
+This framework gives what is necessary to construct a general conditional probability space that models our problem, as we express below.
+
+
+\begin{prop}\label{prop:intro-ref:kolmog}
+We assume that the observations take values in a 
+Polish space $(\cY,\sY)$ and are statistically modeled by the collection of conditional probabilities $(\PP_{Y|\theta})_{\theta\in\Theta}$ with $(\Theta,\sT)$ being a Polish space and such that $\forall A\in\sY$, $\theta\mapsto\PP_{Y|\theta}(A)$ is measurable. We consider $\pi\in\sM$.\\
+Then there exist a conditional probability space $(\mbf\Omega, \mbf\Xi, [\mbf\Pi])$, a measurable process $\overline Y=(Y_i)_{i\in\NN}$, $Y_i:\mbf\Omega\to\cY$, and a measurable function $T:\mbf\Omega\to\Theta$ such that
+    \begin{enumerate}
+        \item for any $U\in\sT$, $\mbf\Pi(T\in U)=\pi(U)$; 
+        \item if 
+        $\pi(U) \in  (0,+\infty)$ 
+        %$\pi(U)<+\infty$ 
+        then the unique probability space conditioned on $\{T\in U\}$ is such that the conditional probability of any $(Y_{i_l})_{l=1}^k$ to $T=\theta$ is $\PP_{Y|\theta}^{\otimes k}$. More explicitly, if $A_{j_1},\dots,A_{j_k}\in\sY$ then
+            \begin{equation}
+                \mbf\Pi\Big(\bigcap_{l=1}^kY_{j_l}\in A_{j_l}|T\in U\Big) = \int_\Theta\PP_{Y|\theta}^{\otimes k}(A_{j_1}\times\dots\times A_{j_k})d\pi(\theta| U).
+            \end{equation}
+    \end{enumerate}
+\end{prop}
+
+Such existence of the underlying abstract space $\mbf\Omega$ provides the desired interpretability of the modeling. It can be seen as the source of the uncontrollable randomness that goes beyond the observations and the parameter. It is proven in Section \ref{sec:intro-ref:proof}. One can notice that it is consistent with usual Bayesian frameworks when $\pi$ is proper.
+
+
+
+%Actually, either a measure has a finite total mass, in which case it can easily be turned into one 
+
+
+
+
+\subsection{Compatibility with the usual framework and notations}\label{sec:intro-ref:frameworkcompatibility}
+
+
+
+\subsection{Proof of \cref{prop:intro-ref:kolmog}}\label{sec:intro-ref:proof}
+
+
+
+Let $1\leq\mbf i\leq\infty$, $I=\{i\in\NN,\,i<\mbf i\}$, and $(U_i)_{i\in I}$ be a sequence of disjoint non-empty sets in $\sT$ that covers $\Theta$ such that $\pi(U_i)<\infty$ $\forall i$.
+When $\pi(U_i)=0$, we denote by $\pi(\cdot|U_i)$ an arbitrary probability distribution on $U_i$ (for instance a Dirac distribution); otherwise, it is defined by $\pi(\cdot|U_i)=\pi(\cdot\cap U_i)/\pi(U_i)$.
+    Fix firstly $i\in I$ and for any $k\geq1$ let us construct $\PP_{\mbf Y_k,T}^i$ on $\sY^{\otimes k}\otimes\sT$ such that
+        \begin{equation}
+            \PP_{\mbf Y_k,T}^i(A_1\times\dots\times A_k\times B) = \int_B \PP_{Y|\theta}^{\otimes k}(A_1\times\dots\times A_k)d\pi(\theta|U_i),
+        \end{equation}
+     so that $\PP^i_{\mbf Y_k,T}$ is a probability distribution on $\cY^k\times U_i$. 
+    Therefore, using Kolmogorov extension theorem, there exist a probability space $(\Omega^i,\sX^i,\PP^i)$, a random process $\overline{\mbf Y^i}=(Y^i_j)_{j\geq1}$, $Y_j^i:\Omega^i\to\cY$, and a random variable $T^i:\Omega^i\to\Theta$ such as  their joint distribution is uniquely defined by the distribution
+    %$(T^i,\mbf Y_k^i)\sim
+    $\PP^i_{\mbf Y_k,T}$ of $(T^i,\mbf Y_k^i)$ for any $k$, with $\mbf Y_k^i=(Y_j^i)_{j=1}^k$.
+
+
+
+%\color{red}
+Denote $\mbf\Omega= I \times\prod_{i\in I}\Omega^i$. A natural $\sigma$-algebra on $\mbf\Omega$ is the one generated by the cylinder sets:
+\begin{equation}
+    \mbf\Xi = \sigma\big(N\times E_0\times\dots\times E_{k-1}\times\prod_{k\leq i<\mbf i}\Omega^i,\,N\in\sP(I),\, E_0,\dots,E_k\in\sX^i,\,k<\mbf i \big).
+\end{equation}
+We can define $\Pi$ by
+    \begin{equation}
+        \Pi\Big(N\times\prod_{i\in I}E_i\Big) = \sum_{n\in N}\PP^n(E_n)\pi(U_n),
+    \end{equation}
+for any $N\in\sP(I)$, $(E_i)_{i \in I} \in\prod_{i\in I}\sX^i$ with $E_i=\Omega^i$ for any $i\geq k$ for some $k<\mbf i$. 
+The existence of the measure $\mbf\Pi$ on $\mbf\Xi$, that coincides with $\Pi$ on the cylinder sets is guaranteed by  Carathéodory's extension Theorem. %$^\ast$
+
+
+
+
+Now, we call $p^n:(m,(\omega^i)_i)\in\mbf\Omega\mapsto \omega^n$ for any $n\in I$, $c:(m,(\omega^i)_i)\in\mbf\Omega\mapsto m$, and $p:\mbf w\in\mbf\Omega\mapsto p^{c(\mbf w)}(\mbf w)$.
+This way, we can define $T:\mbf\Omega\to\Theta$ by $T(\mbf w)=T^{c(\mbf w)}(p(\mbf w))$ and $\overline{\mbf Y}=(Y_j)_{j\geq1}$ with for any $j\geq1$, $Y_j:\mbf\Omega\to\sY$ by $Y_j(\mbf w)=Y_j^{c(\mbf w)}(p(\mbf w))$.\\
+We can verify that $T$ is a measurable: if $B\in\sT$,  
+    \begin{equation}
+        T^{-1}(B) = \bigcup_{i\in I}\{\mbf w\in\mbf\Omega,\, c(\mbf w)=i,\,T^i(p(\mbf w))\in B  \} = \bigcup_{i\in I}c^{-1}(\{i\})\cap (T^i(p^i))^{-1}(B)
+    \end{equation}
+which is measurable. 
+%\textcolor{red}{Probleme : que veut dire $T^i(p({\mbf w}))$ quand ${\mbf w}$ est de la forme $(i', ...)$ ? ce devrait etre $T^i(\omega^{i'})$ qui ne veut rien dire.}
+The same arguments stand for the measurability of $Y_j$ for any $j$.
+
+
+
+
+%\color{black}
+
+
+
+We have,
+for any $V\in\sT$:
+    \begin{align}
+          \mbf\Pi(T\in V) &= \Pi\Big(\bigcup_{i\in I}\{i\}\times\Omega^1\times\dots\times\{T^i\in V\}\times\Omega^{i+1}\times\dots\Big)\\
+            %&
+          %I\times\prod_{i\in I} \{T^i\in V\}\Big) = 
+          &=\sum_{i\in I}\PP^i(T^i\in V)\pi(U_i) = \sum_{i\in I}\pi(V|U_i)\pi(U_i) = \pi(V);\nonumber
+    \end{align}
+and if $\pi(V)<\infty$ then for any $(A_{j_l})_{l=1}^k\in\sY^k$: %, with the notation $\{Y_{i_l}\in A_{i_l}\}=\{Y_{i_l}(p)\in A_{i_l}\}$ to see that event as en event in $\mbf\Omega$:
+    \begin{multline}
+        \mbf\Pi\left((Y_{j_l})_{l=1}^k\in(A_{j_l})_{l=1}^k|T\in V\right)\mbf\Pi(T\in V) \\ = 
+        \mbf\Pi\Big(\bigcup_{i\in I}  \{i\}\times\Omega^1\times\dots\{(Y^i_{jl})_{l=1}^k\in(A_{jl})_{l=1}^k\}\cap \{T^i\in V \}\times\Omega^{i+1}\dots 
+        \Big),
+    \end{multline}
+    so that
+        \begin{align}\nonumber
+        &\mbf\Pi\left((Y_{j_l})_{l=1}^k\in(A_{j_l})_{l=1}^k|T\in V\right) 
+            = \sum_{i\in I}\PP^i\left( \{(Y_{j_l}^i)_{l=1}^k\in(A_{j_l})_{l=1}^k\}\cap \{T^i\in V\}\right)\frac{\pi(U_i)}{\pi(V)} \\
+            &= \sum_{i\in I}\int_{V\cap U_i}\PP^{\otimes k}_{Y|\theta}\left((A_{j_l}\right)_{l=1}^k)\frac{d\pi(\theta)}{\pi(V)}  = \int_\Theta\PP^{\otimes k}_{Y|\theta}\left((A_{j_l})_{l=1}^k\right)d\pi(\theta|V).
+    \end{align}
+%consequently to $\PP^i(A_j, T^i\in V)=\int_{V}\PP^\otimes(A_j)\pi(\theta|U_i)=\int_{U_i\cap V}\PP^\otimes(A_j)d\pi(\theta)/\pi(U_i)$
+
+
+% \textcolor{red}{Revoir les calculs precedents et les suivants. On a (pour $Y_1$ ou pour $T$)
+% \begin{align*}
+%    \{ Y_1\in A_1 \} &= \big\{ {\mbf w} \in{\mbf \Omega} , Y_1({\mbf w})\in A \big\} \\
+%    &= \bigcup_{i \in I} \big\{ (i, \omega^1,\omega^2,\ldots) \in{\mbf \Omega} , Y_1({\mbf w})\in A \big\} \\
+%    &= \bigcup_{i \in I} \big\{ (i, \omega^1,\omega^2,\ldots) \in{\mbf \Omega} , Y_1^i( \omega^i)\in A \big\} \\
+%     &= \bigcup_{i \in I} \Big( \{i\} \times \Omega^1 \times \Omega^2 \times \cdots \times \{ \omega^i \in \Omega^i, Y_1^i( \omega^i)\in A \}\times \Omega^{i+1}\times \cdots \Big)
+% \end{align*}
+% mais on n'a pas 
+% $$
+% \{ Y_1\in A_1 \} =  I \times \prod_{i\in I} \{ Y_1^i\in A\}
+% $$
+% ni
+% $$
+% \{T \in V\} = I \times \prod_{i\in I} \{T^i\in V\}
+% $$
+% }
+
+We precise that the above expressions rely on the fact that $\mbf\Pi(I\times\prod_{i\in I}E_i)=\sum_{i\in I}\PP^i(E_i)\pi(U_i)$, for any $E_i\in\sX^i$, for every ${i\in I}$. To state that equality, we write $I\times\prod_{i\in I}E_i=\bigcup_{n\geq1}\bigcap_{k<\mbf i}(I^n\times\prod_{i\in I}E_{i,k}') $ with $I^n=\{i\in I,\,i< n\}$ and $E_{i,k}'=E_i$ if $i\leq k$, $E_{i,k}'=\Omega^i$ otherwise. This way for any $n\geq1$:
+$I^n\times\prod_{i\in I} E_{i,k}' \subset I^{n+1}\times\prod_{i\in I} E_{i,k}'$ for any $k<\mbf i$, and
+$        \bigcap_{k<\mbf i} I^n\times\prod_{i\in I} E_{i,k}'\subset \bigcap_{k<\mbf i} I^{n+1}\times\prod_{i\in I} E_{i,k}'$.
+Thus,
+    \begin{equation}\label{eq:proofKolmLimPiCup}
+        \mbf\Pi\Big(I\times\prod_{i\in I}E_i\Big) 
+            = \lim_{n\rightarrow\infty}\mbf\Pi\Big(\bigcap_{k<\mbf i}(I^n\times\prod_{i\in I}E_{i,k}')\Big).
+    \end{equation}
+
+
+%    \begin{align}
+%        &I^n\times\prod_{i\in I} E_{i,k}' \subset I^{n+1}\times\prod_{i\in I} E_{i,k}'
+%        \quad\text{for any $k<\mbf i$,} \\
+%        \text{and}\quad&
+%        \bigcap_{k<\mbf i} I^n\times\prod_{i\in I} E_{i,k}'\subset \bigcap_{k<\mbf i} %I^{n+1}\times\prod_{i\in I} E_{i,k}'.
+%    \end{align}
+%Thus,
+%    \begin{equation}\label{eq:proofKolmLimPiCup}
+%        \mbf\Pi\Big(I\times\prod_{i\in I}E_i\Big) 
+%            = \lim_{n\rightarrow\infty}\mbf\Pi\Big(\bigcap_{k<\mbf i}(I^n\times%\prod_{i\in I}E_{i,k}')\Big).
+%    \end{equation}
+For any $n\geq1$, $ %\bigcap_{k<\mbf i}
+(I^n\times\prod_{i\in I}E_{i,k}')$ is a decreasing sequence, because $E_{i,k+1}'\subset E_{i,k}'$ for any $k<\mbf i-1$. 
+Also $\mbf\Pi(I^n\times\prod_{i\in I}E_{i,0}')=\sum_{i=0}^{n-1}\pi(U_i)<\infty$.
+Therefore, we can write:
+    \begin{align}
+        \mbf\Pi\Big(\bigcap_{k<\mbf i}(I^n\times\prod_{i\in I}E_{i,k}')\Big) 
+            &= \lim_{k\rightarrow\infty} \mbf\Pi\Big(I^n\times\prod_{i<k,\mbf i}E_i\times\prod_{k\leq i<\mbf i}\Omega^i\Big) \\
+            &= \lim_{k\rightarrow\infty} \Big[\sum_{i<k,n,\mbf i}\PP^i(E_i)\pi(U_i)  + \sum_{k\leq i<n,\mbf i}\pi(U_i)\Big]=\sum_{i<n,\mbf i}\PP^i(E_i)\pi(U_i),\nonumber
+    \end{align}
+because the sums are all finite. Eventually, the limit in Equation (\ref{eq:proofKolmLimPiCup}) is equal to $\sum_{i<\mbf i}\PP^i(E_i)\pi(U_i)$ as expected, hence the result.
+
+
+
+
+
+
+\section{Conclusive remarks}\label{sec:intro-ref:conclusion}
 
 
 This section should conclude the state-of-the-art and delimit the limitations of the current theory on different aspects. 
