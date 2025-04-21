@@ -66,21 +66,21 @@ Eventually, this chapter is the occasion to discuss the limitations of the stand
 The Bayesian framework is commonly defined from the given of statistical model.
 Let $(\Omega,\sP,\PP)$ be a probability space, and define $Y$, a random variable defined on $\Omega$ and taking values on a measurable space $(\cY,\sY)$.
 A statistical model is characterized by a collection of parameterized probability measures $(\PP_{Y|\theta})_{\theta\in\Theta}$ on $(\cY,\sY)$.
-The Bayesian viewpoint considers a random variable $T:\Omega\to\Theta$ taking values in a measurable space $(\Theta,\sT)$, following a \textbf{prior distribution} denoted $\Pi$, and which is such that the conditional distribution of $Y$ to $T=\theta$ is $\PP_{Y|\theta}$. In other terms:
+The Bayesian viewpoint considers a random variable $T:\Omega\to\Theta$ taking values in a measurable space $(\Theta,\sT)$, following a \textbf{prior distribution} denoted $\varPi$, and which is such that the conditional distribution of $Y$ to $T=\theta$ is $\PP_{Y|\theta}$. In other terms:
     \begin{equation}
-        \forall A\in\sY,\,B\in\sT,\, \PP(Y\in A,\, T\in B) = \int_B \PP_{Y|\theta}(A) d\Pi(\theta).
+        \forall A\in\sY,\,B\in\sT,\, \PP(Y\in A,\, T\in B) = \int_B \PP_{Y|\theta}(A) d\varPi(\theta).
     \end{equation}
 Note that the above quantities are well-defined and are almost surely unique, at least while $(\cY,\sY)$, $(\Theta,\sT)$ and $(\PP_{Y|\theta})$ align with the statements of the disintegration theorem (see e.g. \cite{chang_conditioning_1997}).
 
 In practice, $k$ realizations $\mbf y= (y_1,\dots,y_k)$ of the r.v. $Y$ are observed, they are supposed to be identically distributed and independent conditionally to $T$, meaning they are the realization of a random vector $\mbf Y = (Y_1,\dots,Y_k)$, whose distribution $\PP_{\mbf Y}$ is defined on $(\cY^k,\,\sY^{\otimes k})$ by:
 \begin{equation}
-    \forall A\in\sY^{\otimes k},\, \PP_{\mbf Y}(A) = \int_\Theta \PP_{\mbf Y|\theta}(A)d\Pi(\theta),
+    \forall A\in\sY^{\otimes k},\, \PP_{\mbf Y}(A) = \int_\Theta \PP_{\mbf Y|\theta}(A)d\varPi(\theta),
 \end{equation}
 where $\PP_{\mbf Y|\theta}:=\PP_{Y|\theta}^{\otimes k}$. The distribution $\PP_{\mbf Y}$ is called the \textbf{marginal distribution}.
 
 Given the observations $\mbf y$, the \textbf{posterior distribution}, denoted $P_{T|\mbf y}$, is then defined as the a.s. unique one verifying
     \begin{equation}
-        \forall A\in\sY^{\otimes k},\,\forall B\in\sT,\, \int_{A}\PP_{T|\mbf y}(B)d\PP_{\mbf Y}(\mbf y) = \int_B \PP_{\mbf Y|\theta}(A)d\Pi(\theta).
+        \forall A\in\sY^{\otimes k},\,\forall B\in\sT,\, \int_{A}\PP_{T|\mbf y}(B)d\PP_{\mbf Y}(\mbf y) = \int_B \PP_{\mbf Y|\theta}(A)d\varPi(\theta).
     \end{equation}
 We can notice that the posterior distribution is always absolutely continuous w.r.t. the prior distribution.
 
@@ -88,17 +88,17 @@ We can notice that the posterior distribution is always absolutely continuous w.
 \subsection{Likelihood and densities}\label{sec:intro-ref:likelihoods}
 
 
-It is common to assume that the statistical model admits a likelihood: there exists a collection of density functions $(\ell(\cdot|\theta))_{\theta\in\Theta}$  w.r.t. a common  $\sigma$-finite measure $\mu$ on $\cY$ such that for $\Pi$-a.e. $\theta\in\Theta$:
+It is common to assume that the statistical model admits a likelihood: there exists a collection of density functions $(\ell(\cdot|\theta))_{\theta\in\Theta}$  w.r.t. a common  $\sigma$-finite measure $\mu$ on $\cY$ such that for $\varPi$-a.e. $\theta\in\Theta$:
     \begin{equation}
         \forall A\in\sY,\,\PP_{Y|\theta} = \int_A\ell(y|\theta)d\mu(y).
     \end{equation}
 This way, $\PP_{\mbf Y}$ admits a \textbf{marginal density} $p_{\mbf Y}$ w.r.t. $\mu^{\otimes k}$ defined as
     \begin{equation}
-        \forall\mbf y\in\cY^k,\, p_{\mbf Y}(\mbf y) = \int_\Theta\prod_{i=1}^k\ell(y_i|\theta) d\pi(\theta) = \int_\Theta \ell_k(\mbf y|\theta)d\pi(\theta),
+        \forall\mbf y\in\cY^k,\, p_{\mbf Y}(\mbf y) = \int_\Theta\prod_{i=1}^k\ell(y_i|\theta) d\varPi(\theta) = \int_\Theta \ell_k(\mbf y|\theta)d\varPi(\theta),
     \end{equation}
 where $\ell_k(\mbf y|\theta)$ denotes $\prod_{i=1}^k\ell(y_i|\theta)$ and is called the likelihood.
 
-Also, we can suppose that $\Pi$ admits a \textbf{prior density} $\pi$ w.r.t. a $\sigma$-finite measure $\nu$ on $\Theta$ (usually, it is simply assumed that $\Theta\subset\RR^d$ and $\nu$ is the Lebesgue measure). 
+Also, we can suppose that $\varPi$ admits a \textbf{prior density} $\pi$ w.r.t. a $\sigma$-finite measure $\nu$ on $\Theta$ (usually, it is simply assumed that $\Theta\subset\RR^d$ and $\nu$ is the Lebesgue measure). 
 %We acknowledge that it is usual to make the confusion between the prior distribution and its density, while there is no ambiguity doing so. 
 %Thus, we denote by $\pi$ the density of $\i$ w.r.t. $\nu$. 
 The posterior distribution admits a \textbf{posterior density} $p(\cdot|\mbf y)$ w.r.t. $\nu$ defined by
@@ -119,12 +119,12 @@ A way-around to be able to use improper priors is to focus on restrictions of th
 $\Theta=\bigcup_{n\in\NN}B_n$ and $\nu(B_n) <\infty$.
 An improper prior is said to be admissible if for any $n$, $\int_{B_n}\pi(\theta)d\nu(\theta)<\infty$, and if there exists $n_0$ such that $\int_{B_n}\pi(\theta)d\nu(\theta)>0$.
 
-In this case, on any $\tilde\Theta\in\sT$ such that there exists $N\in\NN$ verifying $\tilde\Theta\subset\bigcup_{n\geq n_0}^NB_n$ and such that $B_{n_0}\subset\tilde\Theta$, one can define the probability space $(\tilde\Theta,\tilde\sT,\tilde\Pi)$ with:
+In this case, on any $\tilde\Theta\in\sT$ such that there exists $N\in\NN$ verifying $\tilde\Theta\subset\bigcup_{n\geq n_0}^NB_n$ and such that $B_{n_0}\subset\tilde\Theta$, one can define the probability space $(\tilde\Theta,\tilde\sT,\tilde\varPi)$ with:
     \begin{equation}
-        \tilde\sT = \{B\cap\tilde\Theta,\,B\in\sT\},\quad\forall \tilde B\in\tilde\sT,\,\tilde\Pi(\tilde B) = \frac{\int_{\tilde B}\pi(\theta)d\nu(\theta)}{\int_{\tilde\Theta}\pi(\theta)d\nu(\theta)}.
+        \tilde\sT = \{B\cap\tilde\Theta,\,B\in\sT\},\quad\forall \tilde B\in\tilde\sT,\,\tilde\varPi(\tilde B) = \frac{\int_{\tilde B}\pi(\theta)d\nu(\theta)}{\int_{\tilde\Theta}\pi(\theta)d\nu(\theta)}.
     \end{equation}
 Thus, restricting the study to $\tilde\Theta$ let the modeling of previous sections to stand, that modeling is the restricted modeling driven by $\tilde\Theta$. 
-The probability $\Tilde\Pi$ (respectively its density) is referred as the restriction of the prior $\Pi$ (resp. of the prior density $\pi$) to $\tilde\Theta$.
+The probability $\Tilde\varPi$ (respectively its density) is referred as the restriction of the prior $\varPi$ (resp. of the prior density $\pi$) to $\tilde\Theta$.
 
 On any restricted model, the posterior and the marginal distributions exist. 
 Given two restrictions driven by $\tilde\Theta_1$ and $\tilde\Theta_2$, the restricted prior densities $\tilde\pi_1$ and $\tilde\pi_2$ are equal on $\tilde\Theta_1\cap\tilde\Theta_2$ up to a constant:
@@ -140,7 +140,7 @@ If the posterior density integrates to $\infty$, the posterior is said to be imp
 
 
 
-This construction is called a way-around because the framework remains incomplete: $T$ is not appropriately defined anymore, nor the marginal distribution $\PP_{\mbf Y}$. Later in this chapter, we will introduce a novel construction that authorize the definition of improper prior in a more suitable way.
+This construction is called a way-around because the framework remains incomplete: $T$ is not appropriately defined anymore, nor the marginal distribution $\PP_{\mbf Y}$. Later in this chapter, we will introduce a novel construction that authorizes the definition of improper prior in a more suitable way.
 Before that, the current construction is enough to define the reference priors among the admissible priors: priors that are either proper, either admissible improper priors.
 
 
@@ -161,11 +161,11 @@ We recall below the expression of the Kullback-Leibler divergence between two di
         \text{KL}(Q||P)=\int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\omega(x).
     \end{equation}
 
-Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\Pi)$. As the observed sample $\mbf y$ is unknown, the average value of the divergence is considered:
+Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\varPi)$. As the observed sample $\mbf y$ is unknown, the average value of the divergence is considered:
 \begin{defi}[Mutual information]\label{def:intro-ref-MI}
     Given a Bayesian framework defined as in \cref{sec:intro-ref:classical-framework}, and given a number of observations $k$, the mutual information is defined as the quantity
     \begin{equation}
-        \sI^k(\Pi) =  \EE_{\mbf Y\sim \PP_{\mbf Y}}[\text{KL}(\PP_{T|\mbf Y}||\Pi)] =  \int_{\cY^k}\text{KL}(\PP_{T|\mbf y}||\Pi) p_{\mbf Y}(\mbf y)d\mbf y.
+        \sI^k(\varPi) =  \EE_{\mbf Y\sim \PP_{\mbf Y}}[\text{KL}(\PP_{T|\mbf Y}||\varPi)] =  \int_{\cY^k}\text{KL}(\PP_{T|\mbf y}||\varPi) p_{\mbf Y}(\mbf y)d\mbf y.
     \end{equation}
 \end{defi}
 
@@ -176,7 +176,7 @@ We recall that the definition of the mutual information is not limited to the sc
 
 One can apply Fubini-Lebesgue's theorem to write the mutual information as
 \begin{equation}
-    \sI^k(\Pi) =  \EE_{\mbf Y\sim \PP_{\mbf Y}}[\text{KL}(\PP_{T|\mbf Y}||\Pi)] =  \EE_{T\sim\Pi}[\text{KL}(\PP_{\mbf Y|\theta}||\PP_{\mbf Y}) ]
+    \sI^k(\varPi) =  \EE_{\mbf Y\sim \PP_{\mbf Y}}[\text{KL}(\PP_{T|\mbf Y}||\varPi)] =  \EE_{T\sim\varPi}[\text{KL}(\PP_{\mbf Y|\theta}||\PP_{\mbf Y}) ]
 \end{equation}
 This second expression allows an interpretation of the mutual information from another viewpoint: it measures how the parameter $T$ impacts the distribution of $\mbf Y$.
 
@@ -195,25 +195,25 @@ This second expression allows an interpretation of the mutual information from a
 Reference priors are defined as the priors that are expected to maximize the role of the observed data within the posterior distribution.
 Consequently, they are historically sought as maximizers of the mutual information.
 
-However, formally maximizing the mutual information $\sI^k(\Pi)$ w.r.t. $\Pi$ presents three main issues: %, as its expression depends on the value of $k$.
+However, formally maximizing the mutual information $\sI^k(\varPi)$ w.r.t. $\varPi$ presents three main issues: %, as its expression depends on the value of $k$.
 \begin{enumerate}
     \item First, its expression depends on the value of the number of  observations $k$, and $k$ alters the form of its maximal argument. %The prior expression comes, by nature, prior to the observations, and should depend neither on $k$, neither on $\mbf y$. A 
     %In normal settings, there are no knowledge on the v
     This problem is tackled arguing that $\sI^k$ only measures a limited quantity of information brought by $T$ onto the distribution of the data $\mbf Y$. The Bayesian framework does considerate the data $(Y_1,\dots,Y_k)$ to be independent, so that the distribution of $\mbf Y$ is enriched as $k$ rises.
     According to \citet{bernardo_bayesian_1994}, the limit $\sI^\infty$ (if it exists) measures the knowledge missing form the prior.
     Thus, the formal definition tends to maximize $\sI^k$ as $k$ diverges to $\infty$.
-    \item The second issue comes with the fact that the quantity $\sI^k(\Pi)$ generally does not admit a finite limit as $k$ diverges to $\infty$.
+    \item The second issue comes with the fact that the quantity $\sI^k(\varPi)$ generally does not admit a finite limit as $k$ diverges to $\infty$.
     \item The third issue is that the mutual information is only correctly defined when the prior is proper, while many non-informative priors used in Bayesian analysis are improper.
 \end{enumerate}
 
 The commonly admitted definition for the reference prior, which takes into account the three issues aforementioned is the following, adapted from \cite{dey_reference_2005}.
 \begin{defi}[Reference priors]\label{def:intro-ref:ref-priors}
-    Let $\cP$ be class of priors on $\Theta$, a prior $\Pi\in\cP$ %whose prior density is $\pi$ 
-    is a reference prior over $\cP$ if there exist an appropriate increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\Pi(\Theta_i)<\infty  $ and
+    Let $\cP$ be class of priors on $\Theta$, a prior $\varPi\in\cP$ %whose prior density is $\pi$ 
+    is a reference prior over $\cP$ if there exist an appropriate increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta_i)<\infty  $ and
         \begin{equation}
-            \lim_{k\rightarrow\infty} (\sI^k_i(\Pi_i) - \sI^k_i(P_i) )\geq 0 \text{\ for all\ } P\in\cP_i
+            \lim_{k\rightarrow\infty} (\sI^k_i(\varPi_i) - \sI^k_i(P_i) )\geq 0 \text{\ for all\ } P\in\cP_i
         \end{equation}
-    with equality if and only if $\Pi_i=P$; with $\Pi_i$ (resp. $P_i$) being the restriction of $\Pi$ (resp. $P$) on $\Theta_i$, $\sI_i^k$ denoting the mutual information on the restricted modeling driven by $\Theta_i$, and $\cP_i=\{P\in\cP,\,0<P(\Theta_i)<\infty\}$.
+    with equality if and only if $\varPi_i=P$; with $\varPi_i$ (resp. $P_i$) being the restriction of $\varPi$ (resp. $P$) on $\Theta_i$, $\sI_i^k$ denoting the mutual information on the restricted modeling driven by $\Theta_i$, and $\cP_i=\{P\in\cP,\,0<P(\Theta_i)<\infty\}$.
 \end{defi}
 
 %This definition differs slightly from the one in \cite{berger_formal_2009}
@@ -238,7 +238,7 @@ In \cite{berger_formal_2009}, the authors prove that in the real and one paramet
 \begin{thm}[Explicit for of the reference prior]\label{thm:intro-ref:explicitRP}
     Assume $\Theta\subset\RR$ with $\nu$ being the Lebesgue measure.\\
     Call $\cP_s$ the class of admissible priors that are positive and continuous, and that issue proper posterior distributions.\\
-    Let $\Pi^\ast\in\cP_s$ we call $p^\ast(\cdot|\cdot)$ its posterior and define for any interior point $\theta_0\in\Theta$,
+    Let $\varPi^\ast\in\cP_s$ we call $p^\ast(\cdot|\cdot)$ its posterior and define for any interior point $\theta_0\in\Theta$,
         \begin{equation}
             % \begin{aligned}
                 f_k(\theta) = \exp\left(\int_{\cY^k}\ell_k(\mbf y|\theta)\log(p^\ast(\theta|\mbf y)) d\mbf y \right) \quad\text{and}\quad  %\\
@@ -431,55 +431,55 @@ Our suggestion is based on the work of \citet{taraldsen_conditional_2016}, who a
 %Below is given a construction for a definition of a prior.
 
 
-We let $(\Theta,\sT)$ be a measurable space. If $\Pi_1$ and $\Pi_2$ are two non-null, non-negative and $\sigma$-finite  measures we can define the relation $\simeq$ by
+We let $(\Theta,\sT)$ be a measurable space. If $\varPi_1$ and $\varPi _2$ are two non-null, non-negative and $\sigma$-finite  measures we can define the relation $\simeq$ by
     \begin{equation}
-        \pi_1\simeq\pi_2\Longleftrightarrow\exists\delta>0,\,\pi_1=\delta\pi_2.
+        \varPi_1\simeq\varPi_2\Longleftrightarrow\exists t>0,\,\varPi_1= t\varPi_2.
     \end{equation}
 Define by $\sM$ the space of non-null, non-negative and $\sigma$-finite measures on $\Theta$. The following properties are verified:
     \begin{itemize}
-        \item The relation $\simeq$ is an equivalence relation on $\sM$. We note $[\Pi]$ the class of a $\Pi\in\sM$.
+        \item The relation $\simeq$ is an equivalence relation on $\sM$. We note $[\varPi]$ the class of a $\varPi\in\sM$.
         %\item If $(\Theta,\sT)$ is a Borel space, then $\widehat\sM$, the space of the non-null non-negative Radon measures, is stable by $\sim$, i.e., $\pi\in\widehat\sM\Longrightarrow[\pi]\subset\widehat\sM$. %It implies that $\sim$ is an equivalence relation on  and $\hat\sM$ with $\hat\sM/\!\simeq\,\subset\sM/\!\simeq$.
         \item Denote by $\sM^\nu$ the space of absolutely continuous measures w.r.t. $\nu\in\sM$. It is stable by $\simeq$.
         \item Define by $\sR$ the space of non-negative non-null measurable functions from $\Theta$ to $\RR$. The relation%Let $\nu\in\sM$, the relation $\propto$ defined by
             \begin{equation}
-                f\propto g \Longleftrightarrow\exists\delta>0,\,f=\delta g%\ \ \text{$\nu$-a.e.}
+                f\propto g \Longleftrightarrow\exists t>0,\,f= t g%\ \ \text{$\nu$-a.e.}
             \end{equation}
         is an equivalence relation on $\sR$. %, the quotient space is denoted by $\sR/\!\propto$.    
         Let $\nu\in\sM$, the Radon-Nikodym Theorem defines a natural surjection from the quotient space $\sR/\!\propto$ to $\sM^\nu/\!\simeq$. 
-        A class in $\sR/\!\propto$ is called a density class of the unique class in $\sM^\nu/\!\simeq$ that it induces by this mapping. If two elements $[f]$, $[g]$ of $\sR/\!\propto$ are density classes of a same element in $\sM^\nu/\!\simeq$, they are equal $\nu$-a.e. in the sense $\exists\delta>0$, $f=\delta g$ $\nu$-a.e.
+        A class in $\sR/\!\propto$ is called a density class of the unique class in $\sM^\nu/\!\simeq$ that it induces by this mapping. If two elements $[f]$, $[g]$ of $\sR/\!\propto$ are density classes of a same element in $\sM^\nu/\!\simeq$, they are equal $\nu$-a.e. in the sense $\exists t>0$, $f= t g$ $\nu$-a.e.
         %the quotient space of $\sR/\!\propto$ by the relation of equaity $\nu$-a.e. is in bijection with $\sM^\nu/\!\simeq$. For a class in $\sM^\nu/\!\simeq$, its associated class in $\sR/\!\propto$ is called its density class w.r.t. $\nu$.
     \end{itemize}
 
 \citet{bioche_approximation_2016} consider such a definition of $\sigma$-finite measures equal up-to-a constant to formalize the notion of prior and posterior approximations, whether they are proper or improper. Notably, they define a topology induced by a convergence in $\sM/\!\simeq$: the Q-vague convergence. %provide a topology on $\sM/\!\simeq$ baed on  %They show that $\sM/\!\simeq$
 
 
-A general prior is then defined as a class in $\sM/\!\simeq$.
+A prior is then generally defined as a class $[\varPi]$ in $\sM/\!\simeq$.
 %It corresponds to what \citet{Taraldsen2016} call a $C$-measure: a measure defined up to a constant. 
-The tuple $(\Theta,\sT,[\pi])$ corresponds to what \citet{taraldsen_conditional_2016} call a conditional probability space for any $[\pi]\in\sM/\!\simeq$.
+The tuple $(\Theta,\sT,[\varPi])$ corresponds to what \citet{taraldsen_conditional_2016} call a conditional probability space for any $[\varPi]\in\sM/\!\simeq$.
 For any $U \in \sT$ such that 
-$\pi(U)\in (0,+\infty)$, 
+$\varPi(U)\in (0,+\infty)$, 
 %$\pi(U) < +\infty$, 
-that space issues a unique probability space on $U$, with the probability $\pi(\cdot|U)=\pi(\cdot\cap U)/\pi(U)$, it is independent of the choice of the representative of $[\pi]$.
+that space issues a unique probability space on $U$, with the probability $\varPi(\cdot|U):=\varPi(\cdot\cap U)/\varPi(U)$, it is independent of the choice of the representative of $[\varPi]$.
 This framework gives what is necessary to construct a general conditional probability space that models our problem, as we express below.
 
 
 \begin{prop}\label{prop:intro-ref:kolmog}
 We assume that the observations take values in a 
-Polish space $(\cY,\sY)$ and are statistically modeled by the collection of conditional probabilities $(\PP_{Y|\theta})_{\theta\in\Theta}$ with $(\Theta,\sT)$ being a Polish space and such that $\forall A\in\sY$, $\theta\mapsto\PP_{Y|\theta}(A)$ is measurable. We consider $\pi\in\sM$.\\
+Polish space $(\cY,\sY)$ and are statistically modeled by the collection of conditional probabilities $(\PP_{Y|\theta})_{\theta\in\Theta}$ with $(\Theta,\sT)$ being a Polish space and such that $\forall A\in\sY$, $\theta\mapsto\PP_{Y|\theta}(A)$ is measurable. We consider $\varPi\in\sM$.\\
 Then there exist a conditional probability space $(\mbf\Omega, \mbf\Xi, [\mbf\Pi])$, a measurable process $\overline Y=(Y_i)_{i\in\NN}$, $Y_i:\mbf\Omega\to\cY$, and a measurable function $T:\mbf\Omega\to\Theta$ such that
     \begin{enumerate}
-        \item for any $U\in\sT$, $\mbf\Pi(T\in U)=\pi(U)$; 
+        \item for any $U\in\sT$, $\mbf\Pi(T\in U)=\varPi(U)$; 
         \item if 
-        $\pi(U) \in  (0,+\infty)$ 
+        $\varPi(U) \in  (0,+\infty)$ 
         %$\pi(U)<+\infty$ 
         then the unique probability space conditioned on $\{T\in U\}$ is such that the conditional probability of any $(Y_{i_l})_{l=1}^k$ to $T=\theta$ is $\PP_{Y|\theta}^{\otimes k}$. More explicitly, if $A_{j_1},\dots,A_{j_k}\in\sY$ then
             \begin{equation}
-                \mbf\Pi\Big(\bigcap_{l=1}^kY_{j_l}\in A_{j_l}|T\in U\Big) = \int_\Theta\PP_{Y|\theta}^{\otimes k}(A_{j_1}\times\dots\times A_{j_k})d\pi(\theta| U).
+                \mbf\Pi\Big(\bigcap_{l=1}^kY_{j_l}\in A_{j_l}|T\in U\Big) = \int_\Theta\PP_{Y|\theta}^{\otimes k}(A_{j_1}\times\dots\times A_{j_k})d\varPi(\theta| U).
             \end{equation}
     \end{enumerate}
 \end{prop}
 
-Such existence of the underlying abstract space $\mbf\Omega$ provides the desired interpretability of the modeling. It can be seen as the source of the uncontrollable randomness that goes beyond the observations and the parameter. It is proven in Section \ref{sec:intro-ref:proof}. One can notice that it is consistent with usual Bayesian frameworks when $\pi$ is proper.
+Such existence of the underlying abstract space $\mbf\Omega$ provides the desired interpretability of the modeling. It can be seen as the source of the uncontrollable randomness that goes beyond the observations and the parameter. It is proven in Section \ref{sec:intro-ref:proof}. One can notice that it is consistent with usual Bayesian frameworks when $\varPi$ is proper.
 
 
 
@@ -488,7 +488,7 @@ Such existence of the underlying abstract space $\mbf\Omega$ provides the desire
 
 
 
-\subsection{Compatibility with the usual framework and notations}\label{sec:intro-ref:frameworkcompatibility}
+\subsection{Notations and compatibility with the usual framework}\label{sec:intro-ref:frameworkcompatibility}
 
 
 
@@ -514,12 +514,12 @@ Denote $\mbf\Omega= I \times\prod_{i\in I}\Omega^i$. A natural $\sigma$-algebra 
 \begin{equation}
     \mbf\Xi = \sigma\big(N\times E_0\times\dots\times E_{k-1}\times\prod_{k\leq i<\mbf i}\Omega^i,\,N\in\sP(I),\, E_0,\dots,E_k\in\sX^i,\,k<\mbf i \big).
 \end{equation}
-We can define $\Pi$ by
+We can define $\varPi$ by
     \begin{equation}
-        \Pi\Big(N\times\prod_{i\in I}E_i\Big) = \sum_{n\in N}\PP^n(E_n)\pi(U_n),
+        \varPi\Big(N\times\prod_{i\in I}E_i\Big) = \sum_{n\in N}\PP^n(E_n)\pi(U_n),
     \end{equation}
 for any $N\in\sP(I)$, $(E_i)_{i \in I} \in\prod_{i\in I}\sX^i$ with $E_i=\Omega^i$ for any $i\geq k$ for some $k<\mbf i$. 
-The existence of the measure $\mbf\Pi$ on $\mbf\Xi$, that coincides with $\Pi$ on the cylinder sets is guaranteed by  Carathéodory's extension Theorem. %$^\ast$
+The existence of the measure $\mbf\varPi$ on $\mbf\Xi$, that coincides with $\varPi$ on the cylinder sets is guaranteed by  Carathéodory's extension Theorem. %$^\ast$
 
 
 
@@ -544,20 +544,20 @@ The same arguments stand for the measurability of $Y_j$ for any $j$.
 We have,
 for any $V\in\sT$:
     \begin{align}
-          \mbf\Pi(T\in V) &= \Pi\Big(\bigcup_{i\in I}\{i\}\times\Omega^1\times\dots\times\{T^i\in V\}\times\Omega^{i+1}\times\dots\Big)\\
+          \mbf\varPi(T\in V) &= \varPi\Big(\bigcup_{i\in I}\{i\}\times\Omega^1\times\dots\times\{T^i\in V\}\times\Omega^{i+1}\times\dots\Big)\\
             %&
           %I\times\prod_{i\in I} \{T^i\in V\}\Big) = 
           &=\sum_{i\in I}\PP^i(T^i\in V)\pi(U_i) = \sum_{i\in I}\pi(V|U_i)\pi(U_i) = \pi(V);\nonumber
     \end{align}
 and if $\pi(V)<\infty$ then for any $(A_{j_l})_{l=1}^k\in\sY^k$: %, with the notation $\{Y_{i_l}\in A_{i_l}\}=\{Y_{i_l}(p)\in A_{i_l}\}$ to see that event as en event in $\mbf\Omega$:
     \begin{multline}
-        \mbf\Pi\left((Y_{j_l})_{l=1}^k\in(A_{j_l})_{l=1}^k|T\in V\right)\mbf\Pi(T\in V) \\ = 
-        \mbf\Pi\Big(\bigcup_{i\in I}  \{i\}\times\Omega^1\times\dots\{(Y^i_{jl})_{l=1}^k\in(A_{jl})_{l=1}^k\}\cap \{T^i\in V \}\times\Omega^{i+1}\dots 
+        \mbf\varPi\left((Y_{j_l})_{l=1}^k\in(A_{j_l})_{l=1}^k|T\in V\right)\mbf\varPi(T\in V) \\ = 
+        \mbf\varPi\Big(\bigcup_{i\in I}  \{i\}\times\Omega^1\times\dots\{(Y^i_{jl})_{l=1}^k\in(A_{jl})_{l=1}^k\}\cap \{T^i\in V \}\times\Omega^{i+1}\dots 
         \Big),
     \end{multline}
     so that
         \begin{align}\nonumber
-        &\mbf\Pi\left((Y_{j_l})_{l=1}^k\in(A_{j_l})_{l=1}^k|T\in V\right) 
+        &\mbf\varPi\left((Y_{j_l})_{l=1}^k\in(A_{j_l})_{l=1}^k|T\in V\right) 
             = \sum_{i\in I}\PP^i\left( \{(Y_{j_l}^i)_{l=1}^k\in(A_{j_l})_{l=1}^k\}\cap \{T^i\in V\}\right)\frac{\pi(U_i)}{\pi(V)} \\
             &= \sum_{i\in I}\int_{V\cap U_i}\PP^{\otimes k}_{Y|\theta}\left((A_{j_l}\right)_{l=1}^k)\frac{d\pi(\theta)}{\pi(V)}  = \int_\Theta\PP^{\otimes k}_{Y|\theta}\left((A_{j_l})_{l=1}^k\right)d\pi(\theta|V).
     \end{align}
@@ -581,13 +581,13 @@ and if $\pi(V)<\infty$ then for any $(A_{j_l})_{l=1}^k\in\sY^k$: %, with the not
 % $$
 % }
 
-We precise that the above expressions rely on the fact that $\mbf\Pi(I\times\prod_{i\in I}E_i)=\sum_{i\in I}\PP^i(E_i)\pi(U_i)$, for any $E_i\in\sX^i$, for every ${i\in I}$. To state that equality, we write $I\times\prod_{i\in I}E_i=\bigcup_{n\geq1}\bigcap_{k<\mbf i}(I^n\times\prod_{i\in I}E_{i,k}') $ with $I^n=\{i\in I,\,i< n\}$ and $E_{i,k}'=E_i$ if $i\leq k$, $E_{i,k}'=\Omega^i$ otherwise. This way for any $n\geq1$:
+We precise that the above expressions rely on the fact that $\mbf\varPi(I\times\prod_{i\in I}E_i)=\sum_{i\in I}\PP^i(E_i)\pi(U_i)$, for any $E_i\in\sX^i$, for every ${i\in I}$. To state that equality, we write $I\times\prod_{i\in I}E_i=\bigcup_{n\geq1}\bigcap_{k<\mbf i}(I^n\times\prod_{i\in I}E_{i,k}') $ with $I^n=\{i\in I,\,i< n\}$ and $E_{i,k}'=E_i$ if $i\leq k$, $E_{i,k}'=\Omega^i$ otherwise. This way for any $n\geq1$:
 $I^n\times\prod_{i\in I} E_{i,k}' \subset I^{n+1}\times\prod_{i\in I} E_{i,k}'$ for any $k<\mbf i$, and
 $        \bigcap_{k<\mbf i} I^n\times\prod_{i\in I} E_{i,k}'\subset \bigcap_{k<\mbf i} I^{n+1}\times\prod_{i\in I} E_{i,k}'$.
 Thus,
     \begin{equation}\label{eq:proofKolmLimPiCup}
-        \mbf\Pi\Big(I\times\prod_{i\in I}E_i\Big) 
-            = \lim_{n\rightarrow\infty}\mbf\Pi\Big(\bigcap_{k<\mbf i}(I^n\times\prod_{i\in I}E_{i,k}')\Big).
+        \mbf\varPi\Big(I\times\prod_{i\in I}E_i\Big) 
+            = \lim_{n\rightarrow\infty}\mbf\varPi\Big(\bigcap_{k<\mbf i}(I^n\times\prod_{i\in I}E_{i,k}')\Big).
     \end{equation}
 
 
@@ -599,16 +599,16 @@ Thus,
 %    \end{align}
 %Thus,
 %    \begin{equation}\label{eq:proofKolmLimPiCup}
-%        \mbf\Pi\Big(I\times\prod_{i\in I}E_i\Big) 
-%            = \lim_{n\rightarrow\infty}\mbf\Pi\Big(\bigcap_{k<\mbf i}(I^n\times%\prod_{i\in I}E_{i,k}')\Big).
+%        \mbf\varPi\Big(I\times\prod_{i\in I}E_i\Big) 
+%            = \lim_{n\rightarrow\infty}\mbf\varPi\Big(\bigcap_{k<\mbf i}(I^n\times%\prod_{i\in I}E_{i,k}')\Big).
 %    \end{equation}
 For any $n\geq1$, $ %\bigcap_{k<\mbf i}
 (I^n\times\prod_{i\in I}E_{i,k}')$ is a decreasing sequence, because $E_{i,k+1}'\subset E_{i,k}'$ for any $k<\mbf i-1$. 
-Also $\mbf\Pi(I^n\times\prod_{i\in I}E_{i,0}')=\sum_{i=0}^{n-1}\pi(U_i)<\infty$.
+Also $\mbf\varPi(I^n\times\prod_{i\in I}E_{i,0}')=\sum_{i=0}^{n-1}\pi(U_i)<\infty$.
 Therefore, we can write:
     \begin{align}
-        \mbf\Pi\Big(\bigcap_{k<\mbf i}(I^n\times\prod_{i\in I}E_{i,k}')\Big) 
-            &= \lim_{k\rightarrow\infty} \mbf\Pi\Big(I^n\times\prod_{i<k,\mbf i}E_i\times\prod_{k\leq i<\mbf i}\Omega^i\Big) \\
+        \mbf\varPi\Big(\bigcap_{k<\mbf i}(I^n\times\prod_{i\in I}E_{i,k}')\Big) 
+            &= \lim_{k\rightarrow\infty} \mbf\varPi\Big(I^n\times\prod_{i<k,\mbf i}E_i\times\prod_{k\leq i<\mbf i}\Omega^i\Big) \\
             &= \lim_{k\rightarrow\infty} \Big[\sum_{i<k,n,\mbf i}\PP^i(E_i)\pi(U_i)  + \sum_{k\leq i<n,\mbf i}\pi(U_i)\Big]=\sum_{i<n,\mbf i}\PP^i(E_i)\pi(U_i),\nonumber
     \end{align}
 because the sums are all finite. Eventually, the limit in Equation (\ref{eq:proofKolmLimPiCup}) is equal to $\sum_{i<\mbf i}\PP^i(E_i)\pi(U_i)$ as expected, hence the result.
