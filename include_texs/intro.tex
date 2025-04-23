@@ -72,7 +72,7 @@ abstract
 
 \begin{abstract}[Résumé]
     Ce chapitre ne diffère du \hyperref[chap:intro-english]{chapitre 1} que par sa rédaction en langue française.
-    Dans ce chapitre, nous introduisons et motivons les travaux de recherche qui ont été conduit au court de cette thèse. Les travaux sont motivés
+    Dans ce chapitre, nous introduisons et motivons les travaux de recherche qui ont été conduits au court de cette thèse. Les travaux sont motivés
     principalement par le besoin d'évolution des méthodes d'études sismiques probabilistes de sûreté, mais aussi par le manque de réponse qu'apporte l'état-de-l'art à la question du choix du prior en inférence bayésienne.
     Ces problématiques sont détaillées et
     les travaux sont alors introduits comme s'inscrivant dans celles-ci, le tout donnant lieu à une organisation consistante du manuscrit.
@@ -210,7 +210,7 @@ L'approfondissement des méthodes des études sismiques probabilistes de sûret�
 % Au CEA, la recherche sur les études sismiques probabilistes de sûerté est portée par le laboratoire EMSI, qui dispose d'une plateforme experimentale (Tamaris) qui permet de procéeder à divers tests mécaniques sur des équipements sous séismes. 
 
 Cette thèse s'inscrit dans la démarche d'évolution du SPRA et de démonstration de sûreté. Financée par le CEA dans le cadre d'un contrat de formation par la recherche, elle a pour objectif d'étoffer l'état de l'art en terme d'estimation de fragilité sismique des équipements et des installations.
-L'objectif est de développer des méthodes qui doivent le mieux possible être (i) efficaces devant la complexité des objets étudiés et de la définition de l'aléa, (ii) être robustes dans le temps et devant une potentielle réévaluation des critères de sûreté, et (iii) être transparentes et auditable par les autorités de sûreté.
+L'objectif est de développer des méthodes qui doivent le plus possible être (i) efficaces devant la complexité des objets étudiés et de la définition de l'aléa, (ii) être robustes dans le temps et devant une potentielle réévaluation des critères de sûreté, et (iii) être transparentes et auditables par les autorités de sûreté.
 
 %lieu à des méthodes qui savent être efficace devant la complexité technique représentée efficaces devant la c
 
@@ -240,7 +240,7 @@ Elle concentre son étude sur 3 éléments qui décrivent l'interaction entre le
 Cette fonction $\cM$ est liée à la modélisation, souvent complexe, du système et de ses propriétés physiques (il peut s'agir de la résolution d'équations physiques, de simulation numériques, ou même du résultat d'une expérience mécanique).
 %L'objet de la quantification d'incertitude est alors d'évaluer une quantité d'intérêt qui dépend de $\mbf Y$ : comme une variance, une probabilité de défaillance, etc ; plus généralement une quantité de la forme $\EE\,\phi(\mbf Y)$.
 %
-La démarche générale de la quantification d'incertitudes est souvent décrite au travers de différentes étapes clées (voir par ex. \cite{sudret_uncertainty_2007, iooss_contributions_2009}), à savoir : %au sein desquelles on distingue particulièrement l'étape d'identification des sources d'incertitudes.
+La démarche générale de la quantification d'incertitudes est souvent décrite au travers de différentes étapes clés (voir par ex. \cite{sudret_uncertainty_2007, iooss_contributions_2009}), à savoir : %au sein desquelles on distingue particulièrement l'étape d'identification des sources d'incertitudes.
 %qu'on peutt principalement résumé 
 %
 \begin{enumerate}
@@ -264,7 +264,7 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
 \begin{itemize}
     \item La métamodélisation %, %le plus souvent par processus gaussien (appellé aussi krigeage), ou par polynomes du chaos, 
     permet de contrevenir la complexité d'évaluation du modèle $\cM$, en construisant un méta-modèle $\tilde\cM$, entraîné à partir d'une base de données d'observations $(\mbf x_1, y_1),\dots,(\mbf x_k,y_k)$. Le méta-modèle se veut par principe plus simple à évaluer que le modèle réel. 
-    Rien ne limite sa définition explicitement qui peut aller d'un simple modèle paramétrique à la sortie d'un réseau de neurones ``boite noire'' ; parmi les plus commun on peut évoquer la méta-modélisation par processus gaussien (ou krigeage) et par polynômes du chaos. %Dans le cadre d'études de sûreté, on citera par exemple \cite{}
+    Rien ne limite sa définition explicitement qui peut aller d'un simple modèle paramétrique à la sortie d'un réseau de neurones ``boîte noire'' ; parmi les plus commun on peut évoquer la méta-modélisation par processus gaussien (ou krigeage) et par polynômes du chaos. %Dans le cadre d'études de sûreté, on citera par exemple \cite{}
     %
     \item Les indices globaux de sensibilité s'inscrivent pleinement dans l'étape d'analyse de sensibilité du système.
     % 
@@ -275,14 +275,14 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
     où $D$ est une mesure de dissimilarité entre deux mesures de probabilité.
     Le choix de $D$ est alors décisif dans l'étude de $S_i$. %, qui revient à une étude de divergence entre deux mesures de probabilité. 
     On peut noter, par exemple, que choisir $D$ définie par $D(P||Q) = \|\EE_{X\sim P}X-\EE_{X\sim Q}X\|^2$ revient à étudier un indice de Sobol' du premier ordre.
-    Le choix de $D$ peut être motivé par divers intérêts, par exemple, celui de discriminer  l'indépendance entre $X_i$ et $ Y$. Le point suivant détail un large panel de choix possibles pour $D$.
+    Le choix de $D$ peut être motivé par divers intérêts, par exemple, celui de discriminer  l'indépendance entre $X_i$ et $ Y$. Le point suivant détaille un large panel de choix possibles pour $D$.
 
     \item La théorie de l'information est au centre de la comparaison de mesures de probabilité et donc de la quantification d'incertitudes. Par essence, les manières de comparer la façon qu'ont deux mesures de probabilité de  distribuer l'information dans un espace sont vastes. 
     Dans la définition de $S_i$ plus haut, le choix de $D$ (et donc le choix de définition de $S_i$) relève de la théorie de l'information.
     
     
     % , puisque deux distributions difères par la manière dont elles 
-    Un choix alors commun, perçu comme une extension de l'entropie de Shannon, est celui des $f$-divergences de \citet{csiszar_information-type_1967}. On peut noter qu'elles sont employées dans des domaines variés, au delà de l'analyse de sensibilité, tel que l'inférence variationnelle (\cite{minka_divergence_2005,bach_sum--squares_2023}), le design de méta-modèles (\cite{nguyen_surrogate_2009}), l'apprentissage PAC-bayésien (\cite{picard-weibel_change_2022}).
+    Un choix alors commun, perçu comme une extension de l'entropie de Shannon, est celui des $f$-divergences de \citet{csiszar_information-type_1967}. On peut noter qu'elles sont employées dans des domaines variés, au-delà de l'analyse de sensibilité, tel que l'inférence variationnelle (\cite{minka_divergence_2005,bach_sum--squares_2023}), le design de méta-modèles (\cite{nguyen_surrogate_2009}), l'apprentissage PAC-bayésien (\cite{picard-weibel_change_2022}).
     Lorsque $f$ est convexe que $f(1)=0$, elle sont définies selon :
         \begin{equation}\label{eq:intro-fdiv-french}
             D_f(P||Q) = \int_\cX f\left( \frac{p(x)}{q(x)} \right) q(x)d\mu(x),
@@ -295,7 +295,7 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
                 -\log x +x -1 & \text{si\ }\delta=0.
             \end{array}\right. 
         \end{equation}    
-    Il est remarquable que la peut-être plus connue des mesure de dissimilarité (la divergence de Kullback-Leibler) peut être vu comme un cas particulier des $\delta$-divergences. En effet, rappelons que la divergence de Kullback-Leibler, notée $\text{KL}$, est définie par 
+    Il est remarquable que la peut-être plus connue des mesures de dissimilarité (la divergence de Kullback-Leibler) peut être vu comme un cas particulier des $\delta$-divergences. En effet, rappelons que la divergence de Kullback-Leibler, notée $\text{KL}$, est définie par 
         \begin{equation}
             \text{KL}(Q||P) = \int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\mu(x)
         \end{equation}
@@ -319,7 +319,7 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
     La propagation d'incertitudes au travers de ce canevas se quantifie en calculant l'\emph{a posteriori}, à partir d'observations statistiques $(\mbf x_1,y_1),\dots,(\mbf x_k, y_k)$.
     La définition de l'\emph{a priori} est critique, elle prend place dans l'étape d'identification des incertitudes, et se révèle impactante sur l'\emph{a posteriori}, et donc, dans un contexte d'étude probabiliste de sûreté, sur le risque.
     
-    Puisque ce dernier outil, qui est en fait un paradigme à lui tout seul, est au centre de cette thèse, la section qui suit lui est pleinement dévoué.
+    Puisque ce dernier outil, qui est en fait un paradigme à lui tout seul, est au centre de cette thèse, la section qui suit lui est pleinement dévouée.
 \end{itemize}
 
 
@@ -353,7 +353,7 @@ Le raisonnement contraire, dit fréquentiste, considère la probabilité comme u
 et les fréquences données par la répétition de l'expérience sont plus probables selon que l'on considère certaines valeurs de l'inconnue plutôt que d'autres, on parle généralement de ``confiance''.
 
 
-Au final, il est important de noter que ces deux raisonnements se complètent, voir parfois se confondent suivant les cas, et ils sont loin d'être antinomiques. Dans un contexte pratique, le cas d'étude et ses spécificités peuvent néanmoins orienter le choix de favoriser l'un par rapport à l'autre.
+Au final, il est important de noter que ces deux raisonnements se complètent, voire parfois se confondent suivant les cas, et ils sont loin d'être antinomiques. Dans un contexte pratique, le cas d'étude et ses spécificités peuvent néanmoins orienter le choix de favoriser l'un par rapport à l'autre.
 
 %et c'est alors l'aléatoire observé lors de cette répétition qui traduit la confiance en une distribution pluôt qu'en une autre %de l'observation aléatoire qui définit
 
@@ -396,7 +396,7 @@ Si l'information issue des données ne pose normalement pas question, c'est l'in
 %On peut noter également que l'information issue des données passe aussi bien au travers du modèle, tel que la vraisemblance le décrit. Cette modélisation qui est alors au centre 
 %Différents auteurs placent aujourd'hui la sélection, la validation et la mise à jour du modèle au centre des études bayésienne, définissant cette démarche comme le worflow bayésien \cite{gelman_bayesian_2020}.
 Cependant, la formulation bayésienne lui attribue un impact significatif sur le posterior, particulièrement dans des cas où la taille de la base de données est limitée. Une illustration de ce phénomène est proposée en figure~\ref{fig:intro-differentsposteriors}, où différents priors, en apparence proches, donnent lieu à des posteriors très différents, à partir des même observations.
-Bien sûr, le diable est dans les détails, et ici, ce sont les queues de distributions des priors, peu discernable sur l'illustration, qui produisent cette différence. Malgré tout cet exemple questionne, et à juste titre, sur le choix du prior.
+Bien sûr, le diable est dans les détails, et ici, ce sont les queues de distribution des priors, peu discernables sur l'illustration, qui produisent cette différence. Malgré tout cet exemple questionne, et à juste titre, sur le choix du prior.
 
 \begin{figure}[h]
     \centering
@@ -413,7 +413,7 @@ Bien sûr, le diable est dans les détails, et ici, ce sont les queues de distri
 
 La question de la construction du prior reste une question ouverte dans la littérature. %tout le worflow bayésien \citep{gelman_bayesian_2020}, elle oppose souvent deux répons%es possibles
 %Elle oppose souvent deux axes de refléxions : la définiton de p
-Pour certains, elle est l'opportunité d'ajouter de l'information provenant d'une source extérieure, il peut s'agir d'un jugement d'expert, de données historiques, ou de connaissances sur certaines propriétés attendues du résultats. Leurs priors sont plutôt qualifiés d'informatifs.
+Pour certains, elle est l'opportunité d'ajouter de l'information provenant d'une source extérieure, il peut s'agir d'un jugement d'expert, de données historiques, ou de connaissances sur certaines propriétés attendues du résultat. Leurs priors sont plutôt qualifiés d'informatifs.
 Pour d'autres, elle est au contraire le moyen d'introduire une incertitude dans le modèle, l'\emph{a priori} est alors dans un tel cas une absence de connaissance, qui vient laisser l'information provenir essentiellement des données. Ces derniers ont confiance en la modélisation de la vraisemblance, et leur prior sera qualifié de non-informatif.
 
 
@@ -421,7 +421,7 @@ On comprend au travers de ces paragraphes introductifs que cette question est in
 donnent lieu a des zones de crédibilité parfois trop larges et inutilisables.
 %Il ne s'agit pas de décrédibiliser le bayésien 
 Ce n'est pas pour autant que l'approche bayésienne perd son intérêt et cette section n'est pas vouée à discréditer la démarche, la suite du manuscrit le prouvera. %Comme toute méthode elle doit être construite 
-Mais elle doit laisser celui ou celle qui l'emploi conscient ou consciente des impacts et des limites de ses choix. Le choix d'un prior est aussi critique que le choix du modèle lui-même.
+Mais elle doit laisser celui ou celle qui l'emploie conscient ou consciente des impacts et des limites de ses choix. Le choix d'un prior est aussi critique que le choix du modèle lui-même.
 
 
 
@@ -494,7 +494,7 @@ Plusieurs questions principales se détachent de cette introduction et de ces pr
 
 
 Dans cette thèse, nous tentons de répondre à ces six problématiques au travers d'une étude selon deux axes. Le premier axe a une dimension qualifiée de théorique, en adressant les problématiques liées à la construction de prior dits ``objectifs'' dans son ensemble. Il se concentre sur le développement d'une théorie appelée la théorie des priors de référence. Le second axe est alors plutôt qualifié de pratique, en étudiant la mise en œuvre des développements théoriques sur des cas d'études réels, en se concentrant sur l'estimation de courbes de fragilité sismiques, qui représentent un outil important du cadre des études sismiques probabilistes de sûreté.
-Il reste important de rappeler que, bien qu'indépendants, les deux grands axes de travail sus-mentionnés s'alimentent l'un l'autre. Ce sont autant les problématiques pratiques qui ont motivés les recherches théoriques, que les découvertes pratiques qui ont permis les études pratiques.\\
+Il reste important de rappeler que, bien qu'indépendants, les deux grands axes de travail sus-mentionnés s'alimentent l'un l'autre. Ce sont autant les problématiques pratiques qui ont motivé les recherches théoriques, que les découvertes pratiques qui ont permis les études pratiques.\\
 
 
 %l'un étant plutôt théorique et adresse les questions de construction, de définiton, et d'objectivité des priors ; l'autre étant plut
@@ -506,13 +506,13 @@ Il reste important de rappeler que, bien qu'indépendants, les deux grands axes 
 La \textbf{\cref{part:ref-theory}} de ce manuscrit est alors dévouée au développement de la théorie des priors de référence.
 
 \noindent
-Dans le \cref{chap:intro-ref}, on introduit la théorie et on développe son état-de-l'art. Il permet d'introduire la notion de prior de référence telle qu'elle est communément définie dans la littérature, et leur place  les priors objectifs. Ce chapitre permet aussi de formaliser le cadre mathématique de travail pour la suite de la partie.
+Dans le \cref{chap:intro-ref}, on introduit la théorie et on développe son état-de-l'art. Il permet d'introduire la notion de prior de référence telle qu'elle est communément définie dans la littérature, et leur place parmi les priors objectifs. Ce chapitre permet aussi de formaliser le cadre mathématique de travail pour la suite de la partie.
 
 \noindent
 Dans le \cref{chap:ref-generalized}, on observe que la définition des priors de référence s'appuie sur une mesure de dissimilarité. On cherche alors dans ce chapitre à généraliser la définition de cette dernière afin d'appuyer le caractère objectif des priors de référence. Ce chapitre apporte une réponse à la \textbf{question i}.
 
 \noindent
-Dans le \cref{chap:constrained-prior}, on cherche une ouverture au cadre des priors de référence, lorsqu'il donne lieu à des priors difficilement utilisable en pratique. On propose alors une définition de ce qu'on appelle priors de référence contraints. Les solutions de cette définition apportent une réponse à la \textbf{question ii}.
+Dans le \cref{chap:constrained-prior}, on cherche une ouverture au cadre des priors de référence, lorsqu'il donne lieu à des priors difficilement utilisables en pratique. On propose alors une définition de ce qu'on appelle priors de référence contraints. Les solutions de cette définition apportent une réponse à la \textbf{question ii}.
 
 \noindent
 Dans le \cref{chap:varp}, on développe une méthode numérique d'approximation des priors de référence. Cette méthode s'appuie sur l'inférence variationnelle en définissant le prior comme la sortie d'un réseau de neurones, afin d'éviter un calcul explicite de celui-ci. Ce chapitre apporte une réponse à la \textbf{question iii}. \\
@@ -527,7 +527,7 @@ Dans le \cref{chap:frags-intro}, on introduit les courbes de fragilité sismique
 Dans le \cref{chap:prem}, on propose un calcul et une étude en profondeur du prior de référence pour un modèle classique employé pour l'estimation de ces courbes de fragilité. L'inférence bayésienne via l'emploi de ce prior y est comparé à d'autres méthodes. Ce chapitre apporte une réponse à la \textbf{question iv}.
 
 \noindent
-Dans le \cref{chap:constrained-frags}, on s'intéresse en profondeur aux limites du modèle considéré pour l'estimation des courbes de fragilité. On propose une solution qui est appuyée par les développement théoriques de la première partie. Ce chapitre apporte une réponse à la \textbf{question v}.
+Dans le \cref{chap:constrained-frags}, on s'intéresse en profondeur aux limites du modèle considéré pour l'estimation des courbes de fragilité. On propose une solution qui est appuyée par les développements théoriques de la première partie. Ce chapitre apporte une réponse à la \textbf{question v}.
 
 \noindent
 Dans le \cref{chap:doe}, on termine notre étude en proposant une méthode qui vient appuyer l'estimation bayésienne en optimisant l'information issue des données non plus seulement  lors du choix du prior mais également lors de la sélection de celles-ci, au travers d'une méthode de planification d'expériences. Ce chapitre apporte une réponse à la \textbf{question vi}.\\

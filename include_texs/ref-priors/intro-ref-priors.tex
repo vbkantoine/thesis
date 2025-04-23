@@ -78,7 +78,7 @@ In practice, $k$ realizations $\mbf y= (y_1,\dots,y_k)$ of the r.v. $Y$ are obse
 \end{equation}
 where $\PP_{\mbf Y_k|\theta}:=\PP_{Y|\theta}^{\otimes k}$. The distribution $\PP_{\mbf Y_k}$ is called the \textbf{marginal distribution}.
 
-Given the observations $\mbf y$, the \textbf{posterior distribution}, denoted $P_{T|\mbf y}$, is then defined as the a.s. unique one verifying
+Given the observations $\mbf y$, the \textbf{posterior distribution}, denoted $\PP_{T|\mbf y}$, is then defined as the a.s. unique one verifying
     \begin{equation}
         \forall A\in\sY^{\otimes k},\,\forall B\in\sT,\, \int_{A}\PP_{T|\mbf y}(B)d\PP_{\mbf Y_k}(\mbf y) = \int_B \PP_{\mbf Y_k|\theta}(A)d\varPi(\theta).
     \end{equation}
@@ -115,9 +115,9 @@ It is common when dealing with non-informative priors in Bayesian analysis to de
 Improper priors are defined as distributions whose density $\pi$ integrates to infinity: $\int_\Theta\pi(\theta)d\nu(\theta)=\infty$. 
 
 Of course, such a prior is not a probability distribution anymore, so that the framework elucidated in \cref{sec:intro-ref:minimalclassicframework,sec:intro-ref:likelihoods} does not stand. 
-A way-around to be able to use improper priors is to focus on restrictions of the model. In precise terms,  as $\nu$ is a $\sigma$-finite measure, there exist an increasing sequence $(B_n)$ of elements in $\Theta$ such that 
+A way-around to be able to use improper priors is to focus on restrictions of the model. In precise terms,  as $\nu$ is a $\sigma$-finite measure, there exists an increasing sequence $(B_n)$ of elements in $\Theta$ such that 
 $\Theta=\bigcup_{n\in\NN}B_n$ and $\nu(B_n) <\infty$.
-An improper prior is said to be admissible if for any $n$, $\int_{B_n}\pi(\theta)d\nu(\theta)<\infty$, and if there exists $n_0$ such that $\int_{B_n}\pi(\theta)d\nu(\theta)>0$.
+An improper prior is said to be admissible if for any $n$, $\int_{B_n}\pi(\theta)d\nu(\theta)<\infty$, and if there exists $n_0$ such that $\int_{B_{n_0}}\pi(\theta)d\nu(\theta)>0$.
 
 In this case, on any $\tilde\Theta\in\sT$ such that there exists $N\in\NN$ verifying $\tilde\Theta\subset\bigcup_{n\geq n_0}^NB_n$ and such that $B_{n_0}\subset\tilde\Theta$, one can define the probability space $(\tilde\Theta,\tilde\sT,\tilde\varPi)$ with:
     \begin{equation}
@@ -129,9 +129,9 @@ The probability $\Tilde\varPi$ (respectively its density) is referred as the res
 On any restricted model, the posterior and the marginal distributions exist. 
 Given two restrictions driven by $\tilde\Theta_1$ and $\tilde\Theta_2$, the restricted prior densities $\tilde\pi_1$ and $\tilde\pi_2$ are equal on $\tilde\Theta_1\cap\tilde\Theta_2$ up to a constant:
     \begin{equation}
-        \tilde\pi_1(\theta) = K\tilde\pi_2(\theta),\quad\text{so that}\quad \forall \mbf y\in\cY^k,\,\tilde p_{1,\mbf Y}(\mbf y) = K\tilde p_{2,\mbf Y}(\mbf y),
+        \tilde\pi_1(\theta) = K\tilde\pi_2(\theta),\quad\text{so that}\quad \forall \mbf y\in\cY^k,\,\tilde p_{1,\mbf Y_k}(\mbf y) = K\tilde p_{2,\mbf Y_k}(\mbf y),
     \end{equation}
-where $\tilde p_{1,\mbf Y}$ (reps. $\tilde p_{2,\mbf Y}$) denotes the marginal density in the restricted model driven by $\tilde\Theta_1$ (resp. $\tilde\Theta_2$). Thus, calling $\tilde p_1(\cdot | \mbf y)$ (resp. $\tilde p_2(\cdot | \mbf y)$) the posterior density given the observations $\mbf y$ and under the restricted model driven by $\tilde\Theta_1$ (resp. $\tilde\Theta_2$), we have
+where $\tilde p_{1,\mbf Y_k}$ (reps. $\tilde p_{2,\mbf Y_k}$) denotes the marginal density in the restricted model driven by $\tilde\Theta_1$ (resp. $\tilde\Theta_2$). Thus, calling $\tilde p_1(\cdot | \mbf y)$ (resp. $\tilde p_2(\cdot | \mbf y)$) the posterior density given the observations $\mbf y$ and under the restricted model driven by $\tilde\Theta_1$ (resp. $\tilde\Theta_2$), we have
     \begin{equation}
         \forall\theta\in\tilde\Theta_1\cap\tilde\Theta_2,\, \tilde p_1(\theta | \mbf y) =\tilde p_2(\theta | \mbf y).
     \end{equation}
@@ -165,14 +165,14 @@ Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\varPi)$
 \begin{defi}[Mutual information]\label{def:intro-ref-MI}
     Given a Bayesian framework defined as in \cref{sec:intro-ref:classical-framework}, and given a number of observations $k$, the mutual information is defined as the quantity
     \begin{equation}
-        \sI^k(\varPi) =  \EE_{\mbf Y_k\sim \PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)] =  \int_{\cY^k}\text{KL}(\PP_{T|\mbf y}||\varPi) p_{\mbf Y_k}(\mbf y)d\mbf y.
+        \sI^k(\varPi) :=  \EE_{\mbf Y_k\sim \PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)] =  \int_{\cY^k}\text{KL}(\PP_{T|\mbf y}||\varPi) p_{\mbf Y_k}(\mbf y)d\mbf y.
     \end{equation}
 \end{defi}
 
 
 %This quantity is called the mutual information.
 
-We recall that the definition of the mutual information is not limited to the scope of Bayesian analysis. In information theory it is common to refer to the mutual information $\sI(X,Z)$ between a random variable $X$ and a random variable $Z$ \citep{mackay_information_2003}. The quantity in \cref{def:intro-ref-MI} aligns with their definition of the mutual information $\sI(T,\mbf Y_k)$ between the random parameter $T$ and the random data $\mbf Y_k$.
+We recall that the definition of the mutual information is not limited to the scope of Bayesian analysis. In information theory it is common to refer to the mutual information $\sI(X,Z)$ between a random variable $X$ and a random variable $Z$ (see e.g. \cite{mackay_information_2003}). The quantity in \cref{def:intro-ref-MI} aligns with their definition of the mutual information $\sI(T,\mbf Y_k)$ between the random parameter $T$ and the random data $\mbf Y_k$.
 
 One can apply Fubini-Lebesgue's theorem to write the mutual information as
 \begin{equation}
@@ -199,7 +199,7 @@ However, formally maximizing the mutual information $\sI^k(\varPi)$ w.r.t. $\var
 \begin{enumerate}
     \item First, its expression depends on the value of the number of  observations $k$, and $k$ alters the form of its maximal argument. %The prior expression comes, by nature, prior to the observations, and should depend neither on $k$, neither on $\mbf y$. A 
     %In normal settings, there are no knowledge on the v
-    This problem is tackled arguing that $\sI^k$ only measures a limited quantity of information brought by $T$ onto the distribution of the data $\mbf Y$. The Bayesian framework does considerate the data $(Y_1,\dots,Y_k)$ to be independent, so that the distribution of $\mbf Y$ is enriched as $k$ rises.
+    This problem is tackled arguing that $\sI^k$ only measures a limited quantity of information brought by $T$ onto the distribution of the data $\mbf Y$. The Bayesian framework does considerate the data $(Y_1,\dots,Y_k)$ to be dependent, so that the distribution of $\mbf Y$ is enriched as $k$ rises.
     According to \citet{bernardo_bayesian_1994}, the limit $\sI^\infty$ (if it exists) measures the knowledge missing form the prior.
     Thus, the formal definition tends to maximize $\sI^k$ as $k$ diverges to $\infty$.
     \item The second issue comes with the fact that the quantity $\sI^k(\varPi)$ generally does not admit a finite limit as $k$ diverges to $\infty$.
@@ -208,18 +208,19 @@ However, formally maximizing the mutual information $\sI^k(\varPi)$ w.r.t. $\var
 
 The commonly admitted definition for the reference prior, which takes into account the three issues aforementioned is the following, adapted from \cite{dey_reference_2005}.
 \begin{defi}[Reference priors]\label{def:intro-ref:ref-priors}
-    Let $\cP$ be class of priors on $\Theta$, a prior $\varPi\in\cP$ %whose prior density is $\pi$ 
+    Let $\cP$ be set of priors on $\Theta$, a prior $\varPi\in\cP$ %whose prior density is $\pi$ 
     is a reference prior over $\cP$ if there exist an appropriate increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta_i)<\infty  $ and
         \begin{equation}
             \lim_{k\rightarrow\infty} (\sI^k_i(\varPi_i) - \sI^k_i(P_i) )\geq 0 \text{\ for all\ } P\in\cP_i
         \end{equation}
-    with equality if and only if $\varPi_i=P$; with $\varPi_i$ (resp. $P_i$) being the restriction of $\varPi$ (resp. $P$) on $\Theta_i$, $\sI_i^k$ denoting the mutual information on the restricted modeling driven by $\Theta_i$, and $\cP_i=\{P\in\cP,\,0<P(\Theta_i)<\infty\}$.
+    %with equality if and only if $\varPi_i=P$; 
+    with $\varPi_i$ (resp. $P_i$) being the restriction of $\varPi$ (resp. $P$) on $\Theta_i$, $\sI_i^k$ denoting the mutual information on the restricted modeling driven by $\Theta_i$, and $\cP_i=\{P\in\cP,\,0<P(\Theta_i)<\infty\}$.
 \end{defi}
 
 %This definition differs slightly from the one in \cite{berger_formal_2009}
 %This definition will serve as a reference. I
-This first definition considers a set $\cP$ called a class of priors. 
-We provide a thorough definition of such a class in \cref{sec:intro-ref:novelframework}.
+This first definition considers a set $\cP$ called a set of priors. 
+We provide a thorough definition of such a class in \cref{sec:intro-refs:limits}.
 Until then, it refers to a set of priors that are admissible as described in the \cref{sec:intro-ref:improperway-around}.
 This definition also
 requires the sequence $(\Theta_i)$ to be ``appropriate''.
@@ -237,7 +238,7 @@ In \cite{berger_formal_2009}, the authors prove that in the real and one paramet
 
 \begin{thm}[Explicit for of the reference prior]\label{thm:intro-ref:explicitRP}
     Assume $\Theta\subset\RR$ with $\nu$ being the Lebesgue measure.\\
-    Call $\cP_s$ the class of admissible priors that are positive and continuous, and that issue proper posterior distributions.\\
+    Call $\cP_s$ the set of admissible priors that are positive and continuous, and that issue proper posterior distributions.\\
     Let $\varPi^\ast\in\cP_s$ we call $p^\ast(\cdot|\cdot)$ its posterior and define for any interior point $\theta_0\in\Theta$,
         \begin{equation}
             % \begin{aligned}
@@ -274,7 +275,7 @@ Typically, it is recommended to assume $\Theta_j\subset\RR^{d_j}$ with small dim
 
 
 This construction is often considered in the literature when it resorts to define reference priors in multidimensional context. 
-However, it relies on the hierarchization of the parameter fixed in \cref{eq:intro-ref:hierartheta}, and the recommended  one depend on the model of interest.
+However, it relies on the hierarchization of the parameter fixed in \cref{eq:intro-ref:hierartheta}, and the recommended  one depends on the model of interest.
 There are a few models, such as the multinomial one, for which the different reference priors resulting from this construction have been extensively studied. In the case of the multinomial model, it is claimed that this construction with an ordering where $r=d$ when $\Theta\subset\RR^d$ must be favored  \citep{berger_ordered_1992,berger_overall_2015}.
 
 
@@ -290,9 +291,9 @@ There are a few models, such as the multinomial one, for which the different ref
 
 
 
-The elucidating of the reference priors remains an open question for some restricted class of priors $\cP$ or when we lack of regularity assumptions on the model.
+The elucidating of the reference priors remains an open question for some restricted set of priors $\cP$ or when we lack of regularity assumptions on the model.
 %Generally, it is common 
-In most studies, $\cP$ remains as large as possible and is restricted only by some mild regularity assumptions, such as that the priors admit continuous densities.
+In most studies, $\cP$ remains as large as possible and is restricted only by some mild regularity assumptions, such as that the priors admitting continuous densities.
 %As we solve an optimization problem, \citet{mure_objective_2018} has pointed out that the class $\cP$ should be 
 % The most general properties satisfied by the reference priors are recalled in \cite{berger_formal_2009}.
 % \begin{prop}[Independence from sample size]
@@ -309,15 +310,15 @@ In most studies, $\cP$ remains as large as possible and is restricted only by so
 
 
 
-In the general case, \citet{mure_objective_2018} studied the uniqueness of the reference priors. 
+In the general case, \citet{mure_objective_2018} studied the uniqueness of reference priors. 
 His study requires to define the sequence $(\Theta_i)_i$ in \cref{def:intro-ref:ref-priors} ``appropriate'' if and only if the $\Theta_i$ are open subsets of $\Theta$.
 %Considering the class of admissible priors 
 %
-We summarize his result as follows:
+We summarize his main result as follows:
 \begin{thm}
-    Let $\cP$ be the class of admissible priors. 
+    Let $\cP$ be the set of admissible priors. 
     Call an ``appropriate'' increasing sequence of subsets $(\Theta_i)_i$, an increasing sequence such that each for any $i$, $\Theta_i$ is open.
-    Under the assumption that there exist a weakly estimator of $\theta$, the reference prior over $\cP$, if it exists, is unique.
+    Under the assumption that there exist a weakly estimator of $\theta$, the reference prior over $\cP$, if it exists, is unique up to a multiplicative constant.
 \end{thm}
 
 This result allows referring to ``the reference prior'' instead to ``reference priors'' in some cases. %However, it is limited to cases where a very general class $\cP$. %is considered
@@ -334,7 +335,7 @@ The following assumption is a regularity assumption on the statistical model, it
         \begin{equation}
             \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta} \|\nabla^2_\theta\log\ell(Y|\theta')\| \right]\quad\text{and}\quad \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta}\|\nabla_\theta\log\ell(Y|\theta')\|^2\right]
         \end{equation}
-        are bounded for $\theta\in B(\hat\theta,\tau)$.
+        are bounded w.r.t. $\theta\in B(\hat\theta,\tau)$.
     \end{enumerate}
 \end{assu}
 
@@ -348,7 +349,7 @@ and the Jeffreys prior refers to the prior whose density is $J$, defined by
     \end{equation}
 Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive function on $\Theta$. \citet{clarke_jeffreys_1994} have shown that it actually is the reference prior over the priors with continuous and positive densities on $\Theta$. Their result can be expressed as follows.
     \begin{thm}\label{thm:intro-ref:clarke}
-        Under \cref{assu:intro-ref:jeffreysexist}. Call an ``appropriate'' increasing sequence of set $(\Theta)_i$, an increasing sequence such that for any $i$ $\Theta_i$ is compact. Assume $\nu$ is the Lebesgue measure and let $\cP$ be the class of priors admitting a continuous and positive density. Then the Jeffreys prior is the unique reference prior over $\cP$.
+        Under \cref{assu:intro-ref:jeffreysexist}. Call an ``appropriate'' increasing sequence of set $(\Theta)_i$, an increasing sequence such that for any $i$ $\Theta_i$ is compact. Assume $\nu$ is the Lebesgue measure and let $\cP$ be the set of priors admitting a continuous and positive density. Then the Jeffreys prior is the unique reference prior over $\cP$.
     \end{thm}
 \citet{mure_objective_2018} has shown that the above theorem still stands when ``appropriate'' refers to open subsets of $\Theta$.
 
@@ -357,7 +358,8 @@ The Jeffreys prior arises as a cornerstone in the reference prior theory.
 This prior has been introduced by \citet{jeffreys_invariant_1946}. It is a prior that is already praised in Bayesian statistics for its main property to be invariant by re-parametrization of the model:
 define $\phi=g(\theta)$ with $g$ being a diffeomorphism, and define the model induced considering $\phi$ instead of $\theta$. Then the Jeffreys prior for this re-parameterized model admits the density $J_g$:
     \begin{equation}
-        J_g(\phi) = J(\theta) \left|\frac{dg^{-1}}{d\phi} (\theta)\right|.
+        J_g(\phi) = J(\theta) %\left|\frac{dg^{-1}}{d\phi} (\theta)\right| 
+        |\det d_\phi g^{-1}(\theta)|.
     \end{equation}
 This ensures that inference is not affected by the choice of parameterization, preserving coherence.
 We also recall that the Jeffreys prior is known to be improper in most cases.
@@ -390,7 +392,7 @@ We also recall that the Jeffreys prior is known to be improper in most cases.
 %The reference prior definition is complex as
 
 During this brief review, we mentioned some limits in the framework of the reference priors definition.
-They are related to the incorporation of improper priors in the admissible priors. As a matter of fact, when dealing with non-informative distribution, it is common to find one of the main assumption on probability distributions (that is, their total mass is $1$) limiting.
+They are related to the incorporation of improper priors in the admissible priors. As a matter of fact, when dealing with non-informative distributions, it is common to find one of the main assumption on probability distributions (that is, their total mass is $1$) limiting.
 The fact is that in some cases, improper distribution seems really ``close'' to proper ones.
 As an example, we could mention that the improper uniform distribution on $\RR$ can be seen as a Gaussian distribution with a variance that diverges to infinity. A logarithmic re-parametrization of the latter gives the improper distribution of density proportional to $x\mapsto1/x$.
 
@@ -437,7 +439,7 @@ We let $(\Theta,\sT)$ be a measurable space. If $\varPi_1$ and $\varPi _2$ are t
     \end{equation}
 Define by $\sM$ the space of non-null, non-negative and $\sigma$-finite measures on $\Theta$. The following properties are verified:
     \begin{itemize}
-        \item The relation $\simeq$ is an equivalence relation on $\sM$. We note $[\varPi]$ the class of a $\varPi\in\sM$.
+        \item The relation $\simeq$ is an equivalence relation on $\sM$. We note $[\varPi]$ the set of a $\varPi\in\sM$.
         %\item If $(\Theta,\sT)$ is a Borel space, then $\widehat\sM$, the space of the non-null non-negative Radon measures, is stable by $\sim$, i.e., $\pi\in\widehat\sM\Longrightarrow[\pi]\subset\widehat\sM$. %It implies that $\sim$ is an equivalence relation on  and $\hat\sM$ with $\hat\sM/\!\simeq\,\subset\sM/\!\simeq$.
         \item Denote by $\sM^\nu$ the space of absolutely continuous measures w.r.t. $\nu\in\sM$. It is stable by $\simeq$.
         \item Define by $\sR$ the space of non-negative non-null measurable functions from $\Theta$ to $\RR$. The relation%Let $\nu\in\sM$, the relation $\propto$ defined by
@@ -527,7 +529,7 @@ For $\mbf y\in\cY^k$ there exists a posterior density w.r.t. $\nu$ defined in  t
         p(\theta|\mbf y) 
         \propto  \ell_k(\mbf y|\theta)\pi(\theta) = \prod_{i=1}^k\ell(y_i|\theta)\pi(\theta)
     \end{equation}
-If the posterior is proper for $\PP_{\mbf Y_k}$-a.e. $\mbf y$, the marginal density can be defined $\PP_{\mbf Y_k}$-a.e. by
+If the posterior is proper for $\PP_{\mbf Y_k}$-a.e. $\mbf y$, a marginal density can be defined $\PP_{\mbf Y_k}$-a.e. by
     \begin{equation}
         p_{\mbf Y_k}(\mbf y) =  \int_\Theta\ell_k(\mbf y|\theta)\pi(\theta)d\theta.
     \end{equation}
@@ -539,11 +541,82 @@ The elucidating of the densities in this novel Bayesian construction is consiste
 When restricting the framework to a $\tilde\Theta\in\sT$ such that $0<\varPi(\tilde\Theta)<\infty$, the restricted model driven by $\tilde\Theta$ (in the sense given in \cref{sec:intro-ref:improperway-around})  corresponds to the model on $\tilde\Theta$ considering the prior $\varPi(\cdot|\tilde\Theta)$.
 
 Therefore, the notations and definitions written in the previous sections still stands.
+The modeling remains the same for any prior that equals  $\varPi$ up to a positive multiplicative constant, so that if $\varPi\in\sM$ is a reference prior, any prior in $[\varPi]$ also is.
+For this reason it becomes appropriate to talk about a reference prior class. 
+We will authorize however the slight abuse of language referring to ``the reference prior'' instead of ``reference prior in the reference prior class'', when the latter is unique.
+We formalize this terminology in the following definitions.
+
+\begin{defi}
+    A set of prior refers to a subset of $\sM^\nu$.\\
+    When $\nu$ is the Lebesgue measure, a set of continuous prior refers to a subset $\cP\subset\sM^\nu$ where for any $\varPi\in\cP$, $\varPi$ admits a $\nu$-a.e. continuous density $\pi$. We call $\sM_\cC^\nu$ the union of the sets of continuous priors.\\
+    The subset of $\sR$ composed by $\nu$-a.e. continuous functions is denoted $\sR_\cC$.
+\end{defi}
+
+\begin{prop}
+    $\sM_\cC^\nu$ is stable by $\simeq$ and $\sR_\cC$ is stable by $\propto$.\\
+    If $\Theta\subset\RR^d$, and if $f\in\sR_\cC$, there exists $g$ that equals $f$ $\nu$-a.e. and that is locally bounded on $\Theta$.\\
+    The subset of $\sR$ composed by locally bounded and $\nu$-a.e. continuous functions is denoted $\sR_{\cC^b}$, it is stable by $\propto$ and any $f$ in $\sR_\cC$ is bounded on every compact.
+\end{prop}
+
+\paragraph{Proof} 1.
+% \begin{enumerate}
+%     \item 
+The stability of $\sR_\cC$ and $\sR_{\cC^b}$ to $\propto$ come since multiplying a function by a constant does not affect its continuity. \\
+We consider $M$ the mapping assigning a density in $\sR$ to its associated measure in $\sM^\nu/$ as
+\begin{equation}
+    M:f\in\sR \longmapsto \left(B\in\sT\mapsto \int_Bf(\theta)d\nu(\theta) \right).
+\end{equation}
+We have $f\propto g\implies M(f)\simeq M(g)$, so that $M(\sR_\cC) $ is stable $\simeq$. The second statement of the proposition comes since $M(\sR_\cC)=\sM^\nu_\cC$ by definition.\\
+2. For the second statement, we consider $f\in\sR_\cC$
+We note $E=\{\theta,\, \forall\tau>0,\, f$ is not bounded on $B(\theta,\tau) \} $.
+Let $\theta\in E$, 
+for any $n>0$, $f$ is not bounded on $B(\theta,1/n)$, so that there exists $\theta_n\in B(\theta,1/n)$ such that $f(\theta_n)>n$. That leading to $f(\theta_n)\conv{n\rightarrow\infty}\infty$ while $\theta_n\conv{n\rightarrow\infty}\theta$, $f$ is discontinuous on $\theta$. 
+We deduce that $\nu(E)=0$. Thus, defining $g$ by $g=f$ on $\Theta\!\setminus\! E$ and $g=0$ otherwise ensures $g$ is in $\sR_\cC$ and is locally bounded, with $g=f$ $\nu$-a.e. \\
+3. If $\tilde\Theta$ is a compact subset of $\Theta$, we can cover $\tilde\Theta$ by open balls on which $f$ is bounded (consequently to statement~2.). Since $\tilde\Theta$ is compact, the open cover admits a finite  subcover. $f$ being bounded on this finite subcover, we deduce that it is bounded on $\tilde\Theta$.
+% \item 
+% \end{enumerate}
+
+
+\begin{defi}[Advanced defintinon of reference priors]
+    Let $\cP$ be a set of priors. A prior $\varPi\in\cP$ is a reference prior over $\cP$ if there exist an openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta)<\infty$ and
+    \begin{equation}
+        \lim_{k\rightarrow\infty}\sI^k(\varPi(\cdot|\Theta_i) - \sI^k(P(\cdot|\Theta_i)) ) \geq 0 \text{\ for all\ } P\in\cP\text{\ verifying\ }0<P(\Theta_i)<\infty.
+    \end{equation}
+    Let $\cQ$ be a subset of $\sM^\nu/\!\simeq$.
+    And denote by $q$ the surjection $q:\varPi\in\sM^\nu\mapsto[\varPi]$.  
+    A class $[\varPi]\in\cQ$ is called a reference prior class over $\cQ$ if $\varPi$ is a reference prior over $q^{-1}(\cQ)$.
+\end{defi}
 
 
 
+The above definition is congruous with the \cref{def:intro-ref:ref-priors}, apart from the necessary condition on the sequence $(\Theta_i)_i$. 
+The definition of an openly increasing sequence of compacts
+is stated below. It is, according to ourselves, an appropriate condition on this sequence, as it allows the consistency between the compact case and the improper case.
 
 
+\begin{defi}
+    A sequence $(\Theta_i)_{i\in \NN}$ of subset of $\Theta$ is said to be openly increasing if there exists $i_0\geq0$ and a sequence $(V_i)_{i\geq i_0}$ of open subsets of $\Theta$ such that for any $i\geq i_0$:
+    \begin{equation}
+        \Theta_i\subset V_i\subset\Theta_{i+1}.
+    \end{equation}
+\end{defi}
+
+\begin{prop}
+    Assume $\Theta$ is compact. Then if $\varPi$ is a reference prior over a set of priors $\cP$, it verifies
+        \begin{equation}\label{eq:intro-ref:refcompact}
+            \lim_{k\rightarrow\infty} (\sI^k(\varPi)-\sI^k(P)) \geq0\text{\ for all\ } P\in\cP.
+        \end{equation}
+\end{prop}
+
+
+\paragraph{Proof} 
+We consider an openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i = \Theta$.
+By definition there exist $i_0\geq0$ and a sequence $(V_i)_{i\geq i_0}$ of open subsets of $\Theta$  such that for any $i\geq i_0$
+    \begin{equation}
+        \Theta_i\subset V_i\subset \Theta_{i+1}.
+    \end{equation}
+This way, $\bigcup_iV_i=\Theta$ and the compacity of $\Theta$ imposes it to  be a finite union, so that $\Theta_i=\Theta$ for any $i\geq i_1$ for some $i_1\geq0$.
+Since $\varPi$ is a reference prior over $\cP$ its restriction to $\Theta_{i_1}$ verifies the \cref{eq:intro-ref:refcompact}. Hence the result.
 
 
 
@@ -676,7 +749,38 @@ because the sums are all finite. Eventually, the limit in \cref{eq:proofKolmLimP
 \section{Conclusive remarks}\label{sec:intro-ref:conclusion}
 
 
-This section should conclude the state-of-the-art and delimit the limitations of the current theory on different aspects. 
+%This section should conclude the state-of-the-art and delimit the limitations of the current theory on different aspects. 
+
+Reference priors are designed 
+as a solution to the research for objective priors.
+To do so, they are constructed on informatic-theoretic foundations, under a framework though to ensure they maximize the role of the data in the definition of the posterior distribution.
+
+
+The theory is provided with a formal definition and
+several works propose rigorous studies of reference priors, in different contexts.
+That let them be elected for their lack of subjectivity in various practical
+studies (e.g. \cite{Chen2008,Gu2016,Dandrea2021}) 
+and various statistical models, such as Gaussian process-based models \citep{paulo_default_2005,gu_parallel_2016}, generalized linear models \citep{natarajan_reference_2000} or genearal exponential family models 
+
+
+%\citep{Paulo2005,Mure2019,Natarajan2000}. %Yet, they are criticized for their  low computational feasibility.
+
+
+%\citep{Berger1996, Clarke1996, Berger2001, Olivera2007}. Its expression within different contexts has been derived and studied, for example, concerning Gaussian process based models \citep{Paulo2005, Gu2018, Mure2019, Mure2021}, Gaussian hierarchical models \citep{Keefe2019}, generalized linear models \citep{Natarajan2000} or general exponential family models \citep{Clarke2010}
+
+
+
+
+Reference priors are used in various statistical models, such as Gaussian process-based models Paulo(2005); Gu and Berger (2016), generalized linear models Natarajan and Kass (2000), and even BayesianNeural Networks Gao et al. (2022). The RPs are recognized for their objective nature in practicalstudies D’Andrea et al. (2021); Li and Gu (2021); Van Biesbroeck et al. (2024),
+
+
+the theory is well developed the priors are studied the come with tremendious properties and even solutions in some cases.*
+
+
+
+Within this landscape, reference prior theory stands out as a principled and rigorous approach to objective Bayesian inference. Developed to provide a formal mechanism for constructing priors that maximize the expected information from data, reference priors offer a coherent solution to the challenge of noninformativity. By relying on information-theoretic foundations and maintaining critical invariance properties, they occupy a unique position in the toolbox of the modern Bayesian analyst.
+
+to be qualified as objective
 
 
 referen ce priors are designed to be  objective to do so they
