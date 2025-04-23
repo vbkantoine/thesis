@@ -1,10 +1,15 @@
 
 
 \begin{abstract}
-    The reference prior theory is a perfect tool 
-    We provide a comprehensive state-of-the-art. 
-    this chapter is also the occasion to introduce 
-    %We review the reference prior theory
+    The reference prior theory is a prominent tool when 
+    one researches for a prior embedded with an objective construction. It is designed to ensure the information in the posterior comes promptly from the observations rather than from the prior itself.
+    In this chapter, the theory is reviewed, and its formalism is rigorously introduced.
+    We recall the main results about the reference priors that are proven in the literature.
+    Additionally, because we find the usual Bayesian framework limiting for the study of reference priors, we propose a novel Bayesian formalism that provides a rigorous incorporation of improper priors.
+    The latter fixes the notations we use in rest of the manuscript.
+    % We provide a comprehensive state-of-the-art. 
+    % this chapter is also the occasion to introduce 
+    % %We review the reference prior theory
 \end{abstract}
 
 \minitoc
@@ -42,9 +47,9 @@ the idea was to shift from minimizing the information in the prior to maximizing
 This notion of expected information, is defined with the support of the mutual information which allows for a formal construction of priors that are designed to let the data dominate the inference.
 
 The reference prior theory has been extensively studied since its deepen formalization by \citet{berger_formal_2009}. For instance, \citet{mure_objective_2018} provides a comprehensive review of the theory.
-This chapter proposes a novel brief review of the reference prior theory, fixing the framework and defining its main tools (in \cref{sec:intro-ref:classical-framework}). %, such as the mutual information. 
+This chapter proposes a novel brief review of the reference prior theory. We fix the framework and define important main tools for the theory in \cref{sec:intro-ref:classical-framework}. %, such as the mutual information. 
 The reference priors are formally defined in \cref{sec:intro-ref:mutalinfo-ref-priors}, and we review its different properties that are proven in the literature.
-Eventually, this chapter is the occasion to discuss the limitations of the standard framework of the reference prior, and to suggest a solution based on an original formalization of the Bayesian inference tools.  The latter in done in \cref{sec:intro-ref:novelframework} and fixes the mathematical elements and notations that we will manipulate through the whole manuscript.
+Eventually, this chapter is the occasion to discuss the limitations of the standard framework of the reference prior, and to suggest a solution based on an original formalization of the Bayesian inference tools.  The latter in done in \cref{sec:intro-refs:limits} and fixes the mathematical elements and notations that we will manipulate through the whole manuscript. A short conclusion terminates the chapter in \cref{sec:intro-ref:conclusion}.
 
 
 
@@ -70,7 +75,7 @@ The Bayesian viewpoint considers a random variable $T:\Omega\to\Theta$ taking va
     \begin{equation}
         \forall A\in\sY,\,B\in\sT,\, \PP(Y\in A,\, T\in B) = \int_B \PP_{Y|\theta}(A) d\varPi(\theta).
     \end{equation}
-Note that the above quantities are well-defined and are almost surely unique, at least while $(\cY,\sY)$, $(\Theta,\sT)$ and $(\PP_{Y|\theta})_\theta$ align with the statements of the disintegration theorem (see e.g. \cite{chang_conditioning_1997}).
+%Note that the above quantities are well-defined and are almost surely unique, at least while $(\cY,\sY)$, $(\Theta,\sT)$ and $(\PP_{Y|\theta})_\theta$ align with the statements of the disintegration theorem (see e.g. \cite{chang_conditioning_1997}).
 
 In practice, $k$ realizations $\mbf y= (y_1,\dots,y_k)$ of the r.v. $Y$ are observed, they are supposed to be identically distributed and independent conditionally to $T$, meaning they are the realization of a random vector $\mbf Y_k = (Y_1,\dots,Y_k)$, whose distribution $\PP_{\mbf Y_k}$ is defined on $(\cY^k,\,\sY^{\otimes k})$ by:
 \begin{equation}
@@ -78,11 +83,13 @@ In practice, $k$ realizations $\mbf y= (y_1,\dots,y_k)$ of the r.v. $Y$ are obse
 \end{equation}
 where $\PP_{\mbf Y_k|\theta}:=\PP_{Y|\theta}^{\otimes k}$. The distribution $\PP_{\mbf Y_k}$ is called the \textbf{marginal distribution}.
 
-Given the observations $\mbf y$, the \textbf{posterior distribution}, denoted $\PP_{T|\mbf y}$, is then defined as the a.s. unique one verifying
+Given the observations $\mbf y$, the \textbf{posterior distribution}, denoted $\PP_{T|\mbf y}$, is then defined as the $\PP_{\mbf Y_k}$-a.s. unique one verifying
     \begin{equation}
         \forall A\in\sY^{\otimes k},\,\forall B\in\sT,\, \int_{A}\PP_{T|\mbf y}(B)d\PP_{\mbf Y_k}(\mbf y) = \int_B \PP_{\mbf Y_k|\theta}(A)d\varPi(\theta).
     \end{equation}
 We can notice that the posterior distribution is always absolutely continuous w.r.t. the prior distribution.
+Its existence and $\PP_{\mbf Y_k}$-a.s. uniqueness are ensured by the disintegration theorem (see e.g. \cite{chang_conditioning_1997}), while $(\cY,\sY)$ and $(\Theta,\sT)$ are Borel spaces.
+
 
 
 \subsection{Likelihood and densities}\label{sec:intro-ref:likelihoods}
@@ -510,7 +517,7 @@ The consideration of another representative $\tilde\varPi$ of  $[\varPi]$ does n
 
 That framework allows the construction of a marginal distribution $\PP_{\mbf Y_k}$, defined as the pushforward measure of $\mbf\Pi$ by $\mbf Y_k$.
 In the same way as $\varPi$, it is unique up to a constant.
-The posterior distribution $\PP_{T|\mbf y}$ is well-defined for almost every $\mbf y\in\cY^k$ by
+The posterior distribution $\PP_{T|\mbf y}$ is well-defined for $\PP_{\mbf Y_k}$-a.e. $\mbf y$ by
 \begin{equation}
     \forall A\in\sY^{\otimes k},\,\forall B\in\sT,\, \int_{A}\PP_{T|\mbf y}(B)d\PP_{\mbf Y_k}(\mbf y) = \int_B \PP_{\mbf Y_k|\theta}(A)d\varPi(\theta).
 \end{equation}
@@ -578,7 +585,7 @@ We deduce that $\nu(E)=0$. Thus, defining $g$ by $g=f$ on $\Theta\!\setminus\! E
 
 
 \begin{defi}[Advanced defintinon of reference priors]
-    Let $\cP$ be a set of priors. A prior $\varPi\in\cP$ is a reference prior over $\cP$ if there exist an openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta)<\infty$ and
+    Let $\cP$ be a set of priors. A prior $\varPi\in\cP$ is a reference prior over $\cP$ if there exists an openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta)<\infty$ and
     \begin{equation}
         \lim_{k\rightarrow\infty}\sI^k(\varPi(\cdot|\Theta_i) - \sI^k(P(\cdot|\Theta_i)) ) \geq 0 \text{\ for all\ } P\in\cP\text{\ verifying\ }0<P(\Theta_i)<\infty.
     \end{equation}
@@ -591,7 +598,7 @@ We deduce that $\nu(E)=0$. Thus, defining $g$ by $g=f$ on $\Theta\!\setminus\! E
 
 The above definition is congruous with the \cref{def:intro-ref:ref-priors}, apart from the necessary condition on the sequence $(\Theta_i)_i$. 
 The definition of an openly increasing sequence of compacts
-is stated below. It is, according to ourselves, an appropriate condition on this sequence, as it allows the consistency between the compact case and the improper case.
+is stated below. It is, according to ourselves, an appropriate condition on this sequence, as it allows the consistency between the compact case and the general case.
 
 
 \begin{defi}
@@ -758,40 +765,31 @@ To do so, they are constructed on informatic-theoretic foundations, under a fram
 
 The theory is provided with a formal definition and
 several works propose rigorous studies of reference priors, in different contexts.
-That let them be elected for their lack of subjectivity in various practical
-studies (e.g. \cite{Chen2008,Gu2016,Dandrea2021}) 
-and various statistical models, such as Gaussian process-based models \citep{paulo_default_2005,gu_parallel_2016}, generalized linear models \citep{natarajan_reference_2000} or genearal exponential family models 
+That let them be elected for their lack of subjectivity in various practical studies (e.g. \cite{chen_properties_2008,gu_parallel_2016,dandrea_objective_2021})
+and various statistical models, such as Gaussian process-based models \citep{paulo_default_2005,gu_parallel_2016}, generalized linear models \citep{natarajan_reference_2000} or general exponential family models \citep{clarke_reference_2010}.
+
+Moreover, the framework that we have introduced allows a rigorous incorporation of improper priors in Bayesian modelings.
+This provides a better interpretability of the reference priors when it leads to an improper distribution. 
+
+
 
 
 %\citep{Paulo2005,Mure2019,Natarajan2000}. %Yet, they are criticized for their  low computational feasibility.
 
 
 %\citep{Berger1996, Clarke1996, Berger2001, Olivera2007}. Its expression within different contexts has been derived and studied, for example, concerning Gaussian process based models \citep{Paulo2005, Gu2018, Mure2019, Mure2021}, Gaussian hierarchical models \citep{Keefe2019}, generalized linear models \citep{Natarajan2000} or general exponential family models \citep{Clarke2010}
+%Reference priors are used in various statistical models, such as Gaussian process-based models Paulo(2005); Gu and Berger (2016), generalized linear models Natarajan and Kass (2000), and even BayesianNeural Networks Gao et al. (2022). The RPs are recognized for their objective nature in practicalstudies D’Andrea et al. (2021); Li and Gu (2021); Van Biesbroeck et al. (2024),
+%the theory is well developed the priors are studied the come with tremendious properties and even solutions in some cases.*
 
 
 
-
-Reference priors are used in various statistical models, such as Gaussian process-based models Paulo(2005); Gu and Berger (2016), generalized linear models Natarajan and Kass (2000), and even BayesianNeural Networks Gao et al. (2022). The RPs are recognized for their objective nature in practicalstudies D’Andrea et al. (2021); Li and Gu (2021); Van Biesbroeck et al. (2024),
-
-
-the theory is well developed the priors are studied the come with tremendious properties and even solutions in some cases.*
+%Within this landscape, reference prior theory stands out as a principled and rigorous approach to objective Bayesian inference. Developed to provide a formal mechanism for constructing priors that maximize the expected information from data, reference priors offer a coherent solution to the challenge of noninformativity. By relying on information-theoretic foundations and maintaining critical invariance properties, they occupy a unique position in the toolbox of the modern Bayesian analyst.
 
 
-
-Within this landscape, reference prior theory stands out as a principled and rigorous approach to objective Bayesian inference. Developed to provide a formal mechanism for constructing priors that maximize the expected information from data, reference priors offer a coherent solution to the challenge of noninformativity. By relying on information-theoretic foundations and maintaining critical invariance properties, they occupy a unique position in the toolbox of the modern Bayesian analyst.
-
-to be qualified as objective
-
-
-referen ce priors are designed to be  objective to do so they
-
-the theory is well developed the priors are studied the come with tremendious properties and even solutions in some cases.*
-
-and the framework that we introduce allows a convincing carrying out of improper priors
-
-However some limit remains. anyway th objectivity coms from a a chosen expression of what they should maximize
-and their defintion remaon not fully stated in the mutlidimensional
-Indeedn we avoid Jeffreys for several of its defaults such as.
+However, some limits remain. 
+First, the theory is still built on some choices, such as the choice of the dissimilarity measure to quantify how different are the prior and the posterior.
+Second, the incorporation of improper priors is appealing yet can represent an issue in cases where they issue improper posteriors. Actually, reference priors are known to lead to improper posteriors in some cases.
+Last, the theoretical developments limit their studies to set of priors that are the more general possible, and effects of its restriction are rarely focused.
 
 
 
