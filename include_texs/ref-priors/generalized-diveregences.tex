@@ -1,6 +1,6 @@
 
 \begin{abstract}[\hspace*{-10pt}]
-    This chapter draws mainly on the published work: \fullcite{van_biesbroeck_generalized_2024}  % Ce chapitre reprend principalement les travaux publiés dans: 
+    This chapter draws mainly on the submitted work: \fullcite{van_biesbroeck_generalized_2024}  % Ce chapitre reprend principalement les travaux publiés dans: 
 \end{abstract}
 
 \begin{abstract}
@@ -11,44 +11,468 @@
 
 \section{Introduction and motivations}
 
-The reference prior theory aims at defining priors that are the most objective possible
+The reference prior theory aims at defining priors that are the most objective possible. A review of the theory can be found in the \cref{chap:intro-ref}. It is built on the maximization of the mutual information, that is designed to measure the information brought by the data in the posterior distribution.
+
+While there exist infinitely many ways to compare probability distribution, the mutual information is classically defined as an expected Kullback-Leibler divergence between the prior and the posterior.
+The settings under which the reference priors are usually defined result from the aforementioned choices. Since the aim is to define priors that are not impacted by potentially subjective choice, we question how the results about reference priors stands when the definition of the mutual information is altered.
+
+Extensions of the mutual information in the reference prior definition have already been explored in the literature (e.g. \cite{chen_objective_2010,liu_divergence_2014,le_formal_2014}), and some do not necessarily lead to the Jeffreys prior \citep{hashimoto_reference_2021,clarke_reference_1997,ghosh_general_2011}. They are all based on the expression of mutual information as an average divergence between the posterior and the prior distributions.
+
+
+
+
+In this chapter, we contribute to the reference prior theory with an original derivation of the mutual information from a Global Sensitivity Analysis (GSA) based viewpoint. %that we divulge.
+GSA, whose principle is to measure how the uncertainty of an output is impacted by that of some of its input \citep{iooss_review_2015}, allows us indeed to provide %indeed
+an interpretation of the reference prior as a maximizer of such sensitivity influence that the observations get from the parameter of interest. 
+This suggestion leads to defining what we call generalized mutual information, by analogy with global sensitivity indices \citep{da_veiga_basics_2021}. %
+It relies on the wide range of existing dissimilarity measures between two probability distributions.
+An example is the $f$-divergence subclass \citep{csiszar_information-type_1967}, commonly employed as an extension of  Shannon entropy for various purposes in statistics, such as, variational inference \citep{minka_divergence_2005,bach_sum--squares_2023}, surrogate model design \citep{nguyen_surrogate_2009}, PAC Bayesian learning \citep{picard-weibel_change_2022} and Differential Privacy \citep{mironov_renyi_2017}.
+%
+A study of those divergences within our generalized mutual information is {also} a main contribution of this paper, with the goal of deriving what one is invited to call generalized reference priors.
+%Pursuing introductory elements we unveiled in \cite{VanBiesbroeckJDS2023}, we go further in this paper with 
+We provide an accomplished formalization for the generalized reference prior settings, and results based on classical $f$-divergences for sensitivity analysis such as $\alpha$-divergences.
+{
+Our main result takes the form of a limit w.r.t. the number of data of the mutual information. Its analytical expression as a function of the prior permits a simple expression of our reference priors: they are its maximal arguments. It opens the path of easier {theoretical} derivation of reference priors among the ones that satisfy different kinds of constraints, or that belong to some particular classes.}
+
+
+In the next section, we formalize the usual Bayesian framework that we consider in our work. Our motivation supported by a Global Sensitivity Analysis viewpoint for an enrichment of the mutual information is elucidated in section \ref{sec:Bayesian}. Afterwards, a sub-class of that generalized mutual information is studied in section \ref{sec:motivationGMI} to define and derive what we call their generalized reference priors. 
+Eventually, a conclusion of this paper is provided in section \ref{sec:conclusion}.
+
+
+
 
 
 
 
 \section{Generalized mutual information}
 
-\subsection{Definitions and developments}
+\subsection{Mutual information and definitions}
 
-\subsection{Motivating $f$-divergences}
+
+We consider a statistical modeling characterized by a collection of distributions $(\PP_{Y|\theta})_{\theta\in\Theta}$. 
+The Bayesian framework is constructed as described in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}). We suppose that $\Theta\subset\RR^d$ and denote by $\nu$ the Lebesgue measure on $\RR^d$. 
+The priors considered are absolutely continuous distributions w.r.t. $\nu$.
+
+We consider the same notations as in \cref{chap:intro-ref}: $\mbf Y_k$ denote a random vector of $k$ data items whose distributed independently conditionally to $T=\theta$ where $T$ is an r.v. whose distribution is the prior $\varPi$. The density of $\varPi$ is denoted by $\pi$.
+
+We suppose that the modeling admits a likelihood, denoted by $\ell$ with $\forall\theta\in\Theta,\mbf y\in\cY^k,\, \ell_k(\mbf y|\theta)=\prod_{i=1}^k\ell(y|\theta) $. We denote by $p_{\mbf Y^k}$ the marginal density of $\mbf Y_k$, and by $p(\cdot|\mbf y)$ the posterior density given the observations $\mbf y\in\cY^k$. %We recall that even though those quantities are defined (when they exist) only up to a constant, their definition is the usual o
+Furthermore, we suppose the modeling to be regular (i.e. \cref{assu:intro-ref:jeffreysexist} in \cref{chap:intro-ref} is verified), so that the Fisher information matrix (that we denote $\cI$) and the Jeffreys prior exist. A density of the Jeffreys prior is denoted by $J$.
+
+
+
+Under this framework, when the prior $\varPi$ is proper and its total mass equal $1$, we recall that the mutual information is classically defined as the following quantity:
+    \begin{equation}
+        \sI^k(\varPi) =  \EE_{\mbf Y_k\sim \PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)] .
+    \end{equation}
+We recall that in the above expression, the posterior and marginal distributions depend on the prior considered. %We do not write explicitly the dependance in the equations to avoid notations that are hard to read.
+Applying Fubini-Lebesgue's theorem allows to also write the mutual information as follows
+    \begin{equation}\label{eq:PS:MIGSA}
+        \sI^k(\varPi) = \EE_{T\sim\varPi}[\text{KL}(\PP_{\mbf Y_k|T}||\PP_{\mbf Y_k}) ].
+    \end{equation}
+That last quantity expresses the mutual information as 
+a measure of the influence that the stochastic parameter $T$ has on the data $\mbf Y_k$.
+That interpretation aligns with a sensitivity analysis viewpoint. Actually, the expression in \cref{eq:PS:MIGSA} can be seen as a sensitivity index, where the impact of the input $T$ on the output $\mbf Y_k$ is studied. We develop this interpretation in the following section.
+
+
+
+
+\subsection{Mutual information as a sensitivity index}
+
+The integration of the Bayesian formalism in the settings of uncertainty quantification resorts in modeling $\mbf Y_k$ as the output of a stochastic system whose input include $T$. In other terms, we write $\mbf Y_k=\cM(T,\epsilon)$. Here, $T$ embeds uncertainty on  the input parameters and $\epsilon$ represents an unknown uncertain variable, sometimes referred to as a nuisance parameter.
+
+A well-designed Bayesian modeling parameterized by $T$ would be such that the input between $\epsilon$ and $T$ whose impact on the output
+is the highest is $T$. Such a modeling should reduce the impact of the irreducible uncertainty embedded in $\epsilon$.
+
+This impact is measured by a sensitivity index as follows, considering a dissimilarity measure $D$, 
+    \begin{equation}
+        S = \EE_{T\sim\varPi}[ D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T}) ].
+    \end{equation}
+It corresponds to the mutual information $\sI^k(\varPi)$ when $D$ is defined as $D(P||Q)=\text{KL}(Q||P)$.
+
+Actually, different choices for dissimilarity measures $D$ can be done to define sensitivity indices \citep{da_veiga_global_2015}. For instance, setting $D(P||Q)=|\EE_{X\sim P}X-\EE_{X\sim Q}X|^2$ gives the un-normalized Sobol’ index \citep{sobol_sensitivity_1993}.
+Among the most common ones, we recall the $f$-divergences, defined from a real and measurable function $f$ that is convex and maps $1$ to $0$. The $f$-divergence is denoted $D_f$ and defined as 
+    \begin{equation}
+        D_f(P||Q) = \int_\cX f\left(\frac{p(x)}{q(x)}\right) q(x) d\omega(x)
+    \end{equation}
+where $p,q$ respectively are densities of $P$ and $Q$  w.r.t. a common measure $\omega$ on $\cX$.
+
+
+
+
+
+
+
+\subsection{Generalized mutual information}
+
+
+The same way as sensitivity indices are supported by various dissimilarity measure, our suggestion is to define the mutual information using other dissimilarity measures than the Kullback-Leibler divergence.
+Our novel definition is the following.
+\begin{defi}[$D$-mutual inforamation]
+    Let $D$ be a dissimilarity measure, for a fixed $k$, the $D$-mutual information of a proper prior $\varPi$ with total mass equal to $1$ under $k$ observations is defined as
+        \begin{equation}
+            \sI_D^k(\varPi) := \EE_{T\sim\varPi}[D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} )].
+        \end{equation}
+\end{defi}
+
+In the case where $D=D_f$ is an $f$-divergence, the mutual information equals
+    \begin{equation}
+        \sI_{D_f}^k(\varPi) =\EE_{T\sim\pi}[D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T})] = \int_\Theta\int_{\cY^k}f\left( \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\theta)} \right) \ell_k(\mbf y|\theta)d\mu^{\otimes k}(\mbf y) \pi(\theta)d\nu(\theta).
+    \end{equation}
+% For the sequel, let us refer to the $D_f$-mutual  information as the $f$
+It corresponds to  the classical definition in the case where $f=-\log$. Actually, the classical definition is a subcase of the study a particular class of the $f$-divergences which are the $\delta$-divergences. They are defined setting $f=f_\delta$ where 
+\begin{equation}
+    f_\delta(x) = \left\lbrace\begin{array}{l l} \frac{x^\delta-\delta x-(1-\delta)}{\delta(\delta-1)} & \text{si\ }\delta\not\in\{0,1\},\\ 
+        x\log x-x+1  & \text{si\ }\delta=1, \\
+        -\log x +x -1 & \text{si\ }\delta=0.
+    \end{array}\right. 
+\end{equation}    
+When $\delta=0$, we retrieve the original form of the mutual information.
 
 
 \section{Generalized reference priors}
 
-\subsection{Definitions}
+%\subsection{Definitions and general properties}
+
+Reference priors are defined as asymptotic maximizers of the mutual information. Using the same formalism as in their original definition (that is expressed in the \cref{chap:intro-ref}), we suggest the following definition of generalized reference priors using our generalized mutual information.
+
+\begin{defi}[Generalized reference prior]\label{def:genref}
+    Let $D$ be a dissimilarity measure and $\cP$ a set of priors on $\Theta$. A prior $\varPi\in\cP$ is called a $D$-reference prior over $\cP$ with rate $\varphi(k)$ if there exists an openly increasing  sequence of compact subsets $(\Theta_i)_{i\in\NN}$
+    such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ and for any $i$: $0<\varPi(\Theta_i)<\infty $ and
+    % with $\pi^\ast(\Theta_i)>0$, $\Theta_i\subset\Theta$, $\bigcup_{i\in I}\Theta_i=\Theta$ such that
+        \begin{equation}\label{eq:defrefpriorsi}
+            \lim_{k\rightarrow\infty}\varphi(k)[\sI^k_D(\varPi(\cdot|\Theta_i))-\sI^k_D(P(\cdot|\Theta_i))] \geq0 \text{\ for all\ } P\in\cP\text{\ verifying\ }0<P(\Theta_i)<\infty;
+        \end{equation}
+    where  $\varphi(k)$ is a {positive and}  monotonous function of $k$.
+\end{defi}
+%In such defintion inv
+
+
+This definition matches with the original one when the dissimilarity measure is the Kullback-Leibler divergence. Nevertheless, it introduces the definition of an associated rate proposed by ourselves. In fact, our
+work provides elements showing that such rate exists and may vary as a function of the dissimilarity measure
+considered. When it resorts to the original mutual information, the rate is constant.
+
+The results provided below ensure that the generalized reference priors verify similar property than the original reference priors.
+
+
+
+
+
+
+
+\begin{prop}[Invariance by reparamtrization]
+    Consider a re-parametrization $\phi=g(\theta)$ with $g$ being a diffeomorphism and $\cP$ a set of priors on $\Theta$.
+    Then if $\varPi$ is  a reference prior over $\cP$ for the model parameterized w.r.t. $\theta$, $\tilde{\varPi}$ is a reference prior over $\tilde\cP$ for the model parameterized w.r.t. $\phi$, where: 
+    \begin{equation}
+        \tilde\cP = \{ M(\pi |\det g_\phi^{-1}|),\,M(\pi)\in\cP ) \},
+    \end{equation}
+    with $M:\sR\mapsto\sM^\nu$ mapping a function to the distribution whose it is the density.
+\end{prop}
+
+\begin{proof}
+    The proposition comes from the fact that $\sI^k_D$ is
+    clearly invariant by re-parametrization: for any prior $\varPi$ having a density $\pi$ on $\Theta$, and any $\tilde\Theta\subset\Theta$ with $\varPi\in(0,\infty)$, calling $\tilde\Xi = g(\tilde\Theta) $,
+        \begin{equation}
+            \sI^k(\varPi(\cdot|\tilde\Theta)) = \EE_{T\sim\varPi(\cdot|\tilde\Theta)}[D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} )] = \EE_{\Phi\sim\tilde\varPi(\cdot|\tilde\Xi)} [D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|g^{-1}(\Phi)} )] =: \tilde\sI^k_D(\tilde\varPi(\cdot|\tilde\Xi))
+        \end{equation}
+    where $\tilde\varPi$ is defined by its density $\tilde\pi = \pi|\det d_\phi g^{-1}|$, and $\tilde\sI^k_D$ denoted the $D$-mutual information on the re-parameterized model.
+\end{proof}
+
+\begin{prop}[Consistency with compact cases]
+    Assume $\Theta$ is compact. Let $\cP$ be a set of continuous priors. If $\varPi$ is a reference prior over $\cP$, then
+        \begin{equation}
+            \lim_{k\rightarrow\infty} \sI_D^k(\varPi) -\sI_D^k(P) \geq0 \text{\ for all\ } P\in\cP.
+        \end{equation}
+\end{prop}
+
+\begin{proof}
+    As the prior are continuous, their restrictions are proper on any compact. Thus, the quantities involved in the proposition are well-defined. 
+    As $\varPi$ is a reference prior over $\cP$ we can consider an associated openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ that covers $\Theta$. Since $\Theta$ is compact there exists $i$ such that $\Theta_i=\Theta$. Hence the result since the restriction $\varPi(\cdot|\Theta_i)$ verifies the statement of the proposition by definition.
+\end{proof}
+
+\begin{prop}[Invertibility]
+    %We consider an $f$-divergence $D_f$. If $\varPi$ admits a density $\pi$ which is such that for any compact set $\tilde\Theta$,
+    Assume that $f$ is a convex function such that %$x\mapsto f(1/x)$ is concave 
+    for any compact set $\tilde\Theta$,
+        \begin{equation}
+            \sup_{\theta\in\tilde\Theta}\sup_{\theta'\in\tilde\Theta} \int_{\cY^k} f\left(\frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}  \right) \ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y)<\infty
+        \end{equation}
+    Then the $D_f$-mutual information values on restriction to compacts are always finite. Additionally, if for any $x>0$, $|f(x)\indic_{f(x)<0}|\leq x $ then the $D_f$-mutual information expression can be inverted back:
+        \begin{equation}
+            \EE_{T\sim\varPi(\cdot|\tilde\Theta)}[D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T})] 
+                =\EE_{\mbf Y_k\sim\PP_{\mbf Y_k}} [D(\varPi(\cdot|\tilde\Theta)|| \PP_{T|\mbf Y_k} ) ]. 
+        \end{equation}
+\end{prop}
+
+\begin{proof}
+    Let $\tilde\Theta$ be a compact subset of $\Theta$. We consider $\varPi\in\sM^\nu$ and denote $\tilde\varPi=\varPi(\cdot|\tilde\Theta)$ and  $\tilde\pi$ the latter's density. We have
+        \begin{equation}
+        \begin{aligned}
+            \sI^k_{D_f}(\tilde\varPi) &= \int_{\tilde\Theta}\int_{\cY^k} f\left( \frac{p_{\mbf Y^k}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)\ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y) \tilde\pi(\theta)d\nu(\theta) \\
+                &\leq \sup_{\theta\in\tilde\Theta}\int_{\cY^k} \int_{\tilde\Theta} f\left( \frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}\right)\ell_k(\mbf y|\theta) \tilde\pi(\theta')d\nu(\theta') d\mu^{\otimes k}(\mbf y) ,
+        \end{aligned}
+        \end{equation}
+        using the convexity of $f$. Since $\tilde\Theta$ is compact, $\tilde\pi$ is bounded. Thus, we obtain $\sI^k_{D_f}(\tilde\varPi)<\infty$.
+
+        For inverting the integrals, we notice that the assumption on $f$ allows to write 
+        \begin{equation}
+            \int_{\tilde\Theta}\int_{\cY^k} \left|f\left( \frac{p_{\mbf Y^k}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)\right|\ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y) \tilde\pi(\theta)d\nu(\theta) \leq 1 + \sup_{\theta\in\tilde\Theta}\sup_{\theta'\in\tilde\Theta} \int_{A_{f,\varPi,\tilde\Theta}} f\left(\frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}  \right) \ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y)
+        \end{equation}
+        with $A=\{\mbf y\in\cY^k,\, p_{\mbf Y_k}(\mbf y)/\ell_k(\mbf y|\theta)\in f^{-1}((0,\infty)) \}\subset\cY^k $. We deduce that the above quantity is finite, which allows us to invert the integrals and conclude, using Fubini-Lebesgue's theorem.
+\end{proof}
+
+\begin{prop}[Compatibility with sufficient statistics]
+    Suppose $D$ is an $f$-divergence with the assumptions of the above proposition being verified.
+    Consider $Z:=z(\mbf Y_k)\in\cZ$ a sufficient statistic of the model built on $(\PP_{Y|\theta})_{\theta\in\Theta}$. %Consider the model built on $(\PP_{Z|\theta})_\Theta$. 
+    %The mutu
+    The $D_f$-mutual information remains stable by considering $Z$ instead of $\mbf Y_k$:
+    \begin{equation}
+        \sI^k_{D_f}(\varPi(\cdot|\tilde\Theta)) = \EE_{T\sim\varPi(\cdot|\tilde\Theta)}[D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} )] = \EE_{T\sim\varPi(\cdot|\tilde\Theta)}[D(\PP_{Z}||\PP_{Z|T} )] =: \tilde\sI_{D_f}^k(\varPi(\cdot|\tilde\Theta))
+    \end{equation}
+    for all $\varPi\in\sM^\nu$; where $\tilde\sI^k$ denotes the mutual information considering the second model.
+    % Let $\cP$ be a set of priors, a reference prior over $\cP$ for the first model is a reference prior over $\cP$ for the second.
+\end{prop}
+
+\begin{proof}
+    If $Z$ is a sufficient statistic, the posterior verifies $p(\theta|z(\mbf y))= p(\theta|\mbf y)$. Thus, the terms$D_f(\varPi(\cdot|\tilde\Theta)||\PP_{T|\mbf Y_k})$ and $D_f(\varPi(\cdot|\tilde\Theta)||\PP_{T|Z})  $ are equal. Hence the result since
+        \begin{equation}
+            \sI^k_{D_f}(\varPi(\cdot|\tilde\Theta)) = \EE_{\mbf Y_k\sim\PP_{\mbf Y_k}}[D_f(\varPi(\cdot|\tilde\Theta)||\PP_{T|\mbf Y_k}) ] \quad\text{and} \quad \tilde\sI^k_{D_f}(\varPi(\cdot|\tilde\Theta)) = \EE_{ Z\sim\PP_{Z}}[D_f(\varPi(\cdot|\tilde\Theta)||\PP_{T|Z}) ] .
+        \end{equation}
+\end{proof}
+
+
+To conclude this section, we mention the work of \citet{le_formal_2014}. The author proposes a formulation of  $D_{f_\delta}$-reference priors as limit of priors when $\Theta\subset\RR$, in the same fashion as in \cite{berger_formal_2009} (see \cref{chap:intro-ref}, \cref{thm:intro-ref:explicitRP}).
+\begin{thm}[\cite{le_formal_2014}]
+    Consider a $\delta$-divergence $D_{f_\delta}$ with $\delta\in[0,1]$. Assume $\Theta\subset\RR$. Let $\cP_s$ be the set of continuous positive priors admitting proper posteriors.
+    %The set of priors $\cP_s^p$ is defined by:\\
+    %a prior in $\cP_s^p$ admits a density $\pi$ that is continuous, positive and whose posteriors are proper 
+%
+%    Call $\cP_s$ the set of priors that are positive and continuous, and that issue proper posterior distributions.\\
+    Let $\varPi^\ast\in\cP_s$ we call $p^\ast(\cdot|\cdot)$ its posterior density and define for any interior point $\theta_0\in\Theta$,
+        \begin{equation}
+            % \begin{aligned}
+                f_k(\theta) = \exp\left(\int_{\cY^k}\ell_k(\mbf y|\theta)\log(p^\ast(\theta|\mbf y)) d\mbf y \right) \quad\text{and}\quad  %\\
+                f(\theta) = \lim_{k\rightarrow\infty}\frac{f_k(\theta)}{f_k(\theta_0)}.
+            % \end{aligned}
+        \end{equation}
+        Under mild assumptions that are similar to the ones of \cite{berger_formal_2009}, the prior admitting $f$ as density is a reference prior over $\cP_s$.
+\end{thm}
+
+
+
+\section{Towards $\delta$-divergences-reference priors}
+
+
+The objective of this section is to study the $D_f$-reference priors for certain class of functions $f$ that resemble to $\delta$-divergence.
+We precise that from now on, the prior will always be considered continuous (they admit a $\nu$-a.e. continuous density functions). We recall that the set of such priors is denoted by $\sM^\nu_\cC $, and they all admit a density in the set $\sR_{\cC^b}$. %(the set of $\nu$-a.e. continuous and locally bounded densities).
+
+We recall that the random vectors are given by a process $\overline{Y}$ defined on a conditional probability space $(\mbf\Omega,\mbf\Xi,[\mbf\Pi] )$ (see \cref{prop:intro-ref:kolmog}). If $\tilde\Theta$ is a compact subset of $\Theta$, the restriction $(\tilde{\mbf\Omega},\tilde{\mbf\Xi}, \mbf\Pi(\cdot|T\in\tilde\Theta))$ of the conditional probability space to $\{T\in\tilde\Theta\}$ is a probability space.
+For some $\theta\in\tilde\Theta$ we will adopt the notation $\PP_\theta$ for the conditional probability on $\tilde{\mbf\Omega}$ to $\{T=\theta\}$. That means, for any $k$, any $A\in\sY^{\otimes k}$, 
+    \begin{equation}
+        \PP_\theta(\mbf Y_k\in A) = \PP_{\mbf Y_k|\theta}(A).
+    \end{equation}
+We denote by $\EE_\theta$ the associated expectation.
+
+
+
+\subsection{A first result}
+
+A first useful result comes when we consider an asymptotic expansion of $f$ in the neighborhood of $0$:
+\begin{equation}
+    f(x) \aseq{x\rightarrow0} g_1(x) + o(g_2(x))
+\end{equation}
+for some $g_1:(0,\infty)\to\RR$, $g_2:(0,\infty)\to(0,\infty)$.
+
+
+\begin{prop}
+    Let $\tilde\Theta$ be a compact subset of $\Theta$.
+    Consider a prior $\varPi\in\sM^\nu_\cC$ and denote by $\pi\in\sR_{\cC^b}$ a density of $\varPi(\cdot|\tilde\Theta)$.%$\pi\in\sR_{\cC^b}$.
+    For any $\theta$ in the interior of $\Supp\pi$ there exists $c=c(\theta),\,C$ positive constants such that the following convergence in probability holds:
+    \begin{equation}
+        \label{eq:cvinproba}
+        \tilde g_2^{C,c}(k^{-d/2})^{-1}\left| f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right.            \left. - g_1\left(k^{-d/2}\pi(\theta)(2\pi)^{d/2}|\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k \right)\right) \right| %\\
+                \conv[\PP_{\theta}]{k\rightarrow\infty} 0,
+    \end{equation}
+    where $\tilde g_2^{C,c}(k^{-d/2})=\sup_{x\in[c,C]} g_2(xk^{-d/2})$, and $S_k$ denotes $\frac{1}{\sqrt{k}}\sum_{i=1}^k\nabla_\theta\log\ell(Y_i|\theta)$.
+\end{prop}
+
+
+There are three things we can say about this first asymptotic result. %in some sense, 
+%which holds under weak assumptions, 
+First, it emphasizes the asymptotic link {between two ratios: (i) the marginal over the likelihood on the one hand, (ii) the chosen prior over Jeffreys one on the other hand.}  
+The intuition comes from noticing that $S_k^T\cI(\theta)^{-1}S_k$ converges in distribution to a standard Gaussian, which does not depend on $\theta$.
+Second, 
+this result also highlights that it is the behavior of $f$ in the neighborhood of $0$ that is decisive.
+Third, this result is two steps away from giving an asymptotic expansion of the $D_f$-mutual information: (i) stating that this limit stands in $L^1(\PP_{\theta})$, (ii) verifying the limit can be switched with the expectation w.r.t. $T\sim\varPi(\cdot|\tilde\Theta)$.
+
+
+
+
+One can notice that this proposition can be applied with $f=-\log$, $g_1=f$ and $g_2=1$. 
+In that case we obtain the convergence in $\PP_\theta$-probability already stated in \cite{clarke_information-theoretic_1990}:
+    \begin{equation}
+        \log\frac{\ell_k(\mbf y|\theta)}{p_{\mbf Y}(\mbf y)} - \frac{d}{2}\log k + \log\pi(\theta) - \frac{1}{2}\log|\cI(\theta)| +\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k  \conv[\PP_\theta]{k\rightarrow\infty} 0.
+    \end{equation}
+
+
+
+
+
+
 
 \subsection{Results when $\delta<0$}
 
+In what follows, we precise the asymptotic form of $f$ in the neighborhood of $0$:
+    \begin{equation}
+        f(x) \aseq{x\rightarrow0} a x^\delta + o(x^\delta).
+    \end{equation}
+We also require $f$ to be locally bounded and to be controlled as $x\to\infty$: 
+\begin{equation}
+    f\aseq{x\rightarrow\infty}O(x).
+\end{equation}
+
+We invite the reader to remark that such function $f$ aligns with $\delta$-divergences, among others.
+
+In this section we suppose $\delta\in(-1,0)$. 
+An asymptotic limit of the $D_f$-mutual information can be given once the following assumption is satisfied.
+\begin{assu}
+    \label{assu:PSGSA:JDS}
+        There exist $\tau>0$ and $r>0$ such that the quantity 
+            \begin{equation}
+                \EE_\theta\left[\exp\Big(r\sup_{\tilde\theta,\,\|\tilde\theta-\theta\|<\tau}\|\nabla^2_\theta\log\ell(y|\tilde\theta)\|\Big)\right] 
+            \end{equation}
+        is continuous with respect to  $\theta$. %{The norm $\|\cdot\|$ denotes the Euclidean norm when applied to a vector in $\RR^d$ and the associated operator norm when applied to a matrix in $\RR^{d\times d}$ (i.e. the largest singular value of the matrix).}
+    %    Note that $\|\cdot\|$ denotes as well 
+    \end{assu}
+
+
+\begin{thm}
+    Under \cref{assu:PSGSA:JDS}, let $\tilde\Theta\subset\Theta$ be a compact and $\varPi\in\sM_{\cC}$ such as $\varPi(\cdot|\tilde\Theta)$ admits a positive density $\pi$. 
+    The quantity $k^{d\delta/2}\sI^k_{D_f}(\varPi(\cdot|\tilde\Theta))$ has a positive limit when $k\to\infty$:
+    \begin{align}
+    \label{eq:limitkbeta}
+            \lim_{k\rightarrow\infty} k^{d\delta/2} \sI^k_{D_f}(\varPi(\cdot|\tilde\Theta)) = 
+    a C_\delta \int_{\tilde\Theta}\pi(\theta)^{1+\delta} |\cI(\theta)|^{-\delta/2}  d\theta ,
+        \end{align}
+    where $ C_\delta = (2\pi)^{d\delta/2} (1-\delta)^{-d/2}$. 
+    \end{thm}
+
+\begin{prop}
+    With the assumptions of the above theorem,  if $a(\delta+1)>0$, then
+        \begin{equation}\label{eq:PSGSA:Jeffrefdeltaneg}
+            \lim_{k\rightarrow\infty}k^{d\delta/2}(\sI^k_{D_f}(\mbf J(\cdot|\tilde\Theta))-\sI_{D_f}^k(\varPi(\cdot|\tilde\Theta)))\geq 0 ,
+        \end{equation}
+    where $\mbf J(\cdot|\tilde\Theta)$ is the restricted Jeffreys prior on $\tilde\Theta$, its density is $J(\theta)=|\cI(\theta)|^{1/2}/\int_{\tilde\Theta}|\cI(\tilde\theta)|^{1/2}d\tilde\theta$.
+    The equality in \cref{eq:PSGSA:Jeffrefdeltaneg} stands if and only if 
+    {$\pi=J$}.
+\end{prop}
+
+
+
+
+
+
+
 \subsection{Results when $\delta>0$}
+
+
+As in the previous section, we suppose that $f$ takes the following form in the neighborhood of $0$:
+\begin{equation}
+    f(x) \aseq{x\rightarrow0} a x^\delta + o(x^\delta).
+\end{equation}
+And we require as well $f$ to be locally bounded and to be controlled as $x\to\infty$: 
+\begin{equation}
+f\aseq{x\rightarrow\infty}O(x).
+\end{equation}
+
+In comparison with the preceding section, we suppose here that $\delta\in(0,1)$.
+The elucidating of a similar result than the one in the previous section requires the satisfaction of stronger assumptions.
+
+
+
+
+\begin{assu}\label{assu:infeighes}
+    For any compact $\tilde\Theta\subset\Theta$,
+    there exists $m>0$ such that for all $\theta\in\tilde\Theta$,
+    \begin{equation}
+        \PP_\theta\left(\forall x\in\RR^d,\, \inf_{\tilde\theta\in\tilde\Theta}-x^T\nabla_\theta^2\log\ell(y|\tilde\theta)x>m\|x\|^2 \right) = 1.     
+    \end{equation}
+\end{assu}
+
+
+
+
+\begin{assu}\label{assu:gausstailSk}
+    For any compact $\tilde\Theta\subset\Theta$,
+    the random variables
+     %\begin{equation}\label{eq:defSk}
+        $S_k=\frac{1}{\sqrt{k}}\sum_{i=1}^k\nabla_\theta\log\ell(y_i|\theta)    $
+     %\end{equation}
+     are sub-Gaussians: there exist $\xi>\delta/2$ and $K_1>0$ such that for all $\theta\in\tilde\Theta$, and all $k$, $\EE_\theta e^{\frac{\xi}{m}\|S_k\|^2}<K_1$.
+\end{assu}
+
+
+
+% It is clear that under the above assumption, the r.v. $X_k=\cI(\theta)^{-1/2}S_k$ are also sub-Gaussians with constant $\xi$.
+%This assumption . Note that 
+% Taking advantage of sub-Gaussian variables theory \cite{vershynin_high-dimensional_2018}, the next proposition provides a more convenient and explicit condition to assess the  previous assumption.
+
+% \begin{prop}\label{prop:sub-gauss}
+%     Suppose Assumption \ref{assu:lgolikelihood}. If $\nabla_\theta\log\ell(y|\theta)$ admits a Gaussian tail such that for some $\sigma>0$, $\EE_\theta e^{\sigma\|\nabla_\theta\log\ell(y|\theta)\|^2} <2$ for any $\theta\in\tilde\Theta$, then 
+% Assumption \ref{assu:gausstailSk} is verified.
+%     %there exist  Assumption \ref{assu:gausstailSk} is verified.
+% \end{prop}
+
+
+
+\begin{thm}\label{thm:refcompact}
+    %Under assumption \ref{assu:gaussTail} and \ref{assum:fOxinfty}, 
+    Suppose \cref{assu:infeighes,assu:gausstailSk}.  %\labelcref{assu:lgolikelihood,assu:fisher,assu:g1g2,assu:infeighes}.
+    %  with $\xi>\delta/2$. 
+    Let $\tilde\Theta\subset\Theta$ be a compact and  $\varPi\in\sM_\cC^\nu$. We denote $\pi\in\sR_{\cC^b}$ a density of $\varPi(\cdot|\tilde\Theta)$.
+    Then $k^{d\delta/2}\sI^k_{D_f}(\varPi(\cdot|\tilde\Theta))$ admits a finite limit when $k\to\infty$:
+    \begin{equation}\label{eq:liml}
+        \lim_{k\rightarrow\infty} k^{d\delta/2} \sI^k_{D_f}(\varPi(\cdot|\tilde\Theta)) = l(\pi) =
+a C_\delta \int_{\tilde\Theta}\pi(\theta)^{1+\delta} |\cI(\theta)|^{-\delta/2}  d\theta ,
+    \end{equation}
+where $ C_\delta = (2\pi)^{d\delta/2} (1-\delta)^{-d/2}$.
+\end{thm}
+
+\begin{prop}
+    With the assumptions of the above theorem,  if $a(\delta+1)>0$, then
+        \begin{equation}\label{eq:PSGSA:Jeffrefdeltapos}
+            \lim_{k\rightarrow\infty}k^{d\delta/2}(\sI^k_{D_f}(\mbf J(\cdot|\tilde\Theta))-\sI_{D_f}^k(\varPi(\cdot|\tilde\Theta)))\geq 0 ,
+        \end{equation}
+    where $\mbf J(\cdot|\tilde\Theta)$ is the restricted Jeffreys prior on $\tilde\Theta$, its density is $J(\theta) = |\cI(\theta)|^{1/2}/\int_{\tilde\Theta}|\cI(\tilde\theta)|^{1/2}d\tilde\theta$.
+    The equality in \cref{eq:PSGSA:Jeffrefdeltapos} stands if and only if 
+    {$\pi=J$}.
+\end{prop}
+
 
 
 \section{Discussions}
 
     \subsection{About the assumptions and their limitations}
 
+    a
 
     \subsection{About the robustness of Jeffreys prior with different divergences}
 
 
         \subsubsection{When $\delta=0$}
 
+        a
         \subsubsection{A heuristic for other $f$-divergences}
 
+        a
         \subsubsection{A simple development with a Maximum Mean Discrepancy divergence}
+
+\section{Proofs of the main results}
+
+a
 
 \section{Conclusion and prospects}
 
-
+a
 
 
 
