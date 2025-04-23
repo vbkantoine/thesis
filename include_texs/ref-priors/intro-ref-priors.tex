@@ -183,7 +183,7 @@ We recall that the definition of the mutual information is not limited to the sc
 
 One can apply Fubini-Lebesgue's theorem to write the mutual information as
 \begin{equation}
-    \sI^k(\varPi) =  \EE_{\mbf Y_k\sim \PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)] =  \EE_{T\sim\varPi}[\text{KL}(\PP_{\mbf Y_k|\theta}||\PP_{\mbf Y_k}) ]
+    \sI^k(\varPi) =  \EE_{\mbf Y_k\sim \PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)] =  \EE_{T\sim\varPi}[\text{KL}(\PP_{\mbf Y_k|T}||\PP_{\mbf Y_k}) ]
 \end{equation}
 This second expression allows an interpretation of the mutual information from another viewpoint: it measures how the parameter $T$ impacts the distribution of $\mbf Y_k$.
 
@@ -218,7 +218,7 @@ The commonly admitted definition for the reference prior, which takes into accou
     Let $\cP$ be set of priors on $\Theta$, a prior $\varPi\in\cP$ %whose prior density is $\pi$ 
     is a reference prior over $\cP$ if there exist an appropriate increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta_i)<\infty  $ and
         \begin{equation}
-            \lim_{k\rightarrow\infty} (\sI^k_i(\varPi_i) - \sI^k_i(P_i) )\geq 0 \text{\ for all\ } P\in\cP_i
+            \lim_{k\rightarrow\infty} \sI^k_i(\varPi_i) - \sI^k_i(P_i) \geq 0 \text{\ for all\ } P\in\cP_i
         \end{equation}
     %with equality if and only if $\varPi_i=P$; 
     with $\varPi_i$ (resp. $P_i$) being the restriction of $\varPi$ (resp. $P$) on $\Theta_i$, $\sI_i^k$ denoting the mutual information on the restricted modeling driven by $\Theta_i$, and $\cP_i=\{P\in\cP,\,0<P(\Theta_i)<\infty\}$.
@@ -338,19 +338,24 @@ The following assumption is a regularity assumption on the statistical model, it
     $\Theta$ is an open subset of $\RR^d$, and the likelihood is such that
     \begin{enumerate}
         \item for $\mu$-a.e. $y$, $\theta\mapsto\ell(y|\theta)$ is twice differentiable, with $\nabla^2_\theta\ell(y|\theta)$ being negative definite,
-        \item for any $\hat\theta\in\Theta$, there exists $\tau>0$ such that
+        \item for any $\hat\theta\in\Theta$, there exists $\tau>0$ and $K>0$ such that for any $\theta\in B(\hat\theta,\tau)$
         \begin{equation}
-            \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta} \|\nabla^2_\theta\log\ell(Y|\theta')\| \right]\quad\text{and}\quad \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta}\|\nabla_\theta\log\ell(Y|\theta')\|^2\right]
+            \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta} \|\nabla^2_\theta\log\ell(Y|\theta')\| \right]\leq K\quad\text{and}\quad \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta}\|\nabla_\theta\log\ell(Y|\theta')\|^2\right]\leq K.
         \end{equation}
-        are bounded w.r.t. $\theta\in B(\hat\theta,\tau)$.
+        %are  bounded w.r.t. $\theta\in B(\hat\theta,\tau)$.
     \end{enumerate}
 \end{assu}
 
 Under \cref{assu:intro-ref:jeffreysexist}, the Fisher information matrix and the Jeffreys prior are well-defined (see \cite{lehmann_elements_1999}). The Fisher information matrix $\cI$ is expressed as
     \begin{equation}
-        \cI(\theta) = (\cI(\theta)_{i,j})_{i,j=1}^d\quad \text{with}\quad \cI(\theta)_{i,j}= - \int_\cY[\partial^2_{\theta_i\theta_j}\log\ell(y|\theta)]\, \ell(y|\theta)d\mu(y),
+        \cI(\theta) = (\cI(\theta)_{i,j})_{i,j=1}^d\quad \text{with}\quad \cI(\theta)_{i,j}= \int_\cY[\partial_{\theta_i}\log\ell(y|\theta)]
+        [\partial_{\theta_j}\log\ell(y|\theta)]\, \ell(y|\theta)d\mu(y),
     \end{equation}
-and the Jeffreys prior refers to the prior whose density is $J$, defined by
+under \cref{assu:intro-ref:jeffreysexist} its coefficients can be expressed as follows
+    \begin{equation}
+       \cI(\theta)_{i,j}= - \int_\cY[\partial^2_{\theta_i\theta_j}\log\ell(y|\theta)]\, \ell(y|\theta)d\mu(y).
+    \end{equation}
+The Jeffreys prior refers to the prior whose density is $J$, defined by
     \begin{equation}
         J(\theta) = \sqrt{\det\cI(\theta)}.
     \end{equation}
@@ -365,8 +370,8 @@ The Jeffreys prior arises as a cornerstone in the reference prior theory.
 This prior has been introduced by \citet{jeffreys_invariant_1946}. It is a prior that is already praised in Bayesian statistics for its main property to be invariant by re-parametrization of the model:
 define $\phi=g(\theta)$ with $g$ being a diffeomorphism, and define the model induced considering $\phi$ instead of $\theta$. Then the Jeffreys prior for this re-parameterized model admits the density $J_g$:
     \begin{equation}
-        J_g(\phi) = J(\theta) %\left|\frac{dg^{-1}}{d\phi} (\theta)\right| 
-        |\det d_\phi g^{-1}(\theta)|.
+        J_g(\phi) = J(g^{-1}(\phi)) %\left|\frac{dg^{-1}}{d\phi} (\theta)\right| 
+        |\det d_\phi g^{-1}(\phi)|.
     \end{equation}
 This ensures that inference is not affected by the choice of parameterization, preserving coherence.
 We also recall that the Jeffreys prior is known to be improper in most cases.
@@ -565,7 +570,7 @@ We formalize this terminology in the following definitions.
     The subset of $\sR$ composed by locally bounded and $\nu$-a.e. continuous functions is denoted $\sR_{\cC^b}$, it is stable by $\propto$ and any $f$ in $\sR_\cC$ is bounded on every compact.
 \end{prop}
 
-\paragraph{Proof} 1.
+\begin{proof} 1.
 % \begin{enumerate}
 %     \item 
 The stability of $\sR_\cC$ and $\sR_{\cC^b}$ to $\propto$ come since multiplying a function by a constant does not affect its continuity. \\
@@ -582,12 +587,13 @@ We deduce that $\nu(E)=0$. Thus, defining $g$ by $g=f$ on $\Theta\!\setminus\! E
 3. If $\tilde\Theta$ is a compact subset of $\Theta$, we can cover $\tilde\Theta$ by open balls on which $f$ is bounded (consequently to statement~2.). Since $\tilde\Theta$ is compact, the open cover admits a finite  subcover. $f$ being bounded on this finite subcover, we deduce that it is bounded on $\tilde\Theta$.
 % \item 
 % \end{enumerate}
+\end{proof}
 
 
 \begin{defi}[Advanced defintinon of reference priors]
     Let $\cP$ be a set of priors. A prior $\varPi\in\cP$ is a reference prior over $\cP$ if there exists an openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta)<\infty$ and
     \begin{equation}
-        \lim_{k\rightarrow\infty}\sI^k(\varPi(\cdot|\Theta_i) - \sI^k(P(\cdot|\Theta_i)) ) \geq 0 \text{\ for all\ } P\in\cP\text{\ verifying\ }0<P(\Theta_i)<\infty.
+        \lim_{k\rightarrow\infty}\sI^k(\varPi(\cdot|\Theta_i)) - \sI^k(P(\cdot|\Theta_i))  \geq 0 \text{\ for all\ } P\in\cP\text{\ verifying\ }0<P(\Theta_i)<\infty.
     \end{equation}
     Let $\cQ$ be a subset of $\sM^\nu/\!\simeq$.
     And denote by $q$ the surjection $q:\varPi\in\sM^\nu\mapsto[\varPi]$.  
@@ -611,12 +617,12 @@ is stated below. It is, according to ourselves, an appropriate condition on this
 \begin{prop}
     Assume $\Theta$ is compact. Then if $\varPi$ is a reference prior over a set of priors $\cP$, it verifies
         \begin{equation}\label{eq:intro-ref:refcompact}
-            \lim_{k\rightarrow\infty} (\sI^k(\varPi)-\sI^k(P)) \geq0\text{\ for all\ } P\in\cP.
+            \lim_{k\rightarrow\infty} \sI^k(\varPi)-\sI^k(P) \geq0\text{\ for all\ } P\in\cP.
         \end{equation}
 \end{prop}
 
 
-\paragraph{Proof} 
+\begin{proof} 
 We consider an openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i = \Theta$.
 By definition there exist $i_0\geq0$ and a sequence $(V_i)_{i\geq i_0}$ of open subsets of $\Theta$  such that for any $i\geq i_0$
     \begin{equation}
@@ -624,7 +630,7 @@ By definition there exist $i_0\geq0$ and a sequence $(V_i)_{i\geq i_0}$ of open 
     \end{equation}
 This way, $\bigcup_iV_i=\Theta$ and the compacity of $\Theta$ imposes it to  be a finite union, so that $\Theta_i=\Theta$ for any $i\geq i_1$ for some $i_1\geq0$.
 Since $\varPi$ is a reference prior over $\cP$ its restriction to $\Theta_{i_1}$ verifies the \cref{eq:intro-ref:refcompact}. Hence the result.
-
+\end{proof}
 
 
 \subsection{Proof of \cref{prop:intro-ref:kolmog}}\label{sec:intro-ref:proof}

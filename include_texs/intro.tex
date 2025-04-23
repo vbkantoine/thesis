@@ -72,7 +72,7 @@ abstract
 
 \begin{abstract}[Résumé]
     Ce chapitre ne diffère du \hyperref[chap:intro-english]{chapitre 1} que par sa rédaction en langue française.
-    Dans ce chapitre, nous introduisons et motivons les travaux de recherche qui ont été conduits au court de cette thèse. Les travaux sont motivés
+    Dans ce chapitre, nous introduisons et motivons les travaux de recherche qui ont été conduits au cours de cette thèse. Les travaux sont motivés
     principalement par le besoin d'évolution des méthodes d'études sismiques probabilistes de sûreté, mais aussi par le manque de réponse qu'apporte l'état-de-l'art à la question du choix du prior en inférence bayésienne.
     Ces problématiques sont détaillées et
     les travaux sont alors introduits comme s'inscrivant dans celles-ci, le tout donnant lieu à une organisation consistante du manuscrit.
@@ -285,9 +285,9 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
     Un choix alors commun, perçu comme une extension de l'entropie de Shannon, est celui des $f$-divergences de \citet{csiszar_information-type_1967}. On peut noter qu'elles sont employées dans des domaines variés, au-delà de l'analyse de sensibilité, tel que l'inférence variationnelle (\cite{minka_divergence_2005,bach_sum--squares_2023}), le design de méta-modèles (\cite{nguyen_surrogate_2009}), l'apprentissage PAC-bayésien (\cite{picard-weibel_change_2022}).
     Lorsque $f$ est convexe que $f(1)=0$, elle sont définies selon :
         \begin{equation}\label{eq:intro-fdiv-french}
-            D_f(P||Q) = \int_\cX f\left( \frac{p(x)}{q(x)} \right) q(x)d\mu(x),
+            D_f(P||Q) = \int_\cX f\left( \frac{p(x)}{q(x)} \right) q(x)d\omega(x),
         \end{equation}
-    en notant $p$, $q$ des densités associées à $P$ et à $Q$ par rapport à une mesure commune $\mu$ sur leur ensemble de définition $\cX$.     
+    en notant $p$, $q$ des densités associées à $P$ et à $Q$ par rapport à une mesure commune $\omega$ sur leur ensemble de définition $\cX$.     
     Les $f$-divergences réduisent le choix de $D$ à celui de $f$, les plus communément employées étant les $\delta$-divergences (\cite{zhu_information_1995}) définies en fixant $f=f_\delta$ où
         \begin{equation}
             f_\delta(x) = \left\lbrace\begin{array}{l l} \frac{x^\delta-\delta x-(1-\delta)}{\delta(\delta-1)} & \text{si\ }\delta\not\in\{0,1\},\\ 
@@ -297,7 +297,7 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
         \end{equation}    
     Il est remarquable que la peut-être plus connue des mesures de dissimilarité (la divergence de Kullback-Leibler) peut être vu comme un cas particulier des $\delta$-divergences. En effet, rappelons que la divergence de Kullback-Leibler, notée $\text{KL}$, est définie par 
         \begin{equation}
-            \text{KL}(Q||P) = \int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\mu(x)
+            \text{KL}(Q||P) = \int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\omega(x)
         \end{equation}
         (en adoptant les même notations qu'en équation \eqref{eq:intro-fdiv-french}), si bien que 
         \begin{equation}
@@ -540,7 +540,7 @@ Une conclusion générale viendra clore le manuscrit dans une \textbf{\cref{part
 
 La recherche conduite au cours de cette thèse a donné lieu à plusieurs contributions dans la littérature scientifique. Ci après sont listés les travaux publiés pendant celle-ci.
 
-\nocite{van_biesbroeck_design_2024,van_biesbroeck_generalized_2024,van_biesbroeck_influence_2023,van_biesbroeck_properly_2024,van_biesbroeck_reference_2024,baillie_variational_2025}
+\nocite{van_biesbroeck_design_2025,van_biesbroeck_generalized_2024,van_biesbroeck_influence_2023,van_biesbroeck_properly_2024,van_biesbroeck_reference_2024,baillie_variational_2025}
 
 \begin{itemize}
     \item \textbf{A. Van Biesbroeck}, C. Feau \& J. Garnier (2025). ``Design of experiments for efficient and conform Bayesian learning of seismic fragility curves''. \emph{Proceedings of the 28th conference on Structural Mechanics in Reactor Techology (SMiRT).}
