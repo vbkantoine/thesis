@@ -102,7 +102,7 @@ where $p,q$ respectively are densities of $P$ and $Q$  w.r.t. a common measure $
 
 
 
-\subsection{Generalized mutual information}
+\subsection{Generalized mutual information definition}
 
 
 The same way as sensitivity indices are supported by various dissimilarity measure, our suggestion is to define the mutual information using other dissimilarity measures than the Kullback-Leibler divergence.
@@ -260,7 +260,7 @@ To conclude this section, we mention the work of \citet{le_formal_2014}. The aut
 
 
 \section{Towards $\delta$-divergences-reference priors}
-
+\label{sec:PSGSA:towardsdelta}
 
 The objective of this section is to study the $D_f$-reference priors for certain class of functions $f$ that resemble to $\delta$-divergence.
 We precise that from now on, the prior will always be considered continuous (they admit a $\nu$-a.e. continuous density functions). We recall that the set of such priors is denoted by $\sM^\nu_\cC $, and they all admit a density in the set $\sR_{\cC^b}$. %(the set of $\nu$-a.e. continuous and locally bounded densities).
@@ -271,7 +271,7 @@ For some $\theta\in\tilde\Theta$ we will adopt the notation $\PP_\theta$ for the
         \PP_\theta(\mbf Y_k\in A) = \PP_{\mbf Y_k|\theta}(A).
     \end{equation}
 We denote by $\EE_\theta$ the associated expectation.
-
+The proofs of the results that are stated in this section are given in ??.
 
 
 \subsection{A first result}
@@ -283,7 +283,7 @@ A first useful result comes when we consider an asymptotic expansion of $f$ in t
 for some $g_1:(0,\infty)\to\RR$, $g_2:(0,\infty)\to(0,\infty)$.
 
 
-\begin{prop}
+\begin{prop}\label{prop:PSGSA:cvptheta}
     Let $\tilde\Theta$ be a compact subset of $\Theta$.
     Consider a prior $\varPi\in\sM^\nu_\cC$ and denote by $\pi\in\sR_{\cC^b}$ a density of $\varPi(\cdot|\tilde\Theta)$.%$\pi\in\sR_{\cC^b}$.
     For any $\theta$ in the interior of $\Supp\pi$ there exists $c=c(\theta),\,C$ positive constants such that the following convergence in probability holds:
@@ -330,7 +330,7 @@ We also require $f$ to be locally bounded and to be controlled as $x\to\infty$:
     f\aseq{x\rightarrow\infty}O(x).
 \end{equation}
 
-We invite the reader to remark that such function $f$ aligns with $\delta$-divergences, among others.
+We invite the reader to remark that such function $f$ aligns with translated $\delta$-divergences, among others.
 
 In this section we suppose $\delta\in(-1,0)$. 
 An asymptotic limit of the $D_f$-mutual information can be given once the following assumption is satisfied.
@@ -367,8 +367,16 @@ An asymptotic limit of the $D_f$-mutual information can be given once the follow
 \end{prop}
 
 
+The above proposition makes the Jeffreys prior class being the unique $D_f$-reference prior class over $\sM^\nu_{\cC^\ast}$, where $\sM^\nu_{\cC^\ast}$ represents the subset of $\sM_\cC^\nu$ of priors admitting positive densities on $\Theta$. We
+ formalized this statement in the following theorem.
 
 
+
+\begin{thm}\label{thm:PSGSA:Jrefdeltaneg}
+    Let $b\in\RR$, define $\overline{f}=f+b$ and assume $a(\delta+1)>0$.
+    Under \cref{assu:PSGSA:JDS}, the Jeffreys prior class is the unique $D_{\overline f}$-reference prior class over $\sM^\nu_{\cC^\ast}/\!\simeq$.
+    That means the Jeffreys prior $\mbf J$ is a $D_{\overline f}$-reference prior over $\sM^\nu_{\cC^\ast}$ and if $\varPi$ is another reference prior over $\sM^\nu_{\cC^\ast}$, then $\varPi\simeq\mbf J$.
+\end{thm}
 
 
 
@@ -448,6 +456,14 @@ where $ C_\delta = (2\pi)^{d\delta/2} (1-\delta)^{-d/2}$.
 \end{prop}
 
 
+In the same way as in the previous subsection, this result implies that the Jeffreys prior is the up-to-a-constant-unique $D_f$-reference prior over $\sM^\nu_\cC$.
+
+\begin{thm}\label{thm:PSGSA:Jrefdeltapos}
+    Let $b\in\RR$, define $\overline{f}=f+b$ and assume $a(\delta+1)>0$.
+    Under \cref{assu:infeighes,assu:gausstailSk}, the Jeffreys prior class is the unique $D_{\overline f}$-reference prior class over $\sM^\nu_{\cC}/\!\simeq$.
+    %That means the Jeffreys prior $\mbf J$ is a $D_{\overline f}$-reference prior over $\sM^\nu_{\cC^\ast}$ and if $\varPi$ is another reference prior over $\sM^\nu_{\cC^\ast}$, then $\varPi\simeq\mbf J$.
+\end{thm}
+
 
 \section{Discussions}
 
@@ -458,13 +474,189 @@ where $ C_\delta = (2\pi)^{d\delta/2} (1-\delta)^{-d/2}$.
     \subsection{About the robustness of Jeffreys prior with different divergences}
 
 
-        \subsubsection{When $\delta=0$}
+        \subsubsection{When $D_f$ is a $\delta=0$-divergence}
 
-        a
-        \subsubsection{A heuristic for other $f$-divergences}
+        The results elucidated in the previous section %a
+        %re explicitly designed to 
+        explicitly address $f$-divergences which are $\delta$-divergences.
+        It is important to recall that when $\delta=0$, the $\delta$-divergence is usually defined as a  $\text{KL}$ divergence, more precisely it is an $f$-divergence with $f=-\log$.
 
-        a
+        This way, the $\delta=0$-divergence leads to the original definition of the mutual information stands.
+        In this case, similar results of \cref{thm:PSGSA:Jrefdeltaneg,thm:PSGSA:Jrefdeltapos} exist (see \cref{chap:intro-ref}, \cref{sec:intro-ref:refpriors}). 
+        
+
+
+
+        \subsubsection{A heuristic for other $f$- divergences}
+
+        We provide a heuristic for the derivation of the limit of the $D_f$-mutual information when $k\to\infty$. It is similar to discussions conducted by \citet{mure_objective_2018} and \citet{xie_minimax_1997}.
+
+        The result of \cref{prop:PSGSA:cvptheta} takes the form of asymptotic connection between $p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta) $ and $e^{\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k}$. This connection can be anticipated from the second order Taylor expansion written as follows: for every $\mbf y,\theta, \tilde\theta$, there exists a $\theta'$ in the segment between $\theta$ and $\tilde\theta$ such that
+        \begin{equation}
+            \log\left(\frac{\prod_{i=1}^k \ell(y_i|\tilde\theta)}{\prod_{i=1}^k \ell(y_i|\theta)}\right) = (\tilde\theta-\theta)^T\sum_{i=1}^k\nabla_\theta\log \ell(y_i|\theta) +\frac{1}{2}(\tilde\theta-\theta)^T\sum_{i=1}^k\nabla_\theta^2\log \ell(y_i|\theta')(\tilde\theta-\theta).
+        \end{equation}
+        Indeed, $p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta) = \int_\Theta \frac{\prod_{i=1}^k \ell(Y_i|\tilde\theta)}{\prod_{i=1}^k \ell(Y_i|\theta)} \pi(\tilde\theta)d\tilde\theta$.
+        %When we exponentialize the Taylor expansion,
+        % the first term 
+        The terms $\nabla_\theta^2\log\ell_k(y_i|\theta)$ are definite negative, so that when we exponentialize the Taylor expansion, it vanishes quickly when $\tilde\theta$ is not close to $\theta$.
+        We then intuit that the mass concentrate around $\theta$ in the integrals that define $p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta)$, so that
+            \begin{equation}
+                \begin{aligned}
+                p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta) &\approx \pi(\theta)\int_\Theta\exp\left(\sqrt{k}(\tilde\theta-\theta)^TS_k - \frac{k}{2} (\tilde\theta-\theta)^T\cI(\theta)(\tilde\theta-\theta)  \right)d\tilde\theta\\ 
+                &= \pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2k}S_k^T\cI(\theta)^{-1}S_k \right).
+                \end{aligned}
+            \end{equation} 
+
+        % This approximation can be seen as a Berstein Von-Mises-like theorem, noticing that $p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta)$ equals $ \pi(\theta)/p(\theta|\mbf Y_k)$. 
+        % , with the posterior 
+        % being asymptotically a Gaussian with mean $\theta$ and variance $\cI(\theta)/\sqrt{k}$.
+        %  asymtotically contionally to $T=\theta$ 
+
+        To go toward an asymptotic expression of the mutual information, we must evaluate the last with $f$ and compute its expectation w.r.t. $S_k$.
+        Conditionally to $\theta$, the terms $\nabla_\theta\log\ell(Y_i|\theta)$ are i.i.d. and a central limit theorem gives that $(S_k)_k$ converges in distribution to a Gaussian with mean $\EE_{\theta}\nabla_\theta\log\ell(Y|\theta)=0$ and covariance matrix $\cI(\theta)$.
+        
+        That leads to approximating the $D_f$-mutual information  as 
+            \begin{equation}
+                \sI_{D_f}^k(\varPi) \approx \int_\Theta\int_{\RR^k} f\left(\pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}e^{\frac{\|x\|^2}{2}}\right) e^{-\frac{\|x\|^2}{2}} (2\pi)^{-d/2}dx\pi(\theta)d\theta.
+            \end{equation}
+        We notice that if $x\mapsto f(1/x)$ is concave, the right-hand term in the above equation is smaller than 
+            \begin{equation}
+                 \int_{\RR^k}f\left(\left(\int_\Theta (2\pi)^{-d/2}|k\cI(\theta)|^{1/2} e^{-\frac{\|x\|^2}{2}}d\theta\right)^{-1}\right)e^{-\frac{\|x\|^2}{2}}(2\pi)^{-d/2}dx ,
+            \end{equation}
+        which equals the left-hand term evaluated in $\pi(\theta) = |k\cI(\theta)|^{1/2} / \int_\Theta|k\cI(\tilde\theta)|^{1/2} d\tilde\theta$.
+
+        This simple heuristic emphasizes that the decisive assumption on $f$ is that $x\mapsto f(1/x)$ is concave, rather than $f$ being convex.
+        Regarding our developments in  \cref{sec:PSGSA:towardsdelta}, the final results on the optimally of Jeffreys stood while $a(\delta+1)>0$.
+        In our cases, this condition implies the convexity of $f$ in the neighborhood of $0$, that is equivalent in these cases to $x\mapsto f(1/x)$ being concave in the neighborhood of $0$.
+        
+
+
+
+        
         \subsubsection{A simple development with a Maximum Mean Discrepancy divergence}
+
+
+        We also investigate briefly the $D$-mutual information in a case where $D$ is not an $f$-divergence. The dissimilarity measure we have chosen to study is a squared maximum mean discrepancy (MMD):
+                \begin{equation}
+                    \text{MMD}^2(\cH;\,P||Q) = \EE_{X,X'\sim P\otimes P}[K(X,X')] + \EE_{Y,Y'\sim Q\otimes Q}[K(Y,Y')] - 2\EE_{X,Y\sim P\otimes Q}[K(X,Y)];
+                \end{equation}
+        where $\cH$ is a reproducing kernel Hilbert space (RKHS), and $K$ is a reproducing kernel.
+
+        We study the simple Gaussian model with unknown mean: $\cY=\RR$ $\Theta\subset\RR $, and $\ell(y|\theta)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y-\theta)^2}{2\sigma^2}}$. 
+        We consider the kernels $K_k:\mbf y,\mbf y'\in\cY^k,\,K_k(\mbf y,\mbf y')= \frac{1}{(\sqrt{2\pi}h)^k}e^{-\frac{\|\mbf y-\mbf y'\|^2}{2h^2}}$, and $\cH_k$ their associated RKHS. 
+        For any $k$ it is thus possible to define the MMD between $\PP_{\mbf Y_k}$ and $\PP_{\mbf Y_k|\theta}$ by considering the RKHS $\cH_k$.
+        Let $\tilde\Theta\subset\Theta$ be compact. %This way, for a prior
+        For some prior $\varPi\in\sM^\nu_\cC$, denoting $\pi\in\sR_{\cC^b}$ a  density of $\varPi(\cdot|\tilde\Theta)$ we then have
+            \begin{multline}
+                \sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta)) =\frac{1}{(2\pi)^{3k/2} h^k\sigma^{2k}} \int_{\tilde\Theta}\int_{\RR^k\times\RR^k} \prod_{i=1}^ke^{-\frac{(y_i-y_i')^2}{2h^2}} e^{-\frac{(y_i-\theta)^2}{2\sigma^2} } e^{-\frac{(y_i'-\theta)^2}{2\sigma^2} }  d\mbf yd\mbf y'\pi(\theta)d\theta \\
+                - \frac{1}{(2\pi)^{3k/2}h^k\sigma^{2k}} \int_{\tilde\Theta\times\tilde\Theta}\int_{\RR^k\times\RR^k} \prod_{i=1}^ke^{-\frac{(y_i-y_i')^2}{2h^2}} e^{-\frac{(y_i-\theta)^2}{2\sigma^2} } e^{-\frac{(y_i'-\theta')^2}{2\sigma^2} }  d\mbf yd\mbf y'\pi(\theta)\pi(\theta')d\theta d\theta'.
+            \end{multline}
+
+    In this very specific case, it is possible to derive and study the $\text{MMD}^2$-reference priors. The proposition below summarizes our results.
+    
+    \begin{prop}
+        Let $\tilde\Theta\subset\Theta$ be a compact. 
+        \begin{enumerate}
+            \item Let $\varPi,\,\tilde\varPi\in\sM^\nu_\cC$, we denote respectively $\pi$ and $\tilde\pi$ the densities of $\varPi(\cdot|\tilde\Theta)$ and $\tilde\varPi(\cdot|\tilde\Theta)$. We have:
+            \begin{equation}
+                \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) = -\int_{\tilde\Theta}\pi(\theta)^2d\theta + \int_{\tilde\Theta}\tilde\pi(\theta)^2d\theta.
+            \end{equation}
+            %If not jeffreys then $>0$.
+            And the Jeffreys prior class is the unique $\text{MMD}^2$-reference prior class over $\sM^\nu_\cC$.
+            \item For a density $\pi$ %such that $\int_{\tilde\Theta}\pi =1$ 
+            we denote by $M(\pi)$ its associated normalized prior: $M(\pi)=B\mapsto\int_B\pi/\int_{\tilde\Theta}\pi$.
+            %Denote $\cC(\tilde\Theta)$
+            Let $\pi^\ast_k$ be continuous densities such that for any $k$, $\sI_{\text{MMD}^2}(M(\pi^\ast_k))\geq \sI^k_{\text{MMD}^2}(M(\pi))$ for any other continuous density $\pi$.
+            If $(\pi^\ast_k)$ converges uniformly to a function $\pi^\ast$ on $\tilde\Theta$, then $\pi^\ast$ is the Jeffreys prior density: $\pi^\ast\propto1$.
+        \end{enumerate}
+    \end{prop}
+
+\begin{proof}
+    
+
+
+
+
+    First we derive for any $\theta,\theta'\in\tilde\Theta$
+            \begin{multline}
+                \int_{\RR\times\RR} e^{-\frac{(y-y')^2}{2h^2}} e^{-\frac{(y-\theta)^2}{2\sigma^2} } e^{-\frac{(y'-\theta')^2}{2\sigma^2} }  d yd y' 
+                    \\
+                    \begin{aligned}
+                        &= \sqrt{2\pi\tilde\sigma^2}\int_{\RR} e^{-\frac{y'^2}{2h^2}}e^{-\frac{\theta^2}{2\sigma^2}} e^{\frac{1}{2\tilde\sigma^2}\left( \frac{\tilde\sigma^2}{h^2}y'+\frac{\tilde\sigma^2}{\sigma^2}\theta \right)^2} e^{-\frac{(y'-\theta')^2}{2\sigma^2}}dy'
+                        &\mbox{with }\tilde\sigma^{-2}=\frac{1}{h^2}+\frac{1}{\sigma^2}\\
+                    & = 2\pi\tilde\sigma\overline\sigma
+                    e^{-\frac{\theta^2}{2\sigma^2}} e^{-\frac{\theta'^2}{2\sigma^2}} e^{\frac{1}{2}\frac{\tilde\sigma^2}{\sigma^4}\theta^2} e^{\frac{1}{2\overline\sigma^2}\left(\frac{\overline\sigma^2}{\sigma^2}\theta' - \frac{\overline\sigma^2\tilde\sigma^2}{h^2\sigma^2}\theta\right)^2} 
+                        &\mbox{with }\overline\sigma^{-2}= \frac{1}{h^2} - \frac{\tilde\sigma^2}{h^4} + \frac{1}{\sigma^2} = \frac{1}{\sigma^2+h^2}+\frac{1}{\sigma^2}\\
+                    &= 2\pi\tilde\sigma\overline\sigma e^{-\frac{1}{2}\frac{1}{2\sigma^2+h^2}\left(\theta' - \theta\right)^2}. 
+                    \end{aligned}
+            \end{multline}
+        That allows us to write
+    \begin{equation}\label{eq:PSGSA:expr2IMMD}
+        \sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta)) = - C_1^k\int_{\tilde\Theta\times\tilde\Theta} e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)\pi(\theta')d\theta d\theta' + C_1^k,
+    \end{equation}
+with $C_1=\frac{\tilde\sigma\overline{\sigma}}{\sqrt{2\pi}h\sigma^2} = \frac{(2\sigma^2+h^2)^{-1/2}}{\sqrt{2\pi}}$. %From the above expression, it is possible to develop two approaches to construct a reference prior in this very specific case:
+%\begin{itemize}
+ %   \item 
+ \begin{enumerate}
+    \item To prove the first statement of the theorem, 
+    we start by  computing the limit of $C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta $ for a fixed $\theta'$ in which $\tilde\pi$ is continuous. The scheme of this proof is standard as this integral is the convoluted of  $\pi$ with an approximation to the unity. Let $\eps>0$, by continuity of $\pi$ there exist a neighborhood $V$ of $\theta'$ such that for any $\theta\in V$,  $|\pi(\theta)-\pi(\theta')|<\eps/2$. %for any $\theta\in V$.
+    Additionally, it is possible to choose a $k_0$ such that for all $k\geq k_0$, $C_1\sqrt{k}\int_{\RR\!\setminus\!V} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}}d\theta <\eps/(4\sup_{\tilde\Theta}\pi)$. This way, for all $k\geq k_0$,
+        \begin{equation}
+            \left|C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta -\pi(\theta')  \right| \leq C_1\sqrt{k}\int_{\RR}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2} |\pi(\theta)\indic_{\theta\in\tilde\Theta}-\pi(\theta')|d\theta 
+            <\eps.
+        \end{equation}
+    
+    That being stated, we can apply a dominated convergence theorem since for $\nu$-a.e. $\theta'$ and for all $k$, the terms $|C_1\sqrt{k}\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta-\theta')^2}{2\sigma^2+h^2}}\pi(\theta)\pi(\theta') |\leq(\sup_{\tilde\Theta}\pi)^2$, which is summable on $\tilde\Theta$.
+    We obtain
+    \begin{equation}
+        \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) = -\int_{\tilde\Theta}\pi(\theta)^2d\theta + \int_{\tilde\Theta}\tilde\pi(\theta)^2d\theta.
+    \end{equation}
+    We recall that the Jeffreys prior $\mbf J $ for this model is the uniform prior: $J\propto 1$.
+    Since a Chauchy-Schwarz inequality gives $\int_{\tilde\Theta}\tilde\pi(\theta)d\theta \leq \sqrt{\nu(\tilde\Theta)} \left(\int_{\tilde\Theta}\pi(\theta)^2 \right)^{1/2}$, with equality if an only if $\tilde\pi\propto 1$, we deduce 
+    \begin{equation}
+        \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\mbf J(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) \geq 0 \text{\ with equality iff\ }\mbf J(\cdot|\tilde\Theta) = \tilde\varPi(\cdot|\tilde\Theta).
+    \end{equation}
+
+\item We consider the vectorial space $\cC(\tilde\Theta)$ of continuous real functions defined on $\tilde\Theta$. It is a Banach space when equipped with the norm $\|p\|=\sup_{\tilde\Theta}|p|$. The expression of $\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))$ elucidated in \cref{eq:PSGSA:expr2IMMD} can be seen as a functional of $\pi$ of the form $\pi\mapsto B(\pi,\pi)$, $B$ being a continuous bilinear form on $E^2$. This function is differentiable w.r.t. $\pi$, and we can apply a Lagrange multipliers theorem to write that if $\pi_k^\ast\in E$ maximizes $\tilde I^k:\pi\mapsto\sI^k_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))$ on the constrained space $E\cap\{p\in E,\,\int_{\tilde\Theta}p=1\}$, then there exists $\lambda\in\RR$ such that for all $p\in E$:
+\begin{equation}
+    -2C_1^k\int_{\Theta\times\Theta} e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta-\theta')^2} p(\theta)\pi^\ast_k(\theta')d\theta d\theta' - \lambda\int_\Theta p(\theta)d\theta = 0.
+\end{equation}
+This being true for any $p\in E$, we deduce for all $\theta'\in\tilde\Theta$, setting $p(\theta) = C_1\sqrt{k} $
+    \begin{equation}
+        -2C_1^k\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)d\theta = \lambda \quad\text{and}\quad
+        -2C_1^k\int_{\tilde\Theta\times\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)\pi_k^\ast(\theta')d\theta d\theta' = \lambda.
+    \end{equation}
+We now apply a similar reasoning as in 1. to derive the limit of the above integrals. 
+The $\pi^\ast_k$ are assumed to form a uniformly convergent sequence of functions. That ensures its limit $\pi^\ast$ to be continuous on $\tilde\Theta$.
+We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\theta'$ such that for all $\theta \in V$, $|\pi^\ast(\theta)-\pi^\ast(\theta')|<\eps/4$. By uniform convergence of $(\pi^\ast_k)$, we can fix $k_0$ such that for all $k\geq k_0$, $\|\pi^\ast_k-\pi^\ast\|<\eps/4$. It is also possible to fix $k_1$ such that for all $k\geq k_1$, $C_1\sqrt{k}\int_{\RR\!\setminus\!V} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}}d\theta <\eps/(8\sup_{k'}\|\pi^\ast_{k'}\|)$.
+    We thus have for all $k\geq\max(k_1,k_0)$
+    \begin{equation}
+        \begin{aligned}
+        &\left|C_1\sqrt{k}\int_{\tilde\Theta } e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi^\ast_k(\theta)d\theta - \pi^\ast(\theta') \right| 
+        \leq C_1\sqrt{k}\int_{\RR}e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} |\pi^\ast_k(\theta)\indic_{\theta\in\Theta} - \pi^\ast(\theta') |d\theta \\
+        &\leq  C_1\sqrt{k}\int_{\RR}e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} |\pi^\ast_k(\theta)\indic_{\theta\in\Theta} - \pi^\ast(\theta)\indic_{\theta\in\Theta} |d\theta 
+            + C_1\sqrt{k}\int_{\RR}e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} |\pi^\ast(\theta)\indic_{\theta\in\Theta} - \pi^\ast(\theta') |d\theta <\eps.\\
+        %&+ C_1\sqrt{k}\int_{\RR}e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} |f(\theta)\indic_{\theta\in\Theta} - f(\theta') |d\theta  < 
+        \end{aligned}
+        \end{equation}
+        As the integrated terms are all bounded, a dominated converge theorem gives:
+        \begin{equation}
+            \lim_{k\rightarrow\infty}C_1\sqrt{k}\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)d\theta = \pi^\ast(\theta')
+            \quad\text{and}\quad
+            \lim_{k\rightarrow\infty} C_1\sqrt{k}\int_{\tilde\Theta\times\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)\pi_k^\ast(\theta')d\theta d\theta' = \int_{\tilde\Theta}\pi^\ast(\theta)^2d\theta.
+        \end{equation}
+        Since the above terms are equal, we conclude that $\pi^\ast$ is constant.
+
+
+
+
+
+ \end{enumerate}
+ 
+
+
+\end{proof}
+
 
 \section{Proofs of the main results}
 
