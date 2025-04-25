@@ -32,7 +32,7 @@ A study of those divergences within our generalized mutual information is {also}
 %Pursuing introductory elements we unveiled in \cite{VanBiesbroeckJDS2023}, we go further in this paper with 
 We provide an accomplished formalization for the generalized reference prior settings, and results based on classical $f$-divergences for sensitivity analysis such as $\alpha$-divergences.
 {
-Our main result takes the form of a limit w.r.t. the number of data of the mutual information. Its analytical expression as a function of the prior permits a simple expression of our reference priors: they are its maximal arguments. It opens the path of easier {theoretical} derivation of reference priors among the ones that satisfy different kinds of constraints, or that belong to some particular classes.}
+Our main result takes the form of a limit w.r.t. the number of data of the mutual information. Its analytical expression as a function of the prior permits a simple expression of our reference priors: they are its maximal arguments. It opens the path of easier {theoretical} derivation of reference priors among the ones that satisfy different kinds of constraints, or that belong to some particular sets of priors.}
 
 
 In the next section, we formalize the usual Bayesian framework that we consider in our work. Our motivation supported by a Global Sensitivity Analysis viewpoint for an enrichment of the mutual information is elucidated in section \ref{sec:Bayesian}. Afterwards, a sub-class of that generalized mutual information is studied in section \ref{sec:motivationGMI} to define and derive what we call their generalized reference priors. 
@@ -286,7 +286,7 @@ for some $g_1:(0,\infty)\to\RR$, $g_2:(0,\infty)\to(0,\infty)$.
 \begin{prop}\label{prop:PSGSA:cvptheta}
     Let $\tilde\Theta$ be a compact subset of $\Theta$.
     Consider a prior $\varPi\in\sM^\nu_\cC$ and denote by $\pi\in\sR_{\cC^b}$ a density of $\varPi(\cdot|\tilde\Theta)$.%$\pi\in\sR_{\cC^b}$.
-    For any $\theta$ in the interior of $\Supp\pi$ there exists $c=c(\theta),\,C$ positive constants such that the following convergence in probability holds:
+    For almost every $\theta$ in the interior of $\Supp\pi$ there exists $c=c(\theta),\,C$ positive constants such that the following convergence in probability holds:
     \begin{equation}
         \label{eq:cvinproba}
         \tilde g_2^{C,c}(k^{-d/2})^{-1}\left| f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right.            \left. - g_1\left(k^{-d/2}\pi(\theta)(2\pi)^{d/2}|\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k \right)\right) \right| %\\
@@ -310,7 +310,7 @@ Third, this result is two steps away from giving an asymptotic expansion of the 
 One can notice that this proposition can be applied with $f=-\log$, $g_1=f$ and $g_2=1$. 
 In that case we obtain the convergence in $\PP_\theta$-probability already stated in \cite{clarke_information-theoretic_1990}:
     \begin{equation}
-        \log\frac{\ell_k(\mbf y|\theta)}{p_{\mbf Y}(\mbf y)} - \frac{d}{2}\log k + \log\pi(\theta) - \frac{1}{2}\log|\cI(\theta)| +\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k  \conv[\PP_\theta]{k\rightarrow\infty} 0.
+        \log\frac{\ell_k(\mbf y|\theta)}{p_{\mbf Y_k}(\mbf y)} - \frac{d}{2}\log k + \log\pi(\theta) - \frac{1}{2}\log|\cI(\theta)| +\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k  \conv[\PP_\theta]{k\rightarrow\infty} 0.
     \end{equation}
 
 
@@ -345,7 +345,7 @@ An asymptotic limit of the $D_f$-mutual information can be given once the follow
     \end{assu}
 
 
-\begin{thm}
+\begin{thm}\label{thm:refcompactneg}
     Under \cref{assu:PSGSA:JDS}, let $\tilde\Theta\subset\Theta$ be a compact and $\varPi\in\sM_{\cC}$ such as $\varPi(\cdot|\tilde\Theta)$ admits a positive density $\pi$. 
     The quantity $k^{d\delta/2}\sI^k_{D_f}(\varPi(\cdot|\tilde\Theta))$ has a positive limit when $k\to\infty$:
     \begin{align}
@@ -432,7 +432,7 @@ The elucidating of a similar result than the one in the previous section require
 
 
 
-\begin{thm}\label{thm:refcompact}
+\begin{thm}\label{thm:refcompactpos}
     %Under assumption \ref{assu:gaussTail} and \ref{assum:fOxinfty}, 
     Suppose \cref{assu:infeighes,assu:gausstailSk}.  %\labelcref{assu:lgolikelihood,assu:fisher,assu:g1g2,assu:infeighes}.
     %  with $\xi>\delta/2$. 
@@ -467,9 +467,87 @@ In the same way as in the previous subsection, this result implies that the Jeff
 
 \section{Discussions}
 
+
+    \subsection{About the results}
+
+
+
+
+Regarding the optimal characteristic of the Jeffreys prior, we argue that it actually supports  the relevance of our construction, in continuity with the original reference prior framework which we rely on. Indeed, we remind that Jeffreys prior is optimal for $K\!L$-mutual information \cite{clarke_jeffreys_1994}. Although its multivariate derivation is criticized, its univariate form remains robust and appreciated in low-dimensional cases.
+
+
+For a practical implementation when the dimension is high, one would be invited to refer to hierarchical strategies such as the one proposed by \citet{berger_overall_2015}. 
+As these strategies are based on the sequential derivation of reference priors on sequentially conditioned models, they take the form of hierarchically derived low dimensional Jeffreys priors. Consequently, our results also supports their methodology.
+
+Additionally, we draw attention to the open-ended nature of the results we express. 
+% Indeed, 
+Indeed, \cref{thm:refcompactneg,thm:PSGSA:Jrefdeltapos} provide an analytical limit of the mutual information that takes the form of a functional $l$ of the prior.
+One can notice that a reference prior is prior that maximizes $l$.
+Thus, a maximization of our function $l$ over a well-chosen set of priors constitutes an easy path to express reference priors that could differ from Jeffreys. 
+The following section suggests an example of a constrained problem.
+
+
+\subsection{About the introduction of simple constraints}
+
+
+Here we illustrate with a simple example an application of \ref{thm:refcompactneg,thm:PSGSA:Jrefdeltapos} to the derivation of constrained reference priors.
+Consider a Bernoulli modeling: $Y|(T=\theta)\sim\cB(\theta)$, $\cB(\theta)$ being the Bernoulli distribution with parameter $\theta$. We take $\Theta=[0,1]$ and write $\ell(y|\theta)=\theta^{y}(1-\theta)^{1-y}$.
+%
+Within this modeling, the Jeffreys prior takes the form of a Beta distribution: $\mathrm{Beta}(1/2,1/2)$ (see e.g. \cite{robert_bayesian_2007}).
+
+
+An intuitive type of constraints is the restriction of the moments of the prior. For instance,
+we denote $\cP_\EE$ the class of priors $\cP_\EE=\{\pi=\mathrm{Beta}(\lambda_1,\lambda_2),\,\EE_{T\sim\pi}[T]=1/c\}$. A prior in $\cP_\EE$ can be parameterized as $\pi_\lambda = \mathrm{Beta}(\lambda,\lambda(c-1))$, $\lambda\in(0,1)$.
+Then, %solving $\lambda^\ast=\argmax_\lambda l(\pi_\lambda)$ leads to the reference prior over $\cP$ being 
+%\begin{equation}
+%     \pi_{\lambda^\ast}(\theta) = \frac{\theta^{\lambda^\ast-1}(1-\theta)^{\lambda^\ast(c-1)-1}}{B(\lambda^\ast,\lambda^\ast(c-1))} ,\quad \lambda^\ast=  
+% \end{equation}
+%where $B$ denotes the Beta function
+solving $\lambda^\ast=\argmax_\lambda l(\pi_\lambda)$ can be carried out numerically or analytically to issue the reference prior $\pi_{\lambda^\ast}$ over $\cP_\EE$.
+The same way, some class $\cP_{\VV}$ could be considered this time to fix the variance of the prior.
+
+In Figure \ref{fig:exbeta} are plotted the $D_f$-reference priors over different sets of Beta priors with constrained expectations first, and with constrained variances second. We notice that, when it concerns the class $\cP_\EE$, two priors are reference priors. Actually, the considered class is not convex in this case, which makes the uniqueness not ensured. An additional constraint on the researched reference prior should be set to make it unique. For instance, with the idea of constructing non-informative priors, the one with maximal Shanon's entropy could be chosen. In our example, $\pi_1^\ast$ (Figure \ref{fig:exbeta}.(a)) has a higher entropy than $\pi_2^\ast$ (Figure \ref{fig:exbeta}.(b)).
+
+
+
+\begin{figure}
+    \centering%
+    \includegraphics[width=0.32\linewidth]{figures/generalized-ref/firstPe.pdf}\hspace*{0.01\linewidth}%
+    \includegraphics[width=0.32\linewidth]{figures/generalized-ref/secondPe.pdf}\hspace*{0.01\linewidth}%
+    \includegraphics[width=0.32\linewidth]{figures/generalized-ref/Pv.pdf}\\
+    % \hspce*{0.16\linewidth}(a)
+    {\hspace{\stretch{1}}(a)\hspace{\stretch{2}}(b)\hspace{\stretch{2}}(c)\hspace{\stretch{1}}\ }%
+    % \begin{tabular}{ccc}
+    %     (a) & (b)  & (c)
+    % \end{tabular}
+    \caption{Comparison of histograms of samples from Jeffreys prior and from the $D_f$-reference priors over a set $\cP_\EE=\{\pi=\mathrm{Beta},\,\EE_{T\sim\pi}T=\frac{2}{3}\}$ (Figures (a) and (b)), and over a set $\cP_\VV=\{\pi=\mathrm{Beta},\,\VV_{T\sim\pi}T=\frac{3}{16}\}$ (Figure (c)). In this example, their exist 2 solutions $\pi_1^\ast$ (in Figure (a)) and $\pi_2^\ast$ (in Figure(b)) of reference priors over $\cP_\EE$. $\beta$ has been set to $1/2$ in this example.}
+    \label{fig:exbeta}
+\end{figure}
+
+
+
+
+
     \subsection{About the assumptions and their limitations}
 
-    a
+    The sub-Gaussian assumption over the likelihood, which is required for the statement of the result in the case $\delta<0$
+    remains somehow restrictive. For instance,
+    the univariate Gaussian model with unknown variance does not satisfy this assumption. 
+    However, it is still be verified by other regular statistical models, like the univariate normal model with known variance, or continuous compact models ($\cY$ compact and $(y,\theta)\mapsto\ell(y|\theta)$ continuously differentiable). {Note that due to the asymptotic normality of the r.v. $\cI(\theta)^{-1/2}S_k$ induced by the Central Limit Theorem, the parameter $\xi$ of its assumed Gaussian tail cannot exceed $1/2$. This restricts $\delta$ to be smaller than $1$.}
+
+Furthermore, %we would like to point out to the reader the two following remarks, raised from the proofs of our results.
+in opposition with the classical settings for $f$-divergences which tend to suppose the convexity of $f$, the Jeffreys prior optimally within our results is actually implied by the concavity of $x\mapsto f(1/x)$ in the neighborhood of $0$.
+This statement is showcased by the heuristic developed in the next subsection.
+
+That gives some insight about the potential use of other function $f$ than the ones we have considered.
+Note that \citet{clarke_reference_1997} proved under some assumptions that another prior than Jeffreys prior is the $D$-reference prior when $D$ is a chi-square distance. This dissimilarity measure corresponds to the case where $f(x)=x^{-1}$, making $x\mapsto f(1/x)$ both convex and concave. 
+A conclusion about the optimum of such generalized
+mutual information thus requires stronger regularity assumptions on the likelihood to push
+the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown in a particular context that
+%this could lead to the inverse of Jeffreys prior as the optimum.
+
+%A global sketch of our proof giving an heuristic of the phenomena is proposed in Appendix~\ref{app:heuristic}. A rigorous proof is given in the next section.
+
 
     \subsection{About the robustness of Jeffreys prior with different divergences}
 
@@ -599,7 +677,7 @@ with $C_1=\frac{\tilde\sigma\overline{\sigma}}{\sqrt{2\pi}h\sigma^2} = \frac{(2\
  %   \item 
  \begin{enumerate}
     \item To prove the first statement of the theorem, 
-    we start by  computing the limit of $C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta $ for a fixed $\theta'$ in which $\tilde\pi$ is continuous. The scheme of this proof is standard as this integral is the convoluted of  $\pi$ with an approximation to the unity. Let $\eps>0$, by continuity of $\pi$ there exist a neighborhood $V$ of $\theta'$ such that for any $\theta\in V$,  $|\pi(\theta)-\pi(\theta')|<\eps/2$. %for any $\theta\in V$.
+    we start by  computing the limit of $C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta $ for a fixed $\theta'$ in which $\tilde\pi$ is continuous. The scheme of this proof is standard as this integral is the convoluted of  $\pi$ with an approximation to the unity. Let $\eps>0$, by continuity of $\pi$ there exists a neighborhood $V$ of $\theta'$ such that for any $\theta\in V$,  $|\pi(\theta)-\pi(\theta')|<\eps/2$. %for any $\theta\in V$.
     Additionally, it is possible to choose a $k_0$ such that for all $k\geq k_0$, $C_1\sqrt{k}\int_{\RR\!\setminus\!V} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}}d\theta <\eps/(4\sup_{\tilde\Theta}\pi)$. This way, for all $k\geq k_0$,
         \begin{equation}
             \left|C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta -\pi(\theta')  \right| \leq C_1\sqrt{k}\int_{\RR}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2} |\pi(\theta)\indic_{\theta\in\tilde\Theta}-\pi(\theta')|d\theta 
@@ -617,17 +695,17 @@ with $C_1=\frac{\tilde\sigma\overline{\sigma}}{\sqrt{2\pi}h\sigma^2} = \frac{(2\
         \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\mbf J(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) \geq 0 \text{\ with equality iff\ }\mbf J(\cdot|\tilde\Theta) = \tilde\varPi(\cdot|\tilde\Theta).
     \end{equation}
 
-\item We consider the vectorial space $\cC(\tilde\Theta)$ of continuous real functions defined on $\tilde\Theta$. It is a Banach space when equipped with the norm $\|p\|=\sup_{\tilde\Theta}|p|$. The expression of $\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))$ elucidated in \cref{eq:PSGSA:expr2IMMD} can be seen as a functional of $\pi$ of the form $\pi\mapsto B(\pi,\pi)$, $B$ being a continuous bilinear form on $E^2$. This function is differentiable w.r.t. $\pi$, and we can apply a Lagrange multipliers theorem to write that if $\pi_k^\ast\in E$ maximizes $\tilde I^k:\pi\mapsto\sI^k_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))$ on the constrained space $E\cap\{p\in E,\,\int_{\tilde\Theta}p=1\}$, then there exists $\lambda\in\RR$ such that for all $p\in E$:
+\item We consider the vectorial space $\cC(\tilde\Theta)$ of continuous real functions defined on $\tilde\Theta$. It is a Banach space when equipped with the norm $\|p\|=\sup_{\tilde\Theta}|p|$. The expression of $\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))$ elucidated in \cref{eq:PSGSA:expr2IMMD} can be seen as a functional of $\pi$ of the form $\pi\mapsto B(\pi,\pi)$, $B$ being a continuous bilinear form on $E^2$. This function is differentiable w.r.t. $\pi$. We thus  apply a Lagrange multipliers theorem to write that if $\pi_k^\ast\in E$ maximizes $\pi\mapsto\sI^k_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))$ on the constrained space $E\cap\{p\in E,\,\int_{\tilde\Theta}p=1\}$, then there exists $\lambda\in\RR$ such that for all $p\in E$:
 \begin{equation}
     -2C_1^k\int_{\Theta\times\Theta} e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta-\theta')^2} p(\theta)\pi^\ast_k(\theta')d\theta d\theta' - \lambda\int_\Theta p(\theta)d\theta = 0.
 \end{equation}
-This being true for any $p\in E$, we deduce for all $\theta'\in\tilde\Theta$, setting $p(\theta) = C_1\sqrt{k} $
+This being true for any $p\in E$, we deduce for all $\theta'\in\tilde\Theta$, %setting $p(\theta) = C_1\sqrt{k} $
     \begin{equation}
         -2C_1^k\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)d\theta = \lambda \quad\text{and}\quad
         -2C_1^k\int_{\tilde\Theta\times\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)\pi_k^\ast(\theta')d\theta d\theta' = \lambda.
     \end{equation}
 We now apply a similar reasoning as in 1. to derive the limit of the above integrals. 
-The $\pi^\ast_k$ are assumed to form a uniformly convergent sequence of functions. That ensures its limit $\pi^\ast$ to be continuous on $\tilde\Theta$.
+The $\pi^\ast_k$ are assumed to form a uniformly convergent sequence of functions. That ensures its limit $\pi^\ast$ is continuous on $\tilde\Theta$.
 We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\theta'$ such that for all $\theta \in V$, $|\pi^\ast(\theta)-\pi^\ast(\theta')|<\eps/4$. By uniform convergence of $(\pi^\ast_k)$, we can fix $k_0$ such that for all $k\geq k_0$, $\|\pi^\ast_k-\pi^\ast\|<\eps/4$. It is also possible to fix $k_1$ such that for all $k\geq k_1$, $C_1\sqrt{k}\int_{\RR\!\setminus\!V} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}}d\theta <\eps/(8\sup_{k'}\|\pi^\ast_{k'}\|)$.
     We thus have for all $k\geq\max(k_1,k_0)$
     \begin{equation}
@@ -658,17 +736,481 @@ We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\th
 \end{proof}
 
 
-\section{Proofs of the main results}
+\section{Proofs of the main results}\label{sec:PSGSA:proofs}
 
-a
+\subsection{Proof of \cref{prop:PSGSA:cvptheta}}
+
+\begin{proof}[Proof of \cref{prop:PSGSA:cvptheta}]
+    We fix $\theta$ in the interior of $\Supp\pi$ such that $\pi$ is continuous in $\theta$. Let $\eps,\tilde\eps>0$. We want to show that there exist $k_0$, such that for all $k\geq k_0$
+        \begin{equation}
+            \PP_\theta\left(\tilde g_2^{C,c}(k^{-d/2})^{-1}\left| f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right.            \left. - g_1\left(k^{-d/2}\pi(\theta)(2\pi)^{d/2}|\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k \right)\right) \right|<\tilde\eps   \right)>1-\eps,
+        \end{equation}
+    for some $C,c = C_\theta,c_\theta$.
+    We start by defining some events that 
+    will be asymptotically negligible:
+    \begin{enumerate}
+    \item Remind the definition of the r.v. $S_k=\frac{1}{\sqrt{k}}\sum_{i=1}^k\nabla_\theta\log\ell(Y_i|\theta)$. The central limit theorem ensures that when $\mbf Y_k\sim\PP_{\mbf Y_k|\theta}$, $S_k$ converges in distribution to $\cN(0,\cI(\theta))$ as $k\to\infty$. Therefore, one can choose $M_\theta$ such that the events $ \underline{\mbf A}_k(\theta)$ defined as $ \underline{\mbf A}_k(\theta)=\{\|S_k\|>M_\theta\}$ verify
+        \begin{equation}
+            \PP_\theta( \underline{\mbf A}_k(\theta))\conv{k\rightarrow\infty}\eps/5
+        \end{equation}
+    
+        \item Denote for any $i=1,\dots,k$, and for any $\mbf y \in\cY^k$,
+        \begin{equation}
+            K_i(\mbf y)=\{-x^T\nabla^2_\theta\log\ell(Y_i|\theta')x,\,\theta'\in\tilde\Theta,\,\|x\|=1\}.
+        \end{equation}
+     They are compact subsets of $(0,+\infty)$. The law of large numbers gives 
+     \begin{equation}
+        \frac{1}{k}\sum_{i=1}^k\inf K_i(\mbf Y_k)\conv{k\rightarrow\infty}\EE_\theta\left[\inf_{\theta'\in\tilde\Theta,\|x\|=1}-x^T\nabla^2_\theta\log\ell(Y_1|\theta')x\right]  ,
+     \end{equation}
+    which is positive as the infima are positive $\PP_\theta$-a.s. We choose an $\hat m_\theta>0$ smaller than this limit, and we denote
+        \begin{equation}
+             \underline{\mbf B}_k(\theta)=\left\{\frac{1}{k}\sum_{i=1}^k\inf K_i(\mbf Y_k)<\hat m\right\}.       
+        \end{equation}
+     Then $\PP_\theta( \underline{\mbf B}_k(\theta))\conv{k\rightarrow\infty}0$.
+
+    \item Beforehand, denote
+    \begin{equation}
+        C_\theta =\exp\left(M_\theta^2/(2\hat m_\theta)\right) \quad\text{and}\quad  c_\theta = \pi(\theta)(2\pi)^{d/2}|\cI(\theta)|^{-1/2} ,
+    \end{equation}
+    which are finite and positive. Using the assumed local behavior of $f$ around $0$, one can choose $ w,\eta>0$ such that for any $c_\theta<|x|<C_\theta$, $|l|< w$, and $|t|<\eta$, 
+    \begin{equation}\label{eq:PSGSA:asymptdevf}
+        |f(xt+lt)-g_1(xt)|\leq\tilde\eps g_2(xt)\leq\tilde\eps\tilde g_2^{C_\theta,c_\theta}(t).    
+    \end{equation}
+    Using the $\PP_\theta$-a.s. convergence of $-\frac{1}{k}\sum_{i=1}^k\nabla^2_\theta\log\ell(Y_i|\theta)$ to $\cI(\theta)$, we have $\PP_\theta( \underline{\mbf C}_k(\theta))\conv{k\rightarrow\infty}0$ where
+    \begin{align}
+    \nonumber
+         \underline{\mbf C}_k(\theta) = &\left\{\forall \|x\|\leq M,\, \left|\pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}x^T \cI(\theta)^{-1}x\right) \right.\right. \\
+        & \left.\left. - \pi(\theta)(2\pi)^{d/2}|k\hat\cI_k(\theta)|^{-1/2}\exp\left(\frac{1}{2}x^T \hat\cI_k(\theta)^{-1} x\right) \right|\geq w k^{-d/2}\right\} ,
+    \end{align}
+    with $\hat\cI_k(\theta')$ denoting $-\frac{1}{k}\sum_{i=1}^k\nabla^2_\theta\log\ell(Y_i|\theta')$.
+    
+    \item 
+    Let us choose $R_\theta>0$ large enough to have 
+    \begin{equation}\label{eq:PSGSA:majorintegralsR}
+        (\sup_{\tilde\Theta}\pi ) \int_{\|x\|>R_\theta} e^{M_\theta x}e^{-\frac{\hat m_\theta}{2}x^2} dx< w ,    
+    \end{equation}
+and $u>0$ such that $\forall|x|<uR_\theta^2,\,|e^{x}-1|< w/(2 C_\theta R^d_\theta\sup_{\tilde\Theta}\pi )$. 
+
+From Assumption \ref{assu:fisher}, the function $\theta'\mapsto\|\nabla_\theta^2\log\ell(y|\theta')-\nabla^2_\theta\log\ell(y|\theta)\|$ is dominated on the Euclidean ball $B(\theta,\tau_1)$ by a variable that has a finite expectation $\EE_\theta$. Therefore, a dominated convergence theorem gives that the function
+    \begin{equation}
+        \theta'\mapsto \EE_\theta \left[\|\nabla_\theta^2\log\ell(y|\theta')-\nabla^2_\theta\log\ell(y|\theta)\|\right]
+    \end{equation}
+    converges to $0$ when $\theta'\to\theta$ as a consequence of the continuity of the second order partial derivatives of the log-likelihood. 
+    
+    
+    Thus, {if we choose $\tilde\tau_\theta$ such that the above quantity is smaller than %$\eps\nu\sup_{\tilde\Theta}\pi/(10\cdot D^d)$ 
+    $u\eps$ and if we define $\underline{\mbf D}_k(\theta)$ as the event}
+    \begin{equation}
+        \underline{\mbf D}_k(\theta)=\left\{\sup_{\theta'\in\tilde\Theta,\,\|\theta'-\theta\|<\tilde\tau_\theta}\|\hat\cI_k(\theta')-\hat\cI_k(\theta)\|>u \right\}, %\nu\sup_{\tilde\Theta}\pi/(2D^d) \right\},
+    \end{equation}
+    one gets by applying Markov's inequality that $\PP_\theta(\underline{\mbf D}_k(\theta))<\eps/4$.
+    \end{enumerate}
+
+    Now, notice that for any $\tilde\theta\in\tilde\Theta$, $\mbf y\in\cY^k$, there exists $\hat\theta$ on the segment between $\theta$ and $\tilde\theta$ such that
+    \begin{equation}\label{eq:DLlogfraclik}
+        \log\left(\frac{\prod_{i=1}^k \ell(y_i|\tilde\theta)}{\prod_{i=1}^k \ell(y_i|\theta)}\right) = (\tilde\theta-\theta)^T\sum_{i=1}^k\nabla_\theta\log \ell(y_i|\theta) +\frac{1}{2}(\tilde\theta-\theta)^T\sum_{i=1}^k\nabla_\theta^2\log \ell(y_i|\hat\theta)(\tilde\theta-\theta).
+    \end{equation}
+    Let us write %$D_f(\PP_{\mbf Y}||\PP_{\mbf Y|T=\theta})=\EE_\theta\left[f\left(\int_\Theta h_{ \mbf y}(\tilde\theta,\theta)\pi(\tilde\theta)d\tilde\theta\right)\right]$ where
+    $p_{\mbf Y_k}(\mbf y)/\ell_k(\mbf y|\theta) = \int_\Theta h_{\mbf y}(\tilde\theta,\theta)\pi(\tilde\theta)d\tilde\theta$ where
+    \begin{equation}\label{eq:hydef}
+        h_{\mbf y}(\tilde\theta,\theta) = \exp\left((\tilde\theta-\theta)^T\nabla_\theta\log\ell_k(\mbf y|\theta)\right)  \exp \left( \frac{1}{2}(\tilde\theta-\theta)^T\nabla^2_\theta\log\ell_k(\mbf y|\hat\theta)(\tilde\theta-\theta) \right).
+    \end{equation}
+    We fix $k$ and work under the event $\underline{\mbf A}_k(\theta)^c\cap \underline{\mbf B}_k(\theta)^c\cap \underline{\mbf C}_k(\theta)^c\cap \underline{\mbf D}_k(\theta)^c$. i.e. we %fix $\mbf y\in\cY^k$ such that 
+    consider $\varpi\in \underline{\mbf A}_k(\theta)^c\cap \underline{\mbf B}_k(\theta)^c\cap \underline{\mbf C}_k(\theta)^c\cap \underline{\mbf D}_k(\theta)^c$ and denote $\mbf y = \mbf Y_k(\varpi)$.
+    We can thus bound $h_{\mbf y}(\tilde\theta,\theta)$  as
+    \begin{equation}\label{eq:inegh}
+        h_{\mbf y}(\tilde\theta,\theta) \leq\exp\left( M_\theta\sqrt{k}\|\tilde\theta-\theta\| \right)\exp\left( -\frac{k}{2}\hat m_\theta\|\tilde\theta-\theta\|^2 \right)\leq C_\theta.
+    \end{equation}
+    
+    The rest of the proof only consists in bounding  four  quantities by $ w k^{-d/2} $.
+    \begin{itemize}
+        \item Define $\tilde R_k=R_\theta k^{-1/2}$. %with a $D>0$ thin enough to have $\int_{\|x\|>D}e^{Mx}e^{-\frac{m}{2}x^2}\sup_{\tilde\Theta}|\pi|dx<\nu$ and to let the Euclidean ball $B(\theta,D)\subset\tilde\Theta$.
+        Inequality in \cref{eq:PSGSA:majorintegralsR} implies
+        \begin{equation}
+            \mbf I_1 := \int_{\|\tilde\theta-\theta\|>\tilde R_k} \exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k\right)\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\theta)(\tilde\theta-\theta) \right)\pi(\theta)d\tilde\theta < w k^{-d/2}.
+        \end{equation}
+        \item Recalling the upper bound in \cref{eq:inegh}, we have the same way
+            \begin{equation}
+                \mbf I_2 := \int_{\|\tilde\theta-\theta\|>\tilde R_k} h_{\mbf y}(\tilde\theta,\theta)\pi(\tilde\theta)d\tilde\theta < w k^{-d/2}.
+            \end{equation}
+        \item  
+        As $\pi$ is continuous in $\theta$, 
+        there exist $k_1$ such that if $k\geq k_1$ then for all $\|\tilde\theta-\theta\|<\tilde R_k$, $|\pi(\tilde\theta)-\pi(\theta)|\leq w/(2C_\theta R_\theta^d)$. %for any $\|\tilde\theta-\theta\|<\tilde R_k$. 
+        We write:
+            \begin{multline}\label{eq:continuityofHatIk}
+               \mbf I_3 := \int_{\|\tilde\theta-\theta\|<\tilde R_k} h_{\mbf y}(\tilde\theta,\theta)\pi(\tilde\theta)d\tilde\theta  
+                     - \int_{\|\tilde\theta-\theta\|<\tilde R_k}\exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k\right)\exp\left(-\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\theta)(\tilde\theta-\theta)\right)\pi(\theta)d\tilde\theta \\ %\leq\nu k^{-d/2}.
+                %
+                    |\mbf I_3| \leq \int_{\|\tilde\theta-\theta\|<\tilde R_k}|\hat h_{\mbf y}(\tilde\theta,\theta,\hat\theta) - \hat h_{\mbf y}(\tilde\theta,\theta,\theta) |\pi(\tilde\theta)d\tilde\theta + \int_{\|\tilde\theta-\theta\|<\tilde R_k}\hat h_{\mbf y}(\tilde\theta,\theta,\theta)|\pi(\tilde\theta)-\pi(\theta)|d\tilde\theta
+              %
+            \end{multline}
+        where $\hat h(\tilde\theta,\theta,\hat\theta)=\exp((\tilde\theta-\theta)^T\sqrt{k}S_k)\exp\left(-\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\hat\theta)(\tilde\theta-\theta)\right)$. {Notice that for any $\theta',\tilde\theta$ in the Euclidean ball $B(\theta,\tilde R_k)$,}
+            \begin{align}   
+                 |\hat h_{\mbf y}(\tilde\theta,\theta,\theta') - \hat h_{\mbf y}(\tilde\theta,\theta,\theta) | 
+                    \leq \hat h_{\mbf y}(\tilde\theta,\theta,\theta')\left|\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T(\hat\cI_k(\theta')-\hat\cI_k(\theta))(\tilde\theta-\theta) \right)-1\right|.
+            \end{align}
+        Thus, if $k\geq k_2$ where $k_2$ is such that $\tilde R_{k_2}<\tilde\tau$, we obtain $(\tilde\theta-\theta)^T(\hat\cI_k(\theta')-\hat\cI_k(\theta))(\tilde\theta-\theta) < u$ consequently to $\mbf y=\mbf Y_k(\varpi)$ with $\varpi\in\underline{\mbf D}_k(\theta)^c$. 
+        It then comes $|\mbf I_3|< w k^{-d/2}$.
+
+        \item  By recognizing a Gaussian density in the integral below, we get the equality 
+        \begin{align}
+        \nonumber
+            &\int_{\RR^d}\exp((\tilde\theta-\theta)^T\sqrt{k}S_k)\exp\left(\frac{1}{2}(\tilde\theta-\theta)^T\nabla_\theta^2\ell_k(\mbf y|\theta)(\tilde\theta-\theta)\right)\pi(\theta)d\tilde\theta \\
+            &=
+            \pi(\theta)(2\pi)^{d/2}|k\hat\cI_k(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\hat\cI_k(\theta)^{-1}S_k\right).
+            \label{eq:intRnabla2bisbis}
+        \end{align}
+        Defining $\mbf I_4= (\ref{eq:intRnabla2bisbis}) - \pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k\right)$, we obtain,
+        %It implies, 
+        using that $\varpi\in \underline{\mbf C}_k(\theta)^c$, 
+        \begin{equation}
+            |\mbf I_4|  %\left|(\ref{eq:intRnabla2bisbis}) - \pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k\right)\right|
+            \leq w k^{-d/2}.
+        \end{equation}
+    \end{itemize}
+
+If we define $k_3$ such that $k^{-d/2}<\eta/4$, and if $k\geq\max(k_1,k_2,k_3)$, then the four inequalities elucidated above allows evaluating \cref{eq:PSGSA:asymptdevf} with $t=k^{-d/2}$,
+\begin{equation}
+    \begin{aligned}
+    x(\mbf y) = & \int_{\tilde\Theta} \exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k\right)\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\theta)(\tilde\theta-\theta) \right)\pi(\theta )d\tilde\theta,\\
+        \text{and}\quad l(\mbf y) =& x(\mbf y)-\frac{p_{\mbf y}(\mbf y)}{\ell_k(\mbf y|\theta)}k^{d/2} = \mbf I_1+\mbf I_2+\mbf I_3+\mbf I_4.
+    \end{aligned}
+\end{equation}
+
+All in all, we have proven that for $k\geq\max(k_1,k_2,k_3)$ the inclusion
+    \begin{equation}
+         \underline{\mbf A}_k(\theta)^c\cap \underline{\mbf B}_k(\theta)^c\cap \underline{\mbf C}_k(\theta)^c\cap \underline{\mbf D}_k(\theta)^c \subset \left\{ \left|f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right) - g_1(k^{-d/2} x(\mbf Y_k)) \right| < \tilde g_2^{C_\theta,c_\theta}(k^{-d/2}) \tilde\eps  \right\}
+    \end{equation}
+stands.
+To conclude we denote $k_4$ such that for any $k\geq k_4$,
+        \begin{equation}
+            \PP_\theta(\underline{\mbf A}_k(\theta)) <\eps/4,\quad\PP_\theta(\underline{\mbf B}_k(\theta))<\eps/4, \quad\PP_\theta(\underline{\mbf C}_k(\theta))\eps/4, \quad \PP_\theta(\underline{\mbf D}_k(\theta))<\eps/4.
+        \end{equation}
+This way, defining $k_0=\max(k_1,k_2,k_3,k_4)$, the following inequality is true for any $k\geq k_0$:
+\begin{equation}
+    \PP_\theta\left(\tilde g_2^{C_\theta,c_\theta}(k^{-d/2})^{-1}\left| f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right.            \left. - g_1\left(k^{-d/2}\pi(\theta)(2\pi)^{d/2}|\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k \right)\right) \right|<\tilde\eps   \right)>1-\eps.
+\end{equation}
+\end{proof}
+
+
+\newcommand{\ubf}[1]{\underline{\mbf{#1}}}
+
+
+\subsection{Proof of \cref{thm:refcompactneg,thm:PSGSA:Jrefdeltaneg}}
+
+\begin{proof}[Proof of \cref{thm:PSGSA:Jrefdeltaneg}]
+    We suppose that \cref{assu:PSGSA:JDS} is verified. We recall that in this proof $\delta<0$. The following lemma is required for the proof. It is proven later on.
+    \begin{lem}
+        \label{lem:dfbeta}
+            Let $\zeta<0$. 
+            There exists a constant $K$ independent of $\theta$ such that
+                \begin{equation*}
+                    k^{d\zeta/2}\EE_\theta \left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\zeta \ell_k(\mbf y|\theta)d\mu^{\otimes k}(\mbf y)\leq  K.
+                \end{equation*}
+        \end{lem}
+\end{proof}
+
+
+\subsection{Proof of \cref{thm:refcompactpos,thm:PSGSA:Jrefdeltapos}}
+
+
+\begin{proof}[Proof of \cref{thm:refcompactpos,thm:PSGSA:Jrefdeltapos}]
+    We suppose that \cref{assu:infeighes,assu:gausstailSk} are verified, we recall that in this proof $\delta>0$. The following lemmas are required for the proof. They are proven later on.
+
+    \begin{lem}\label{lem:technicalLemma}
+        For any $\zeta<2\xi$, there exists a constant $K_2>0$ independent of $\theta\in\tilde\Theta$ such that for any $k>0$,
+              \begin{equation}
+                  k^{d\zeta/2}\EE_\theta\left[\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\zeta\right]\leq K_2.
+              \end{equation}
+      \end{lem}    
+      \begin{lem}\label{lem:lem2}
+          %Under Lemma \ref{lem:technicalLemma}'s assumptions.
+          There exists a constant $K_3>0$ independent of $\theta\in\tilde\Theta$ %with respect to $\pi$  
+          such that for any $k>0$ and any $\rho>0$, %almost every $\theta\in\tilde\Theta$ and any $\rho>0$,
+          \begin{equation}
+              \EE_\theta\left[ \indic_{\underline{\mbf E}_k} \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right] \leq \rho^{1/2} K_3 k^{-d\delta/2}
+          \end{equation}
+          with $\ubf E_k = \ubf E_k(\theta)=\{ \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}>\rho^{-1/\delta}\}$.
+      \end{lem}
+
+      We start by proving the following claims about the consequences of the sub-Gaussianity of $S_k$ (\cref{assu:gausstailSk}).
+      \begin{itemize}
+        \item \textbf{Claim 1.} Let $\zeta<\xi$, then if $X_k=\cI(\theta)^{-1/2}S_k$, then $\EE_\theta e^{\zeta\|X_k\|^2} < K_1$.\\
+            \emph{Proof.} \Cref{assu:infeighes} makes $\|\cI(\theta)^{-1/2}\|\leq m^{-1/2}$, i.e. $\| X_k\|^2\leq \| S_k \|^2/m$. Hence the result since $\EE_\theta e^{\frac{\xi}{m}\|S_k\|^2}<K_1$.
+        \item \textbf{Claim 2.} Let $t\in\RR$ and $v\in\RR^d$ with $\|v\|=1$. We have $\EE_\theta e^{tv^TS_k}\leq K_1 e^{\frac{t^2\chi^2}{2}}$ with $\chi^2=\xi/(2m)$.\\
+            \emph{Proof.} For any $s >0$, we have 
+$|tv^TS_k|\leq \frac{s}{2} t^2 +\frac{1}{2s} |v^TS_k|^2 \leq  \frac{s}{2} t^2 +\frac{1}{2s} \|S_k\|^2 $.
+Choosing $s=m/(2\xi)$, we get
+\begin{equation}
+    \EE_\theta e^{tv^TS_k} \leq 
+e^{\frac{m t^2}{4\xi}} \EE_{\theta} e^{ \frac{\xi}{m} \|S_k\|^2} \leq K_1 e^{ \frac{t^2\chi^2}{2}}.
+\end{equation}
+      \end{itemize}
+
+We recall that \cref{prop:PSGSA:cvptheta} states the following convergence in probability for a.e. $\theta$:
+\begin{equation}
+    k^{d\delta/2}\left|f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)  - a k^{-d\delta/2}\pi(\theta)^\delta(2\pi)^{d\delta/2}|\cI(\theta)|^{-\delta/2}\exp\left(\frac{\delta}{2} S_k^T\cI(\theta)^{-1}S_k \right)  \right|
+        \conv[\PP_\theta]{k\rightarrow\infty}0.
+\end{equation}
+    
+
+The first goal in this prove will be to show that this convergence  is a convergence in $L^1(\PP_\theta)$. This is shown by proving that the sequence of r.v. is uniformly integrable. 
+Let $\rho>0$ and choose an even $\ubf A$ such that $\PP_\theta(\ubf A)=\rho$. Denoting $X_k=\cI(\theta)^{-1/2}S_k$, using Hölder's inequality it comes
+\begin{align}\label{eq:equiintpart1}
+    \EE_\theta\left[\indic_{\ubf A} \pi(\theta)^\delta(2\pi)^{d\delta/2}e^{\frac{\delta}{2}S_k^T\cI(\theta)^{-1}S_k}\right]  
+        &\leq \pi(\theta)^\delta(2\pi)^{d\delta/2} \rho^{1/p} \EE_\theta\left[e^{\frac{\delta}{2}q\|X_k\|^2}\right]^{1/q} \nonumber\\
+        &\leq \rho^{1/p}(\sup_{\Theta}\pi)^\delta (2\pi)^{d\delta/2}K_1^{1/q}
+\end{align}
+for any $p,q$ such that $1/p+1/q=1$ and $q\delta/2<\xi$. %Choosing them such that $q\delta/2=\xi$ leads to an upper bound of the form $K\rho^{1/p}$ for some constant $K$. 
+Second, consider $\hat C$ and $\hat C'$ such that $|f(x)|\leq\hat Cx$ if $x>\rho^{-1/\delta}$ and $|f(x)|\leq \hat C'x^\delta$ otherwise.
+Using $\ubf E_k= \ubf E_k(\theta)=\{p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta)>\rho^{-1/\delta}\}$ and Hölder's inequality, we compute:
+    \begin{align}
+%\nonumber      
+ \EE_\theta\left[ \indic_{\ubf A}k^{d\delta/2}f\left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right]
+%    
+\nonumber                  &\leq \EE_\theta\left[ \indic_{\ubf E_k}\indic_{\ubf A} k^{d\delta/2} \hat C  \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right] + \EE_\theta\left[ \indic_{\ubf E_k^c}\indic_{\ubf A}k^{d\delta/2}\hat C'\left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\delta \right] \\
+ \label{eq:equiintpart2}
+                & \leq \hat C\rho^{1/2} K_3 +  \rho^{1/p} K_2^{1/p} , %\\
+%\nonumber       & \leq \rho\hat C K + \rho^{1/p}K_2^{1/p}\label{eq:equiintpart2}
+\end{align}
+where $1/p=1-1/q$ with $q\delta/2<\xi$. Equations (\ref{eq:equiintpart1}) and (\ref{eq:equiintpart2}) ensure the required uniform-integrability. %for almost every $\theta\in\tilde\Theta$. 
+That allows us to write:
+    \begin{equation}
+        \EE_\theta k^{d\delta/2}\left|f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)  - a k^{-d\delta/2}\pi(\theta)^\delta(2\pi)^{d\delta/2}|\cI(\theta)|^{-\delta/2}\exp\left(\frac{\delta}{2} S_k^T\cI(\theta)^{-1}S_k \right)  \right|
+        \conv{k\rightarrow\infty}0.
+    \end{equation}
+This limit stands for every $\theta$ in the interior of $\Supp\pi$ within which $\pi$ is continuous. For such a $\theta$ it comes as $k\rightarrow\infty$
+\begin{align}
+    k^{d\delta/2} D_f(\PP_{\mbf Y_k} || \PP_{\mbf Y_k|\theta}) = a\pi(\theta)^\delta(2\pi)^{d\delta/2}|\cI(\theta)|^{-\delta/2}\EE_\theta\left[e^{\frac{\delta}{2} \|X_k\|^2}\right] + o(1).    
+\end{align}
+
+The second step of the proof is to precise the above asymptotic expansion by studying the limit of $\EE_\theta e^{\frac{\delta}{2}\|X_k\|^2}$.
+The sequence of r.v. $X_k$ converges in distribution to a standard normal r.v. denoted $X$. %whose mean is $0$ and covariance matrix is $\cI(\theta)$. 
+    This implies that for any $A>0$, the expectation $\EE_\theta\left[e^{\frac{\delta}{2}\|X_k\|^2}\indic_{\|X_k\|\leq A}\right]$ converges to $\EE_\theta\left[e^{\frac{\delta}{2}\|X\|^2}\indic_{\|X\|\leq A}\right]$. Moreover, under Assumption \ref{assu:gausstailSk} there exists a constant $K'$ independent of $k$ such that for any $k$
+        \begin{align}\label{eq:expSkindica}
+            \EE_\theta\left[ e^{\frac{\delta}{2}\|X_k\|^2}\left|1-\indic_{\|X_k\|\leq A}\right|\right] 
+                & \leq \EE_\theta\left[e^{\frac{\delta q}{2}\|X_k\|^2}\right]^{1/q} \PP_\theta\left(\|X_k\|\geq A \right)^{1/p} \\
+\nonumber            &\leq K_1^{1/q} \PP_\theta(\exp(t^2 \| X_k\|^2)\geq\exp(t^2A) )\\
+\nonumber       & \leq K' e^{-t^2 A^2/p} 
+        \end{align}
+    using H\"older inequality with $1/p+1/q=1$ such as $\delta q/2\leq \xi $ first, and Markov inequality with $t^2<\xi$ second. Thus, for any $\eps>0$, one can choose $A$ {such that $(\ref{eq:expSkindica}) \leq\eps/3$ and $\EE_\theta\left[e^{\frac{\delta}{2}\|X\|^2}\left|1-\indic_{\|X\|\leq A}\right|\right]<\eps/3$ as well to get
+    \begin{align}
+       \left|\EE_\theta\left[e^{\frac{\delta}{2}\|X_k\|^2}\right] - \EE_\theta\left[e^{\frac{\delta}{2}\|X\|^2}\right]\right| 
+     < 2\eps/3 + \left|\EE_\theta\left[e^{\frac{\delta}{2}\|X_k\|^2}\indic_{\|X_k\|\leq A}\right] - \EE_\theta\left[e^{\frac{\delta}{2}\|X\|^2}\indic_{\|X\|\leq A}\right]\right|.
+    \end{align}
+    Eventually, $k$ can be chosen large enough such that the right-hand side of above equation is smaller than $\eps$, which states the convergence $\EE_\theta e^{\frac{\delta}{2}\|X_k\|^2} \conv{k\rightarrow\infty} \EE_\theta e^{\frac{\delta}{2}\|X\|^2}$.}
+    This lets us write
+    \begin{align}
+        k^{d\delta/2} D_f(\PP_{\mbf Y_k} || \PP_{\mbf Y_k|\theta}) \aseq{k\rightarrow\infty} a\pi(\theta)^\delta(2\pi)^{d\delta/2}|\cI(\theta)|^{-\delta/2}(1-\delta)^{-d/2} + o(1).    
+    \end{align}
+
+
+The third and last step of the proof it to carry out a dominated convergence theorem to elucidate the limit of $\sI_{D_f}^k(\varPi(\cdot|\tilde\Theta))$.
+We denote $\ubf F_k= \ubf F_k(\theta)=\{p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta)>1\}$, %remind from Markov inequality and Lemma \ref{lem:technicalLemma} that $\PP_\theta(F_k)\leq k^{-d\delta/2}K_2$ for any $\theta\in\tilde\Theta$. We write
+    we write
+    \begin{align}
+\nonumber       k^{d\delta/2}|D_f(\PP_{\mbf Y}||\PP_{\mbf Y|\theta}) | (a(2\pi)^{d/2}\sup_{\tilde\Theta}\pi|\cI|^{-1/2})^{-\delta}  
+    &\leq k^{d\delta/2}\EE_\theta\left[\indic_{\ubf F_k}\hat C\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right] + \EE_\theta\left[\indic_{\ubf F_k^c}k^{d\delta/2}\hat C'\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\delta \right] \\
+                &\leq\hat CK_3 + \hat C'K_2. %*\\
+%\nonumber       &\leq (\hat C+\hat C')K.
+    \end{align}
+%The function $K_3$ being $\pi$-integrable with respect to  $\theta\in\tilde\Theta$, 
+The domination above makes the following licit:
+    \begin{equation}
+        \lim_{k\rightarrow\infty} k^{d\delta/2}\sI^k_{D_f}(\varPi(\cdot|\tilde\Theta))  = a(2\pi)^{d\delta/2}(1-\delta)^{-d/2} \int_{\tilde\Theta}\pi(\delta)^{\delta+1}|\cI(\theta)|^{-\delta/2}d\theta.
+    \end{equation}
+This concludes the proof of \cref{thm:refcompactpos}. The result of \cref{thm:PSGSA:Jrefdeltapos} comes by 
+concavity of $x\mapsto a x^{-\delta}$, which results from $a(\delta+1)>0$ and  gives
+    \begin{align}
+    \nonumber
+        &a \int_{\tilde\Theta}\pi(\theta)^\delta |\cI(\theta)|^{-\delta/2}\pi(\theta)d\theta \\
+            &\leq a\left(\int_{\tilde\Theta}\pi(\theta)^{-1}|\cI(\theta)|^{1/2}\pi(\theta)d\theta\right)^{-\delta}
+            = a \left(\int_{\tilde\Theta} |\cI(\theta)|^{1/2} d\theta\right)^{-\delta}. \label{eq:concavinequality}
+    \end{align}
+The concavity of $x\mapsto a x^{-\delta}$ being strict, the above inequality is an equality if and only if 
+$\pi(\theta)^\delta|\cI(\theta)|^{-\delta/2}$ is constant with respect to  $\theta$, i.e. $\pi\propto J$.
+
+\end{proof}
+
+
+\begin{proof}[Proof of \cref{lem:technicalLemma}]
+    We work under the assumptions of \cref{thm:refcompactpos}.
+    We write 
+    \begin{align}
+    \nonumber
+ \EE_\theta\left[\left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k |\theta)} \right)^\zeta\right] 
+            &= \EE_\theta \left(\int_{\tilde\Theta} e^{(\tilde\theta-\theta)^T\sqrt{k}S_k} e^{-\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\hat\theta)(\tilde\theta-\theta)}\pi(\tilde\theta)d\tilde\theta \right)^\zeta \\
+\nonumber            &\leq\EE_\theta k^{-d\zeta/2}\left(\int_{\RR^d}  e^{u^TS_k} e^{-\frac{1}{2}u^T\hat\cI_k(\hat\theta)u} du \sup_{\tilde\Theta}|\pi| \right)^\zeta \\
+   &\leq\EE_\theta k^{-d\zeta/2}\left(\int_{\RR^d} e^{u^TS_k} e^{-\frac{\|u\|^2}{2}\frac{1}{k}\sum_{i=1}^k\inf_{\tilde\Theta} L^{Y_i}} du \sup_{\tilde\Theta}|\pi| \right)^\zeta
+    \end{align}
+with $\hat\theta$ being a point in $\RR^d$ within the segment between $\theta$ and $\tilde\theta=u/\sqrt{k}+\theta$; with $L^y(\theta)$ being the smallest eigenvalue of $(\nabla^2_\theta\log\ell(y|\theta) )^{1/2}$.
+Therefore, $\inf_{\tilde\Theta} L^{Y_i}>m$ $\PP_\theta$ a.s. and 
+    \begin{align}
+        \EE_\theta\left[\left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k |\theta)} \right)^\zeta\right] 
+            &\leq k^{-d\zeta/2}K''\EE_\theta\left[m^{-d\zeta/2}e^{\frac{\zeta }{2m}\|S_k\|^2}\right]
+    \end{align}    
+for some constant $K''>0$. {By considering the sub-Gaussianity of $S_k$, the proof of the Lemma is complete.}
+
+\end{proof}
+
+\begin{proof}[Proof of \cref{lem:lem2}]
+    We work under the assumptions of \cref{thm:refcompactpos}.
+%Denote $E_k=\{p_{\mbf Y_k}(\mbf y)/\ell_k(\mbf y|\theta)>\rho^{-1/\delta}\}$.
+Notice
+    \begin{equation}
+        \EE_\theta\left[ \indic_{\ubf E_k} \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right] = \int_{\cY^k} \indic_{\ubf E_k} d\PP_{\mbf Y_k}(\mbf y).
+    \end{equation}
+According to Markov's inequality,
+    \begin{align}
+\nonumber        \EE_\theta\left[ \indic_{\ubf E_k} \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\theta)} \right]
+            &\leq \rho^{\tilde\delta/\delta} \int_{\cY^k}\left( \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\theta)} \right)^{\tilde\delta} p_{\mbf Y_k}(\mbf y)d\mu^{\otimes k}(\mbf y) \\
+\nonumber
+&\leq \rho^{\tilde\delta/\delta} \int_{\cY^k} \left( \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\theta)} \right)^{\tilde\delta} \int_{\tilde\Theta}\ell_k(\mbf y|\tilde\theta)\pi(\tilde\theta) d\tilde\theta d\mu^{\otimes k}(\mbf y)\\
+            &\leq \rho^{\tilde\delta/\delta} \int_{\tilde\Theta} \EE_{\tilde\theta}\left[ \left( \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\tilde\theta)} \right)^{\tilde\delta} \left( \frac{\ell_k(\mbf y|\tilde\theta)}{\ell_k(\mbf y|\theta)} \right)^{\tilde\delta} \right] \pi(\tilde\theta)d\tilde\theta  ,
+    \end{align}
+for some $\tilde\delta>0$ that we determine later. 
+{Using the expansion of the likelihood quotient expressed in equation (\ref{eq:DLlogfraclik})} we can write, for some $\hat\theta$ in the segment between $\theta$ and $\tilde\theta$:
+    \begin{align}
+    \nonumber
+         \EE_\theta\left[ \indic_{\ubf E_k} \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right]
+             &\leq \rho^{\tilde\delta/\delta}\int_{\tilde\Theta} \EE_{\tilde\theta}\left[ \left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\tilde\theta)} \right)^{\tilde\delta}  e^{{\tilde\delta}(\tilde\theta-\theta)^T\sqrt{k}S_k} e^{-\frac{k}{2}{\tilde\delta}(\tilde\theta-\theta)^T\hat\cI_k(\hat\theta)(\tilde\theta-\theta)} \right] \pi(\tilde\theta) d\tilde\theta  \\
+        \nonumber
+            &\leq \rho^{\tilde\delta/\delta} \left(\int_{\tilde\Theta} \EE_{\tilde\theta} \left[ \left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\tilde\theta)} \right)^{p{\tilde\delta}}\right] \pi(\tilde\theta)d\tilde\theta \right)^{1/p}\\
+           & \quad\times\left(\int_{\tilde\Theta} \EE_{\tilde\theta}\left[   e^{q{\tilde\delta}(\tilde\theta-\theta)^T\sqrt{k}S_k} e^{-q\frac{k}{2}{\tilde\delta}(\tilde\theta-\theta)^T\hat\cI_k(\hat\theta)(\tilde\theta-\theta)} \right] \pi(\tilde\theta) d\tilde\theta\right)^{1/q},
+    \end{align}
+the second inequality being a consequence of Hölder's inequality (necessarily $1/p+1/q=1$).
+The first integral in the right-hand side of the equation verifies
+    \begin{align}
+        \int_{\tilde\Theta} \EE_{\tilde\theta} \left[ \left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\tilde\theta)} \right)^{p{\tilde\delta}}\right] \pi(\tilde\theta)d\tilde\theta \leq K_2 k^{-p{\tilde\delta} d/2}  
+    \end{align}
+when ${\tilde\delta} p/2<\xi$ according to Lemma \ref{lem:technicalLemma}.
+
+ %\delta
+Now, we look for an upper-bound of the second integral:
+    \begin{equation}
+  I = \int_{\tilde\Theta}\EE_{\tilde\theta}\left[ e^{q\tilde\delta(\tilde\theta-\theta)^T\sqrt{k}S_k} e^{-q\frac{k}{2}\tilde\delta(\tilde\theta-\theta)^T\hat\cI_k(\hat\theta)(\tilde\theta-\theta)}\right]\pi(\tilde\theta)d\tilde\theta .
+    \end{equation}
+% Beforehand, let $\tilde\theta\in\tilde\Theta$,  $t\in\RR$ and $v\in\RR^d$ with $\|v\|=1$. For any $a >0$, we have 
+% $|tv^TS_k|\leq \frac{a}{2} t^2 +\frac{1}{2a} |v^TS_k|^2 \leq  \frac{a}{2} t^2 +\frac{1}{2a} \|S_k\|^2 $.
+% Choosing $a=m/(2\xi)$, we get
+% \begin{equation}
+%     \EE_\theta e^{tv^TS_k} \leq 
+% e^{{m t^2}/(4\xi)} \EE_{\tilde\theta} e^{ ({\xi}/{m}) \|S_k\|^2} \leq K_1 e^{ {t^2c^2}/{2}}
+% \end{equation}
+% with $c^2=\xi/(2m)$.
+%
+%The assumed Gaussian tail of the r.v. $S_k$ implies that there exists $c=\sqrt{m/(2\xi)}$ %and a constant $H>0$ 
+%such that for any $t\in\RR$, and $u\in\RR^d$ with $\|u\|=1$,
+% \begin{equation}
+%         \EE_{\theta}\left[ e^{tu^TS_k} \right] \leq K_1e^{t^2c^2/2}
+%     \end{equation}
+% for any $\theta\in\tilde\Theta$. This property is the statement of proposition \ref{prop:sub-gaussians} that follows this proof.
+%A proof of this statetement is given in Appendix \ref{app:subgauss}. 
+Using the claim 2. on the consequence of the sub-Gaussianity of $S_k$, we get for any $\tilde\theta\in\tilde\Theta$:
+    \begin{equation}
+        \EE_{\tilde\theta}\left[ e^{q\tilde\delta(\tilde\theta-\theta)^T\sqrt{k}S_k} e^{-q\frac{k}{2}\tilde\delta(\tilde\theta-\theta)^T\hat\cI_k(\hat\theta)(\tilde\theta-\theta)}\right] \leq K_1 e^{\frac{c^2}{2}q^2\tilde\delta^2k\|\tilde\theta-\theta\|^2} e^{-q\frac{k}{2}\tilde\delta m\|\tilde\theta-\theta\|^2}.
+    \end{equation}
+Therefore,
+\begin{align}
+\nonumber
+  I
+    &\leq K_1k^{-d/2}\int_{\RR^d} e^{\frac{c^2}{2}q^2\tilde\delta^2\|x\|^2} e^{-\frac{q}{2}\tilde\delta m\|x\|^2} \sup_{\tilde\Theta}\pi dx\\
+       &\leq K_1k^{-d/2}\int_{\RR^d} e^{\frac{m}{4\xi}q^2\tilde\delta^2\|x\|^2} e^{-\frac{q}{2}\tilde\delta m\|x\|^2} \sup_{\tilde\Theta}\pi dx.
+\end{align}
+Let us suppose the integral of the right hand term above to be a finite constant that we denote $L$; for this to be true, the inequality $q\tilde\delta<2\xi$ must be satisfied.
+%Suppose
+%the integral of the right hand term above to be a finite constant that we denote $L$, for this the inequality $q\tilde\delta<2\xi$ must be satisfied.
+In that case, one gets 
+\begin{equation}
+     \EE_\theta\left[ \indic_{\ubf E_k} \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right] \leq \rho^{\tilde\delta/\delta} K_2^{1/p}L^{1/q}K_1^{1/q} k^{-d(\tilde\delta+1/q)/2}. %\leq \rho K_3 k^{-d\delta/2}
+\end{equation}
+
+% Choose now $\tilde\delta=\delta/9$, and $q=9/8$; necessarily $p=9$. Thus $p\tilde\delta/2<\xi$ and $4q\tilde\delta=\delta/2<\xi$ as required. Moreover, $\tilde\delta+1/q>\delta$ given $1>\delta$. Thus, %which allows us to state
+%     \begin{equation}
+%         \EE_\theta\left[ \indic_{E_k} \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\theta)} \right] \leq \rho^{1/9} K_3 k^{-d\delta/2},
+%     \end{equation}
+% with $K_3 = K_2^{1/9}L^{8/9}H^{8/9}$.
+
+Choose now $\tilde\delta=\delta/2$, and $q=p=2$. Thus $p\tilde\delta/2<\xi$ and $q\tilde\delta/2<\xi$ as required. Moreover, $\tilde\delta+1/q>\delta$ given $1>\delta$. This way, %which allows us to state
+    \begin{equation}
+        \EE_\theta\left[ \indic_{\ubf E_k} \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right] \leq \rho^{1/2} K_3 k^{-d\delta/2},
+    \end{equation}
+with $K_3 = K_2^{1/2}L^{1/2}K_1^{1/2}$.
+    
+\end{proof}
+
+
+
+% We remind the result:
+% \begin{equation}
+%     \tilde g_2^{C,c}(k^{-d/2})^{-1}\left| f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right.            \left. - g_1\left(k^{-d/2}\pi(\theta)(2\pi)^{d/2}|\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k \right)\right) \right| %\\
+%             \conv[\PP_{\theta}]{k\rightarrow\infty} 0,
+% \end{equation}
+% we consider $g_1(x) = x^\delta=g_2(x)$. 
+
+
+
+% We note that for a fixed $\theta$, the terms $e^{\frac{\delta}{2}S_k^T\cI(\theta)^{-1}S_k} $ converge in distribution to $e^{\frac{\delta}{2}\|X\|^2} $ where $X\sim\cN(0,1)$.
+
+% Skorokhod's representation theorem states that there exist $\tilde S_k$, $\tilde X$ having same distributions as $S_k$, $X$ such that $\tilde S_k$ converge a.s. to $\tilde X$. Thus, $\tilde S_k$ converge in probability to $\tilde X$ and for $\eps>0$, 
+%     \begin{equation}
+%         \begin{aligned}
+%             \PP\left(|k^{d\delta/2}f\left(\frac{p_{\mbf Y_k}(\tilde{\mbf Y_k})}{\ell_k(\tilde{\mbf Y_k}|\theta)} \right) - w(\theta)e^{\frac{\delta}{2}\|\tilde X\|^2}  | >\eps \right) \leq&      
+%                 \PP\left(|k^{d\delta/2}f\left(\frac{p_{\mbf Y_k}(\tilde{\mbf Y_k})}{\ell_k(\tilde{\mbf Y_k}|\theta)} \right) - w(\theta)e^{\frac{\delta}{2}\tilde S_k^T\cI(\theta)^{-1}\tilde S_k} | 
+%                     +
+%                     |w(\theta)e^{\frac{\delta}{2}\|\tilde X\|^2} - w(\theta)e^{\frac{\delta}{2}\|\tilde X\|^2}| 
+%                 >\eps \right) \\
+%             \leq& \PP\left(|k^{d\delta/2}f\left(\frac{p_{\mbf Y_k}(\tilde{\mbf Y_k})}{\ell_k(\tilde{\mbf Y_k}|\theta)} \right) - w(\theta)e^{\frac{\delta}{2}\tilde S_k^T\cI(\theta)^{-1}\tilde S_k} | >\eps \right)\\
+%             &+
+%                 \PP\left(|w(\theta)e^{\frac{\delta}{2}\|\tilde X\|^2} - w(\theta)e^{\frac{\delta}{2}\|\tilde X\|^2}| 
+%         >\eps \right)
+%         \end{aligned}
+%     \end{equation}
+% so that the left hand term tends to $0$ as $k\to\infty$.
+
+% Hence 
+% \begin{equation}
+%     k^{d\delta/2}f\left(\frac{p_{\mbf Y_k}(\tilde{\mbf Y_k})}{\ell_k(\tilde{\mbf Y_k}|\theta)} \right) \conv[\PP_\theta]{k\rightarrow\infty}
+%     w(\theta)e^{\frac{\delta}{2}\|\tilde X\|^2}.
+% \end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Conclusion and prospects}
 
-a
 
 
 
 
+
+
+
+% Our work contributes to the enrichment of reference prior theory on multiple fronts.
+% First and foremost, we establish a connection between reference priors and Global Sensitivity Analysis, {shedding light on the interpretation of the mutual information as a sensitivity measure}. Second, by generalizing the definition of mutual information, we propose a framework that suggests a multitude of reference priors corresponding to various dissimilarity measures. {Finally, we provide  an analytical criterion that aids in their definition.}
+
+% We interpret reference prior criteria as sensitivity impacts.
+% That interpretation aligns with purposes of statistical studies that are based on real data. 
+% This perspective enhances trustworthiness of their selection in practice.
+% In those application contexts, 
+% {pushing further the robustness of reference priors that are constructed from Jeffreys ---or hierarchical versions of Jeffreys--- supports the objectivity of its choice }
+% and  of its resulting estimates.
+% Despite potential computational challenges in certain scenarios, the substantial advantages offered by the objectivity of this method cannot be overlooked.
+% Also, existing studies have already made strides in handling the numerical computation aspect \cite{Nalisnick2017, GauchyJds2023}. Future works could target such computation on the basis of the generalized mutual information we suggest.
+
+
+% Looking ahead, future research could explore ways such as the investigation of other generalized reference priors beyond those based on $f$-divergences. Those could be derived considering alternative dissimilarity measures inspired by GSA, for instance; or imposing judicious constraints on less general classes of distributions. {Such endeavors could harness the asymptotic expression of generalized mutual information}, catering to reliability applications that prioritize auditability and robustness \cite{Bousquet2023}. These directions hold promise for further advancing the utility and applicability of reference prior theory in Bayesian analysis.
 
 
 

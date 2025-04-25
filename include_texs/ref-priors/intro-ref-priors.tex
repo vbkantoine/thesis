@@ -338,7 +338,7 @@ The following assumption is a regularity assumption on the statistical model, it
     $\Theta$ is an open subset of $\RR^d$, and the likelihood is such that
     \begin{enumerate}
         \item for $\mu$-a.e. $y$, $\theta\mapsto\ell(y|\theta)$ is twice differentiable, with $\nabla^2_\theta\ell(y|\theta)$ being negative definite,
-        \item for any $\hat\theta\in\Theta$, there exists $\tau>0$ and $K>0$ such that for any $\theta\in B(\hat\theta,\tau)$
+        \item for any $\hat\theta\in\Theta$, there exists $\tau_1>0$ and $K>0$ such that for any $\theta\in B(\hat\theta,\tau)$
         \begin{equation}
             \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta} \|\nabla^2_\theta\log\ell(Y|\theta')\| \right]\leq K\quad\text{and}\quad \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\delta}\|\nabla_\theta\log\ell(Y|\theta')\|^2\right]\leq K.
         \end{equation}
