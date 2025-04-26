@@ -97,7 +97,7 @@ Its existence and $\PP_{\mbf Y_k}$-a.s. uniqueness are ensured by the disintegra
 
 It is common to assume that the statistical model admits a likelihood: there exists a collection of density functions $(\ell(\cdot|\theta))_{\theta\in\Theta}$  w.r.t. a common  $\sigma$-finite measure $\mu$ on $\cY$ such that for $\varPi$-a.e. $\theta\in\Theta$:
     \begin{equation}
-        \forall A\in\sY,\,\PP_{Y|\theta} = \int_A\ell(y|\theta)d\mu(y).
+        \forall A\in\sY,\,\PP_{Y|\theta}(A) = \int_A\ell(y|\theta)d\mu(y).
     \end{equation}
 This way, $\PP_{\mbf Y_k}$ admits a \textbf{marginal density} $p_{\mbf Y_k}$ w.r.t. $\mu^{\otimes k}$ defined as
     \begin{equation}
@@ -122,15 +122,21 @@ It is common when dealing with non-informative priors in Bayesian analysis to de
 Improper priors are defined as distributions whose density $\pi$ integrates to infinity: $\int_\Theta\pi(\theta)d\nu(\theta)=\infty$. 
 
 Of course, such a prior is not a probability distribution anymore, so that the framework elucidated in \cref{sec:intro-ref:minimalclassicframework,sec:intro-ref:likelihoods} does not stand. 
-A way-around to be able to use improper priors is to focus on restrictions of the model. In precise terms,  as $\nu$ is a $\sigma$-finite measure, there exists an increasing sequence $(B_n)$ of elements in $\Theta$ such that 
+A way-around to be able to use improper priors is to focus on restrictions of the model, %In precise terms,  
+as formalized in the definition below.
+\begin{defi}
+    As $\nu$ is a $\sigma$-finite measure, there exists an increasing sequence $(B_n)$ of elements in $\Theta$ such that 
 $\Theta=\bigcup_{n\in\NN}B_n$ and $\nu(B_n) <\infty$.
 An improper prior is said to be admissible if for any $n$, $\int_{B_n}\pi(\theta)d\nu(\theta)<\infty$, and if there exists $n_0$ such that $\int_{B_{n_0}}\pi(\theta)d\nu(\theta)>0$.
+\end{defi}
 
 In this case, on any $\tilde\Theta\in\sT$ such that there exists $N\in\NN$ verifying $\tilde\Theta\subset\bigcup_{n\geq n_0}^NB_n$ and such that $B_{n_0}\subset\tilde\Theta$, one can define the probability space $(\tilde\Theta,\tilde\sT,\tilde\varPi)$ with:
     \begin{equation}
         \tilde\sT = \{B\cap\tilde\Theta,\,B\in\sT\},\quad\forall \tilde B\in\tilde\sT,\,\tilde\varPi(\tilde B) = \frac{\int_{\tilde B}\pi(\theta)d\nu(\theta)}{\int_{\tilde\Theta}\pi(\theta)d\nu(\theta)}.
     \end{equation}
-Thus, restricting the study to $\tilde\Theta$ let the modeling of previous sections to stand, that modeling is the restricted modeling driven by $\tilde\Theta$. 
+%Thus, it is possible to 
+%    Thus, restricting the study to $\tilde\Theta$ let the modeling of previous sections to stand, 
+That modeling is the restricted modeling driven by $\tilde\Theta$. 
 The probability $\Tilde\varPi$ (respectively its density) is referred as the restriction of the prior $\varPi$ (resp. of the prior density $\pi$) to $\tilde\Theta$.
 
 On any restricted model, the posterior and the marginal distributions exist. 
@@ -147,7 +153,9 @@ If the posterior density integrates to $\infty$, the posterior is said to be imp
 
 
 
-This construction is called a way-around because the framework remains incomplete: $T$ is not appropriately defined anymore, nor the marginal distribution $\PP_{\mbf Y_k}$. Later in this chapter, we will introduce a novel construction that authorizes the definition of improper prior in a more suitable way.
+This construction is called a way-around because the framework remains incomplete: $T$ is not embedded with a probability distribution  anymore, and %appropriately defined anymore, nor 
+the marginal distribution $\PP_{\mbf Y_k}$ in not appropriately defined. 
+Later in this chapter, we will introduce a novel construction that authorizes the definition of improper priors in a more suitable way.
 Before that, the current construction is enough to define the reference priors among the admissible priors: priors that are either proper, either admissible improper priors.
 
 
@@ -215,8 +223,8 @@ However, formally maximizing the mutual information $\sI^k(\varPi)$ w.r.t. $\var
 
 The commonly admitted definition for the reference prior, which takes into account the three issues aforementioned is the following, adapted from \cite{dey_reference_2005}.
 \begin{defi}[Reference priors]\label{def:intro-ref:ref-priors}
-    Let $\cP$ be set of priors on $\Theta$, a prior $\varPi\in\cP$ %whose prior density is $\pi$ 
-    is a reference prior over $\cP$ if there exist an appropriate increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta_i)<\infty  $ and
+    Let $\cP$ be a set of priors on $\Theta$, a prior $\varPi\in\cP$ %whose prior density is $\pi$ 
+    is a reference prior over $\cP$ if there exists an appropriate increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta_i)<\infty  $ and
         \begin{equation}
             \lim_{k\rightarrow\infty} \sI^k_i(\varPi_i) - \sI^k_i(P_i) \geq 0 \text{\ for all\ } P\in\cP_i
         \end{equation}
@@ -231,8 +239,8 @@ We provide a thorough definition of such a class in \cref{sec:intro-refs:limits}
 Until then, it refers to a set of priors that are admissible as described in the \cref{sec:intro-ref:improperway-around}.
 This definition also
 requires the sequence $(\Theta_i)$ to be ``appropriate''.
-Actually,  the original definition does not restrict the choice that sequence, so that this word can be ignored in this section.
-However, we will see in the sequel that some studies on reference priors requires to impose some assumptions on $(\Theta_i)_i$. 
+Actually,  the original definition does not restrict the choices of that sequence, so that this word can be ignored in this section.
+However, we will see in the sequel that some studies on reference priors require to impose some assumptions on $(\Theta_i)_i$. 
 %we will that some assumptions are mode on them by 
 
 
@@ -253,8 +261,8 @@ In \cite{berger_formal_2009}, the authors prove that in the real and one paramet
                 f(\theta) = \lim_{k\rightarrow\infty}\frac{f_k(\theta)}{f_k(\theta_0)}.
             % \end{aligned}
         \end{equation}
-    If: (i) $ \forall \theta,\eps>0,\,\int_{|\tau-\theta|} p^\ast(\tau|\mbf y)d\tau \conv[\PP_{\mbf Y|\theta}]{k\rightarrow\infty}1$,\\ (ii) each $f_k$ is continuous with $\forall k,\theta,\, \frac{f_k(\theta)}{f_k(\theta_0)} <h(\theta)$ such that $h$ is integrable on any compact set, and\\
-    (iii) $f$ is the density of $F\in\cP_s$  and is such that for any increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ that covers $\Theta$, calling $g_i$ the restricted posterior density of $F$ on $\Theta_i$, we have $\forall \mbf y,\, \int_{\Theta_i}g_i(\theta|\mbf y)\log\frac{g_i(\theta|\mbf y)}{g(\theta|\mbf y)}d\theta \conv{i\rightarrow\infty}0$ where $g$ is $F$'s posterior,\\
+    If: (i) $ \forall \theta,\eps>0,\,\int_{|\tilde\theta-\theta|<\eps} p^\ast(\tilde\theta|\mbf y)d\tilde\theta \conv[\PP_{\mbf Y|\theta}]{k\rightarrow\infty}1$,\\ (ii) each $f_k$ is continuous with $\forall k,\theta,\, \frac{f_k(\theta)}{f_k(\theta_0)} <h(\theta)$ such that $h$ is integrable on any compact set, and\\
+    (iii) $f$ is the density of $F\in\cP_s$  and is such that for any increasing sequence of compact sets $(\Theta_i)_{i\in\NN}$ that covers $\Theta$, calling $g_i$ the restricted posterior density of $F$ on $\Theta_i$, we have $\forall \mbf y,\, \int_{\Theta_i}g_i(\theta|\mbf y)\log\frac{g_i(\theta|\mbf y)}{g(\theta|\mbf y)}d\theta \conv{i\rightarrow\infty}0$ where $g$ is $F$'s posterior,\\
     then $F$ is a reference prior over $\cP_s$.
  \end{thm}
 
@@ -266,14 +274,14 @@ In \cite{berger_formal_2009}, the authors prove that in the real and one paramet
 both define reference priors as maximizers of the mutual information.
 While there is consensus that such an approach leads to appropriate objective priors in low-dimensional cases, it is not always the case in high-dimensional settings.
 Indeed, the prior maximizing the mutual information has often non-desirable properties in such scenarios, according to \citet{berger_overall_2015}. %They say that the actual maximizer of the mutual information is either too diffuse either too con
-In \cite{berger_development_1992}, the authors details their suggestion to define the reference priors hierarchically, by considering an ordering of the parameters:
+In \cite{berger_development_1992}, the authors detail their suggestion to define the reference priors hierarchically, by considering an ordering of the parameters:
  \begin{equation}\label{eq:intro-ref:hierartheta}
-     \theta = (\theta_1,\dots,\theta_r) \in \Theta=\Theta_1\times\dots\times\Theta_r,
+     \theta = (\theta_1,\dots,\theta_r) \in \Theta=\Theta_1\times\dots\times\Theta_r.
  \end{equation}
 Typically, it is recommended to assume $\Theta_j\subset\RR^{d_j}$ with small dimensions $d_j$ (e.g., lower or equal than $2$) for any $j\in\{1,\dots,r\}$, and to sequentially build a reference prior on the $\Theta_j$,  $j\in\{1,\dots,r\}$:
  \begin{enumerate}
      \item initially fix $\ell_k^1=\ell_k$;
-     \item for any values of $\theta_{j+1},\dots,\theta_r\in\Theta_{j+1}\times\dots\times\Theta_r$, compute a reference prior (in the sense of \cref{def:intro-ref:ref-priors}) $\pi_j(\cdot|\theta_{j+1},\dots,\theta_r)$ under the model with likelihood $\theta_j\mapsto\ell_k^j(\mbf y|\theta_j,\dots,\theta_r)$;
+     \item for any values of $\theta_{j+1},\dots,\theta_r\in\Theta_{j+1}\times\dots\times\Theta_r$, compute a reference prior (in the sense of \cref{def:intro-ref:ref-priors})  under the model with likelihood $\theta_j\mapsto\ell_k^j(\mbf y|\theta_j,\dots,\theta_r)$, denote $\pi_j(\cdot|\theta_{j+1},\dots,\theta_r)$ its normalized density;
      \item derive $\ell_k^{j+1}$ such as 
          \begin{equation}\label{eq:hier:condlikeint}
             \ell_k^{j+1}(\mbf y|\theta_{j+1},\dots,\theta_r) =  \int_{\Theta_j}\ell_k^j(\mbf y|\theta_j,\dots,\theta_r)d\pi_j(\theta_j|\theta_{j+1},\dots,\theta_r).
@@ -298,7 +306,7 @@ There are a few models, such as the multinomial one, for which the different ref
 
 
 
-The elucidating of the reference priors remains an open question for some restricted set of priors $\cP$ or when we lack of regularity assumptions on the model.
+The elucidation of the reference priors remains an open question for some restricted sets of priors $\cP$ or when we lack of regularity assumptions on the model.
 %Generally, it is common 
 In most studies, $\cP$ remains as large as possible and is restricted only by some mild regularity assumptions, such as that the priors admitting continuous densities.
 %As we solve an optimization problem, \citet{mure_objective_2018} has pointed out that the class $\cP$ should be 
@@ -329,7 +337,7 @@ We summarize his main result as follows:
 \end{thm}
 
 This result allows referring to ``the reference prior'' instead to ``reference priors'' in some cases. %However, it is limited to cases where a very general class $\cP$. %is considered
-Also, there exist not in our knowledge a result about the existence of the reference prior in the general case.
+Also, there does not exist to our knowledge a result about the existence of the reference prior in the general case.
 % That makes the study
 
 Actually, the reference priors are mostly studied in what are called regular cases.
@@ -404,14 +412,14 @@ We also recall that the Jeffreys prior is known to be improper in most cases.
 %The reference prior definition is complex as
 
 During this brief review, we mentioned some limits in the framework of the reference priors definition.
-They are related to the incorporation of improper priors in the admissible priors. As a matter of fact, when dealing with non-informative distributions, it is common to find one of the main assumption on probability distributions (that is, their total mass is $1$) limiting.
+They are related to the incorporation of improper priors in the admissible priors. As a matter of fact, when dealing with non-informative distributions, it is common to find one of the main assumptions on probability distributions (that is, their total mass is $1$) limiting.
 The fact is that in some cases, improper distribution seems really ``close'' to proper ones.
 As an example, we could mention that the improper uniform distribution on $\RR$ can be seen as a Gaussian distribution with a variance that diverges to infinity. A logarithmic re-parametrization of the latter gives the improper distribution of density proportional to $x\mapsto1/x$.
 
 Additionally, when dealing with densities, nothing strongly forbid the definition of the posterior density when the prior is improper (see \cref{sec:intro-ref:improperway-around}). It became therefore common to normalize the use of improper prior, and to carry on \emph{a posteriori} inference from them when the issued posterior is proper.
 
 Even though the way-around works, we lose the existence of a latent probability space with random variables expressing formally the existence of a path that links the ``chaos'' of a universe to the phenomena observed and modeled.
-This section is dedicated to the elucidating of such construction, in a framework that allows priors to be improper.
+This section is dedicated to the elucidation of such construction, in a framework that allows priors to be improper.
 
 
 
@@ -496,7 +504,8 @@ Then there exist a conditional probability space $(\mbf\Omega, \mbf\Xi, [\mbf\Pi
 %Such existence of the underlying abstract space $\mbf\Omega$ provides the desired interpretability of the modeling. It can be seen as the source of the uncontrollable randomness that goes beyond the observations and the parameter. It is proven in Section \ref{sec:intro-ref:proof}. One can notice that it is consistent with usual Bayesian frameworks when $\varPi$ is proper.
 
 \Cref{prop:intro-ref:kolmog} is proven in \cref{sec:intro-ref:proof}. It ensures the existence of an underlying abstract space $\mbf\Omega$
-from only the given of the statistical model (the collection of probability measures $(\PP_{Y|\theta})_{\theta\in\Theta}$) and the prior (which is a measure $\varPi\in\sM$). When $\varPi$ is improper, the  tuple $(\mbf\Omega,\mbf\Xi,[\mbf\Pi])$ is not a probability space anymore, neither $T$ is a random variable, but they still describe the randomness that goes beyond the observations and the parameter.
+from only the given of the statistical model (the collection of probability measures $(\PP_{Y|\theta})_{\theta\in\Theta}$) and the prior (which is a measure $\varPi\in\sM$). When $\varPi$ is improper, the  tuple $(\mbf\Omega,\mbf\Xi,[\mbf\Pi])$ is not a probability space anymore, %neither $T$ is a random variable, 
+but they still describe the randomness that goes beyond the observations and the parameter.
 In the following section, we develop the compatibility of this framework with the usual one.
 
 
@@ -526,16 +535,16 @@ The posterior distribution $\PP_{T|\mbf y}$ is well-defined for $\PP_{\mbf Y_k}$
 \begin{equation}
     \forall A\in\sY^{\otimes k},\,\forall B\in\sT,\, \int_{A}\PP_{T|\mbf y}(B)d\PP_{\mbf Y_k}(\mbf y) = \int_B \PP_{\mbf Y_k|\theta}(A)d\varPi(\theta).
 \end{equation}
-It belongs in $\sM$, and its class $[\PP_{T|\mbf y}]$  in $\sM/\!\simeq$ is uniquely defined.
+It belongs to $\sM$, and its class $[\PP_{T|\mbf y}]$  in $\sM/\!\simeq$ is uniquely defined.
 
 
 \subsubsection{Densities}
 
 From now on, we assume that the model admits a likelihood: there exists a collection of density functions $(\ell(\cdot|\theta))_{\theta\in\Theta}$  w.r.t. a common  $\sigma$-finite measure $\mu$ on $\cY$ such that for $\varPi$-a.e. $\theta$:
 \begin{equation}
-    \forall A\in\sY,\,\PP_{Y|\theta} = \int_A\ell(y|\theta)d\mu(y).
+    \forall A\in\sY,\,\PP_{Y|\theta}(A) = \int_A\ell(y|\theta)d\mu(y).
 \end{equation}
-We also assume that $\varPi$ belongs in $\sM^\nu$ (it is absolutely continuous w.r.t. $\nu$), with $\nu\in\sM$. We denote by $\pi\in\sR$ a density of $\varPi$ w.r.t. $\nu$.
+We also assume that $\varPi$ belongs to $\sM^\nu$ (it is absolutely continuous w.r.t. $\nu$), with $\nu\in\sM$. We denote by $\pi\in\sR$ a density of $\varPi$ w.r.t. $\nu$.
 For $\mbf y\in\cY^k$ there exists a posterior density w.r.t. $\nu$ defined in  the class $[p(\cdot|\mbf y)]\in\sR/\!\propto$ where
     \begin{equation}
         p(\theta|\mbf y) 
@@ -552,14 +561,14 @@ If the posterior is proper for $\PP_{\mbf Y_k}$-a.e. $\mbf y$, a marginal densit
 The elucidating of the densities in this novel Bayesian construction is consistent with the usual construction.
 When restricting the framework to a $\tilde\Theta\in\sT$ such that $0<\varPi(\tilde\Theta)<\infty$, the restricted model driven by $\tilde\Theta$ (in the sense given in \cref{sec:intro-ref:improperway-around})  corresponds to the model on $\tilde\Theta$ considering the prior $\varPi(\cdot|\tilde\Theta)$.
 
-Therefore, the notations and definitions written in the previous sections still stands.
+Therefore, the notations and definitions written in the previous sections still stand.
 The modeling remains the same for any prior that equals  $\varPi$ up to a positive multiplicative constant, so that if $\varPi\in\sM$ is a reference prior, any prior in $[\varPi]$ also is.
 For this reason it becomes appropriate to talk about a reference prior class. 
 We will authorize however the slight abuse of language referring to ``the reference prior'' instead of ``reference prior in the reference prior class'', when the latter is unique.
 We formalize this terminology in the following definitions.
 
 \begin{defi}
-    A set of prior refers to a subset of $\sM^\nu$.\\
+    A set of priors refers to a subset of $\sM^\nu$.\\
     When $\nu$ is the Lebesgue measure, a set of continuous prior refers to a subset $\cP\subset\sM^\nu$ where for any $\varPi\in\cP$, $\varPi$ admits a $\nu$-a.e. continuous density $\pi$. We call $\sM_\cC^\nu$ the union of the sets of continuous priors.\\
     The subset of $\sR$ composed by $\nu$-a.e. continuous functions is denoted $\sR_\cC$.
 \end{defi}
@@ -573,7 +582,7 @@ We formalize this terminology in the following definitions.
 \begin{proof} 1.
 % \begin{enumerate}
 %     \item 
-The stability of $\sR_\cC$ and $\sR_{\cC^b}$ to $\propto$ come since multiplying a function by a constant does not affect its continuity. \\
+The stability of $\sR_\cC$ and $\sR_{\cC^b}$ to $\propto$ comes since multiplying a function by a constant does not affect its continuity. \\
 We consider $M$ the mapping assigning a density in $\sR$ to its associated measure in $\sM^\nu/$ as
 \begin{equation}
     M:f\in\sR \longmapsto \left(B\in\sT\mapsto \int_Bf(\theta)d\nu(\theta) \right).
@@ -590,8 +599,8 @@ We deduce that $\nu(E)=0$. Thus, defining $g$ by $g=f$ on $\Theta\!\setminus\! E
 \end{proof}
 
 
-\begin{defi}[Advanced defintinon of reference priors]
-    Let $\cP$ be a set of priors. A prior $\varPi\in\cP$ is a reference prior over $\cP$ if there exists an openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta)<\infty$ and
+\begin{defi}[Advanced definition of reference priors]
+    Let $\cP$ be a set of priors. A prior $\varPi\in\cP$ is a reference prior over $\cP$ if there exists an openly increasing sequence of compact sets $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta_i)<\infty$ and
     \begin{equation}
         \lim_{k\rightarrow\infty}\sI^k(\varPi(\cdot|\Theta_i)) - \sI^k(P(\cdot|\Theta_i))  \geq 0 \text{\ for all\ } P\in\cP\text{\ verifying\ }0<P(\Theta_i)<\infty.
     \end{equation}
@@ -608,7 +617,7 @@ is stated below. It is, according to ourselves, an appropriate condition on this
 
 
 \begin{defi}
-    A sequence $(\Theta_i)_{i\in \NN}$ of subset of $\Theta$ is said to be openly increasing if there exists $i_0\geq0$ and a sequence $(V_i)_{i\geq i_0}$ of open subsets of $\Theta$ such that for any $i\geq i_0$:
+    A sequence $(\Theta_i)_{i\in \NN}$ of subsets of $\Theta$ is said to be openly increasing if there exist $i_0\geq0$ and a sequence $(V_i)_{i\geq i_0}$ of open subsets of $\Theta$ such that for any $i\geq i_0$:
     \begin{equation}
         \Theta_i\subset V_i\subset\Theta_{i+1}.
     \end{equation}
@@ -623,7 +632,7 @@ is stated below. It is, according to ourselves, an appropriate condition on this
 
 
 \begin{proof} 
-We consider an openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i = \Theta$.
+We consider an openly increasing sequence of compact sets $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i = \Theta$.
 By definition there exist $i_0\geq0$ and a sequence $(V_i)_{i\geq i_0}$ of open subsets of $\Theta$  such that for any $i\geq i_0$
     \begin{equation}
         \Theta_i\subset V_i\subset \Theta_{i+1}.
@@ -765,7 +774,7 @@ because the sums are all finite. Eventually, the limit in \cref{eq:proofKolmLimP
 %This section should conclude the state-of-the-art and delimit the limitations of the current theory on different aspects. 
 
 Reference priors are designed 
-as a solution to the research for objective priors.
+as a solution to the search for objective priors.
 To do so, they are constructed on informatic-theoretic foundations, under a framework though to ensure they maximize the role of the data in the definition of the posterior distribution.
 
 
@@ -775,7 +784,7 @@ That let them be elected for their lack of subjectivity in various practical stu
 and various statistical models, such as Gaussian process-based models \citep{paulo_default_2005,gu_parallel_2016}, generalized linear models \citep{natarajan_reference_2000} or general exponential family models \citep{clarke_reference_2010}.
 
 Moreover, the framework that we have introduced allows a rigorous incorporation of improper priors in Bayesian modelings.
-This provides a better interpretability of the reference priors when it leads to an improper distribution. 
+This provides a better interpretability of the reference priors when it leads to an improper prior distribution. 
 
 
 
@@ -795,7 +804,7 @@ This provides a better interpretability of the reference priors when it leads to
 However, some limits remain. 
 First, the theory is still built on some choices, such as the choice of the dissimilarity measure to quantify how different are the prior and the posterior.
 Second, the incorporation of improper priors is appealing yet can represent an issue in cases where they issue improper posteriors. Actually, reference priors are known to lead to improper posteriors in some cases.
-Last, the theoretical developments limit their studies to set of priors that are the more general possible, and effects of its restriction are rarely focused.
+Last, the theoretical developments limit their studies to sets of priors that are the more general possible, and effects of its restriction are rarely focused.
 
 
 

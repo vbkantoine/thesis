@@ -11,7 +11,7 @@
 
 \section{Introduction and motivations}
 
-The reference prior theory aims at defining priors that are the most objective possible. A review of the theory can be found in the \cref{chap:intro-ref}. It is built on the maximization of the mutual information, that is designed to measure the information brought by the data in the posterior distribution.
+The reference prior theory aims at defining priors that are the most objective possible. A review of the theory can be found in the \cref{chap:intro-ref}. It is built on the maximization of the mutual information, which is designed to measure the information brought by the data in the posterior distribution.
 
 While there exist infinitely many ways to compare probability distribution, the mutual information is classically defined as an expected Kullback-Leibler divergence between the prior and the posterior.
 The settings under which the reference priors are usually defined result from the aforementioned choices. Since the aim is to define priors that are not impacted by potentially subjective choice, we question how the results about reference priors stands when the definition of the mutual information is altered.
@@ -30,7 +30,7 @@ An example is the $f$-divergence subclass \citep{csiszar_information-type_1967},
 %
 A study of those divergences within our generalized mutual information is {also} a main contribution of this paper, with the goal of deriving what one is invited to call generalized reference priors.
 %Pursuing introductory elements we unveiled in \cite{VanBiesbroeckJDS2023}, we go further in this paper with 
-We provide an accomplished formalization for the generalized reference prior settings, and results based on classical $f$-divergences for sensitivity analysis such as $\alpha$-divergences.
+We provide an accomplished formalization for the generalized reference prior settings, and results based on classical $f$-divergences for sensitivity analysis such as $\delta$-divergences.
 {
 Our main result takes the form of a limit w.r.t. the number of data of the mutual information. Its analytical expression as a function of the prior permits a simple expression of our reference priors: they are its maximal arguments. It opens the path of easier {theoretical} derivation of reference priors among the ones that satisfy different kinds of constraints, or that belong to some particular sets of priors.}
 
@@ -60,7 +60,7 @@ Furthermore, we suppose the modeling to be regular (i.e. \cref{assu:intro-ref:je
 
 
 
-Under this framework, when the prior $\varPi$ is proper and its total mass equal $1$, we recall that the mutual information is classically defined as the following quantity:
+Under this framework, when the prior $\varPi$ is proper and its total mass equals $1$, we recall that the mutual information is classically defined as the following quantity:
     \begin{equation}
         \sI^k(\varPi) =  \EE_{\mbf Y_k\sim \PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)] .
     \end{equation}
@@ -78,7 +78,7 @@ That interpretation aligns with a sensitivity analysis viewpoint. Actually, the 
 
 \subsection{Mutual information as a sensitivity index}
 
-The integration of the Bayesian formalism in the settings of uncertainty quantification resorts in modeling $\mbf Y_k$ as the output of a stochastic system whose input include $T$. In other terms, we write $\mbf Y_k=\cM(T,\epsilon)$. Here, $T$ embeds uncertainty on  the input parameters and $\epsilon$ represents an unknown uncertain variable, sometimes referred to as a nuisance parameter.
+The integration of the Bayesian formalism in the settings of uncertainty quantification resorts in modeling $\mbf Y_k$ as the output of a stochastic system whose inputs include $T$. In other terms, we write $\mbf Y_k=\cM(T,\epsilon)$. Here, $T$ embeds uncertainty on  the input parameters and $\epsilon$ represents an unknown uncertain variable, sometimes referred to as a nuisance parameter.
 
 A well-designed Bayesian modeling parameterized by $T$ would be such that the input between $\epsilon$ and $T$ whose impact on the output
 is the highest is $T$. Such a modeling should reduce the impact of the irreducible uncertainty embedded in $\epsilon$.
@@ -105,7 +105,7 @@ where $p,q$ respectively are densities of $P$ and $Q$  w.r.t. a common measure $
 \subsection{Generalized mutual information definition}
 
 
-The same way as sensitivity indices are supported by various dissimilarity measure, our suggestion is to define the mutual information using other dissimilarity measures than the Kullback-Leibler divergence.
+The same way as sensitivity indices are supported by various dissimilarity measures, our suggestion is to define the mutual information using other dissimilarity measures than the Kullback-Leibler divergence.
 Our novel definition is the following.
 \begin{defi}[$D$-mutual inforamation]
     Let $D$ be a dissimilarity measure, for a fixed $k$, the $D$-mutual information of a proper prior $\varPi$ with total mass equal to $1$ under $k$ observations is defined as
@@ -119,11 +119,11 @@ In the case where $D=D_f$ is an $f$-divergence, the mutual information equals
         \sI_{D_f}^k(\varPi) =\EE_{T\sim\pi}[D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T})] = \int_\Theta\int_{\cY^k}f\left( \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\theta)} \right) \ell_k(\mbf y|\theta)d\mu^{\otimes k}(\mbf y) \pi(\theta)d\nu(\theta).
     \end{equation}
 % For the sequel, let us refer to the $D_f$-mutual  information as the $f$
-It corresponds to  the classical definition in the case where $f=-\log$. Actually, the classical definition is a subcase of the study a particular class of the $f$-divergences which are the $\delta$-divergences. They are defined setting $f=f_\delta$ where 
+It corresponds to  the classical definition in the case where $f=-\log$. Actually, the classical definition is a subcase of the study of a particular class of the $f$-divergences:  the $\delta$-divergences. They are defined setting $f=f_\delta$ where 
 \begin{equation}
-    f_\delta(x) = \left\lbrace\begin{array}{l l} \frac{x^\delta-\delta x-(1-\delta)}{\delta(\delta-1)} & \text{si\ }\delta\not\in\{0,1\},\\ 
-        x\log x-x+1  & \text{si\ }\delta=1, \\
-        -\log x +x -1 & \text{si\ }\delta=0.
+    f_\delta(x) = \left\lbrace\begin{array}{l l} \frac{x^\delta-\delta x-(1-\delta)}{\delta(\delta-1)} & \text{if\ }\delta\not\in\{0,1\},\\ 
+        x\log x-x+1  & \text{if\ }\delta=1, \\
+        -\log x +x -1 & \text{if\ }\delta=0.
     \end{array}\right. 
 \end{equation}    
 When $\delta=0$, we retrieve the original form of the mutual information.
@@ -151,7 +151,7 @@ This definition matches with the original one when the dissimilarity measure is 
 work provides elements showing that such rate exists and may vary as a function of the dissimilarity measure
 considered. When it resorts to the original mutual information, the rate is constant.
 
-The results provided below ensure that the generalized reference priors verify similar property than the original reference priors.
+The results provided below ensure that the generalized reference priors verify similar properties than the original reference priors.
 
 
 
@@ -196,7 +196,7 @@ The results provided below ensure that the generalized reference priors verify s
         \begin{equation}
             \sup_{\theta\in\tilde\Theta}\sup_{\theta'\in\tilde\Theta} \int_{\cY^k} f\left(\frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}  \right) \ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y)<\infty
         \end{equation}
-    Then the $D_f$-mutual information values on restriction to compacts are always finite. Additionally, if for any $x>0$, $|f(x)\indic_{f(x)<0}|\leq x $ then the $D_f$-mutual information expression can be inverted back:
+    Then the $D_f$-mutual information values on restriction to compacts are always finite. Additionally, if there exist $K$ such that for any $x>0$, $|f(x)\indic_{f(x)<0}|\leq Kx $ then the $D_f$-mutual information expression can be inverted back:
         \begin{equation}
             \EE_{T\sim\varPi(\cdot|\tilde\Theta)}[D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T})] 
                 =\EE_{\mbf Y_k\sim\PP_{\mbf Y_k}} [D(\varPi(\cdot|\tilde\Theta)|| \PP_{T|\mbf Y_k} ) ]. 
@@ -215,7 +215,7 @@ The results provided below ensure that the generalized reference priors verify s
 
         For inverting the integrals, we notice that the assumption on $f$ allows to write 
         \begin{equation}
-            \int_{\tilde\Theta}\int_{\cY^k} \left|f\left( \frac{p_{\mbf Y^k}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)\right|\ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y) \tilde\pi(\theta)d\nu(\theta) \leq 1 + \sup_{\theta\in\tilde\Theta}\sup_{\theta'\in\tilde\Theta} \int_{A_{f,\varPi,\tilde\Theta}} f\left(\frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}  \right) \ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y)
+            \int_{\tilde\Theta}\int_{\cY^k} \left|f\left( \frac{p_{\mbf Y^k}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)\right|\ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y) \tilde\pi(\theta)d\nu(\theta) \leq K + \sup_{\theta\in\tilde\Theta}\sup_{\theta'\in\tilde\Theta} \int_{A} f\left(\frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}  \right) \ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y)
         \end{equation}
         with $A=\{\mbf y\in\cY^k,\, p_{\mbf Y_k}(\mbf y)/\ell_k(\mbf y|\theta)\in f^{-1}((0,\infty)) \}\subset\cY^k $. We deduce that the above quantity is finite, which allows us to invert the integrals and conclude, using Fubini-Lebesgue's theorem.
 \end{proof}
@@ -263,7 +263,7 @@ To conclude this section, we mention the work of \citet{le_formal_2014}. The aut
 \label{sec:PSGSA:towardsdelta}
 
 The objective of this section is to study the $D_f$-reference priors for certain class of functions $f$ that resemble to $\delta$-divergence.
-We precise that from now on, the prior will always be considered continuous (they admit a $\nu$-a.e. continuous density functions). We recall that the set of such priors is denoted by $\sM^\nu_\cC $, and they all admit a density in the set $\sR_{\cC^b}$. %(the set of $\nu$-a.e. continuous and locally bounded densities).
+We precise that from now on, the priors will always be considered continuous (they admit a $\nu$-a.e. continuous density functions). We recall that the set of such priors is denoted by $\sM^\nu_\cC $, and they all admit a density in the set $\sR_{\cC^b}$. %(the set of $\nu$-a.e. continuous and locally bounded densities).
 
 We recall that the random vectors are given by a process $\overline{Y}$ defined on a conditional probability space $(\mbf\Omega,\mbf\Xi,[\mbf\Pi] )$ (see \cref{prop:intro-ref:kolmog}). If $\tilde\Theta$ is a compact subset of $\Theta$, the restriction $(\tilde{\mbf\Omega},\tilde{\mbf\Xi}, \mbf\Pi(\cdot|T\in\tilde\Theta))$ of the conditional probability space to $\{T\in\tilde\Theta\}$ is a probability space.
 For some $\theta\in\tilde\Theta$ we will adopt the notation $\PP_\theta$ for the conditional probability on $\tilde{\mbf\Omega}$ to $\{T=\theta\}$. That means, for any $k$, any $A\in\sY^{\otimes k}$, 
@@ -271,7 +271,7 @@ For some $\theta\in\tilde\Theta$ we will adopt the notation $\PP_\theta$ for the
         \PP_\theta(\mbf Y_k\in A) = \PP_{\mbf Y_k|\theta}(A).
     \end{equation}
 We denote by $\EE_\theta$ the associated expectation.
-The proofs of the results that are stated in this section are given in ??.
+The proofs of the results that are stated in this section are given in \cref{sec:PSGSA:proofs}.
 
 
 \subsection{A first result}
@@ -286,7 +286,7 @@ for some $g_1:(0,\infty)\to\RR$, $g_2:(0,\infty)\to(0,\infty)$.
 \begin{prop}\label{prop:PSGSA:cvptheta}
     Let $\tilde\Theta$ be a compact subset of $\Theta$.
     Consider a prior $\varPi\in\sM^\nu_\cC$ and denote by $\pi\in\sR_{\cC^b}$ a density of $\varPi(\cdot|\tilde\Theta)$.%$\pi\in\sR_{\cC^b}$.
-    For almost every $\theta$ in the interior of $\Supp\pi$ there exists $c=c(\theta),\,C$ positive constants such that the following convergence in probability holds:
+    For almost every $\theta$ in the interior of $\Supp\pi$ there exists $c=c_\theta,\,C=C_\theta$ positive constants such that the following convergence in probability holds:
     \begin{equation}
         \label{eq:cvinproba}
         \tilde g_2^{C,c}(k^{-d/2})^{-1}\left| f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right.            \left. - g_1\left(k^{-d/2}\pi(\theta)(2\pi)^{d/2}|\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k \right)\right) \right| %\\
@@ -298,7 +298,7 @@ for some $g_1:(0,\infty)\to\RR$, $g_2:(0,\infty)\to(0,\infty)$.
 
 There are three things we can say about this first asymptotic result. %in some sense, 
 %which holds under weak assumptions, 
-First, it emphasizes the asymptotic link {between two ratios: (i) the marginal over the likelihood on the one hand, (ii) the chosen prior over Jeffreys one on the other hand.}  
+First, it emphasizes the asymptotic link {between two ratios: (i) the marginal over the likelihood on the one hand, (ii) the chosen prior density over Jeffreys one on the other hand.}  
 The intuition comes from noticing that $S_k^T\cI(\theta)^{-1}S_k$ converges in distribution to a standard Gaussian, which does not depend on $\theta$.
 Second, 
 this result also highlights that it is the behavior of $f$ in the neighborhood of $0$ that is decisive.
@@ -310,7 +310,7 @@ Third, this result is two steps away from giving an asymptotic expansion of the 
 One can notice that this proposition can be applied with $f=-\log$, $g_1=f$ and $g_2=1$. 
 In that case we obtain the convergence in $\PP_\theta$-probability already stated in \cite{clarke_information-theoretic_1990}:
     \begin{equation}
-        \log\frac{\ell_k(\mbf y|\theta)}{p_{\mbf Y_k}(\mbf y)} - \frac{d}{2}\log k + \log\pi(\theta) - \frac{1}{2}\log|\cI(\theta)| +\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k  \conv[\PP_\theta]{k\rightarrow\infty} 0.
+        \log\frac{\ell_k(\mbf Y_k|\theta)}{p_{\mbf Y_k}(\mbf Y_k)} - \frac{d}{2}\log k + \log\pi(\theta) - \frac{1}{2}\log|\cI(\theta)| +\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k  \conv[\PP_\theta]{k\rightarrow\infty} 0.
     \end{equation}
 
 
@@ -363,7 +363,7 @@ An asymptotic limit of the $D_f$-mutual information can be given once the follow
         \end{equation}
     where $\mbf J(\cdot|\tilde\Theta)$ is the restricted Jeffreys prior on $\tilde\Theta$, its density is $J(\theta)=|\cI(\theta)|^{1/2}/\int_{\tilde\Theta}|\cI(\tilde\theta)|^{1/2}d\tilde\theta$.
     The equality in \cref{eq:PSGSA:Jeffrefdeltaneg} stands if and only if 
-    {$\pi=J$}.
+    {$\pi=J$} a.e.
 \end{prop}
 
 
@@ -452,7 +452,7 @@ where $ C_\delta = (2\pi)^{d\delta/2} (1-\delta)^{-d/2}$.
         \end{equation}
     where $\mbf J(\cdot|\tilde\Theta)$ is the restricted Jeffreys prior on $\tilde\Theta$, its density is $J(\theta) = |\cI(\theta)|^{1/2}/\int_{\tilde\Theta}|\cI(\tilde\theta)|^{1/2}d\tilde\theta$.
     The equality in \cref{eq:PSGSA:Jeffrefdeltapos} stands if and only if 
-    {$\pi=J$}.
+    {$\pi=J$} a.e.
 \end{prop}
 
 
@@ -473,7 +473,7 @@ In the same way as in the previous subsection, this result implies that the Jeff
 
 
 
-Regarding the optimal characteristic of the Jeffreys prior, we argue that it actually supports  the relevance of our construction, in continuity with the original reference prior framework which we rely on. Indeed, we remind that Jeffreys prior is optimal for $K\!L$-mutual information \cite{clarke_jeffreys_1994}. Although its multivariate derivation is criticized, its univariate form remains robust and appreciated in low-dimensional cases.
+Regarding the optimal characteristic of the Jeffreys prior, we argue that it actually supports  the relevance of our construction, in continuity with the original reference prior framework which we rely on. Indeed, we remind that Jeffreys prior is optimal for KL-mutual information (as shown in \cite{clarke_jeffreys_1994}). Although its multivariate derivation is criticized, its univariate form remains robust and appreciated in low-dimensional cases.
 
 
 For a practical implementation when the dimension is high, one would be invited to refer to hierarchical strategies such as the one proposed by \citet{berger_overall_2015}. 
@@ -533,7 +533,7 @@ In Figure \ref{fig:exbeta} are plotted the $D_f$-reference priors over different
     The sub-Gaussian assumption over the likelihood, which is required for the statement of the result in the case $\delta<0$
     remains somehow restrictive. For instance,
     the univariate Gaussian model with unknown variance does not satisfy this assumption. 
-    However, it is still be verified by other regular statistical models, like the univariate normal model with known variance, or continuous compact models ($\cY$ compact and $(y,\theta)\mapsto\ell(y|\theta)$ continuously differentiable). {Note that due to the asymptotic normality of the r.v. $\cI(\theta)^{-1/2}S_k$ induced by the Central Limit Theorem, the parameter $\xi$ of its assumed Gaussian tail cannot exceed $1/2$. This restricts $\delta$ to be smaller than $1$.}
+    However, it is still be verified by other regular statistical models, like the univariate normal model with known variance, or continuous compact models ($\cY$ compact and $(y,\theta)\mapsto\ell(y|\theta)$ continuously differentiable). {Note that due to the asymptotic normality of the r.v. $\cI(\theta)^{-1/2}S_k$ induced by the central limit theorem, the parameter $\xi$ of its assumed Gaussian tail cannot exceed $1/2$. This restricts $\delta$ to be smaller than $1$.}
 
 Furthermore, %we would like to point out to the reader the two following remarks, raised from the proofs of our results.
 in opposition with the classical settings for $f$-divergences which tend to suppose the convexity of $f$, the Jeffreys prior optimally within our results is actually implied by the concavity of $x\mapsto f(1/x)$ in the neighborhood of $0$.
@@ -559,7 +559,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
         explicitly address $f$-divergences which are $\delta$-divergences.
         It is important to recall that when $\delta=0$, the $\delta$-divergence is usually defined as a  $\text{KL}$ divergence, more precisely it is an $f$-divergence with $f=-\log$.
 
-        This way, the $\delta=0$-divergence leads to the original definition of the mutual information stands.
+        This way, the $\delta=0$-divergence leads to the original definition of the mutual information.
         In this case, similar results of \cref{thm:PSGSA:Jrefdeltaneg,thm:PSGSA:Jrefdeltapos} exist (see \cref{chap:intro-ref}, \cref{sec:intro-ref:refpriors}). 
         
 
@@ -567,7 +567,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
 
         \subsubsection{A heuristic for other $f$- divergences}
 
-        We provide a heuristic for the derivation of the limit of the $D_f$-mutual information when $k\to\infty$. It is similar to discussions conducted by \citet{mure_objective_2018} and \citet{xie_minimax_1997}.
+        We provide a heuristic for the derivation of the limit of a $D_f$-mutual information when $k\to\infty$. It is similar to discussions conducted by \citet{mure_objective_2018} and \citet{xie_minimax_1997}.
 
         The result of \cref{prop:PSGSA:cvptheta} takes the form of asymptotic connection between $p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta) $ and $e^{\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k}$. This connection can be anticipated from the second order Taylor expansion written as follows: for every $\mbf y,\theta, \tilde\theta$, there exists a $\theta'$ in the segment between $\theta$ and $\tilde\theta$ such that
         \begin{equation}
@@ -576,12 +576,12 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
         Indeed, $p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta) = \int_\Theta \frac{\prod_{i=1}^k \ell(Y_i|\tilde\theta)}{\prod_{i=1}^k \ell(Y_i|\theta)} \pi(\tilde\theta)d\tilde\theta$.
         %When we exponentialize the Taylor expansion,
         % the first term 
-        The terms $\nabla_\theta^2\log\ell_k(y_i|\theta)$ are definite negative, so that when we exponentialize the Taylor expansion, it vanishes quickly when $\tilde\theta$ is not close to $\theta$.
+        The terms $\nabla_\theta^2\log\ell_k(y_i|\theta)$ are definite negative, so that when we exponentialize the Taylor expansion, they vanish quickly when $\tilde\theta$ is not close to $\theta$.
         We then intuit that the mass concentrate around $\theta$ in the integrals that define $p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta)$, so that
             \begin{equation}
                 \begin{aligned}
                 p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta) &\approx \pi(\theta)\int_\Theta\exp\left(\sqrt{k}(\tilde\theta-\theta)^TS_k - \frac{k}{2} (\tilde\theta-\theta)^T\cI(\theta)(\tilde\theta-\theta)  \right)d\tilde\theta\\ 
-                &= \pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2k}S_k^T\cI(\theta)^{-1}S_k \right).
+                &= \pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k \right).
                 \end{aligned}
             \end{equation} 
 
@@ -594,14 +594,14 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
         Conditionally to $\theta$, the terms $\nabla_\theta\log\ell(Y_i|\theta)$ are i.i.d. and a central limit theorem gives that $(S_k)_k$ converges in distribution to a Gaussian with mean $\EE_{\theta}\nabla_\theta\log\ell(Y|\theta)=0$ and covariance matrix $\cI(\theta)$.
         
         That leads to approximating the $D_f$-mutual information  as 
-            \begin{equation}
+            \begin{equation}\label{eq:PSGSA:heuristicconcave}
                 \sI_{D_f}^k(\varPi) \approx \int_\Theta\int_{\RR^k} f\left(\pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}e^{\frac{\|x\|^2}{2}}\right) e^{-\frac{\|x\|^2}{2}} (2\pi)^{-d/2}dx\pi(\theta)d\theta.
             \end{equation}
         We notice that if $x\mapsto f(1/x)$ is concave, the right-hand term in the above equation is smaller than 
             \begin{equation}
                  \int_{\RR^k}f\left(\left(\int_\Theta (2\pi)^{-d/2}|k\cI(\theta)|^{1/2} e^{-\frac{\|x\|^2}{2}}d\theta\right)^{-1}\right)e^{-\frac{\|x\|^2}{2}}(2\pi)^{-d/2}dx ,
             \end{equation}
-        which equals the left-hand term evaluated in $\pi(\theta) = |k\cI(\theta)|^{1/2} / \int_\Theta|k\cI(\tilde\theta)|^{1/2} d\tilde\theta$.
+        which equals the right-hand term in \cref{eq:PSGSA:heuristicconcave} evaluated in $\pi(\theta) = |k\cI(\theta)|^{1/2} / \int_\Theta|k\cI(\tilde\theta)|^{1/2} d\tilde\theta$.
 
         This simple heuristic emphasizes that the decisive assumption on $f$ is that $x\mapsto f(1/x)$ is concave, rather than $f$ being convex.
         Regarding our developments in  \cref{sec:PSGSA:towardsdelta}, the final results on the optimally of Jeffreys stood while $a(\delta+1)>0$.
@@ -637,15 +637,16 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
         \begin{enumerate}
             \item Let $\varPi,\,\tilde\varPi\in\sM^\nu_\cC$, we denote respectively $\pi$ and $\tilde\pi$ the densities of $\varPi(\cdot|\tilde\Theta)$ and $\tilde\varPi(\cdot|\tilde\Theta)$. We have:
             \begin{equation}
-                \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) = -\int_{\tilde\Theta}\pi(\theta)^2d\theta + \int_{\tilde\Theta}\tilde\pi(\theta)^2d\theta.
+                \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) = -\int_{\tilde\Theta}\pi(\theta)^2d\theta + \int_{\tilde\Theta}\tilde\pi(\theta)^2d\theta,
             \end{equation}
+            with $C_1=\frac{(2\sigma^2+h^2)^{-1/2}}{\sqrt{2\pi}}$.
             %If not jeffreys then $>0$.
             And the Jeffreys prior class is the unique $\text{MMD}^2$-reference prior class over $\sM^\nu_\cC$.
             \item For a density $\pi$ %such that $\int_{\tilde\Theta}\pi =1$ 
             we denote by $M(\pi)$ its associated normalized prior: $M(\pi)=B\mapsto\int_B\pi/\int_{\tilde\Theta}\pi$.
             %Denote $\cC(\tilde\Theta)$
-            Let $\pi^\ast_k$ be continuous densities such that for any $k$, $\sI_{\text{MMD}^2}(M(\pi^\ast_k))\geq \sI^k_{\text{MMD}^2}(M(\pi))$ for any other continuous density $\pi$.
-            If $(\pi^\ast_k)$ converges uniformly to a function $\pi^\ast$ on $\tilde\Theta$, then $\pi^\ast$ is the Jeffreys prior density: $\pi^\ast\propto1$.
+            Let $\pi^\ast_k$ be continuous densities such that for any $k$, $\sI_{\text{MMD}^2}(M(\pi^\ast_k))\geq \sI^k_{\text{MMD}^2}(M(\pi))$ for any other  $\pi\in\sM^\nu_\cC$.
+            If $(\pi^\ast_k)_k$ converges uniformly to a function $\pi^\ast$ on $\tilde\Theta$, then $\pi^\ast$ is the Jeffreys prior density: $\pi^\ast\propto1$.
         \end{enumerate}
     \end{prop}
 
@@ -1069,7 +1070,7 @@ According to Markov's inequality,
             &\leq \rho^{\tilde\delta/\delta} \int_{\tilde\Theta} \EE_{\tilde\theta}\left[ \left( \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\tilde\theta)} \right)^{\tilde\delta} \left( \frac{\ell_k(\mbf y|\tilde\theta)}{\ell_k(\mbf y|\theta)} \right)^{\tilde\delta} \right] \pi(\tilde\theta)d\tilde\theta  ,
     \end{align}
 for some $\tilde\delta>0$ that we determine later. 
-{Using the expansion of the likelihood quotient expressed in equation (\ref{eq:DLlogfraclik})} we can write, for some $\hat\theta$ in the segment between $\theta$ and $\tilde\theta$:
+Using the expansion of the likelihood quotient expressed in \cref{eq:DLlogfraclik} we can write, for some $\hat\theta$ in the segment between $\theta$ and $\tilde\theta$:
     \begin{align}
     \nonumber
          \EE_\theta\left[ \indic_{\ubf E_k} \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right]
@@ -1191,8 +1192,35 @@ with $K_3 = K_2^{1/2}L^{1/2}K_1^{1/2}$.
 \section{Conclusion and prospects}
 
 
+This chapter contributes to the reference prior theory on multiple fronts.
+
+First, we interpreted reference priors as maximizers of sensitivity indices. This interpretation reinforces the trustworthiness of their selection in practice: they are  priors that minimize the impact of irreducible uncertainty on the studied systems. %under that viewpoint.
+
+Second, building on the aforementioned interpretation 
+we provided a formalized framework for a generalization of the mutual information. We rigorously proved that usual properties of reference priors are still verified under that novel formalism. These generalized reference priors have been elucidated, and our main results show that they are Jeffreys priors in all the different cases that we study.
+
+These results
+push further the robustness of reference priors that are constructed from Jeffreys ---or hierarchical versions of Jeffreys--- and support the objectivity of their choice in practice.
 
 
+We conclude by emphasizing that our results provide  an analytical criterion that aids in the definition of some generalized reference prior.
+That criteria constitute an open path for the derivation of generalized reference priors over less general sets of priors.
+While this thought is slightly explored in this chapter, we note that it is furthered studied in the folowing chapter.
+
+
+
+% Despite potential computational challenges in certain scenarios, the substantial advantages offered by the objectivity of this method cannot be overlooked.
+
+
+
+
+% We interpret reference prior criteria as sensitivity impacts.
+% That interpretation aligns with purposes of statistical studies that are based on real data. 
+% This perspective enhances trustworthiness of their selection in practice.
+% In those application contexts, 
+% {pushing further the robustness of reference priors that are constructed from Jeffreys ---or hierarchical versions of Jeffreys--- supports the objectivity of its choice }
+% and  of its resulting estimates.
+% Despite potential computational challenges in certain scenarios, the substantial advantages offered by the objectivity of this method cannot be overlooked.
 
 
 
