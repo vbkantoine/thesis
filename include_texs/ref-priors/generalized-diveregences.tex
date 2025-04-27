@@ -42,10 +42,10 @@ In the next section, %we formalize the usual Bayesian framework that we consider
 we elucidate our motivation 
 from a Global Sensitivity Analysis viewpoint for an enrichment of the mutual information. 
 The generalized mutual information that we define is constructed from any possible dissimilarity measure.
-That definition is used in ?? to define the generalized reference priors. We show in that section that the usual properties satisfied by reference priors still stand under our framework.
-A deeper study is afterward conducted in ?? in the case where the dissimilarity measure is an $f$-divergence resembling to a $\delta$-divergence. 
-These results, alongside open thoughts about their robustness when the dissimilarity measure is not limited to such $f$-divergences, are discussed in ??.
-After proving our statements in ??, we conclude this chapter in ??.
+That definition is used in \cref{sec:PSGSA:generefp} to define the generalized reference priors. We show in that section that the usual properties satisfied by reference priors still stand under our framework.
+A deeper study is afterward conducted in \cref{sec:PSGSA:towardsdelta} in the case where the dissimilarity measure is an $f$-divergence resembling to a $\delta$-divergence. 
+These results, alongside open thoughts about their robustness when the dissimilarity measure is not limited to such $f$-divergences, are discussed in \cref{sec:PSGSA:discussion}.
+After proving our statements in \cref{sec:PSGSA:proofs}, we conclude this chapter in \cref{sec:PSGSA:conclusion}.
 
 
 
@@ -138,7 +138,7 @@ It corresponds to  the classical definition in the case where $f=-\log$. Actuall
 When $\delta=0$, we retrieve the original form of the mutual information.
 
 
-\section{Generalized reference priors}
+\section{Generalized reference priors}\label{sec:PSGSA:generefp}
 
 %\subsection{Definitions and general properties}
 
@@ -222,7 +222,7 @@ The results provided below ensure that the generalized reference priors verify s
         \end{equation}
         using the convexity of $f$. Since $\tilde\Theta$ is compact, $\tilde\pi$ is bounded. Thus, we obtain $\sI^k_{D_f}(\tilde\varPi)<\infty$.
 
-        For inverting the integrals, we notice that the assumption on $f$ allows to write 
+        For inverting the integrals, we notice that the assumption on $f$ allows writing 
         \begin{equation}
             \int_{\tilde\Theta}\int_{\cY^k} \left|f\left( \frac{p_{\mbf Y^k}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)\right|\ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y) \tilde\pi(\theta)d\nu(\theta) \leq K + \sup_{\theta\in\tilde\Theta}\sup_{\theta'\in\tilde\Theta} \int_{A} f\left(\frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}  \right) \ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y)
         \end{equation}
@@ -294,7 +294,7 @@ for some $g_1:(0,\infty)\to\RR$, $g_2:(0,\infty)\to(0,\infty)$.
 
 \begin{prop}\label{prop:PSGSA:cvptheta}
     Let $\tilde\Theta$ be a compact subset of $\Theta$.
-    Consider a prior $\varPi\in\sM^\nu_\cC$ and denote by $\pi\in\sR_{\cC^b}$ a density of $\varPi(\cdot|\tilde\Theta)$.%$\pi\in\sR_{\cC^b}$.
+    Consider a prior $\varPi\in\sM^\nu_\cC$ and denote by $\pi\in\sR_{\cC^b}$ a density of $\varPi(\cdot|\tilde\Theta)$. %$\pi\in\sR_{\cC^b}$.
     For almost every $\theta$ in the interior of $\Supp\pi$ there exists $c=c_\theta,\,C=C_\theta$ positive constants such that the following convergence in probability holds:
     \begin{equation}
         \label{eq:cvinproba}
@@ -475,7 +475,7 @@ In the same way as in the previous subsection, this result implies that the Jeff
 \end{thm}
 
 
-\section{Discussions}
+\section{Discussions}\label{sec:PSGSA:discussion}
 
 
     \subsection{About the results}
@@ -1355,7 +1355,7 @@ with $K_3 = K_2^{1/2}L^{1/2}K_1^{1/2}$.
 
 
 
-\section{Conclusion and prospects}
+\section{Conclusion and prospects}\label{sec:PSGSA:conclusion}
 
 
 This chapter contributes to the reference prior theory on multiple fronts.
@@ -1371,7 +1371,7 @@ push further the robustness of reference priors that are constructed from Jeffre
 
 We conclude by emphasizing that our results provide  an analytical criterion that aids in the definition of some generalized reference priors.
 That criteria constitute an open path for the derivation of generalized reference priors over less general sets of priors.
-While this thought is slightly explored in this chapter, we note that it is furthered studied in the folowing chapter.
+While this thought is slightly explored in this chapter, we note that it is furthered studied in the following chapter.
 
 
 
