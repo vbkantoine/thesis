@@ -4,7 +4,10 @@
 \end{abstract}
 
 \begin{abstract}
-    abstract
+    This chapter adds to the theory of reference priors. We propose an interpretation of the theory from a sensitivity analysis viewpoint. This leads us to propose a new way of defining mutual information, using different dissimilarity measures between probability distributions. 
+    Our construction  creates a new framework for reference priors, which are rigorously studied.
+    Our main result gives a limit of the generalized mutual information when the dissimilarity measure considered resembles to a $\delta$-divergence.
+    It makes it easier to derive reference priors under constraints or within specific sets. In the absence of constraints, we prove that the Jeffreys prior maximizes the generalized mutual information.
 \end{abstract}
 
 \minitoc
@@ -14,7 +17,7 @@
 The reference prior theory aims at defining priors that are the most objective possible. A review of the theory can be found in the \cref{chap:intro-ref}. It is built on the maximization of the mutual information, which is designed to measure the information brought by the data in the posterior distribution.
 
 While there exist infinitely many ways to compare probability distribution, the mutual information is classically defined as an expected Kullback-Leibler divergence between the prior and the posterior.
-The settings under which the reference priors are usually defined result from the aforementioned choices. Since the aim is to define priors that are not impacted by potentially subjective choice, we question how the results about reference priors stands when the definition of the mutual information is altered.
+The settings under which the reference priors are usually defined result from the aforementioned choice. Since the aim is to define priors that are not impacted by potentially subjective choice, we question how the results about reference priors stands when the definition of the mutual information is altered.
 
 Extensions of the mutual information in the reference prior definition have already been explored in the literature (e.g. \cite{chen_objective_2010,liu_divergence_2014,le_formal_2014}), and some do not necessarily lead to the Jeffreys prior \citep{hashimoto_reference_2021,clarke_reference_1997,ghosh_general_2011}. They are all based on the expression of mutual information as an average divergence between the posterior and the prior distributions.
 
@@ -26,7 +29,7 @@ GSA, whose principle is to measure how the uncertainty of an output is impacted 
 an interpretation of the reference prior as a maximizer of such sensitivity influence that the observations get from the parameter of interest. 
 This suggestion leads to defining what we call generalized mutual information, by analogy with global sensitivity indices \citep{da_veiga_basics_2021}. %
 It relies on the wide range of existing dissimilarity measures between two probability distributions.
-An example is the $f$-divergence subclass \citep{csiszar_information-type_1967}, commonly employed as an extension of  Shannon entropy for various purposes in statistics, such as, variational inference \citep{minka_divergence_2005,bach_sum--squares_2023}, surrogate model design \citep{nguyen_surrogate_2009}, PAC Bayesian learning \citep{picard-weibel_change_2022} and Differential Privacy \citep{mironov_renyi_2017}.
+An example is the $f$-divergence subclass \citep{csiszar_information-type_1967}, commonly employed as an extension of  Shannon's entropy for various purposes in statistics, such as, variational inference \citep{minka_divergence_2005,bach_sum--squares_2023}, surrogate model design \citep{nguyen_surrogate_2009}, PAC Bayesian learning \citep{picard-weibel_change_2022} and Differential Privacy \citep{mironov_renyi_2017}.
 %
 A study of those divergences within our generalized mutual information is {also} a main contribution of this paper, with the goal of deriving what one is invited to call generalized reference priors.
 %Pursuing introductory elements we unveiled in \cite{VanBiesbroeckJDS2023}, we go further in this paper with 
@@ -35,8 +38,14 @@ We provide an accomplished formalization for the generalized reference prior set
 Our main result takes the form of a limit w.r.t. the number of data of the mutual information. Its analytical expression as a function of the prior permits a simple expression of our reference priors: they are its maximal arguments. It opens the path of easier {theoretical} derivation of reference priors among the ones that satisfy different kinds of constraints, or that belong to some particular sets of priors.}
 
 
-In the next section, we formalize the usual Bayesian framework that we consider in our work. Our motivation supported by a Global Sensitivity Analysis viewpoint for an enrichment of the mutual information is elucidated in section \ref{sec:Bayesian}. Afterwards, a sub-class of that generalized mutual information is studied in section \ref{sec:motivationGMI} to define and derive what we call their generalized reference priors. 
-Eventually, a conclusion of this paper is provided in section \ref{sec:conclusion}.
+In the next section, %we formalize the usual Bayesian framework that we consider in our work. 
+we elucidate our motivation 
+from a Global Sensitivity Analysis viewpoint for an enrichment of the mutual information. 
+The generalized mutual information that we define is constructed from any possible dissimilarity measure.
+That definition is used in ?? to define the generalized reference priors. We show in that section that the usual properties satisfied by reference priors still stand under our framework.
+A deeper study is afterward conducted in ?? in the case where the dissimilarity measure is an $f$-divergence resembling to a $\delta$-divergence. 
+These results, alongside open thoughts about their robustness when the dissimilarity measure is not limited to such $f$-divergences, are discussed in ??.
+After proving our statements in ??, we conclude this chapter in ??.
 
 
 
@@ -44,7 +53,7 @@ Eventually, a conclusion of this paper is provided in section \ref{sec:conclusio
 
 
 
-\section{Generalized mutual information}
+\section{Generalized mutual information}\label{sec:PSGSA:genMI}
 
 \subsection{Mutual information and definitions}
 
@@ -336,11 +345,12 @@ In this section we suppose $\delta\in(-1,0)$.
 An asymptotic limit of the $D_f$-mutual information can be given once the following assumption is satisfied.
 \begin{assu}
     \label{assu:PSGSA:JDS}
-        There exist $\tau>0$ and $r>0$ such that the quantity 
+        For every compact subset $\tilde\Theta$ of $\Theta$,
+        there exist $K_0$ such that the quantity 
             \begin{equation}
-                \EE_\theta\left[\exp\Big(r\sup_{\tilde\theta,\,\|\tilde\theta-\theta\|<\tau}\|\nabla^2_\theta\log\ell(y|\tilde\theta)\|\Big)\right] 
+                \EE_\theta\left[\sup_{\theta\in\tilde\Theta<\tau}\|\nabla^2_\theta\log\ell(y|\tilde\theta)\|\right] \leq K_0.
             \end{equation}
-        is continuous with respect to  $\theta$. %{The norm $\|\cdot\|$ denotes the Euclidean norm when applied to a vector in $\RR^d$ and the associated operator norm when applied to a matrix in $\RR^{d\times d}$ (i.e. the largest singular value of the matrix).}
+        %is continuous with respect to  $\theta$. %{The norm $\|\cdot\|$ denotes the Euclidean norm when applied to a vector in $\RR^d$ and the associated operator norm when applied to a matrix in $\RR^{d\times d}$ (i.e. the largest singular value of the matrix).}
     %    Note that $\|\cdot\|$ denotes as well 
     \end{assu}
 
@@ -356,7 +366,7 @@ An asymptotic limit of the $D_f$-mutual information can be given once the follow
     where $ C_\delta = (2\pi)^{d\delta/2} (1-\delta)^{-d/2}$. 
     \end{thm}
 
-\begin{prop}
+\begin{prop}\label{prop:JlimIMdeltaneg}
     With the assumptions of the above theorem,  if $a(\delta+1)>0$, then
         \begin{equation}\label{eq:PSGSA:Jeffrefdeltaneg}
             \lim_{k\rightarrow\infty}k^{d\delta/2}(\sI^k_{D_f}(\mbf J(\cdot|\tilde\Theta))-\sI_{D_f}^k(\varPi(\cdot|\tilde\Theta)))\geq 0 ,
@@ -368,7 +378,7 @@ An asymptotic limit of the $D_f$-mutual information can be given once the follow
 
 
 The above proposition makes the Jeffreys prior class being the unique $D_f$-reference prior class over $\sM^\nu_{\cC^\ast}$, where $\sM^\nu_{\cC^\ast}$ represents the subset of $\sM_\cC^\nu$ of priors admitting positive densities on $\Theta$. We
- formalized this statement in the following theorem.
+ formalize this statement in the following theorem.
 
 
 
@@ -399,7 +409,7 @@ The elucidating of a similar result than the one in the previous section require
 
 
 \begin{assu}\label{assu:infeighes}
-    For any compact $\tilde\Theta\subset\Theta$,
+    For any compact subset $\tilde\Theta\subset\Theta$,
     there exists $m>0$ such that for all $\theta\in\tilde\Theta$,
     \begin{equation}
         \PP_\theta\left(\forall x\in\RR^d,\, \inf_{\tilde\theta\in\tilde\Theta}-x^T\nabla_\theta^2\log\ell(y|\tilde\theta)x>m\|x\|^2 \right) = 1.     
@@ -410,7 +420,7 @@ The elucidating of a similar result than the one in the previous section require
 
 
 \begin{assu}\label{assu:gausstailSk}
-    For any compact $\tilde\Theta\subset\Theta$,
+    For any compact subset $\tilde\Theta\subset\Theta$,
     the random variables
      %\begin{equation}\label{eq:defSk}
         $S_k=\frac{1}{\sqrt{k}}\sum_{i=1}^k\nabla_\theta\log\ell(y_i|\theta)    $
@@ -445,7 +455,7 @@ a C_\delta \int_{\tilde\Theta}\pi(\theta)^{1+\delta} |\cI(\theta)|^{-\delta/2}  
 where $ C_\delta = (2\pi)^{d\delta/2} (1-\delta)^{-d/2}$.
 \end{thm}
 
-\begin{prop}
+\begin{prop}\label{prop:JlimIMdeltapos}
     With the assumptions of the above theorem,  if $a(\delta+1)>0$, then
         \begin{equation}\label{eq:PSGSA:Jeffrefdeltapos}
             \lim_{k\rightarrow\infty}k^{d\delta/2}(\sI^k_{D_f}(\mbf J(\cdot|\tilde\Theta))-\sI_{D_f}^k(\varPi(\cdot|\tilde\Theta)))\geq 0 ,
@@ -483,20 +493,46 @@ Additionally, we draw attention to the open-ended nature of the results we expre
 % Indeed, 
 Indeed, \cref{thm:refcompactneg,thm:PSGSA:Jrefdeltapos} provide an analytical limit of the mutual information that takes the form of a functional $l$ of the prior.
 One can notice that a reference prior is prior that maximizes $l$.
-Thus, a maximization of our function $l$ over a well-chosen set of priors constitutes an easy path to express reference priors that could differ from Jeffreys. 
-The following section suggests an example of a constrained problem.
+Thus, a maximization of our function $l$ over a well-chosen set of priors constitutes an easy path to express reference priors that could differ from Jeffreys, as expressed in the theorem below.
+\begin{thm}\label{thm:PSGSA:maximizel}
+    Let $f\aseq{x\rightarrow 0} a x^\delta+o(x^\delta)$, $f\aseq{r\rightarrow\infty}O(x)$. Assume $\delta\in(-1,1)$, $a(\delta+1)>0$. Assume \cref{assu:PSGSA:JDS} if $\delta<0$ or \cref{assu:infeighes,assu:gausstailSk} if $\delta>0$.
+    For some $\pi\in\sR_{\cC^b}$, define
+        \begin{equation}
+            l(\pi) = aC_\delta\int_\Theta\pi(\theta)^{1+\delta}|\cI(\theta)|^{-\delta/2}d\theta
+        \end{equation}
+    with $C_\delta=(2\pi)^{d\delta/2}(1-\delta)^{-d/2} $. \\
+    Let $\cP$ be a set of continuous priors. %Define $M:p\in\sR_{\cC^b}\mapsto
+    Denote by $\cR\subset\sR_{\cC^b}$ the set of their associated densities.
+    Let $\varPi\in\cP$ whose density is denoted by $\pi\in\cR$.
+    If there exists an openly increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $\varPi\in(0,\infty)$ and $\pi\cdot\indic_{\Theta_i}\propto\pi_i$ where:
+        \begin{equation}
+            \pi_i\in \argmax_{p_i\in\cR_i} l(p) ,\text{\ with\ }\cP_i=\left\{p:\theta\mapsto\frac{\tilde p(\theta)}{\int_{\Theta_i}\tilde p(\tilde\theta)d\tilde\theta },\,   \tilde p\in\cR,\, \int_{\Theta_i}\tilde p\in(0,\infty)    \right\};
+        \end{equation}
+    then $\varPi$ is a $D_f$-reference prior over $\cP$.
+\end{thm}
+
+One is invited to notice that when $\Theta$ is compact, maximizing $l$ over the normalized densities on $\Theta$ is sufficient.
+The following subsection suggests an example of a constrained problem.
+
+
+% \begin{proof}[Proof of \cref{thm:PSGSA:maximizel}]
+%     In the case $\delta>0$, the theorem is a direct corollary of \cref{thm:refcompactpos}. It is not the case when $\delta<0$ since \cref{thm:PSGSA:Jrefdeltaneg} stands only for strictly positive densities.
+%     However, since for any density $\pi$ in $\sR_{\cC^b}$ we have $l()$
+    
+%     Thus, only the case $\delta<0$ is treated in this proof. 
+% \end{proof}
 
 
 \subsection{About the introduction of simple constraints}
 
 
-Here we illustrate with a simple example an application of \ref{thm:refcompactneg,thm:PSGSA:Jrefdeltapos} to the derivation of constrained reference priors.
+Here we illustrate with a simple example an application of \cref{thm:PSGSA:maximizel} to the derivation of constrained reference priors.
 Consider a Bernoulli modeling: $Y|(T=\theta)\sim\cB(\theta)$, $\cB(\theta)$ being the Bernoulli distribution with parameter $\theta$. We take $\Theta=[0,1]$ and write $\ell(y|\theta)=\theta^{y}(1-\theta)^{1-y}$.
 %
 Within this modeling, the Jeffreys prior takes the form of a Beta distribution: $\mathrm{Beta}(1/2,1/2)$ (see e.g. \cite{robert_bayesian_2007}).
 
 
-An intuitive type of constraints is the restriction of the moments of the prior. For instance,
+A possible type of constraints is the restriction of the moments of the prior. For instance,
 we denote $\cP_\EE$ the class of priors $\cP_\EE=\{\pi=\mathrm{Beta}(\lambda_1,\lambda_2),\,\EE_{T\sim\pi}[T]=1/c\}$. A prior in $\cP_\EE$ can be parameterized as $\pi_\lambda = \mathrm{Beta}(\lambda,\lambda(c-1))$, $\lambda\in(0,1)$.
 Then, %solving $\lambda^\ast=\argmax_\lambda l(\pi_\lambda)$ leads to the reference prior over $\cP$ being 
 %\begin{equation}
@@ -678,7 +714,7 @@ with $C_1=\frac{\tilde\sigma\overline{\sigma}}{\sqrt{2\pi}h\sigma^2} = \frac{(2\
  %   \item 
  \begin{enumerate}
     \item To prove the first statement of the theorem, 
-    we start by  computing the limit of $C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta $ for a fixed $\theta'$ in which $\tilde\pi$ is continuous. The scheme of this proof is standard as this integral is the convoluted of  $\pi$ with an approximation to the unity. Let $\eps>0$, by continuity of $\pi$ there exists a neighborhood $V$ of $\theta'$ such that for any $\theta\in V$,  $|\pi(\theta)-\pi(\theta')|<\eps/2$. %for any $\theta\in V$.
+    we start by  computing the limit as $k\to\infty$ of the integrals  $C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta $ for a fixed $\theta'$ in which $\tilde\pi$ is continuous. The scheme of this proof is standard as this integral is the convoluted of  $\pi$ with an approximation to the unity. Let $\eps>0$, by continuity of $\pi$ there exists a neighborhood $V$ of $\theta'$ such that for any $\theta\in V$,  $|\pi(\theta)-\pi(\theta')|<\eps/2$. %for any $\theta\in V$.
     Additionally, it is possible to choose a $k_0$ such that for all $k\geq k_0$, $C_1\sqrt{k}\int_{\RR\!\setminus\!V} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}}d\theta <\eps/(4\sup_{\tilde\Theta}\pi)$. This way, for all $k\geq k_0$,
         \begin{equation}
             \left|C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta -\pi(\theta')  \right| \leq C_1\sqrt{k}\int_{\RR}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2} |\pi(\theta)\indic_{\theta\in\tilde\Theta}-\pi(\theta')|d\theta 
@@ -720,9 +756,11 @@ We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\th
         \end{equation}
         As the integrated terms are all bounded, a dominated converge theorem gives:
         \begin{equation}
-            \lim_{k\rightarrow\infty}C_1\sqrt{k}\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)d\theta = \pi^\ast(\theta')
-            \quad\text{and}\quad
+            \begin{aligned}
+            &\lim_{k\rightarrow\infty}C_1\sqrt{k}\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)d\theta = \pi^\ast(\theta')\\
+            \text{and}\quad&
             \lim_{k\rightarrow\infty} C_1\sqrt{k}\int_{\tilde\Theta\times\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)\pi_k^\ast(\theta')d\theta d\theta' = \int_{\tilde\Theta}\pi^\ast(\theta)^2d\theta.
+            \end{aligned}
         \end{equation}
         Since the above terms are equal, we conclude that $\pi^\ast$ is constant.
 
@@ -739,7 +777,7 @@ We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\th
 
 \section{Proofs of the main results}\label{sec:PSGSA:proofs}
 
-\subsection{Proof of \cref{prop:PSGSA:cvptheta}}
+\subsection{Proof of the convergence in probability}
 
 \begin{proof}[Proof of \cref{prop:PSGSA:cvptheta}]
     We fix $\theta$ in the interior of $\Supp\pi$ such that $\pi$ is continuous in $\theta$. Let $\eps,\tilde\eps>0$. We want to show that there exist $k_0$, such that for all $k\geq k_0$
@@ -757,11 +795,11 @@ We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\th
     
         \item Denote for any $i=1,\dots,k$, and for any $\mbf y \in\cY^k$,
         \begin{equation}
-            K_i(\mbf y)=\{-x^T\nabla^2_\theta\log\ell(Y_i|\theta')x,\,\theta'\in\tilde\Theta,\,\|x\|=1\}.
+            \kappa_i(\mbf y)=\{-x^T\nabla^2_\theta\log\ell(Y_i|\theta')x,\,\theta'\in\tilde\Theta,\,\|x\|=1\}.
         \end{equation}
      They are compact subsets of $(0,+\infty)$. The law of large numbers gives 
      \begin{equation}
-        \frac{1}{k}\sum_{i=1}^k\inf K_i(\mbf Y_k)\conv{k\rightarrow\infty}\EE_\theta\left[\inf_{\theta'\in\tilde\Theta,\|x\|=1}-x^T\nabla^2_\theta\log\ell(Y_1|\theta')x\right]  ,
+        \frac{1}{k}\sum_{i=1}^k\inf \kappa_i(\mbf Y_k)\conv{k\rightarrow\infty}\EE_\theta\left[\inf_{\theta'\in\tilde\Theta,\|x\|=1}-x^T\nabla^2_\theta\log\ell(Y_1|\theta')x\right]  ,
      \end{equation}
     which is positive as the infima are positive $\PP_\theta$-a.s. We choose an $\hat m_\theta>0$ smaller than this limit, and we denote
         \begin{equation}
@@ -792,7 +830,7 @@ We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\th
     \end{equation}
 and $u>0$ such that $\forall|x|<uR_\theta^2,\,|e^{x}-1|< w/(2 C_\theta R^d_\theta\sup_{\tilde\Theta}\pi )$. 
 
-From Assumption \ref{assu:fisher}, the function $\theta'\mapsto\|\nabla_\theta^2\log\ell(y|\theta')-\nabla^2_\theta\log\ell(y|\theta)\|$ is dominated on the Euclidean ball $B(\theta,\tau_1)$ by a variable that has a finite expectation $\EE_\theta$. Therefore, a dominated convergence theorem gives that the function
+From \cref{assu:intro-ref:jeffreysexist}, the function $\theta'\mapsto\|\nabla_\theta^2\log\ell(y|\theta')-\nabla^2_\theta\log\ell(y|\theta)\|$ is dominated on the Euclidean ball $B(\theta,\tau_1)$ by a variable that has a finite expectation $\EE_\theta$. Therefore, a dominated convergence theorem gives that the function
     \begin{equation}
         \theta'\mapsto \EE_\theta \left[\|\nabla_\theta^2\log\ell(y|\theta')-\nabla^2_\theta\log\ell(y|\theta)\|\right]
     \end{equation}
@@ -897,25 +935,153 @@ This way, defining $k_0=\max(k_1,k_2,k_3,k_4)$, the following inequality is true
 \newcommand{\ubf}[1]{\underline{\mbf{#1}}}
 
 
-\subsection{Proof of \cref{thm:refcompactneg,thm:PSGSA:Jrefdeltaneg}}
+\subsection{Proof of the results of when $\delta<0$} %\cref{thm:refcompactneg,thm:PSGSA:Jrefdeltaneg}}
 
-\begin{proof}[Proof of \cref{thm:PSGSA:Jrefdeltaneg}]
+\begin{proof}[Proof of \cref{thm:refcompactneg,prop:JlimIMdeltaneg,thm:PSGSA:Jrefdeltaneg}]
     We suppose that \cref{assu:PSGSA:JDS} is verified. We recall that in this proof $\delta<0$. The following lemma is required for the proof. It is proven later on.
     \begin{lem}
         \label{lem:dfbeta}
             Let $\zeta<0$. 
             There exists a constant $K$ independent of $\theta$ such that
-                \begin{equation*}
-                    k^{d\zeta/2}\EE_\theta \left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\zeta \ell_k(\mbf y|\theta)d\mu^{\otimes k}(\mbf y)\leq  K.
-                \end{equation*}
+                \begin{equation}
+                    k^{d\zeta/2}\EE_\theta \left[\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\zeta \right]\leq  K.
+                \end{equation}
         \end{lem}
+
+        We recall that \cref{prop:PSGSA:cvptheta} states the following convergence in probability for a.e. $\theta$:
+\begin{equation}
+    k^{d\delta/2}\left|f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)  - a k^{-d\delta/2}\pi(\theta)^\delta(2\pi)^{d\delta/2}|\cI(\theta)|^{-\delta/2}\exp\left(\frac{\delta}{2} S_k^T\cI(\theta)^{-1}S_k \right)  \right|
+        \conv[\PP_\theta]{k\rightarrow\infty}0.
+\end{equation}
+
+The first goal in this prove will be to show that this convergence  is a convergence in $L^1(\PP_\theta)$. This is shown by proving that the sequence of r.v. is uniformly integrable. 
+Let $\rho>0$ and choose an even $\ubf A$ such that $\PP_\theta(\ubf A)=\rho$. %Denoting $X_k=\cI(\theta)^{-1/2}S_k$,
+Firstly, we have 
+    \begin{equation}
+        \EE_\theta\left[\indic_{\ubf A} \pi(\theta)^\delta(2\pi)^{d\delta/2}e^{\frac{\delta}{2}S_k^T\cI(\theta)^{-1}S_k}\right]  
+        \leq \pi(\theta)^\delta(2\pi)^{d\delta/2} \rho,
+    \end{equation}
+and secondly,
+considering  $t$,  $\hat C$ and $\hat C'$ such that $|f(x)|\leq\hat Cx$ if $x>t$ and $|f(x)|\leq \hat C'x^\delta$ otherwise; we obtain using 
+$\ubf G_k= \ubf G_k(\theta)\{p_{\mbf Y}(\mbf y)>\gamma\ell_k(\mbf y|\theta)\}$ and Hölder's inequality:
+    \begin{align}
+%\nonumber      
+ \EE_\theta\left[ \indic_{\ubf A}k^{d\delta/2}f\left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right]
+%    
+\nonumber                  
+    &\leq \EE_\theta\left[ \indic_{\ubf G_k}\indic_{\ubf A} k^{d\delta/2} \hat C  \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right] + \EE_\theta\left[ \indic_{\ubf G_k^c}\indic_{\ubf A}k^{d\delta/2}\hat C'\left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\delta \right] \\
+                & \leq \hat C\rho^{1/2}  + \hat C' \rho^{1/p} K^{1/q} , %\\
+%\nonumber       & \leq \rho\hat C K + \rho^{1/p}K_2^{1/p}\label{eq:equiintpart2}
+\end{align}
+with $1/p+1/q=1$.
+The above ensures the required uniform-integrability. %for almost every $\theta\in\tilde\Theta$. 
+That allows us to write:
+    \begin{equation}
+        \EE_\theta k^{d\delta/2}\left|f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)  - a k^{-d\delta/2}\pi(\theta)^\delta(2\pi)^{d\delta/2}|\cI(\theta)|^{-\delta/2}\exp\left(\frac{\delta}{2} S_k^T\cI(\theta)^{-1}S_k \right)  \right|
+        \conv{k\rightarrow\infty}0.
+    \end{equation}
+This limit stands for every $\theta$ in the interior of $\Supp\pi$ within which $\pi$ is continuous. For such a $\theta$ it comes as $k\rightarrow\infty$
+\begin{align}
+    k^{d\delta/2} D_f(\PP_{\mbf Y_k} || \PP_{\mbf Y_k|\theta}) = a\pi(\theta)^\delta(2\pi)^{d\delta/2}|\cI(\theta)|^{-\delta/2}\EE_\theta\left[e^{\frac{\delta}{2} \|\cI(\theta)^{-1/2}S_k\|^2}\right] + o(1).  
+\end{align}
+The sequence of r.v. $\cI(\theta)^{-1/2}S_k$ converges in distribution to a standard normal r.v. denoted $X$.
+Thus, since $\delta<0$, $\EE_\theta\left[e^{\frac{\delta}{2} \|\cI(\theta)^{-1/2}S_k\|^2}\right]\conv{k\rightarrow\infty}\EE_\theta\left[e^{\frac{\delta}{2} \|X\|^2}\right]$. %, the latter being equal to 
+Therefore, 
+\begin{align}
+    k^{d\delta/2} D_f(\PP_{\mbf Y_k} || \PP_{\mbf Y_k|\theta}) \aseq{k\rightarrow\infty} a\pi(\theta)^\delta(2\pi)^{d\delta/2}|\cI(\theta)|^{-\delta/2}\EE_\theta\left[e^{\frac{\delta}{2} \|X\|^2}\right] + o(1).  
+\end{align}
+
+The second step of the proof it to integrate this limit w.r.t. $\pi$, using a dominated convergence theorem.
+It is possible since the following domination stands:
+\begin{equation}
+    \begin{aligned}
+    k^{d\delta/2}D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|\theta}) 
+            &=  k^{d\delta/2} \EE_{\theta}\left[\indic_{\ubf G_k}f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right] + 
+            k^{d\delta/2} \EE_{\theta}\left[ \indic_{\ubf G_k^c}f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right] \\
+         &\leq \hat C  + \hat C'K. %\leq 2\hat C +\hat C'K
+    \end{aligned}
+\end{equation}
+The domination above makes the following licit:
+    \begin{equation}
+        \lim_{k\rightarrow\infty} k^{d\delta/2}\sI^k_{D_f}(\varPi(\cdot|\tilde\Theta))  = a(2\pi)^{d\delta/2}(1-\delta)^{-d/2} \int_{\tilde\Theta}\pi(\delta)^{\delta+1}|\cI(\theta)|^{-\delta/2}d\theta.
+    \end{equation}
+This concludes the proof of \cref{thm:refcompactneg}. 
+
+The results of \cref{prop:JlimIMdeltaneg,thm:PSGSA:Jrefdeltaneg} comes by 
+concavity of $x\mapsto a x^{-\delta}$, which results from $a(\delta+1)>0$ and  gives
+    \begin{align}
+    \nonumber
+        &a \int_{\tilde\Theta}\pi(\theta)^\delta |\cI(\theta)|^{-\delta/2}\pi(\theta)d\theta \\
+            &\leq a\left(\int_{\tilde\Theta}\pi(\theta)^{-1}|\cI(\theta)|^{1/2}\pi(\theta)d\theta\right)^{-\delta}
+            = a \left(\int_{\tilde\Theta} |\cI(\theta)|^{1/2} d\theta\right)^{-\delta}. %\label{eq:concavinequality1}
+    \end{align}
+The concavity of $x\mapsto a x^{-\delta}$ being strict, the above inequality is an equality if and only if 
+$\pi(\theta)^\delta|\cI(\theta)|^{-\delta/2}$ is constant with respect to  $\theta$, i.e. $\pi\propto J$.
+
+
+
 \end{proof}
+
+
+
+\begin{proof}[Proof of \cref{lem:dfbeta}]
+    Set $\theta$ that belongs in the interior of $\Supp\pi$. % write $\tilde R_k={R}/{\sqrt{k}}$ with $R>0$ such that %$-\frac{\zeta D^2}{2}\frac{\zeta}{\zeta-1}<\xi$ 
+%$-{\zeta R^2}/{2}=r$. %(see Assumption \ref{assu:1})
+%We can consider $k_0$ such that $\tilde R_{k_0}<\tau_2$. and we can consider $k_1$ such that for any $k\geq k_1$, $B(\theta,\tilde R_k)$ is a subset of the interior of $\Supp\pi$. 
+% and $\forall\|\theta'-\theta''\|\leq\delta_{k_0},\, |\pi(\theta')/\pi(\theta'')|\geq 1/2$. % and $\|\cI(\theta')-\cI(\theta'')\|\leq1$. 
+%We compute for $k\geq\max(k_0,k_1)$,
+We write,
+\begin{align}
+    \EE_{\theta}\left[\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right)^\zeta \right]
+    %\int_{\cY^k}\left(\frac{p_{\mbf Y}(\mbf y)}{\ell_k(\mbf y|\theta)} \right)^\zeta\ell_k(\mbf y|\theta)d\mu^{\otimes k}(\mbf y) \\
+        &\leq \EE_{\theta}\left[\left( \int_{\|\tilde\theta-\theta\|\leq\tilde R_k} 
+        \exp((\tilde\theta-\theta)^T\sqrt{k}S_k  )
+        % \leq \int_{\cY^k}\left( \int_{\|\tilde\theta-\theta\|\leq\delta_k} 
+        % \exp((\tilde\theta-\theta)^T\sqrt{k}S_k  )
+        \exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\hat\theta)(\tilde\theta-\theta) \right)
+        % e^{(\tilde\theta-\theta)^T\sqrt{k}S_k} e^{-\frac{k}{2}\|\tilde\theta-\theta\|^2_{\hat\cI_k(\xi)-\cI(\theta)}}e^{-\frac{k}{2}\|\tilde\theta-\theta\|^2_{\cI(\theta)}} %\frac{\pi(\tilde\theta)}{\pi(\theta)}
+        \pi(\tilde\theta)
+        d\tilde\theta \right)^\zeta \right]  ,
+\end{align}
+where $\hat\theta$ belongs to the segment between $\theta$ and $\tilde\theta$, and
+with $\hat\cI_k(\theta')$ denoting $-\frac{1}{k}\sum_{i=1}^k\nabla^2_\theta\log\ell(y_i|\theta')$.
+Denote $H_k=\sup_{\tilde\theta\in\tilde\Theta,\|x\|=1}x^T\hat\cI_k(\tilde\theta)x$, and $m_{\pi}=\inf_{\tilde\Theta}\pi>0$. We have
+\begin{align}\nonumber
+    \EE_{\theta}\left[\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\zeta \right]
+    % \int_{\cY^k}\left(\frac{p_{\mbf Y}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)^\zeta \ell_k(\mbf y|\theta)d\mu^{\otimes k}(\mbf y) 
+            &\leq \EE_{\theta}\left[ m_{\pi}^\zeta \left( k^{-d/2}%(2\pi)^{d/2}|\cI(\theta)|^{1/2}
+                \int_{\RR^d} e^{x^TS_k} e^{-\frac{H_k}{2}\|x\|^2}dx \right)^\zeta\right]\\
+                &= 
+                \EE_{\theta}\left[ m_{\pi}^\zeta k^{-d\zeta/2}
+                (2\pi)^{d\zeta/2}H_k^{-\zeta/2}e^{\frac{\zeta}{2}H_k\|S_k\|^2}
+                \right]  .
+\end{align}    
+%The mapping $\theta'\mapsto|\cI(\theta')|$ is continuous and positive, so that it is bounded from below by a constant $H'>0$.
+%Let $H'$ be an upper bound of the function $x\mapsto \exp(\frac{\zeta}{2}\inf_{\|x'\|=1,\theta'\in\tilde\Theta}(x'^T\cI(\theta')^{-1}x')\|x\|^2-\zeta D\|x\|)$. It comes
+We now bound $H_k$ as below:
+\begin{equation}
+        H_k = \sup_{\tilde\Theta\in\tilde\Theta,\,\|x\|=1} -\frac{1}{k}\sum_{i=1}^kx^T\nabla^2_\theta\log\ell(y_i|\theta) x \leq \frac{1}{k}\sum_{i=1}^k\sup_{\tilde\Theta}\|\nabla_\theta^2\ell(y_i|\theta)\|.
+\end{equation}
+That allows to conclude using Jensen's inequality:
+    \begin{equation}
+        k^{d\zeta/2} \EE_{\theta}\left[\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\zeta \right] \leq m_\pi^\zeta (2\pi)^{d\zeta/2} K_0^{-\zeta/2}.
+    \end{equation}
+
+
+
+
+
+\end{proof}
+
+
+
+
 
 
 \subsection{Proof of \cref{thm:refcompactpos,thm:PSGSA:Jrefdeltapos}}
 
 
-\begin{proof}[Proof of \cref{thm:refcompactpos,thm:PSGSA:Jrefdeltapos}]
+\begin{proof}[Proof of \cref{thm:refcompactpos,prop:JlimIMdeltapos,thm:PSGSA:Jrefdeltapos}]
     We suppose that \cref{assu:infeighes,assu:gausstailSk} are verified, we recall that in this proof $\delta>0$. The following lemmas are required for the proof. They are proven later on.
 
     \begin{lem}\label{lem:technicalLemma}
@@ -929,7 +1095,7 @@ This way, defining $k_0=\max(k_1,k_2,k_3,k_4)$, the following inequality is true
           There exists a constant $K_3>0$ independent of $\theta\in\tilde\Theta$ %with respect to $\pi$  
           such that for any $k>0$ and any $\rho>0$, %almost every $\theta\in\tilde\Theta$ and any $\rho>0$,
           \begin{equation}
-              \EE_\theta\left[ \indic_{\underline{\mbf E}_k} \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right] \leq \rho^{1/2} K_3 k^{-d\delta/2}
+            k^{d\delta/2} \EE_\theta\left[ \indic_{\underline{\mbf E}_k} \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right] \leq \rho^{1/2} K_3 
           \end{equation}
           with $\ubf E_k = \ubf E_k(\theta)=\{ \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}>\rho^{-1/\delta}\}$.
       \end{lem}
@@ -971,7 +1137,7 @@ Using $\ubf E_k= \ubf E_k(\theta)=\{p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\thet
 %    
 \nonumber                  &\leq \EE_\theta\left[ \indic_{\ubf E_k}\indic_{\ubf A} k^{d\delta/2} \hat C  \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)} \right] + \EE_\theta\left[ \indic_{\ubf E_k^c}\indic_{\ubf A}k^{d\delta/2}\hat C'\left( \frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right)^\delta \right] \\
  \label{eq:equiintpart2}
-                & \leq \hat C\rho^{1/2} K_3 +  \rho^{1/p} K_2^{1/p} , %\\
+                & \leq \hat C\rho^{1/2} K_3 +  \hat C'\rho^{1/p} K_2^{1/q} , %\\
 %\nonumber       & \leq \rho\hat C K + \rho^{1/p}K_2^{1/p}\label{eq:equiintpart2}
 \end{align}
 where $1/p=1-1/q$ with $q\delta/2<\xi$. Equations (\ref{eq:equiintpart1}) and (\ref{eq:equiintpart2}) ensure the required uniform-integrability. %for almost every $\theta\in\tilde\Theta$. 
@@ -1020,7 +1186,7 @@ The domination above makes the following licit:
     \begin{equation}
         \lim_{k\rightarrow\infty} k^{d\delta/2}\sI^k_{D_f}(\varPi(\cdot|\tilde\Theta))  = a(2\pi)^{d\delta/2}(1-\delta)^{-d/2} \int_{\tilde\Theta}\pi(\delta)^{\delta+1}|\cI(\theta)|^{-\delta/2}d\theta.
     \end{equation}
-This concludes the proof of \cref{thm:refcompactpos}. The result of \cref{thm:PSGSA:Jrefdeltapos} comes by 
+This concludes the proof of \cref{thm:refcompactpos}. The result of \cref{prop:JlimIMdeltapos,thm:PSGSA:Jrefdeltapos} comes by 
 concavity of $x\mapsto a x^{-\delta}$, which results from $a(\delta+1)>0$ and  gives
     \begin{align}
     \nonumber
@@ -1203,7 +1369,7 @@ These results
 push further the robustness of reference priors that are constructed from Jeffreys ---or hierarchical versions of Jeffreys--- and support the objectivity of their choice in practice.
 
 
-We conclude by emphasizing that our results provide  an analytical criterion that aids in the definition of some generalized reference prior.
+We conclude by emphasizing that our results provide  an analytical criterion that aids in the definition of some generalized reference priors.
 That criteria constitute an open path for the derivation of generalized reference priors over less general sets of priors.
 While this thought is slightly explored in this chapter, we note that it is furthered studied in the folowing chapter.
 
