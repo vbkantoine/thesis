@@ -39,14 +39,32 @@ Many of these  methods involve subjective choices that remain open to criticism.
 
 The research for so-called ``objective priors'' arose in contexts where the incorporation of uncritical beliefs is impossible (either by lack of available beliefs, or by lack of confidence within the existing ones).
 In those contexts, there is consensus that an appropriate prior belongs within the non-informative ones. In this respect, \citet{lindley_measure_1956} already suggested the maximization of the Shannon's entropy, as a way to choose a prior that would provide the least possible information.
-The same philosophy has been the source of several rules \citep{kass_selection_1996, datta_invariance_1996,berger_objective_2008}, which lead to different definitions for objective priors.
+The same philosophy has been the source of several rules, which lead to different definitions of objective priors. \textcolor{orange}{A review of the  existing rules and their application on simple examples is proposed by \cite{kass_selection_1996} and by \citet{berger_overall_2015}. We also mention the work of  \citet{datta_invariance_1996}, in which the question of invariance by re-parametrization of several of these rules is thoroughly focused.}
+%propose a review of these rules and provide applications of them on simple examples.}
+
+
+
+% \citep{kass_selection_1996, datta_invariance_1996,berger_objective_2008}, which lead to different definitions for objective priors.
 
 In this chapter and in this thesis, we focus on the reference prior theory, first introduced by \citet{bernardo_expected_1979}. 
 Based on an ``expected utility maximization'',
 the idea was to shift from minimizing the information in the prior to maximizing the knowledge brought by the observations over prior distribution itself.
 This notion of expected information, is defined with the support of the mutual information which allows for a formal construction of priors that are designed to let the data dominate the inference.
 
-The reference prior theory has been extensively studied since its deepen formalization by \citet{berger_formal_2009}. For instance, \citet{mure_objective_2018} provides a comprehensive review of the theory.
+The reference prior theory has been extensively studied since its deepen formalization by \citet{berger_formal_2009}. 
+\textcolor{orange}{The derivation of reference priors and the study of their properties in different contexts has been extensively focused. We can mention the works in \cite{berger_objective_2008} for bivariate normal models, 
+ \cite{berger_ordered_1992} for multinomial models,  and \cite{gu_parallel_2016} for Gaussian process models, among others. 
+More recent studies on the theory are scarce, yet we can
+we cite the work of \citet{bodnar_analytical_2014}, who suggest the derivation of reference priors using sequential maximization of Shannon's entropy, and the work of \citet{gao_deep_2022} 
+who consider reference priors to the training of deep neural networks. 
+%A few developments based on extending the definitions of the reference priors have been recently proposed
+%and other works suggesting a generalization of the reference prior defintion \cite{hashimoto_reference_2021,le_formal_2014,liu_divergence_2014} 
+%\citet{clarke_jeffreys_1994}
+%who provide a general formulation 
+%The reference priors themselves have deri
+%We can mention several works t
+We mention that \citet{mure_objective_2018} provides a comprehensive review of the theory, and introduces original results about the uniqueness of the reference priors.}
+
 This chapter proposes a novel brief review of the reference prior theory. We fix the framework and define important main tools for the theory in \cref{sec:intro-ref:classical-framework}. %, such as the mutual information. 
 The reference priors are formally defined in \cref{sec:intro-ref:mutalinfo-ref-priors}, and we review its different properties that are proven in the literature.
 Eventually, this chapter is the occasion to discuss the limitations of the standard framework of the reference prior, and to suggest a solution based on an original formalization of the Bayesian inference tools.  The latter in done in \cref{sec:intro-refs:limits} and fixes the mathematical elements and notations that we will manipulate through the whole manuscript. A short conclusion terminates the chapter in \cref{sec:intro-ref:conclusion}.
@@ -99,6 +117,17 @@ It is common to assume that the statistical model admits a likelihood: there exi
     \begin{equation}
         \forall A\in\sY,\,\PP_{Y|\theta}(A) = \int_A\ell(y|\theta)d\mu(y).
     \end{equation}
+
+\color{orange}
+\begin{ex}[Multinomial model]\label{ex:intro-ref:multinomialmodel}
+    The multinomial model is an example of statistical model where $\theta\in(0,1)^d$, $\cY=\{y\in\{0,\dots,n\}^d,\,\sum_{i=1}^dy^i=n\} $ for a fixed $n\in\NN^\ast$, and with
+    And with 
+        $%\begin{equation}
+            \ell(y|\theta) = \frac{n!}{y^1!\dots y^d!}\prod_{i=1}^d\theta_i^{y^i}.
+        $%\end{equation}
+\end{ex}
+\color{black}
+
 This way, $\PP_{\mbf Y_k}$ admits a \textbf{marginal density} $p_{\mbf Y_k}$ w.r.t. $\mu^{\otimes k}$ defined as
     \begin{equation}
         \forall\mbf y\in\cY^k,\, p_{\mbf Y_k}(\mbf y) = \int_\Theta\prod_{i=1}^k\ell(y_i|\theta) d\varPi(\theta) = \int_\Theta \ell_k(\mbf y|\theta)d\varPi(\theta),
@@ -243,8 +272,11 @@ Actually,  the original definition does not restrict the choices of that sequenc
 However, we will see in the sequel that some studies on reference priors require to impose some assumptions on $(\Theta_i)_i$. 
 %we will that some assumptions are mode on them by 
 
-
-
+\textcolor{orange}{
+\begin{ex}
+    If $\Theta$ is finite with $\sT=\sP(\Theta)$, and if $\PP_{Y|\theta}\ne\PP_{Y|\theta'}$ for any $\theta'\ne\theta$ then the reference prior $\varPi$ over the set of all priors is the uniform prior: $\varPi(B)=\varPi(B')$ for all $B,B'\subset\Theta$. A proof of this result is proposed in \cite{mure_objective_2018}.
+\end{ex}
+}
 
 
 We must note that other definitions of reference priors exist.
@@ -266,7 +298,15 @@ In \cite{berger_formal_2009}, the authors prove that in the real and one paramet
     then $F$ is a reference prior over $\cP_s$.
  \end{thm}
 
-
+ \textcolor{orange}{
+The form of the functions $f_k$ in the above theorem comes from maximizing the mutual information when $k$ is fixed. Indeed, it is possible to research for a maximal argument of the mutual information
+form a constrained optimization viewpoint. A Lagrange multipliers theorem should give
+an implicit expression of the density whose prior maximizes the mutual information for a fixed $k$: it is
+proportional to 
+    $\exp\left(\int_{\cY_k}\ell_k(\mbf y|\theta)\log(p(\theta|\mbf y) ) d\mu^{\otimes k}(\mbf y)\right)$. 
+This result is rigorously proven in the appendix for a particular case. 
+It was intuited by \citet{bernardo_bayesian_1994}, with the idea that, asymptotically, the posterior becomes independent of the chosen prior. The theorem formalizes the intuition, as the posterior in $f_k$'s expression comes from any initial prior $\varPi^\ast\in\cP_s$.
+}
 %
 
 
@@ -291,7 +331,13 @@ Typically, it is recommended to assume $\Theta_j\subset\RR^{d_j}$ with small dim
 
 This construction is often considered in the literature when it resorts to define reference priors in multidimensional context. 
 However, it relies on the hierarchization of the parameter fixed in \cref{eq:intro-ref:hierartheta}, and the recommended  one depends on the model of interest.
-There are a few models, such as the multinomial one, for which the different reference priors resulting from this construction have been extensively studied. In the case of the multinomial model, it is claimed that this construction with an ordering where $r=d$ when $\Theta\subset\RR^d$ must be favored  \citep{berger_ordered_1992,berger_overall_2015}.
+There are a few models, such as the multinomial (defined in \cref{ex:intro-ref:multinomialmodel}) one, for which the different reference priors resulting from this construction have been extensively studied. In the case of the multinomial model, it is claimed that this construction with an ordering where $r=d$ when $\Theta\subset\RR^d$ must be favored  \citep{berger_ordered_1992,berger_overall_2015}.
+\textcolor{orange}{In this case, the authors show that the density $\pi^\ast$ of this reference prior given by this construction is given by
+    \begin{equation}\label{eq:intro-ref:multinomialhierarref}
+        \pi^\ast(\theta) = K \left[\prod_{j=1}^r\prod_{i=1}^{d_j}\theta_j^{(i)-1/2} \right] \left[\prod_{j=1}^{r-1} \left(1- \sum_{j'=1}^j\sum_{i=1}^{d_j}\theta_{j'}^{(i)}   \right)^{-d_{j+1}/2}  \right] \left[1- \sum_{j=1}^r\sum_{i=1}^{d_j}\theta_j^{(i)} \right]^{-1/2},
+    \end{equation}
+where $K$ is a normalization constant.}
+
 
 
 
@@ -369,15 +415,58 @@ The Jeffreys prior refers to the prior whose density is $J$, defined by
     \begin{equation}
         J(\theta) = \sqrt{\det\cI(\theta)}.
     \end{equation}
-Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive function on $\Theta$. \citet{clarke_jeffreys_1994} have shown that it actually is the reference prior over the priors with continuous and positive densities on $\Theta$. Their result can be expressed as follows.
+Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive function on $\Theta$. \textcolor{orange}{Here are a few examples of Jeffreys priors in different modelings.}
+
+\color{orange}
+
+\begin{ex}[A proper Jeffreys prior in the multinomial case]
+    The multinomial model is defined as $\theta\in(0,1)^d$, $\cY=\{y\in\{0,\dots,n\}^d,\,\sum_{i=1}^dy^i=n\} $ for a fixed $n\in\NN^\ast$.
+    And with 
+        \begin{equation}
+            \ell(y|\theta) = \frac{n!}{y^1!\dots y^d!}\prod_{i=1}^d\theta_i^{y^i}.
+        \end{equation}
+    In this model, the Jeffreys prior corresponds to a Dirichlet($1/2,\dots,$ $1/2$) distribution:
+        \begin{equation}
+            J(\theta)\propto \prod_{i=1}^d\theta_i^{-1/2}(1-\theta_i)^{-1/2}.
+        \end{equation}
+    It is a proper prior and corresponds to the prior given in \cref{eq:intro-ref:multinomialhierarref} when $r=d$.  
+\end{ex}
+
+\begin{ex}[Jeffreys prior in the Gaussian case]
+    The Gaussian model is defined by $\cY=\RR$, $\ell(y|\theta) = \frac{e^{-\frac{(x-\mu)^2}{2\sigma^2}}}{\sqrt{2\pi\sigma^2}} $, with $\theta=\mu\in\RR $ in the known variance case, or $\theta=(\mu,\sigma^2)\in\RR\times(0,\infty) $ in the unknown variance case.
+    In both cases, the Jeffreys prior has a density:
+        \begin{equation}
+            J(\theta)\propto \frac{1}{\sigma}.
+        \end{equation}    
+    In the known variance case it corresponds to a uniform distribution on $\RR$. In both cases, it is improper.  However, its posteriors are always proper.
+\end{ex}
+
+\color{black}
+
+
+\citet{clarke_jeffreys_1994} have shown that the Jeffreys prior  is the reference prior over the priors with continuous and positive densities on $\Theta$. Their result can be expressed as follows.
     \begin{thm}\label{thm:intro-ref:clarke}
         Under \cref{assu:intro-ref:jeffreysexist}. Call an ``appropriate'' increasing sequence of set $(\Theta)_i$, an increasing sequence such that for any $i$ $\Theta_i$ is compact. Assume $\nu$ is the Lebesgue measure and let $\cP$ be the set of priors admitting a continuous and positive density. Then the Jeffreys prior is the unique reference prior over $\cP$.
     \end{thm}
-\citet{mure_objective_2018} has shown that the above theorem still stands when ``appropriate'' refers to open subsets of $\Theta$.
+\citet{mure_objective_2018} has shown that the above theorem still stands when ``appropriate'' refers to open subsets of $\Theta$. \textcolor{orange}{This result can be anticipated by reminding that the form of the density maximizing the mutual information for a fixed $k$ is $\exp\left(\int_{\cY_k}\ell_k(\mbf y|\theta)\log(p(\theta|\mbf y) ) d\mu^{\otimes k}(\mbf y)\right)$. 
+Indeed, according to the Bernstein von Mises theorem (see e.g. \cite{van_der_vaart_asymptotic_1992}), under appropriate assumptions, the posterior density $p(\theta|\mbf y)$ is asymptotically close  to a %converges to a 
+centered Gaussian density whose  variance is $\cI(\theta)^{-1/2}/\sqrt{k}$ when $\mbf y$ are sitributed w.r.t. $\PP_{\mbf Y_k|\theta}$.
+%where $\hat\theta_k$ is} an asymptotically sufficient and consistent estimator, such as the {Maximum Likelihood Estimator} (MLE) under general assumptions. 
+This convergence does not depend {on} the prior. We thus asymptotically have
+    \begin{equation}
+        \log p(\theta|\mbf y)\simeq \log \frac{k}{2\pi}  +\frac{1}{2}\log\det\cI(\theta),
+    \end{equation}
+and we approximate
+\begin{equation}
+    \int_{\cY^k} \ell_k(\mbf y|\theta)\log p(\theta|\mbf y) d\mu^{\otimes k}(\mbf y)\simeq \log\frac{k}{2\pi} + \frac{1}{2}\log\det\cI(\theta).
+\end{equation}
+Calling $f_k(\theta) = \exp\left(\int_{\cY^k}\ell_k(\mbf y|\theta)\log(p(\theta|\mbf y))d\mu^{\otimes k}(\mbf y)  \right)$, the above heuristic gives that $f_k$ is asymptotically proportional to $\exp\left(\frac{1}{2}\log\det\cI(\theta)\right)$, which is the density of the Jeffreys prior.}
 
 
-The Jeffreys prior arises as a cornerstone in the reference prior theory.
-This prior has been introduced by \citet{jeffreys_invariant_1946}. It is a prior that is already praised in Bayesian statistics for its main property to be invariant by re-parametrization of the model:
+
+We conclude this section by noticing that
+the Jeffreys prior arises as a cornerstone in the reference prior theory. We recall that
+this prior has been introduced by \citet{jeffreys_invariant_1946}. It is a prior that is already praised in Bayesian statistics for its main property to be invariant by re-parametrization of the model:
 define $\phi=g(\theta)$ with $g$ being a diffeomorphism, and define the model induced considering $\phi$ instead of $\theta$. Then the Jeffreys prior for this re-parameterized model admits the density $J_g$:
     \begin{equation}
         J_g(\phi) = J(g^{-1}(\phi)) %\left|\frac{dg^{-1}}{d\phi} (\theta)\right| 
