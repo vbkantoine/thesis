@@ -121,7 +121,6 @@ It is common to assume that the statistical model admits a likelihood: there exi
 \color{orange}
 \begin{ex}[Multinomial model]\label{ex:intro-ref:multinomialmodel}
     The multinomial model is an example of statistical model where $\theta\in(0,1)^d$, $\cY=\{y\in\{0,\dots,n\}^d,\,\sum_{i=1}^dy^i=n\} $ for a fixed $n\in\NN^\ast$, and with
-    And with 
         $%\begin{equation}
             \ell(y|\theta) = \frac{n!}{y^1!\dots y^d!}\prod_{i=1}^d\theta_i^{y^i}.
         $%\end{equation}
@@ -289,7 +288,7 @@ In \cite{berger_formal_2009}, the authors prove that in the real and one paramet
     Let $\varPi^\ast\in\cP_s$ we call $p^\ast(\cdot|\cdot)$ its posterior and define for any interior point $\theta_0\in\Theta$,
         \begin{equation}
             % \begin{aligned}
-                f_k(\theta) = \exp\left(\int_{\cY^k}\ell_k(\mbf y|\theta)\log(p^\ast(\theta|\mbf y)) d\mbf y \right) \quad\text{and}\quad  %\\
+                f_k(\theta) = \exp\left(\int_{\cY^k}\ell_k(\mbf y|\theta)\log(p^\ast(\theta|\mbf y)) d\mu^{\otimes k}(\mbf y) \right) \quad\text{and}\quad  %\\
                 f(\theta) = \lim_{k\rightarrow\infty}\frac{f_k(\theta)}{f_k(\theta_0)}.
             % \end{aligned}
         \end{equation}
