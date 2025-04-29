@@ -14,7 +14,6 @@
 \usepackage[absolute,overlay]{textpos}
 % \usepackage{graphicx}
 \usepackage{lipsum}
-\usepackage{hyperref}
 \usepackage{array}
 \usepackage{caption}
 \usepackage{multicol}
@@ -23,7 +22,6 @@
 % \usepackage[english]{babel}
 \usepackage{anyfontsize}
 \usepackage{ifxetex}
-\usepackage{ragged2e}
 
 
 \ifxetex
@@ -130,7 +128,7 @@ Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour m
 
 \chapter{Variational approximation of the reference priors}\label{chap:varp}
 
-
+\input{include_texs/ref-priors/va-rp.tex}
 
 
 \part{Seismic fragility curve estimation}\label{part:spra}
@@ -167,7 +165,7 @@ Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour m
 
 %\renewcommand{\thechapter}{\Alph{chapter}}
 
-\chapter{Design of experiments in low fidelity model of seismic fragility curves}\label{app:chap:ESAIM}
+\chapter{Design of experiments on a low fidelity model of seismic fragility curves}\label{app:chap:ESAIM}
 
 \include{include_texs/fragility-curves/low-fidelity-doe}
 
