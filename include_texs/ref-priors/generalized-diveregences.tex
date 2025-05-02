@@ -62,7 +62,7 @@ We consider a statistical modeling characterized by a collection of distribution
 The Bayesian framework is constructed as described in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}). We suppose that $\Theta\subset\RR^d$ and denote by $\nu$ the Lebesgue measure on $\RR^d$. 
 The priors considered are absolutely continuous distributions w.r.t. $\nu$.
 
-We consider the same notations as in \cref{chap:intro-ref}: $\mbf Y_k$ denote a random vector of $k$ data items whose distributed independently conditionally to $T=\theta$ where $T$ is an r.v. whose distribution is the prior $\varPi$. The density of $\varPi$ is denoted by $\pi$.
+We consider the same notations as in \cref{chap:intro-ref}: $\mbf Y_k$ denote a random vector of $k$ data items whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y_k|\theta}:=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$. The density of $\varPi$ is denoted by $\pi$.
 
 We suppose that the modeling admits a likelihood, denoted by $\ell$ with $\forall\theta\in\Theta,\mbf y\in\cY^k,\, \ell_k(\mbf y|\theta)=\prod_{i=1}^k\ell(y|\theta) $. We denote by $p_{\mbf Y^k}$ the marginal density of $\mbf Y_k$, and by $p(\cdot|\mbf y)$ the posterior density given the observations $\mbf y\in\cY^k$. %We recall that even though those quantities are defined (when they exist) only up to a constant, their definition is the usual o
 Furthermore, we suppose the modeling to be regular (i.e. \cref{assu:intro-ref:jeffreysexist} in \cref{chap:intro-ref} is verified), so that the Fisher information matrix (that we denote $\cI$) and the Jeffreys prior exist. A density of the Jeffreys prior is denoted by $J$.
