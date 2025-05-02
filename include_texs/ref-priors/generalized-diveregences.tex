@@ -195,7 +195,7 @@ The results provided below ensure that the generalized reference priors verify s
 
 \begin{proof}
     As the prior are continuous, their restrictions are proper on any compact. Thus, the quantities involved in the proposition are well-defined. 
-    As $\varPi$ is a reference prior over $\cP$ we can consider an associated openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ that covers $\Theta$. Since $\Theta$ is compact there exists $i$ such that $\Theta_i=\Theta$. Hence the result since the restriction $\varPi(\cdot|\Theta_i)$ verifies the statement of the proposition by definition.
+    As $\varPi$ is a reference prior over $\cP$ we can consider an associated openly increasing sequence of compacts $(\Theta_i)_{i\in\NN}$ that covers $\Theta$. Since $\Theta$ is compact there exists $i$ such that $\Theta_i=\Theta$. Hence the result since the renormalized restriction $\varPi(\cdot|\Theta_i)$ verifies the statement of the proposition by definition.
 \end{proof}
 
 \begin{prop}[Invertibility]
@@ -714,7 +714,7 @@ with $C_1=\frac{\tilde\sigma\overline{\sigma}}{\sqrt{2\pi}h\sigma^2} = \frac{(2\
  %   \item 
  \begin{enumerate}
     \item To prove the first statement of the theorem, 
-    we start by  computing the limit as $k\to\infty$ of the integrals  $C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta $ for a fixed $\theta'$ in which $\tilde\pi$ is continuous. The scheme of this proof is standard as this integral is the convoluted of  $\pi$ with an approximation to the unity. Let $\eps>0$, by continuity of $\pi$ there exists a neighborhood $V$ of $\theta'$ such that for any $\theta\in V$,  $|\pi(\theta)-\pi(\theta')|<\eps/2$. %for any $\theta\in V$.
+    we start by  computing the limit as $k\to\infty$ of the integrals  $C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta $ for a fixed $\theta'$ in which $\pi$ is continuous. The scheme of this proof is standard as this integral is the convoluted of  $\pi$ with an approximation to the unity. Let $\eps>0$, by continuity of $\pi$ there exists a neighborhood $V$ of $\theta'$ such that for any $\theta\in V$,  $|\pi(\theta)-\pi(\theta')|<\eps/2$. %for any $\theta\in V$.
     Additionally, it is possible to choose a $k_0$ such that for all $k\geq k_0$, $C_1\sqrt{k}\int_{\RR\!\setminus\!V} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}}d\theta <\eps/(4\sup_{\tilde\Theta}\pi)$. This way, for all $k\geq k_0$,
         \begin{equation}
             \left|C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta -\pi(\theta')  \right| \leq C_1\sqrt{k}\int_{\RR}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2} |\pi(\theta)\indic_{\theta\in\tilde\Theta}-\pi(\theta')|d\theta 

@@ -5,44 +5,404 @@
 \end{abstract}
 
 \begin{abstract}
-    abstract
+    Reference priors are widely recognized for their objective nature. Yet, they often lead to intractable and improper priors, which complicates their application.
+Besides, informed prior elicitation methods are penalized by the subjectivity of the choices they require. %to be made.
+In this chapter, we aim at proposing a reconciliation of the aforementioned aspects. Leveraging the objective aspect of reference prior theory, we introduce two strategies of constraint incorporation to build tractable reference priors.
+One provides a simple and easy-to-compute solution when the improper aspect is not questioned, and the other introduces constraints to ensure the reference prior is proper, or it provides proper posterior.
+Our methodology emphasizes the central role of Jeffreys prior decay rates in this process, and the practical applicability of our results is demonstrated using an example taken from the literature.
 \end{abstract}
 
 \minitoc
 
 
 
-\section{Introduction and motivations}
+\section{Introduction}
 
-introduction
+
+The reference prior theory represents a widely elected theory for constructing priors that are qualified as ``objective''.
+The theory has been thoroughly introduced in the \cref{chap:intro-ref}. %It defines priors that maximize the impact of the observed data over themselves in the posterior definition.
+The theory provides a formal mechanism to incorporate prior information in a way that maximizes the information gained from the data within the issued \emph{a posteriori} quantities.
+In opposition with a plethora of existing  methods for building a prior (see e.g. \cite{mikkola_prior_2023}), 
+this process is tuned to prevent the incorporation of subjective beliefs in the workflow.
+
+
+However, despite their  objective nature,  their implementation is often cumbersome and not always recommended in high dimensions \citep{berger_overall_2015}. %Moreover, 
+Moreover, the low-informative nature of these priors is associated with their common improper aspect, necessitating careful handling to ensure valid statistical inference.
+Thus, the construction of priors is expected to strike a balance between several criteria. While many works restrict their sets of priors to ones that are tractable, proper, or suitable for high dimensions, others seek to minimize any source of subjectivity.
+
+This chapter aims to reconcile all these criteria to improve the prior elicitation.
+Our contribution takes the form of an enrichment of the reference prior theory to leverage the objective aspect that it provides to reference priors. Building on the developments presented in \cref{chap:ref-generalized},
+we restrict priors to the ones that belong to  well-chosen ---and not too restrictive--- sets, and we introduce two strategies to define  convenient reference priors.
+% First 
+Our first strategy provides a simple,  tractable solution for constraining reference priors when the improper aspect is not questioned. The second, by contrast, introduces constraints that lead to  reference priors that are proper, or lead to proper posteriors. 
+% 
+For both strategies, we try to define the potential loss of objectivity induced by the constraints and we discuss their limits.
+Our results emphasize the central role of Jeffreys prior decay rates when they are improper.
+Additionally, we draw attention to the fact that our methodology opens a way to define various reference priors on the basis of constraints that could result from any other motivation.
+
+
+
+The rest of the paper begins with
+a review of the reference prior theory and of the definitions of the reference priors in Section \ref{sec:refpriors}. It precedes the development  of the main contribution of the paper.
+Indeed, Section \ref{sec:constraintsection} motivates our work and expresses our results about constrained reference priors, which are then discussed in Section \ref{sec:discussion}.
+Eventually, the claimed practical aspect of our study is demonstrated by the application of our method to an example taken from  the literature in Section \ref{sec:example}. Detailed mathematical proofs are compiled in Section \ref{sec:proofs}, followed by a conclusion in Section \ref{sec:conclusion}. 
+
+
+\section{Definitions, notations and motivation}
+
+\subsection{Notations}
+
+% \subsection{}
+
+% notations IM, results of preceeding chapters, quasi-reference priors
+
+%motivations %maybe its whole section
+
     %\subsection{The limitations of Jeffreys prior}
 
     %\subsection{}
 
-\section{Reference priors among improper decay rates}
+In this work we consider a statistic model characterized by a collection of probability distributions $(\PP_{Y|\theta})_{\theta\in\Theta}$ on  a measurable set $(\cY,\sY)$. 
+We consider the same construction of the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}): considering any prior $\varPi$ (that is a $\sigma$-finite measure on $\Theta$) we denote $\mbf Y_k$ a random vector of $k$ observations whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y^k|\theta}=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$
 
-    \subsection{A required definition: quasi-reference priors}
-
-    quasi ref
-
-    \subsection{Results}
-
-    results
-
-\section{Properly constrained reference priors and quasi-reference priors}
-
-    \subsection{Linear constraints in a compact case}
-
-    linear
-
-    \subsection{Constraints for proper reference priors and proper reference posteirors}
-
-    constraints
+The modeling is supposed to be regular: we assume $\Theta\subset\RR^d$ with $\nu$ being the Lebesgue measure on $\RR^d$ and every prior $\varPi$ is supposed to admit a density $\pi$ w.r.t. $\nu$ (i.e. $\varPi\in\sM^\nu$).
+We also assume that the model admits a likelihood, denoted by $\ell$ with for any $\theta\in\Theta$ and $\mbf y\in\cY^k$, $\ell_k(\mbf y|\theta):= \prod_{i=1}^k\ell(\mbf y|\theta)$. We suppose that it verifies \cref{assu:intro-ref:jeffreysexist} in \cref{chap:intro-ref}, making the Fisher information matrix (denoted $\cI$) and the Jeffreys prior (whose density is denoted $J$) being well-defined.
+The marginal distribution (resp. density)  is denoted by $\PP_{\mbf Y_k}$ (resp. $p_{\mbf Y_k}$) and the posterior distribution (resp. density) given the observations $\mbf y\in\cY^k$ is denoted by $\PP_{T|\mbf y}$ (resp. $p(\cdot|\mbf y)$).
 
 
-\section{Discussion and an example}
 
-discussion
+Given these notations, we recall the expression of the generalized mutual information, defined in the \cref{chap:ref-generalized}:
+\begin{equation}
+    \sI_D^k(\varPi) := \EE_{T\sim\varPi}[D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} )],
+\end{equation}
+with $D$ being a dissimilarity measure.
+In this chapter, we mostly focus on such generalized mutual information when $D$ is a $\delta$ divergence with $\delta\in(0,1)$. For some $\delta\in(0,1)$, the notation $D_\delta$ will refer to the $\delta$-divergence whose expression is reminded below:
+    \begin{equation}
+        D_\delta(P||Q) = \int_\cX f_\delta\left( \frac{p(x)}{q(x)}  \right) q(x) d\omega(x)\quad \text{with}\quad f_\delta(x) = \frac{x^\delta-\delta x-(1-\delta)}{\delta(1-\delta)},
+    \end{equation}
+where $p,q$ respectively are densities pf $P$ and $Q$ w.r.t. a common measure $\omega$ on $\cX$.
+When evoking reference priors in a general way, we will refer to generalized reference priors, as proposed in the \cref{chap:ref-generalized}.
+We remind below their definition:
+\begin{defi}[Generalized reference prior]\label{def:BA:genref}
+    Let $D$ be a dissimilarity measure and $\cP$ a set of priors on $\Theta$. A prior $\varPi\in\cP$ is called a $D$-reference prior over $\cP$ with rate $\varphi(k)$ if there exists an openly increasing  sequence of compact subsets $(\Theta_i)_{i\in\NN}$
+    such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ and for any $i$: $0<\varPi(\Theta_i)<\infty $ and
+    % with $\pi^\ast(\Theta_i)>0$, $\Theta_i\subset\Theta$, $\bigcup_{i\in I}\Theta_i=\Theta$ such that
+        \begin{equation} %\label{eq:defrefpriorsi}
+            \lim_{k\rightarrow\infty}\varphi(k)[\sI^k_D(\varPi(\cdot|\Theta_i))-\sI^k_D(P(\cdot|\Theta_i))] \geq0 \text{\ for all\ } P\in\cP\text{\ verifying\ }0<P(\Theta_i)<\infty;
+        \end{equation}
+    where  $\varphi(k)$ is a {positive and}  monotonous function of $k$. It is said to be unique if for any other $D$-refernce prior $\varPi'$, $\varPi\simeq\varPi'$.
+\end{defi}
+
+We also remind the following result on the $D_\delta$-mutual information and their reference priors (see \cref{chap:ref-generalized}).
+%  that are defined considering a generalized ,
+\begin{thm}\label{thm:BA:l(pi)}
+    Suppose $\Theta$ to be compact and $\varPi\in\sM^\nu_\cC$ be a prior with $\varPi(\Theta)=1$. the $D_\delta$-mutual information admits a limit:
+        \begin{equation}
+            \lim_{k\rightarrow\infty} k^{d\delta/2} \sI_{D_\delta}(\varPi) = l(\pi) - (\delta(1-\delta))^{-1}, \quad l(\pi) = C_\delta \int_{\Theta}\pi(\theta)^{1+\delta} |\cI(\theta)|^{-\delta/2}  d\theta ,
+        \end{equation}
+        where $\pi$ is the density of $\varPi$, and with $C_\delta= (2\pi)^{d\delta/2} (1-\delta)^{-d/2}/(\delta(\delta-1))$.\\
+    Call $\cR\subset\sR^\nu_{\cC^b}$ a set of densities such that $M(\cR)=\cP$, with $M$ mapping a density to its associated prior. Then
+        $\varPi$ is a $D_\delta$-reference prior over $\cP$ iff $\pi$ maximizes $l$ over $\cR$. 
+\end{thm}
+
+
+
+
+\subsection{Objective and motivation}
+
+
+
+%As we mentioned in Section \ref{sec:refpriors}, 
+We already know that the definition of the reference prior and the $D_\delta$-reference prior is satisfied by the Jeffreys prior over the large set of priors $\sM^\nu_\cC$ in most cases (see \cref{chap:intro-ref,chap:ref-generalized}).
+% in most case (see \cref{chap:intro-ref} for ). 
+
+%the large class of priors admitting locally bounded and a.e. continuous densities w.r.t. the Lebesgue measure \citep{VanBiesbroeckBA2023}. 
+
+This result is, however, limiting and disappointing in some cases. The reasons are the following ones: (i) the Jeffreys prior is not recommended in high-dimensional problems as it is known to be ``either too diffuse or too concentrated'' \citep{berger_overall_2015}; moreover (ii) when the expression of the likelihood is itself complex, the computation of the Jeffreys prior can become  intractable; %which is why (iii) in practice a restriction to the class of priors to ones which are easier to compute is often favored; 
+also (iii) the Jeffreys prior is known to often lead to an improper prior, which does not necessarily issue a proper posterior distribution, essential for practical \emph{a posteriori} inference and sampling.
+
+To tackle these limitations, we propose in this work to restrict the set of priors over which we derive the reference priors.
+Indeed, the reference prior definition is usually considered with very large sets of priors, which are constrained only by some regularity assumptions imposed to the priors (such as continuity, positivity). These regularity assumptions do not generally discriminate the Jeffreys prior from the studied set of priors.
+In this chapter, different restricted sets of priors will be suggested, they are sets that are though 
+to counter the limitations (ii) and (iii) aforementioned. In most cases, they will not include the Jeffreys prior.
+%to not include the Jeffreys prior when 
+
+
+
+The tackling of limitation (i) mentioned above is not a purpose of this work. We recall that it is actually frequently tackled a sequential construction of the reference prior as %presented in \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}).
+suggested by \citet{bernardo_reference_1979}.
+On the condition that an ordering of the parameters is set:
+ \begin{equation}
+     \theta = (\theta_1,\dots,\theta_r) \in \Theta=\Theta_1\times\dots\times\Theta_r,
+ \end{equation}
+this construction considers a hierarchical construction of the reference prior.
+It is already described in \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}). We remind below the steps of the sequential construction:
+%
+%Typically, it is recommended to assume $\Theta_j\subset\RR^{d_j}$ with small dimensions $d_j$ (e.g., lower or equal than $2$) for any $j\in\{1,\dots,r\}$, and to sequentially build a reference prior on the $\Theta_j$,  $j\in\{1,\dots,r\}$:
+ \begin{enumerate}
+     \item initially fix $\ell_k^1=\ell_k$;
+     \item for any values of $\theta_{j+1},\dots,\theta_r\in\Theta_{j+1}\times\dots\times\Theta_r$, compute a reference prior (in the sense of \cref{def:intro-ref:ref-priors})  under the model with likelihood $\theta_j\mapsto\ell_k^j(\mbf y|\theta_j,\dots,\theta_r)$, denote $\pi_j(\cdot|\theta_{j+1},\dots,\theta_r)$ its normalized density;
+     \item derive $\ell_k^{j+1}$ such as 
+         \begin{equation} %\label{eq:hier:condlikeint}
+            \ell_k^{j+1}(\mbf y|\theta_{j+1},\dots,\theta_r) =  \int_{\Theta_j}\ell_k^j(\mbf y|\theta_j,\dots,\theta_r)d\pi_j(\theta_j|\theta_{j+1},\dots,\theta_r).
+         \end{equation}
+ \end{enumerate}
+
+In this work, the reference priors will be derived only given their formal definition (\cref{def:BA:genref}). Yet, our results can be incorporated in this sequential construction. Indeed,
+step 2 of the method depicted above consists of the derivation of a reference prior w.r.t. the variable $\theta_j$.
+%in the sense of Definition \ref{defi:refprior} (or of a quasi-reference prior if that latter does not exist). 
+% Thus, the methodology that is presented in this
+% Thus, our reference priors over constrained classes of priors can be  plainly incorporated into this method.
+Additionally, we invite to note that this construction does not solve the limitations (ii) and (iii) previously evoked. Actually, it makes them essential. Indeed, step 2 requires, firstly, a derivation of a reference prior, so that it would lead to a low-dimensional Jeffreys prior if the class of priors is not constrained. Also step 3 necessitates, secondly, that the latter leads to a proper posterior so that the integral involved does not diverge.
+
+We note that this last issue is taken into account by \citet{berger_development_1992} with the suggestion of such construction on an increasing sequence of compact subsets of $\Theta$: $\bigcup_{i\in\NN}\Theta_i=\Theta$. The hierarchical reference prior can then be chosen as a limit of the ones obtained under $\Theta_i$ when $i\to\infty$. However, this limit can be cumbersome to derive in practice. Another solution suggested by \citet{mure_objective_2018} is to restrict the $\sigma$-algebra $\sY$ until the reference prior derived in step 2 leads to a proper posterior. It is still imperfect, as there is no guarantee that such a restricted $\sigma$-algebra exists outside the trivial one.
+
+
+%In the following subsections, we propose a range of solutions to some of the issues aforementioned, based on the derivation of reference priors over constrained classes of priors. In  Section \ref{sec:constrainedasympt}, we derive a quasi $D_\delta$-reference prior over classes of priors that are easy to compute, in order to tackle the limitations (ii) and (iii) previously evoked. Then, Section \ref{sec:constrainedproper} explores another kind of constrained classes of priors, which leads to $D_\delta$-reference priors that can solve the item (iv).
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{A useful definition: quasi-reference priors}
+
+%As explained in the introduction, the objective of this work is to study reference priors over restricted sets of priors. Indeed, the reference prior definition is usually considered with very large sets of priors, which are constrained only by some regularity assumptions imposed to the priors (such as continuity, positivity). %This regularity does not generally discriminate the Jeffreys prior
+%Actually, 
+%The choice of the set of priors $\cP$ in \cref{def:BA:genref} remains open and can be restrained from the large one of priors in $\cM^\varrho_\cC/\!\simeq$. %admitting continuous densities w.r.t. the Lebesgue measure.
+
+While we aim at restricting the set of priors $\cP$ in \cref{def:BA:genref}, we must notice
+that such a restriction leaves really unsure the existence of a reference prior. 
+Indeed, the definition is itself restrictive, as to admit a reference prior, the set $\cP$ must contain a prior whose restrictions are optimal on any compact subsets of $\Theta$.
+In this section, we suggest an extension of the definition of reference priors in the case where in the set $\cP$, the optimal priors on compact subsets of $\Theta$ are not renormalization of each other, but converge to a  prior in $\cP$. 
+Such convergence is considered in the sense of the Q-vague convergence \citep{bioche_approximation_2016} on $\sM^\nu_\cC$. % on $\cM^\nu\cC/\!\simeq$. This convergence defines a topology 
+The Q-vague convergence of a sequence $(\varPi_n)_n$ to a limit $\varPi$ is equivalent to the convergence of $([\varPi_n])_n$ to $[\varPi]$ in $\sM^\nu_\cC/\!\simeq$ for the quotient topology of the vague convergence on $\sM^\nu_\cC$.
+
+
+
+
+\begin{defi}[Quasi reference prior]\label{defi:quasiRefprior}
+    Let $\cP$ be a set of priors. We call $\varPi\in\cP$ a quasi $D$-reference prior if it exists an openly increasing sequence $(\Theta_i)_{i\in \NN}$  of compact sets with $\bigcup_{i\in\NN}\Theta_i=\Theta$ such that
+    \begin{itemize}
+        \item[(i)] for any $i\in \NN$, there exists a $D$-reference prior $\varPi_i$ over $\cP_i=\{P(\cdot|\Theta_i),\, P\in\cP,\,P(\Theta_i)\in(0,\infty) \}$, %, the set of renormalized restrictions to $\Theta_i$ of priors in $\cP$,
+        \item[(ii)] $\varPi$ is the Q-vague limit of the sequence $(\varPi_i)_{i\in \NN}$.
+    \end{itemize}
+    It is said to be unique  if for any other quasi $D$-reference prior $\varPi'$, $\varPi\simeq\varPi'$.
+\end{defi}
+
+Proposition below ensures that this definition properly extends \cref{def:BA:genref} in the case of $\delta$-divergences.
+\begin{prop}\label{prop:quasi}
+     \begin{itemize}
+        \item If $\varPi$ is a $D_\delta$-reference prior over a set $\cP$, then it is a quasi $D_\delta$-reference prior.
+        \item If $\cP$ is a set of priors convex and stable by multiplication by indicator functions over measurable sets, then the quasi $D_\delta$-reference prior over $\cP$ is the unique $D_\delta$-reference prior over $\cP$.
+        \item If $\cP$ is a convex set of priors and if the sequence of subsets $(\Theta_i)_i$ in \cref{def:BA:genref} is fixed, then the quasi-reference prior over $\cP$ is unique.
+    \end{itemize}
+\end{prop}
+
+
+\begin{proof}
+    The first statement of the proposition is clear given the definition of a $D_\delta$-reference prior.\\
+    For the second, let us adopt the notations of \cref{thm:BA:l(pi)} and  notice that if $\Theta$ is compact and if $\pi^\ast$ is the maximal argument of $l$ over $\cR$, then its renormalized restriction $\pi_1^\ast$ on a compact subset $U$ maximizes $l$ over the set of all renormalized densities $\cR_U$.
+    Indeed, if we suppose that $\pi_1\in\cR_U$ maximizes $l$ then, denoting $\pi_0^\ast$ the renormalized restriction of $\pi^\ast$ to $\Theta\setminus U$, $t=\int_U\pi^\ast$, and $\pi = t\pi_1+(1-t)\pi_0^\ast$, $\pi\in\cR$ and
+        \begin{equation}
+            l(\pi) = t^{\delta+1}l(\pi_1) + (1-t)^{\delta+1}l(\pi_0^\ast) > t^{\delta+1}l(\pi_1^\ast) + (1-t)^{\delta+1}l(\pi_0^\ast) = l(\pi^\ast).
+        \end{equation}
+    Hence $\pi^\ast$ does not maximize $l$ over $\cR$, which is absurd.\\
+    Therefore, in our problem, considering two sequences $(\pi^{(1)}_i)_i$ and $(\pi_i^{(2)})_i$ respectively defined on $(\Theta_i^{(1)})_i$ and $(\Theta^{(2)}_i)_i$, we will get that for any $i$, $\pi^{(1)}_i(\theta)=\pi_i^{(2)}(\theta)$ for all $\theta\in\Theta_i^{(1)}\cap\Theta_i^{(2)}$. Eventually, they are identical on every compact subsets of $\Theta$, and equal to their Q-vague limits which are the same.\\
+    Finally, the third statement of the proposition results from the strict concavity of $l$. Indeed, for any $i$, the set $\cR_i$ of renormalized restricted densities on $\Theta_i$ is convex so that the maximal argument of $l$ over $\cR_i$ is unique. Hence the uniqueness of the quasi-reference prior over $\cP$.
+\end{proof}
+    
+
+
+
+\section{Constrained $D_\delta$-reference priors}
+
+
+
+
+
+\subsection{Constrained $D_\delta$-reference priors based on Jeffreys' asymptotic decay rates}
+
+
+
+    % \subsection{Results}
+
+    
+
+
+    In this section, we tackle the computational cost of the reference prior. As mentioned in Section \ref{sec:issuesJeff}, the Jeffreys prior expression is often complex to derive even in low dimensional models. This is even more a problem in practical studies where the prior must be evaluated a numerous number of times, when it resorts to MCMC simulations to provide posterior samples of $\theta$ for instance.
+
+    In some works of the literature, the Jeffreys prior is replaced by its decay rates at the boundary of the domain. For instance, the reference prior for Gaussian processes suggested by \citet{gu_jointly_2019} is built on the basis of the decay rates of a Jeffreys prior sequentially computed on the different variables that compose $\theta$ (following the construction presented in Section \ref{sec:issuesJeff}).
+    Their idea is that, in particular when it is improper, the prior provides the most information from its asymptotic rates, and variations of them are noticed to have a strong influence on the posterior distribution.
+    The result that follows provides a formalization of this intuition, focusing on the case where the Jeffreys prior asymptotically behaves like exponentiation of coordinates of $\theta$.
+    
+    
+    
+    
+    
+    \begin{thm}\label{thm:Jthetaa}
+        Suppose $\Theta\subset\RR$ is an interval of the form $[c,b)$ (or $(b,c]$). Call $M:\pi\in\sR_{\cC^b}\mapsto(B\mapsto\int_B \pi d\nu)\in\sM^\nu_\cC$. %, with $J$ integrable and non-null in the neighborhood of $c$.
+        \begin{itemize}
+            \item If $b\in\RR$ and $J(\theta)\equi{\theta\rightarrow b}C|\theta-b|^a$ for constants $C\in\RR$ and $a\leq-1$, then $M(\pi^\ast)$ where $\pi^\ast(\theta)\propto|\theta-b|^a$ is the unique quasi $D_\delta$-reference prior over $M(\hat\cP)$ where $\hat\cP = \{\pi(\theta)\propto|\theta-b|^u,\,u\in\RR\}$.
+            \item If $|b|=\infty$ and $J(\theta)\equi{\theta\rightarrow b}C\theta^a$ for constants $C\in\RR$ and $a\geq-1$, then $M(\pi^\ast)$ where $\pi^\ast(\theta)\propto\theta^a$ is the unique quasi $D_\delta$-reference prior over $M(\hat\cP)$ where $\hat\cP = \{\pi(\theta)\propto\theta^u,\,u\in\RR\}$.
+        \end{itemize}
+    \end{thm}
+    
+    \begin{proof}
+        The proof is technical and detailed in section \ref{sec:proofs}.
+        The idea is that $l(\pi)$ can be seen as a negative divergence between $\pi$ and $J$. However, when $J$ is improper at the boundary of the domain, the maximization of $l(\pi)$ gets closer to the minimization of a divergence between $\pi$ and the improper decay rate of $J$.
+    \end{proof}
+    
+    
+    \begin{rem}
+        Theorem \ref{thm:Jthetaa} still stands when $\Theta=(b,c)$ (or $(c,b)$) if $c\ne\infty$ and if $J(\theta)$ admits a non-null and finite limit when $\theta\to b$.
+    \end{rem}
+    
+    
+    
+    
+    This theorem serves the statement of two conclusions: (i) it emphasizes that when Jeffreys prior is improper, its improper decay rates contain the most relevant information, and (ii) it proposes to choose this asymptotic expansion of Jeffreys as a quasi $D_\delta$-reference prior when we look for an easy prior to compute.
+    
+    
+    
+
+
+
+
+
+
+\subsection{Properly constrained $D_\delta$-reference priors}
+
+
+
+In Section \ref{sec:constrainedasympt}, we have provided some elements to construct a tractable reference prior on the coordinates over which Jeffreys prior is improper.
+The reference prior that our theorem proposes keeps the improper characteristic of Jeffreys prior on the same coordinates.
+This improper aspect can, however, remain an issue in some cases, especially when the resulting posterior is improper as well.
+
+For this reason, it might happen that some asymptotic rates in some directions still have to be tackled. The work in this section is concluded by results that allow defining a $D_\delta$-reference prior (or quasi $D_\delta$-reference prior), which benefits from adjusted decay rates from Jeffreys prior. 
+The proposition below constitutes a preliminary result that gives the form of a $D_\delta$-reference prior over a class of priors with linear constraints.
+
+\begin{assu}\label{assu:glibre}
+    A family of functions from $\Theta$ to $\RR$ $(g_j)_{j=1}^p$ is said to satisfy Assumption \ref{assu:glibre} if $g_0,\dots,g_p$ are linearly independent in the space of a.e. continuous functions from $\Theta$ to $\RR$, where $g_0:=\theta\mapsto 1$.
+\end{assu}
+
+\begin{prop}\label{prop:constraints}
+    Suppose $\Theta$ to be a compact subset of $\RR^d$. Let $g_1,\dots,g_p$ be %a.e. continuous 
+    functions in $\sR_{\cC^b}$ %from $\Theta$ to $\RR$ 
+    that satisfy Assumption \ref{assu:glibre}. Define $\tilde\cP$ the set of priors $\varPi$ on $\Theta$ such that $\forall 1,\dots,p$, $\int_\Theta g_jd\varPi=c_j$, for some $c_j\in\RR$.
+    If %$\tilde\cP$ is not empty, then 
+    there exists a $D_\delta$-reference prior over $\tilde\cP$, it is unique. If it is positive, its density $\pi$ verifies
+    \begin{equation}
+        \pi(\theta) = J(\theta)\left(\lambda_0+\sum_{j=1}^p\lambda_jg_j(\theta) \right)^{1/\delta},
+    \end{equation}
+    for some $\lambda_j\in\RR$. Reciprocally, if there exists a prior %$\pi^\ast\in\tilde\cP$ 
+    whose density verifies the above equation for some $\lambda_j\in\RR$, it is the $D_\delta$-reference prior over $\tilde\cP$.
+\end{prop}
+
+\begin{proof}
+    This proposition results from a Lagrange multipliers theorem. A detailed proof is proposed in Section \ref{sec:proofs}.
+\end{proof}
+
+
+
+\begin{rem}
+    While it is not the subject of this work, we let the reader notice that this proposition opens the way to the introduction of constraints based on expert judgments in prior elicitation. They can take the form of moment constraints or predictive constraints \citep{bousquet_contributions_2024}??.    
+\end{rem}
+
+\begin{rem}\label{rem:klconst}
+    The expression of the reference prior given by Proposition \ref{prop:constraints} depends on the chosen $\delta$-divergence.
+    While this work considers only the framework of reference priors under $\delta$-divergences as a dissimilarity measure, a version of this theorem could be written in the original framework of the reference prior theory that uses the Kullback-Leibler divergence. The expression of the resulting reference prior would be impacted. 
+    In the appendix we proove that the expression using the Kullback-Leibler divergence would take the form:
+    %In \cite{bernardo_bayesian_1994}, the authors suggest that the expression should take the form of
+        \begin{equation}
+            \pi^\ast\propto J\cdot\exp\left(\sum_{j=1}^p\lambda_j g_j\right),
+        \end{equation}
+        for some $\lambda_j$ that remain to be determined.
+    This expression was already intuited by \citet{bernardo_bayesian_1994}.
+        %Their suggestion is supported by the derivations made in \cite[\S C.3, Theorem 2]{GauchyPhD}.
+\end{rem}
+ 
+
+
+
+Below, given a function $g$ that is selected to adjust the asymptotics of Jeffreys prior, is stated the expression of a proper $D_\delta$-reference prior.
+
+\begin{thm}\label{thm:lintoproper}
+    Let $g:\Theta\to(0,\infty)$ be a function in $\sR_{\cC^b}$ such that
+        \begin{equation}\label{eq:intgalphafinite}
+            \int_\Theta J(\theta)g^{1/\delta}(\theta)d\theta<\infty \quad\text{and}
+            \quad\int_\Theta J(\theta)g^{1/\delta+1}(\theta)d\theta<\infty,
+        \end{equation}
+    and suppose that $g$ is bounded in the neighborhood of $b$ for an element $b\in\partial\Theta$. %such that $J$ is improper in the neighborhood of $b$.
+    We denote by $\overline\cP$ the class of positive priors $\varPi$ on $\Theta$ such that $\int_\Theta gd\varPi<\infty$, and we define 
+    $\varPi\in\overline\cP$ as the prior whose density $\pi$ verifies % follows 
+        \begin{equation}
+            \pi(\theta)\propto J(\theta)g(\theta)^{1/\delta}.
+        \end{equation}
+    If $Jg$ is non-integrable in the neighborhood of $b$, then $\pi$ is a $D_\delta$-reference prior over $\overline\cP$. Otherwise, and if $J$ is improper in the neighborhood of $b$, $\pi$ is a $D_\delta$-reference prior over the class of proper priors in $\overline\cP$.
+\end{thm}
+
+\begin{proof}
+    The statement of this theorem results from the sequential use of Proposition \ref{prop:constraints} on an increasing sequence of compact subsets of $\Theta$. A detailed proof is written in Section \ref{sec:proofs}.     
+\end{proof}
+
+
+%\begin{rem}
+   To improve the above theorem, one would like 
+     to relax the first assumption in Equation (\ref{eq:intgalphafinite}), i.e., to let $\int_\Theta J g^{1/\delta}$  be infinite. Indeed, in this way, the result would provide a reference prior $\varPi$ ---non-necessarily proper--- but such that $\pi g\in L^1$, where $\pi$ is a density of $\varPi$. With a good choice of $g$, $\pi^\ast$ could be built as a prior that provides a proper posterior. It is the purpose of the next theorem. 
+    The cost of this relaxation is the provision of a quasi-reference prior instead of a reference prior.
+    %However, our proof needs this assumption, but one can feel that such (quasi)-reference prior is not far to exist as expressed in the proposition  below.
+%\end{rem}
+
+\begin{thm}\label{thm:quasipostpropre}
+    Let $g:\Theta\to(0,\infty)$ be a continuous function such that
+    \begin{equation}
+        \int_\Theta J(\theta)g(\theta)d\theta=\infty\quad\text{and}\quad \int_\Theta J(\theta)g^{1/\delta+1}(\theta)d\theta<\infty,
+    \end{equation}
+and suppose that $g(\theta)\conv{\theta\rightarrow b}0$ for an element $b\in\partial\Theta$ such that $J$ is non-integrable in the neighborhood of $b$.\\
+Let $(\Theta_i)_{i\in\NN}$ be an openly increasing sequence of compact sets that covers $\Theta$ and $(c_i)_i$ be a bounded sequence in $(0,\infty)$. Define the set of priors  $\overline\cP'=\{\varPi,\,\forall i,\,\int_{\Theta_i} gd\varPi=c_i\int_{\Theta_i}d\varPi\}$.\\ %, where $(c_i)_i$ is a bounded sequence in $(0,\infty)$.\\
+Denote for any $i$ $\overline{\cP}'_i$ the set of renormalized restrictions to $\Theta_i$ of priors in $\overline{\cP}'$. If for any $i$ there exists a  positive maximum of $l$ over $\overline\cP'_i$, then  $\varPi$ whose density is denoted $\pi$ is a quasi $D_\delta$-reference prior over $\overline\cP'$ with
+    \begin{equation}
+        \pi(\theta)\propto J(\theta)g(\theta)^{1/\delta}.
+    \end{equation}
+    This prior is such that $\int_\Theta\pi gd\nu<\infty$.
+\end{thm}
+
+
+
+
+\section{Discussion}
+
+The knowledge of Jeffreys prior's decay rates is central in the results presented in this work. These results indicate that in common scenarios where Jeffreys prior is improper, these rates must be explicitly considered in order to construct a reference prior. 
+
+We let the reader note that Theorems \ref{thm:lintoproper} and \ref{thm:quasipostpropre} introduce results that also depend on the chosen dissimilarity measure. Therefore, a balance must be found between the subjective influence of the constraint and the quest for an informed prior to facilitate possible sampling from the posterior. This is illustrated in the example we address in the following section.
+However, it is important to observe that using the KL-divergence instead of the $\delta$-divergence %considered in our work 
+would result in a stronger influence of the constraint on the final prior. As noted in Remark \ref{rem:klconst}, the exponentialization of the function $g$ could lead to a prior with distribution tails that are significantly negligible beyond those of Jeffreys, thereby jeopardizing its objective nature.
+
+Generally, the results we propose in Sections \ref{sec:constrainedasympt} and \ref{sec:constrainedproper} address different problems and are thus  fundamentally different in nature. In one case, the improper aspect of Jeffreys prior is not necessarily challenged, and an efficient construction of the latter is proposed. In the other case, the goal is to significantly attenuate its improper aspect while maintaining as much objectivity as possible. In this latter case, however, the expressions of the proposed  reference priors still depend on the expression of Jeffreys prior. Nevertheless, when Jeffreys prior is proper, there is no guarantee that a straightforward construction inspired by its convergence rates at the domain boundaries will be relevant. %ensure its reference nature in a simple and interpretable way. 
+Indeed, although improper tails concentrate an infinite mass that constitutes all the information at the boundaries, when they are proper, the information of interest may need to be sought elsewhere. In this case, a calculation or approximation of the `proper' Jeffreys prior remains to be considered.
+
+Finally, regarding Theorem \ref{thm:Jthetaa}, although the result is limited to parameter power distribution tails, it is observed that, in practice, these include a wide range of improper Jeffreys priors.
+For example, this includes Jeffreys priors derived from various Gaussian models, such as those introduced by \citet{Neyman1948}; Jeffreys priors related to specific parameters within Gaussian process models \cite{Gu2016}; and those arising in more specialized contexts, like the one in \cite{VanBiesbroeck2023}.
+%
+%
+%are concerned the Jeffreys prior in the normal 
+%\textcolor{red}{Il faudrait en lister plusieurs.}
+Moreover, the invariance of Jeffreys priors under reparameterization can sometimes allows us to return to this case. Specifically, if $J$ can be asymptotically written as a power of a function $f$, where $f$ is differentiable, monotone and with bounded derivative (from above and from below), then the reparameterization $\vartheta=f(\theta)$ %with a well  
+should allow us to recover the reference prior among those expressible as powers of $f$.
+
+In the following section, we illustrate an application of our work with an example taken from the literature.
+
+
+\section{An example}
+
+\section{Detailed proofs}
 
 
 \section{Conclusion}

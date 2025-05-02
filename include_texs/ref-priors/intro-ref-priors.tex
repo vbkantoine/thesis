@@ -165,10 +165,10 @@ In this case, on any $\tilde\Theta\in\sT$ such that there exists $N\in\NN$ verif
 %Thus, it is possible to 
 %    Thus, restricting the study to $\tilde\Theta$ let the modeling of previous sections to stand, 
 That modeling is the restricted modeling driven by $\tilde\Theta$. 
-The probability $\Tilde\varPi$ (respectively its density) is referred as the restriction of the prior $\varPi$ (resp. of the prior density $\pi$) to $\tilde\Theta$.
+The probability $\Tilde\varPi$ (respectively its density) is referred as the renormalized restriction of the prior $\varPi$ (resp. of the prior density $\pi$) to $\tilde\Theta$.
 
 On any restricted model, the posterior and the marginal distributions exist. 
-Given two restrictions driven by $\tilde\Theta_1$ and $\tilde\Theta_2$, the restricted prior densities $\tilde\pi_1$ and $\tilde\pi_2$ are equal on $\tilde\Theta_1\cap\tilde\Theta_2$ up to a constant:
+Given two restrictions driven by $\tilde\Theta_1$ and $\tilde\Theta_2$, the renormalized restricted prior densities $\tilde\pi_1$ and $\tilde\pi_2$ are equal on $\tilde\Theta_1\cap\tilde\Theta_2$ up to a constant:
     \begin{equation}
         \tilde\pi_1(\theta) = K\tilde\pi_2(\theta),\quad\text{so that}\quad \forall \mbf y\in\cY^k,\,\tilde p_{1,\mbf Y_k}(\mbf y) = K\tilde p_{2,\mbf Y_k}(\mbf y),
     \end{equation}
@@ -257,7 +257,7 @@ The commonly admitted definition for the reference prior, which takes into accou
             \lim_{k\rightarrow\infty} \sI^k_i(\varPi_i) - \sI^k_i(P_i) \geq 0 \text{\ for all\ } P\in\cP_i
         \end{equation}
     %with equality if and only if $\varPi_i=P$; 
-    with $\varPi_i$ (resp. $P_i$) being the restriction of $\varPi$ (resp. $P$) on $\Theta_i$, $\sI_i^k$ denoting the mutual information on the restricted modeling driven by $\Theta_i$, and $\cP_i=\{P\in\cP,\,0<P(\Theta_i)<\infty\}$.
+    with $\varPi_i$ (resp. $P_i$) being the renormalized restriction of $\varPi$ (resp. $P$) on $\Theta_i$, $\sI_i^k$ denoting the mutual information on the restricted modeling driven by $\Theta_i$, and $\cP_i=\{P\in\cP,\,0<P(\Theta_i)<\infty\}$.
 \end{defi}
 
 %This definition differs slightly from the one in \cite{berger_formal_2009}
@@ -677,7 +677,7 @@ We consider $M$ the mapping assigning a density in $\sR$ to its associated measu
 \begin{equation}
     M:f\in\sR \longmapsto \left(B\in\sT\mapsto \int_Bf(\theta)d\nu(\theta) \right).
 \end{equation}
-We have $f\propto g\implies M(f)\simeq M(g)$, so that $M(\sR_\cC) $ is stable $\simeq$. The second statement of the proposition comes since $M(\sR_\cC)=\sM^\nu_\cC$ by definition.\\
+We have $f\propto g\implies M(f)\simeq M(g)$, so that $M(\sR_\cC) $ is stable by $\simeq$. The second statement of the proposition comes since $M(\sR_\cC)=\sM^\nu_\cC$ by definition.\\
 2. For the second statement, we consider $f\in\sR_\cC$
 We note $E=\{\theta,\, \forall\tau>0,\, f$ is not bounded on $B(\theta,\tau) \} $.
 Let $\theta\in E$, 
@@ -728,7 +728,7 @@ By definition there exist $i_0\geq0$ and a sequence $(V_i)_{i\geq i_0}$ of open 
         \Theta_i\subset V_i\subset \Theta_{i+1}.
     \end{equation}
 This way, $\bigcup_iV_i=\Theta$ and the compacity of $\Theta$ imposes it to  be a finite union, so that $\Theta_i=\Theta$ for any $i\geq i_1$ for some $i_1\geq0$.
-Since $\varPi$ is a reference prior over $\cP$ its restriction to $\Theta_{i_1}$ verifies the \cref{eq:intro-ref:refcompact}. Hence the result.
+Since $\varPi$ is a reference prior over $\cP$ its renormalized restriction to $\Theta_{i_1}$ verifies the \cref{eq:intro-ref:refcompact}. Hence the result.
 \end{proof}
 
 
