@@ -713,10 +713,37 @@ is stated below. It is, according to ourselves, an appropriate condition on this
     \end{equation}
 \end{defi}
 
+\color{orange}
+Such sequence does not necessarily exist if $\Theta$ has an ``unusual'' form. 
+In most cases, one would work on sets $\Theta$ that are ``almost'' open or ``almost'' closed, i.e. $\nu(\partial\Theta)=0$. In this case, one can restrict the study to $\overline{\Theta}$ or to $\mathring{\Theta}$. If $\Theta$ is moreover a subset of $\RR^d$ then there always exist openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$, $(\Theta'_i)_{i\in\NN}$ with $\bigcup_{i\in\NN}\Theta_i=\mathring{\Theta}$ and $\bigcup_{i\in\NN}\Theta_i'=\overline{\Theta}$. We express that statement in the proposition below.
+
+
 % \color{orange}
-% \begin{prop}
-%     When $\Theta\subset\RR^d$, is a countable union of open sets, there always exists an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$.
-% \end{prop}
+\begin{prop}
+     If $\Theta$, is an open or a closed subset of $\RR^d$ there exist an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$.
+\end{prop}
+
+\begin{proof}
+    If $\Theta$ is open,
+    then we can write $\Theta$ as an increasing countable union of open balls: %that are strictly included in $\Theta$:
+        \begin{equation}
+            %\Theta &= \bigcup_{\substack{\theta\in\Theta\cap\QQ^d\\ \tau\in R(\theta)}} B(\theta,\tau) \quad\text{with}\quad R(\theta)=\{\tau\in\QQ_+^\ast,\, B(\theta,\tau)\subset\Theta \}\\
+            \Theta = \bigcup_{n\in\NN^\ast}\bigcup_{\theta\in\Theta\cap\RR^d} B(\theta, \min(R(\theta)-\frac{1}{n},n) ) \quad \text{with} \quad R(\theta) = \sup\{\tau>0,\,B(\theta,\tau)\subset\Theta\}. 
+        \end{equation}
+    We write $\Theta\cap\QQ^d=\{\theta_i,\,i\in\NN^\ast\}$, and write $\Theta=\bigcup_{n\in\NN^\ast}V_n$ with $V_n=\bigcup_{i=1}^nB(\theta_i,\hat R^i_n)$, where $\hat R^i_n =\min(R(\theta_i)-\frac{1}{n},n)$. This way, each $V_n$ is a finite union of closed balls, so that $\overline{V_n}$ is compact. Also, $V_{n+1}$ contains balls with the same center as the one that constitute $V_i$, yet with higher radius. Thus, $\overline{V_n}\subset V_{n+1}$. Therefore, setting $\Theta_i=\overline{V_i}$ for all $i$ makes $(\Theta_i)_{i\in\NN^\ast}$ being an openly incresing sequence of compact subsets that cover $\Theta$.
+
+    If $\Theta$ is closed, %if it compact then the results comes taking $\Theta_i=V_i=\Theta$ for all $i$. If it is not compact
+    we recall that $\cF=\{\Theta\cap B(\theta,\tau),\,\theta\in\QQ^d,\,\tau\in\QQ^\ast_+\} $ is a subbase  of the induced topology of $\RR^d$ on $\Theta$.
+    %Since $\Theta$ is not compact, one can apply Alexander subbase theorem (see e.g. RUDIN??): there exist a cover of $\Theta$ by elements in $\cF$ from which one cannot extract a finite subcover. 
+    We can thus cover $\Theta$ by elements in $\cF$:
+    % We write this cover as 
+    $\Theta=\bigcup_{i\in I}U_i$. It is possible to index this cover by $\NN$. We  now construct the sequences $(\Theta_i)_i\in\NN$ and $(V_i)_{i\in\NN}$ by induction. Starting from $V_0=U_0$ and $\Theta_0=\overline{V_0}$, we then take for all $i$, $V_{i+1}=\bigcup_{j=1}^{m(i)}U_j $, where $m(i) = \min\{j',\, \bigcup_{j=0}^{j'}U_j \supset {\Theta_i} \}$. %\in\NN\cup\{\infty\}$. 
+    By induction, ${\Theta_i}$ is compact, so that $m(i)<\infty$ and $\Theta_{i+1}=\overline{V_{i+1}}$ also is.
+%    We notice that if $m(i)=\infty$, then $V_{i+1}=\Theta\supset\overline{V_{i}}$, which remains an open subset of $\Theta$. Also, since $\Theta$ is closed, every $\Theta_i$ are compact subsets of $\Theta$. 
+That makes $(\Theta_i)_{i\in\NN}$ being an openly increasing sequence of subsets that covers $\Theta$.
+    % It is possible to index this cover by $\NN$ and to consider that it is strictly increasing. Doing so, the $V_i$ are not necessarily in $\cF$ anymore but are finite unions of elements in $\cF$.  Thus, for all $i$, $\Theta_i=\overline{V_i}$ is a finite union of closed balls, so that is it a compact. Since $\Theta$ is closed, $\Theta_i$ is a subset of $\Theta$
+    %  Moreover, $\overline{V_i}\subset\overline{V_{i+1}}$    % The result comes from noticing that the family $\cF=\{V=B(\theta,\tau)\cap\Theta,\,\theta\in\QQ^d,\,\tau\in\QQ_+^\ast$ with $\overline{V}\subset\Theta\}$ is a subbase of the induced topology of $\RR^d$ on $\Theta$.
+\end{proof}
 
 % \begin{proof}
 %     We write $\Theta=\bigcap_{j\in\NN}U_i$ for some open sets $U_i$.
@@ -731,7 +758,7 @@ is stated below. It is, according to ourselves, an appropriate condition on this
 % \end{proof}
 
 
-% \color{black}
+\color{black}
 
 
 \begin{prop}
