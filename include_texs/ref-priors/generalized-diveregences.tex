@@ -859,7 +859,7 @@ From \cref{assu:intro-ref:jeffreysexist}, the function $\theta'\mapsto\|\nabla_\
         h_{\mbf y}(\tilde\theta,\theta) = \exp\left((\tilde\theta-\theta)^T\nabla_\theta\log\ell_k(\mbf y|\theta)\right)  \exp \left( \frac{1}{2}(\tilde\theta-\theta)^T\nabla^2_\theta\log\ell_k(\mbf y|\hat\theta)(\tilde\theta-\theta) \right).
     \end{equation}
     We fix $k$ and work under the event $\underline{\mbf A}_k(\theta)^c\cap \underline{\mbf B}_k(\theta)^c\cap \underline{\mbf C}_k(\theta)^c\cap \underline{\mbf D}_k(\theta)^c$. i.e. we %fix $\mbf y\in\cY^k$ such that 
-    consider $\varpi\in \underline{\mbf A}_k(\theta)^c\cap \underline{\mbf B}_k(\theta)^c\cap \underline{\mbf C}_k(\theta)^c\cap \underline{\mbf D}_k(\theta)^c$ and denote $\mbf y = \mbf Y_k(\varpi)$.
+    consider $\varpi\in \underline{\mbf A}_k(\theta)^c\cap \underline{\mbf B}_k(\theta)^c\cap \underline{\mbf C}_k(\theta)^c\cap \underline{\mbf D}_k(\theta)^c$ and denote $\mbf y = \mbf Y_k(\varpi)$, $ S_k^{\mbf y}=\frac{1}{\sqrt{k}}\nabla_\theta\log\ell_k(\mbf y|\theta)$, $\hat\cI_k^{\mbf y}(\theta) =-\frac{1}{k}\nabla^2_\theta\log\ell_k(\mbf y|\theta) $.
     We can thus bound $h_{\mbf y}(\tilde\theta,\theta)$  as
     \begin{equation}\label{eq:inegh}
         h_{\mbf y}(\tilde\theta,\theta) \leq\exp\left( M_\theta\sqrt{k}\|\tilde\theta-\theta\| \right)\exp\left( -\frac{k}{2}\hat m_\theta\|\tilde\theta-\theta\|^2 \right)\leq C_\theta.
@@ -870,7 +870,7 @@ From \cref{assu:intro-ref:jeffreysexist}, the function $\theta'\mapsto\|\nabla_\
         \item Define $\tilde R_k=R_\theta k^{-1/2}$. %with a $D>0$ thin enough to have $\int_{\|x\|>D}e^{Mx}e^{-\frac{m}{2}x^2}\sup_{\tilde\Theta}|\pi|dx<\nu$ and to let the Euclidean ball $B(\theta,D)\subset\tilde\Theta$.
         Inequality in \cref{eq:PSGSA:majorintegralsR} implies
         \begin{equation}
-            \mbf I_1 := \int_{\|\tilde\theta-\theta\|>\tilde R_k} \exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k\right)\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\theta)(\tilde\theta-\theta) \right)\pi(\theta)d\tilde\theta < w k^{-d/2}.
+            \mbf I_1 := \int_{\|\tilde\theta-\theta\|>\tilde R_k} \exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k^{\mbf y}\right)\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k^{\mbf y}(\theta)(\tilde\theta-\theta) \right)\pi(\theta)d\tilde\theta < w k^{-d/2}.
         \end{equation}
         \item Recalling the upper bound in \cref{eq:inegh}, we have the same way
             \begin{equation}
@@ -882,28 +882,28 @@ From \cref{assu:intro-ref:jeffreysexist}, the function $\theta'\mapsto\|\nabla_\
         We write:
             \begin{multline}\label{eq:continuityofHatIk}
                \mbf I_3 := \int_{\|\tilde\theta-\theta\|<\tilde R_k} h_{\mbf y}(\tilde\theta,\theta)\pi(\tilde\theta)d\tilde\theta  
-                     - \int_{\|\tilde\theta-\theta\|<\tilde R_k}\exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k\right)\exp\left(-\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\theta)(\tilde\theta-\theta)\right)\pi(\theta)d\tilde\theta \\ %\leq\nu k^{-d/2}.
+                     - \int_{\|\tilde\theta-\theta\|<\tilde R_k}\exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k^{\mbf y}\right)\exp\left(-\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k^{\mbf y}(\theta)(\tilde\theta-\theta)\right)\pi(\theta)d\tilde\theta \\ %\leq\nu k^{-d/2}.
                 %
                     |\mbf I_3| \leq \int_{\|\tilde\theta-\theta\|<\tilde R_k}|\hat h_{\mbf y}(\tilde\theta,\theta,\hat\theta) - \hat h_{\mbf y}(\tilde\theta,\theta,\theta) |\pi(\tilde\theta)d\tilde\theta + \int_{\|\tilde\theta-\theta\|<\tilde R_k}\hat h_{\mbf y}(\tilde\theta,\theta,\theta)|\pi(\tilde\theta)-\pi(\theta)|d\tilde\theta
               %
             \end{multline}
-        where $\hat h(\tilde\theta,\theta,\hat\theta)=\exp((\tilde\theta-\theta)^T\sqrt{k}S_k)\exp\left(-\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\hat\theta)(\tilde\theta-\theta)\right)$. {Notice that for any $\theta',\tilde\theta$ in the Euclidean ball $B(\theta,\tilde R_k)$,}
+        where $\hat h_{\mbf y}(\tilde\theta,\theta,\hat\theta)=\exp((\tilde\theta-\theta)^T\sqrt{k}S_k^{\mbf y})\exp\left(-\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k^{\mbf y}(\hat\theta)(\tilde\theta-\theta)\right)$. {Notice that for any $\theta',\tilde\theta$ in the Euclidean ball $B(\theta,\tilde R_k)$,}
             \begin{align}   
                  |\hat h_{\mbf y}(\tilde\theta,\theta,\theta') - \hat h_{\mbf y}(\tilde\theta,\theta,\theta) | 
-                    \leq \hat h_{\mbf y}(\tilde\theta,\theta,\theta')\left|\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T(\hat\cI_k(\theta')-\hat\cI_k(\theta))(\tilde\theta-\theta) \right)-1\right|.
+                    \leq \hat h_{\mbf y}(\tilde\theta,\theta,\theta')\left|\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T(\hat\cI_k^{\mbf y}(\theta')-\hat\cI_k^{\mbf y}(\theta))(\tilde\theta-\theta) \right)-1\right|.
             \end{align}
-        Thus, if $k\geq k_2$ where $k_2$ is such that $\tilde R_{k_2}<\tilde\tau$, we obtain $(\tilde\theta-\theta)^T(\hat\cI_k(\theta')-\hat\cI_k(\theta))(\tilde\theta-\theta) < u$ consequently to $\mbf y=\mbf Y_k(\varpi)$ with $\varpi\in\underline{\mbf D}_k(\theta)^c$. 
+        Thus, if $k\geq k_2$ where $k_2$ is such that $\tilde R_{k_2}<\tilde\tau$, we obtain $(\tilde\theta-\theta)^T(\hat\cI_k^{\mbf y}(\theta')-\hat\cI_k^{\mbf y}(\theta))(\tilde\theta-\theta) < u$ consequently to $\mbf y=\mbf Y_k(\varpi)$ with $\varpi\in\underline{\mbf D}_k(\theta)^c$. 
         It then comes $|\mbf I_3|< w k^{-d/2}$.
 
         \item  By recognizing a Gaussian density in the integral below, we get the equality 
         \begin{align}
         \nonumber
-            &\int_{\RR^d}\exp((\tilde\theta-\theta)^T\sqrt{k}S_k)\exp\left(\frac{1}{2}(\tilde\theta-\theta)^T\nabla_\theta^2\ell_k(\mbf y|\theta)(\tilde\theta-\theta)\right)\pi(\theta)d\tilde\theta \\
+            &\int_{\RR^d}\exp((\tilde\theta-\theta)^T\sqrt{k}S_k^{\mbf y})\exp\left(\frac{1}{2}(\tilde\theta-\theta)^T\nabla_\theta^2\ell_k(\mbf y|\theta)(\tilde\theta-\theta)\right)\pi(\theta)d\tilde\theta \\
             &=
-            \pi(\theta)(2\pi)^{d/2}|k\hat\cI_k(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\hat\cI_k(\theta)^{-1}S_k\right).
+            \pi(\theta)(2\pi)^{d/2}|k\hat\cI_k^{\mbf y}(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^{\mbf y T}\hat\cI_k^{\mbf y}(\theta)^{-1}S_k^{\mbf y}\right).
             \label{eq:intRnabla2bisbis}
         \end{align}
-        Defining $\mbf I_4= (\ref{eq:intRnabla2bisbis}) - \pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k\right)$, we obtain,
+        Defining $\mbf I_4= (\ref{eq:intRnabla2bisbis}) - \pi(\theta)(2\pi)^{d/2}|k\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^{\mbf yT}\cI(\theta)^{-1}S_k^{\mbf y}\right)$, we obtain,
         %It implies, 
         using that $\varpi\in \underline{\mbf C}_k(\theta)^c$, 
         \begin{equation}
@@ -915,7 +915,7 @@ From \cref{assu:intro-ref:jeffreysexist}, the function $\theta'\mapsto\|\nabla_\
 If we define $k_3$ such that $k^{-d/2}<\eta/4$, and if $k\geq\max(k_1,k_2,k_3)$, then the four inequalities elucidated above allows evaluating \cref{eq:PSGSA:asymptdevf} with $t=k^{-d/2}$,
 \begin{equation}
     \begin{aligned}
-    x(\mbf y) = & \int_{\tilde\Theta} \exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k\right)\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k(\theta)(\tilde\theta-\theta) \right)\pi(\theta )d\tilde\theta,\\
+    x(\mbf y) = & \int_{\tilde\Theta} \exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k^{\mbf y}\right)\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k^{\mbf y}(\theta)(\tilde\theta-\theta) \right)\pi(\theta )d\tilde\theta,\\
         \text{and}\quad l(\mbf y) =& x(\mbf y)-\frac{p_{\mbf y}(\mbf y)}{\ell_k(\mbf y|\theta)}k^{d/2} = \mbf I_1+\mbf I_2+\mbf I_3+\mbf I_4.
     \end{aligned}
 \end{equation}

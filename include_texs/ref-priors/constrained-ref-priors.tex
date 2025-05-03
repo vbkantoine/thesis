@@ -16,7 +16,7 @@ Our methodology emphasizes the central role of Jeffreys prior decay rates in thi
 
 
 
-\section{Introduction}
+\section{Introduction}\label{sec:BA:intro}
 
 
 The reference prior theory represents a widely elected theory for constructing priors that are qualified as ``objective''.
@@ -42,15 +42,15 @@ Additionally, we draw attention to the fact that our methodology opens a way to 
 
 
 
-The rest of the paper begins with
-a review of the reference prior theory and of the definitions of the reference priors in Section \ref{sec:refpriors}. It precedes the development  of the main contribution of the paper.
-Indeed, Section \ref{sec:constraintsection} motivates our work and expresses our results about constrained reference priors, which are then discussed in Section \ref{sec:discussion}.
-Eventually, the claimed practical aspect of our study is demonstrated by the application of our method to an example taken from  the literature in Section \ref{sec:example}. Detailed mathematical proofs are compiled in Section \ref{sec:proofs}, followed by a conclusion in Section \ref{sec:conclusion}. 
+This chapter is organized as follows.
+In \cref{sec:BA:defsnotsmots}, after reviewing briefly the notations for the generalized reference priors framework, we develop our motivation and the objective of this work. This section is also the occasion to introduce a novel definition that is useful for the rest of the study: the quasi $D$-reference priors.
+Our main results on constrained reference priors are presented in \cref{sec:BA:ress}, and discussed in \cref{sec:BA:discu}.
+Then, the  practical aspect of our work is studied by the application of our method to an example taken from  the literature in \cref{sec:BA:exa}. Detailed mathematical proofs are compiled in \cref{sec:BA:proofs}. \Cref{sec:BA:conclusion} terminates the chapter with a conclusion.
 
 
-\section{Definitions, notations and motivation}
+\section{Definitions, notations and motivation}\label{sec:BA:defsnotsmots}
 
-\subsection{Notations}
+\subsection{Notations}\label{sec:BA:nots}
 
 % \subsection{}
 
@@ -108,11 +108,10 @@ We also remind the following result on the $D_\delta$-mutual information and the
 
 
 
-\subsection{Objective and motivation}
+\subsection{Objective and motivation}\label{sec:BA:mots}
 
 
 
-%As we mentioned in Section \ref{sec:refpriors}, 
 We already know that the definition of the reference prior and the $D_\delta$-reference prior is satisfied by the Jeffreys prior over the large set of priors $\sM^\nu_\cC$ in most cases (see \cref{chap:intro-ref,chap:ref-generalized}).
 % in most case (see \cref{chap:intro-ref} for ). 
 
@@ -150,15 +149,14 @@ It is already described in \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}
 
 In this work, the reference priors will be derived only given their formal definition (\cref{def:BA:genref}). Yet, our results can be incorporated in this sequential construction. Indeed,
 step 2 of the method depicted above consists of the derivation of a reference prior w.r.t. the variable $\theta_j$.
-%in the sense of Definition \ref{defi:refprior} (or of a quasi-reference prior if that latter does not exist). 
-% Thus, the methodology that is presented in this
+%in the sense of 
 % Thus, our reference priors over constrained classes of priors can be  plainly incorporated into this method.
 Additionally, we invite to note that this construction does not solve the limitations (ii) and (iii) previously evoked. Actually, it makes them essential. Indeed, step 2 requires, firstly, a derivation of a reference prior, so that it would lead to a low-dimensional Jeffreys prior if the class of priors is not constrained. Also step 3 necessitates, secondly, that the latter leads to a proper posterior so that the integral involved does not diverge.
 
 We note that this last issue is taken into account by \citet{berger_development_1992} with the suggestion of such construction on an increasing sequence of compact subsets of $\Theta$: $\bigcup_{i\in\NN}\Theta_i=\Theta$. The hierarchical reference prior can then be chosen as a limit of the ones obtained under $\Theta_i$ when $i\to\infty$. However, this limit can be cumbersome to derive in practice. Another solution suggested by \citet{mure_objective_2018} is to restrict the $\sigma$-algebra $\sY$ until the reference prior derived in step 2 leads to a proper posterior. It is still imperfect, as there is no guarantee that such a restricted $\sigma$-algebra exists outside the trivial one.
 
 
-%In the following subsections, we propose a range of solutions to some of the issues aforementioned, based on the derivation of reference priors over constrained classes of priors. In  Section \ref{sec:constrainedasympt}, we derive a quasi $D_\delta$-reference prior over classes of priors that are easy to compute, in order to tackle the limitations (ii) and (iii) previously evoked. Then, Section \ref{sec:constrainedproper} explores another kind of constrained classes of priors, which leads to $D_\delta$-reference priors that can solve the item (iv).
+%In the following subsections, we propose a range of solutions to some of the issues aforementioned, based on the derivation of reference priors over constrained classes of priors. In  Section  {sec:constrainedasympt}, we derive a quasi $D_\delta$-reference prior over classes of priors that are easy to compute, in order to tackle the limitations (ii) and (iii) previously evoked. Then, Section  {sec:constrainedproper} explores another kind of constrained classes of priors, which leads to $D_\delta$-reference priors that can solve the item (iv).
 
 
 
@@ -171,7 +169,7 @@ We note that this last issue is taken into account by \citet{berger_development_
 
 
 
-\subsection{A useful definition: quasi-reference priors}
+\subsection{A useful definition: quasi-reference priors}\label{sec:BA:defsquas}
 
 %As explained in the introduction, the objective of this work is to study reference priors over restricted sets of priors. Indeed, the reference prior definition is usually considered with very large sets of priors, which are constrained only by some regularity assumptions imposed to the priors (such as continuity, positivity). %This regularity does not generally discriminate the Jeffreys prior
 %Actually, 
@@ -221,13 +219,13 @@ Proposition below ensures that this definition properly extends \cref{def:BA:gen
 
 
 
-\section{Constrained $D_\delta$-reference priors}
+\section{Constrained $D_\delta$-reference priors}\label{sec:BA:ress}
 
 
 
 
 
-\subsection{Constrained $D_\delta$-reference priors based on Jeffreys' asymptotic decay rates}
+\subsection{Constrained $D_\delta$-reference priors based on Jeffreys' asymptotic decay rates}\label{sec:BA:res1}
 
 
 
@@ -236,9 +234,9 @@ Proposition below ensures that this definition properly extends \cref{def:BA:gen
     
 
 
-    In this section, we tackle the computational cost of the reference prior. As mentioned in Section \ref{sec:issuesJeff}, the Jeffreys prior expression is often complex to derive even in low dimensional models. This is even more a problem in practical studies where the prior must be evaluated a numerous number of times, when it resorts to MCMC simulations to provide posterior samples of $\theta$ for instance.
+    In this section, we tackle the computational cost of the reference prior. As mentioned in \cref{sec:BA:mots}, the Jeffreys prior expression is often complex to derive even in low dimensional models. This is even more a problem in practical studies where the prior must be evaluated a numerous number of times, when it resorts to MCMC simulations to provide posterior samples of $\theta$ for instance.
 
-    In some works of the literature, the Jeffreys prior is replaced by its decay rates at the boundary of the domain. For instance, the reference prior for Gaussian processes suggested by \citet{gu_jointly_2019} is built on the basis of the decay rates of a Jeffreys prior sequentially computed on the different variables that compose $\theta$ (following the construction presented in Section \ref{sec:issuesJeff}).
+    In some works of the literature, the Jeffreys prior is replaced by its decay rates at the boundary of the domain. For instance, the reference prior for Gaussian processes suggested by \citet{gu_jointly_2019} is built on the basis of the decay rates of a Jeffreys prior sequentially computed on the different variables that compose $\theta$ (following the construction presented in \cref{sec:BA:mots}).
     Their idea is that, in particular when it is improper, the prior provides the most information from its asymptotic rates, and variations of them are noticed to have a strong influence on the posterior distribution.
     The result that follows provides a formalization of this intuition, focusing on the case where the Jeffreys prior asymptotically behaves like exponentiation of coordinates of $\theta$.
     
@@ -255,13 +253,13 @@ Proposition below ensures that this definition properly extends \cref{def:BA:gen
     \end{thm}
     
     \begin{proof}
-        The proof is technical and detailed in section \ref{sec:proofs}.
+        The proof is technical and detailed in \cref{sec:BA:proofs}.
         The idea is that $l(\pi)$ can be seen as a negative divergence between $\pi$ and $J$. However, when $J$ is improper at the boundary of the domain, the maximization of $l(\pi)$ gets closer to the minimization of a divergence between $\pi$ and the improper decay rate of $J$.
     \end{proof}
     
     
     \begin{rem}
-        Theorem \ref{thm:Jthetaa} still stands when $\Theta=(b,c)$ (or $(c,b)$) if $c\ne\infty$ and if $J(\theta)$ admits a non-null and finite limit when $\theta\to b$.
+        \Cref{thm:Jthetaa} still stands when $\Theta=(b,c)$ (or $(c,b)$) if $c\ne\infty$ and if $J(\theta)$ admits a non-null and finite limit when $\theta\to b$.
     \end{rem}
     
     
@@ -277,11 +275,11 @@ Proposition below ensures that this definition properly extends \cref{def:BA:gen
 
 
 
-\subsection{Properly constrained $D_\delta$-reference priors}
+\subsection{Properly constrained $D_\delta$-reference priors}\label{sec:BA:res2}
 
 
 
-In Section \ref{sec:constrainedasympt}, we have provided some elements to construct a tractable reference prior on the coordinates over which Jeffreys prior is improper.
+In \cref{sec:BA:res1}, we have provided some elements to construct a tractable reference prior on the coordinates over which Jeffreys prior is improper.
 The reference prior that our theorem proposes keeps the improper characteristic of Jeffreys prior on the same coordinates.
 This improper aspect can, however, remain an issue in some cases, especially when the resulting posterior is improper as well.
 
@@ -289,13 +287,13 @@ For this reason, it might happen that some asymptotic rates in some directions s
 The proposition below constitutes a preliminary result that gives the form of a $D_\delta$-reference prior over a class of priors with linear constraints.
 
 \begin{assu}\label{assu:glibre}
-    A family of functions from $\Theta$ to $\RR$ $(g_j)_{j=1}^p$ is said to satisfy Assumption \ref{assu:glibre} if $g_0,\dots,g_p$ are linearly independent in the space of a.e. continuous functions from $\Theta$ to $\RR$, where $g_0:=\theta\mapsto 1$.
+    A family of functions from $\Theta$ to $\RR$ $(g_j)_{j=1}^p$ is said to satisfy \cref{assu:glibre} if $g_0,\dots,g_p$ are linearly independent in the space of a.e. continuous functions from $\Theta$ to $\RR$, where $g_0:=\theta\mapsto 1$.
 \end{assu}
 
 \begin{prop}\label{prop:constraints}
     Suppose $\Theta$ to be a compact subset of $\RR^d$. Let $g_1,\dots,g_p$ be %a.e. continuous 
     functions in $\sR_{\cC^b}$ %from $\Theta$ to $\RR$ 
-    that satisfy Assumption \ref{assu:glibre}. Define $\tilde\cP$ the set of priors $\varPi$ on $\Theta$ such that $\forall 1,\dots,p$, $\int_\Theta g_jd\varPi=c_j$, for some $c_j\in\RR$.
+    that satisfy \cref{assu:glibre}. Define $\tilde\cP$ the set of priors $\varPi$ on $\Theta$ such that $\forall 1,\dots,p$, $\int_\Theta g_jd\varPi=c_j$, for some $c_j\in\RR$.
     If %$\tilde\cP$ is not empty, then 
     there exists a $D_\delta$-reference prior over $\tilde\cP$, it is unique. If it is positive, its density $\pi$ verifies
     \begin{equation}
@@ -306,19 +304,19 @@ The proposition below constitutes a preliminary result that gives the form of a 
 \end{prop}
 
 \begin{proof}
-    This proposition results from a Lagrange multipliers theorem. A detailed proof is proposed in Section \ref{sec:proofs}.
+    This proposition results from a Lagrange multipliers theorem. A detailed proof is proposed in \cref{sec:BA:proofs}.
 \end{proof}
 
 
 
 \begin{rem}
-    While it is not the subject of this work, we let the reader notice that this proposition opens the way to the introduction of constraints based on expert judgments in prior elicitation. They can take the form of moment constraints or predictive constraints \citep{bousquet_contributions_2024}??.    
+    While it is not the subject of this work, we let the reader notice that this proposition opens the way to the introduction of constraints based on expert judgments in prior elicitation. They can take the form of moment constraints or predictive constraints. %\citep{bousquet_contributions_2024}.    
 \end{rem}
 
 \begin{rem}\label{rem:klconst}
-    The expression of the reference prior given by Proposition \ref{prop:constraints} depends on the chosen $\delta$-divergence.
+    The expression of the reference prior given by \cref{prop:constraints} depends on the chosen $\delta$-divergence.
     While this work considers only the framework of reference priors under $\delta$-divergences as a dissimilarity measure, a version of this theorem could be written in the original framework of the reference prior theory that uses the Kullback-Leibler divergence. The expression of the resulting reference prior would be impacted. 
-    In the appendix we proove that the expression using the Kullback-Leibler divergence would take the form:
+    In the appendix we prove that the expression using the Kullback-Leibler divergence would take the form:
     %In \cite{bernardo_bayesian_1994}, the authors suggest that the expression should take the form of
         \begin{equation}
             \pi^\ast\propto J\cdot\exp\left(\sum_{j=1}^p\lambda_j g_j\right),
@@ -349,13 +347,13 @@ Below, given a function $g$ that is selected to adjust the asymptotics of Jeffre
 \end{thm}
 
 \begin{proof}
-    The statement of this theorem results from the sequential use of Proposition \ref{prop:constraints} on an increasing sequence of compact subsets of $\Theta$. A detailed proof is written in Section \ref{sec:proofs}.     
+    The statement of this theorem results from the sequential use of \cref{prop:constraints} on an increasing sequence of compact subsets of $\Theta$. A detailed proof is written in \cref{sec:BA:proofs}.     
 \end{proof}
 
 
 %\begin{rem}
    To improve the above theorem, one would like 
-     to relax the first assumption in Equation (\ref{eq:intgalphafinite}), i.e., to let $\int_\Theta J g^{1/\delta}$  be infinite. Indeed, in this way, the result would provide a reference prior $\varPi$ ---non-necessarily proper--- but such that $\pi g\in L^1$, where $\pi$ is a density of $\varPi$. With a good choice of $g$, $\pi^\ast$ could be built as a prior that provides a proper posterior. It is the purpose of the next theorem. 
+     to relax the first assumption in \cref{eq:intgalphafinite}, i.e., to let $\int_\Theta J g^{1/\delta}$  be infinite. Indeed, in this way, the result would provide a reference prior $\varPi$ ---non-necessarily proper--- but such that $\pi g\in L^1$, where $\pi$ is a density of $\varPi$. With a good choice of $g$, $\pi^\ast$ could be built as a prior that provides a proper posterior. It is the purpose of the next theorem. 
     The cost of this relaxation is the provision of a quasi-reference prior instead of a reference prior.
     %However, our proof needs this assumption, but one can feel that such (quasi)-reference prior is not far to exist as expressed in the proposition  below.
 %\end{rem}
@@ -377,18 +375,18 @@ Denote for any $i$ $\overline{\cP}'_i$ the set of renormalized restrictions to $
 
 
 
-\section{Discussion}
+\section{Discussion}\label{sec:BA:discu}
 
 The knowledge of Jeffreys prior's decay rates is central in the results presented in this work. These results indicate that in common scenarios where Jeffreys prior is improper, these rates must be explicitly considered in order to construct a reference prior. 
 
-We let the reader note that Theorems \ref{thm:lintoproper} and \ref{thm:quasipostpropre} introduce results that also depend on the chosen dissimilarity measure. Therefore, a balance must be found between the subjective influence of the constraint and the quest for an informed prior to facilitate possible sampling from the posterior. This is illustrated in the example we address in the following section.
+We let the reader note that \cref{thm:lintoproper,thm:quasipostpropre} introduce results that also depend on the chosen dissimilarity measure. Therefore, a balance must be found between the subjective influence of the constraint and the quest for an informed prior to facilitate possible sampling from the posterior. This is illustrated in the example we address in the following section.
 However, it is important to observe that using the KL-divergence instead of a $\delta$-divergence %considered in our work 
-would result in a stronger influence of the constraint on the final prior. As noted in Remark \ref{rem:klconst}, the exponentialization of the function $g$ could lead to a prior with distribution tails that are significantly negligible beyond those of Jeffreys, thereby jeopardizing its objective nature.
+would result in a stronger influence of the constraint on the final prior. As noted in \cref{rem:klconst}, the exponentialization of the function $g$ could lead to a prior with distribution tails that are significantly negligible beyond those of Jeffreys, thereby jeopardizing its objective nature.
 
-Generally, the results we propose in Sections \ref{sec:constrainedasympt} and \ref{sec:constrainedproper} address different problems and are thus  fundamentally different in nature. In one case, the improper aspect of Jeffreys prior is not necessarily challenged, and an efficient construction of the latter is proposed. In the other case, the goal is to significantly attenuate its improper aspect while maintaining as much objectivity as possible. In this latter case, however, the expressions of the proposed  reference priors still depend on the expression of Jeffreys prior. Nevertheless, when Jeffreys prior is proper, there is no guarantee that a straightforward construction inspired by its convergence rates at the domain boundaries will be relevant. %ensure its reference nature in a simple and interpretable way. 
+Generally, the results we propose in \cref{sec:BA:res1,sec:BA:res2} address different problems and are thus  fundamentally different in nature. In one case, the improper aspect of Jeffreys prior is not necessarily challenged, and an efficient construction of the latter is proposed. In the other case, the goal is to significantly attenuate its improper aspect while maintaining as much objectivity as possible. In this latter case, however, the expressions of the proposed  reference priors still depend on the expression of Jeffreys prior. Nevertheless, when Jeffreys prior is proper, there is no guarantee that a straightforward construction inspired by its convergence rates at the domain boundaries will be relevant. %ensure its reference nature in a simple and interpretable way. 
 Indeed, although improper tails concentrate an infinite mass that constitutes all the information at the boundaries, when they are proper, the information of interest may need to be sought elsewhere. In this case, a calculation or approximation of the `proper' Jeffreys prior remains to be considered.
 
-Finally, regarding Theorem \ref{thm:Jthetaa}, although the result is limited to parameter power distribution tails, it is observed that, in practice, these include a wide range of improper Jeffreys priors.
+Finally, regarding \cref{thm:Jthetaa}, although the result is limited to parameter power distribution tails, it is observed that, in practice, these include a wide range of improper Jeffreys priors.
 For example, this includes Jeffreys priors derived from various Gaussian models, such as those introduced by \citet{neyman_consistent_1948}; Jeffreys priors related to specific parameters within Gaussian process models \citep{gu_parallel_2016}; and those arising in more specialized contexts, like the one %
 that we develop in the \cref{part:spra} of this manuscript.
 %in \cite{VanBiesbroeck2023}.
@@ -402,7 +400,7 @@ should allow us to recover the reference prior among those expressible as powers
 In the following section, we illustrate an application of our work with an example taken from the literature.
 
 
-\section{An example}
+\section{An example}\label{sec:BA:exa}
 
 
 In their work, \citet{rubio_inference_2014} prove that the two piece location-scale model they proposed has an improper Jeffreys prior, which issues an improper posterior.
@@ -411,7 +409,7 @@ The model is parameterized by $\theta=(\mu,\sigma_1,\sigma_2)\in\RR\times(0,\inf
         \ell(y|\theta) =  \frac{2}{\sigma_1+\sigma_2}\left[f\left(\frac{y-\mu}{\sigma_1}\right)\indic_{(-\infty,\mu)}(y) + f\left(\frac{y-\mu}{\sigma_2}\right)\indic_{(\mu,\infty)}(y)  \right],
     \end{equation}
 where $f$ is a density function with support on $\RR$, assumed to be symmetric with a single mode at zero, and with a few integrability assumptions that are detailed in \cite{rubio_inference_2014}.
-    The choice of $f$ is open and we can take, % let the assumptions of Theorem \ref{thm:l(pi)} to be verified.
+    The choice of $f$ is open and we can take, % let the assumptions of Theorem  {thm:l(pi)} to be verified.
     %\textcolor{red}{
     %We may take, 
     for instance, the standard Gaussian density function.
@@ -432,7 +430,7 @@ where $f$ is a density function with support on $\RR$, assumed to be symmetric w
     it is improper and leads to an improper posterior. In the following, we construct different priors based on the suggestions developed in this paper. %a method which, on the basis of our suggestions developed in what precedes, to construct a more suitable prior.
 
     \paragraph{Proper priors based on a moment constraint}
-    Considering results in Section \ref{sec:constrainedproper} and the decay rates of the Jeffreys prior above, a simple correction can be done to issue a proper reference prior w.r.t. $\sigma_1,\sigma_2$, which results in a proper posterior.
+    Considering results in \cref{sec:BA:res2} and the decay rates of the Jeffreys prior above, a simple correction can be done to issue a proper reference prior w.r.t. $\sigma_1,\sigma_2$, which results in a proper posterior.
     We consider $\delta\in(0,1)$; given $\eps\in(0,\frac{1}{1+1/\delta})$ we have 
         \begin{equation}
             %\int J(\theta)(\sigma_1\sigma_2)^{\eps/\delta} d\sigma_1d\sigma_2<\infty\quad\text{and}\quad 
@@ -445,12 +443,12 @@ where $f$ is a density function with support on $\RR$, assumed to be symmetric w
 
 
 \paragraph{Overview and sensibility on the parameters}
-Our prior densities are compared with the Jeffreys prior one on Figure \ref{fig:priorpost}.(a), w.r.t. the parameter $\sigma_2$ the others being fixed to $1$. For this comparison, a multiplicative constant had to be chosen on $J$, we have chosen the one such that $J(1,1,1)=2$.
+Our prior densities are compared with the Jeffreys prior one on \cref{fig:priorpost}.(a), w.r.t. the parameter $\sigma_2$ the others being fixed to $1$. For this comparison, a multiplicative constant had to be chosen on $J$, we have chosen the one such that $J(1,1,1)=2$.
 Our priors differ as a function of $\gamma=\eps/\delta\in(0,\frac{1}{1+\delta})\subset(0,1)$. On the one hand, when $\gamma$ becomes close to $0$, the prior ---which we denote by $\pi_\gamma$ from now on--- becomes close to the Jeffreys prior, i.e., the most objective prior w.r.t. the mutual information criterion. However, in this case, $\pi_\gamma$ becomes close to an improper prior, and its posterior becomes close to an improper posterior. On the other hand, setting $\gamma$ away from $0$ 
 rearranges the quantity of information in the prior. Its referential nature decreases in favor of an increase in its entropy.
 %make the prior more informative, and probably more subjective. 
 Therefore, a trade-off has to be made between suitability for inference and objectivity.
-Finally, note that in Figure \ref{fig:priorpost}.(a) is also drawn the \emph{independent Jeffreys prior} proposed by the authors in \cite{rubio_inference_2014} for this model as an alternative to Jeffreys. Its decay rates are actually the same as the ones of $\pi_\gamma$ when $\gamma=1/2$, and the two priors are hard to distinguish. Note that this latter prior $\pi_{1/2}$ equals the hierarchical reference prior (as described in Section \ref{sec:issuesJeff}) constructed from the ordering $\pi(\theta)=\pi_1(\sigma_1,\sigma_2|\mu)\pi_2(\mu)$.
+Finally, note that in \cref{fig:priorpost}.(a) is also drawn the \emph{independent Jeffreys prior} proposed by the authors in \cite{rubio_inference_2014} for this model as an alternative to Jeffreys. Its decay rates are actually the same as the ones of $\pi_\gamma$ when $\gamma=1/2$, and the two priors are hard to distinguish. Note that this latter prior $\pi_{1/2}$ equals the hierarchical reference prior (as described in  \cref{sec:BA:mots}) constructed from the ordering $\pi(\theta)=\pi_1(\sigma_1,\sigma_2|\mu)\pi_2(\mu)$.
 
 
 
@@ -458,7 +456,7 @@ Finally, note that in Figure \ref{fig:priorpost}.(a) is also drawn the \emph{ind
 To evaluate a bit further our method, we propose a visualization of the posterior sensitivity to the priors, i.e., to $\gamma$. 
 Such influence quantification constitutes a critical step of the \emph{Bayesian workflow}, as expressed by   \citet{gelman_bayesian_2020}. Several methods exist  in the literature for this purpose (e.g., \cite{berger_robust_1990,nott_checking_2020}). 
 An approach is to compare the variations of an \emph{a posteriori} quantity as a function of the parameter \citep{kallioinen_detecting_2023}. In this example, this methodology is yet limited by the improper aspect of Jeffreys posterior. It cannot be considered for any comparison.
-In Figure \ref{fig:priorpost}.(b), (c) and (d) are plotted, for numerous $\gamma$ and several data set sizes $k$, the posterior densities that result from a sample of data and from the prior densities $\pi_\gamma$.
+In \cref{fig:priorpost}.(b), (c) and (d) are plotted, for numerous $\gamma$ and several data set sizes $k$, the posterior densities that result from a sample of data and from the prior densities $\pi_\gamma$.
 %The influence of the priors can be recognized, especially for tiny values of $k$. 
 As expected, the influence of the prior appears for small values of $k$.
 Indeed, we can notice that for higher values of $\gamma$, the posterior is slightly more shifted to the right and seems to be a little flatter. 
@@ -467,15 +465,15 @@ is hard to distinguish. %limited and it is
 %The remarkable result is that all the posterior median densities are very close in this example. 
 This indicates that the little losses of objectivity should induce small variations in the resulting inference in this example.
 
-For practical details, the chosen $f$ is the standard Gaussian density, and the different data sets have been generated according to the likelihood in Equation (\ref{eq:examplelikilihood}) conditionally to $\theta^\ast=(2,2,2)$. %They were of size $k=50$, and a number $N=1000$ of them have been generated for the computation of the median densities.
+For practical details, the chosen $f$ is the standard Gaussian density, and the different data sets have been generated according to the likelihood in \cref{eq:examplelikilihood} conditionally to $\theta^\ast=(2,2,2)$. %They were of size $k=50$, and a number $N=1000$ of them have been generated for the computation of the median densities.
 
 
 
 %%However, they are difficult to implement in this example as 
-%An approach is to compare the posterior-prior divergences \citep{Nott2020}. %If evaluated and averaged for different data-set, this method amount to compare mutual information evaluations. We propose it in Figure ??, to illustrate the loss of `objectivity' as a function of $\gamma$.
+%An approach is to compare the posterior-prior divergences \citep{Nott2020}. %If evaluated and averaged for different data-set, this method amount to compare mutual information evaluations. We propose it in Figure  to illustrate the loss of `objectivity' as a function of $\gamma$.
 
 
-% In Figure ??, another approach is considered: we plot the divergences of posteriors issued by $\pi^\ast_\gamma$ to the improper posterior issued by Jeffreys \citep{Kallioinen2023}. Those divergences are computed using $\delta$-divergence, and considering the improper density $p^J(\dot|\mbf y)$ issued by Jeffreys:
+% In Figure  another approach is considered: we plot the divergences of posteriors issued by $\pi^\ast_\gamma$ to the improper posterior issued by Jeffreys \citep{Kallioinen2023}. Those divergences are computed using $\delta$-divergence, and considering the improper density $p^J(\dot|\mbf y)$ issued by Jeffreys:
 %     \begin{equation}
 %         p^J(\theta|\mbf y)=J(\theta)\prod_{i=1}^k\ell(y_i|\theta),
 %     \end{equation}
@@ -487,7 +485,7 @@ For practical details, the chosen $f$ is the standard Gaussian density, and the 
     
 % \paragraph{Hierachical prior}
 
-%    In accordance with the criticize of \citet{Berger2009} about the derivation of the Jeffreys prior on the full parameter space aforementioned in Section \ref{sec:issuesJeff}, a hierarchical construction of the Jeffreys prior is to be favored. From the Fisher information matrix in Equation (\ref{eq:fishermatrix}) we obtain:
+%    In accordance with the criticize of \citet{Berger2009} about the derivation of the Jeffreys prior on the full parameter space aforementioned in Sectio
 %        \begin{equation}
 %            J(\sigma_1,\sigma_2|\mu) \propto \frac{1}{\sqrt{\sigma_1\sigma_2}(\sigma_1+\sigma_2)}
 %        \end{equation}
@@ -536,10 +534,10 @@ For practical details, the chosen $f$ is the standard Gaussian density, and the 
 
 
 
-\section{Detailed proofs}
+\section{Detailed proofs}\label{sec:BA:proofs}
 
 
-\subsection{Proof of Theorem \ref{thm:Jthetaa}}
+\subsection{Proof of \cref{thm:Jthetaa}}
 
 To prove this theorem, we consider to simplify the derivations that $b=0$ with $\Theta=(0,1]$. We will show later how to extend the result to the other cases. As the Jeffreys prior can be defined up to a positive multiplicative constant with no incidence on the definition of a $D_\delta$-reference prior, 
 we will simplify its decay rate assuming $J(\theta)\equi{\theta\rightarrow 0}\theta^a$.
@@ -548,7 +546,7 @@ Let us define the increasing sequence of compact subsets $\Theta$: $\Theta_i=[\t
     \begin{equation}
         \psi_i(u) = -\frac{\int_{\Theta_i}J(\theta)^{-\delta}\theta^{u(1+\delta)}d\theta }{\left(\int_{\Theta_i}\theta^ud\theta \right)^{1+\delta}},\qquad \tilde\psi_i(u) = -\frac{\int_{\Theta_i}\theta^{-a\delta }\theta^{u(1+\delta)}d\theta }{\left(\int_{\Theta_i}\theta^ud\theta \right)^{1+\delta}}.
     \end{equation}
-The quantity $\psi_i(u)$ corresponds ---up to a positive constant--- to the parametrization w.r.t. $u\in\RR$ of $l(\pi_i)$; where $\pi(\theta)\propto\theta^u$, $\pi_i$ is re-normalized restriction of $\pi$ to $\Theta_i$  and where $l$ is the function defined in Theorem \ref{thm:l(pi)} that we seek to maximize.
+The quantity $\psi_i(u)$ corresponds ---up to a positive constant--- to the parametrization w.r.t. $u\in\RR$ of $l(\pi_i)$; where $\pi(\theta)\propto\theta^u$, $\pi_i$ is re-normalized restriction of $\pi$ to $\Theta_i$  and where $l$ is the function defined in \cref{thm:BA:l(pi)} that we seek to maximize.
 Therefore, if we call $u_i\in\argmax_{u\in\RR}\psi_i(u)$ for any $i$, and if the associated sequence of priors $(M(\pi_i))_i$ converge Q-vaguely to a prior $\varPi^\ast$ over $\Theta$, that would prove that $\varPi^\ast$ is a quasi $D_\delta$-reference prior.
 
 \paragraph{The case $\mathbf{a<-1}$}
@@ -642,7 +640,7 @@ Therefore, if we call $u_i\in\argmax_{u\in\RR}\psi_i(u)$ for any $i$, and if the
 
     %Eventually, $(u_i)_i$ converges to $a$.
 
-    Let us now work beyond the subset $U$ of $\RR$. First, if $u\in(-1,+\infty)$, the integrals that compose $\psi_i(u)$ both admit finite and positive limits when $i\to\infty$. The limit of $(|\psi_i(u)|)_i$ is moreover bounded from below as a consequence of Equation (\ref{eq:gendarmeJeffreys}):
+    Let us now work beyond the subset $U$ of $\RR$. First, if $u\in(-1,+\infty)$, the integrals that compose $\psi_i(u)$ both admit finite and positive limits when $i\to\infty$. The limit of $(|\psi_i(u)|)_i$ is moreover bounded from below as a consequence of \cref{eq:gendarmeJeffreys}:
         \begin{equation}\label{eq:minorationpsiu1infty}
             |\psi_i(u)|\geq \tilde K\frac{(u+1)^{1+\delta}}{ \delta(u-a)+u+1}\frac{1-\theta_i^{\delta(u-a)+u+1}}{(1-\theta_i^{u+1})^{1+\delta}} \geq \tilde K'|\log\theta_i|^{-1-\delta}.  %{(\mu+1)^{\delta}}. %\conv{i\rightarrow\infty}\infty
         \end{equation}
@@ -652,7 +650,7 @@ Therefore, if we call $u_i\in\argmax_{u\in\RR}\psi_i(u)$ for any $i$, and if the
         \begin{equation}
             \sup_{u\in(-1,+\infty)}\psi_i(u)<\psi_i(a)\leq\psi_i(u_i).
         \end{equation}
-    Finally, if $u\in(u_m,-1)$, analogously than in Equation (\ref{eq:minorationpsiu1infty}), we can write
+    Finally, if $u\in(u_m,-1)$, analogously than in \cref{eq:minorationpsiu1infty}, we can write
         \begin{equation}
             |\psi_i(u)|\geq\tilde K(u+1)^{1+\delta}\frac{|\log\theta_i|}{(1-\theta_i^{u+1})^{1+\delta}} \geq \tilde K''\theta_i^{-(u_m+1)(1+\delta)}|\log\theta_i|^{-\delta}.
         \end{equation}
@@ -714,7 +712,7 @@ $\Theta=[c,\infty)$ or $(-\infty,c]$.
 
 
 
-\subsection{Proof of Proposition \ref{prop:constraints}}
+\subsection{Proof of \cref{prop:constraints}}
 
 Let us start by the uniqueness.
 %Recall the definition of an openly increasing sequence of compact sets $(\Theta_i)_{i\in\NN}$: there exist $i_0\geq0$ and a sequence $(V_i)_{i\geq i_0}$ of open subsets of $\Theta$  such that for any $i\geq i_0$
@@ -747,7 +745,7 @@ As the set $\cP$ is convex, $\cR$ is convex as well. Also, we notice that the fu
 
 
 
-% \paragraph{Proof of Lemma \ref{lem:constrainstaec0}}
+% \paragraph{Proof of Lemma {lem:constrainstaec0}}
 Regarding the expression of $\pi^\ast$,
 let us call $E$ the space of bounded a.e. continuous functions from $\Theta$ to $\RR$ and we equip $E$ with the supremum norm over $E$: $\|f\|=\sup_\Theta|f|$. The set $\Theta$ being supposed compact, the pair $(E,\|\cdot\|)$ constitutes a Banach vector space whose restriction $U$ composed by the positive functions of $E$ is an open and convex subset.
 It is possible to see $l$ as being a concave function defined on $U$.
@@ -794,11 +792,9 @@ Therefore, calling $\tilde\cP^\ast$ the class of positive priors in $\tilde\cP$,
 
 
 
-% Clearly, $\pi^\ast$ as given by the lemma in Equation (\ref{eq:lemconstepiast}) is a prior in $\tilde\cP\cap U\subset U\cap C$ because the functions $g_j$ are continuous as well as Jeffreys is. Additionally, $\tilde\cP$ differs from $\tilde\cP\cap U$ as it admits non-negative priors on top of positive ones. Actually, $\tilde\cP$ is the closure of $\tilde\cP\cap U$ for the topology induced by the infinite norm $\|\cdot\|$ ($\|f\|=\sup_\Theta|f|$), for which $l$ is continuous. Eventually, $\argmax_{\pi\in\tilde\cP}l(\pi)=\argmax_{\pi\in\tilde\cP\cap U}l(\pi)=\argmax_{\pi\in U\cap C}l(\pi)$, hence the result.
 
 
-
-\subsection{Proof of Theorem \ref{thm:lintoproper}}
+\subsection{Proof of \cref{thm:lintoproper}}
 
 
 Assuming that it exists, denote by $\pi^\ast$ the density of the $D_\delta$-reference prior $\varPi^\ast$ over $\overline\cP$, denote as well
@@ -820,7 +816,7 @@ Thus, $\pi^\ast_i$ is a maximal argument of $l$ under the constraints
     \begin{equation}
         \int_{\Theta_i}\pi_i = 1,\qquad \int_{\Theta_i}\pi_i g=\frac{c}{Z_i}-\frac{1}{Z_i}\int_{\Theta\setminus\Theta_i}\pi^\ast g.
     \end{equation}
-Given the result of Proposition \ref{prop:constraints}, $\pi^\ast_i$ takes the form of:
+Given the result of \cref{prop:constraints}, $\pi^\ast_i$ takes the form of:
     \begin{equation}
         \pi^\ast_i = J\cdot(\lambda^{(1)}_i+\lambda^{(2)}_ig)^{1/\delta}
     \end{equation}
@@ -840,11 +836,11 @@ To finish the proof, we still have to show that $\varPi^\ast$ is not null on any
 
 
 
-\subsection{Proof of Theorem \ref{thm:quasipostpropre}}
+\subsection{Proof of \cref{thm:quasipostpropre}}
 
   Consider an openly increasing sequence of compact sets $(\Theta_i)_{i\in\NN}$ that covers $\Theta$. Let $i\in\NN$, for $\varPi$ to be a $D_\delta$-reference prior over $\cP_i$, its normalized density $\pi_i$ %---associated to its probability density on $\Theta_i$--- 
   %to be a reference prior over $\cP_i$, it 
-  must maximize the function $l$ under the constraints $\int_{\Theta_i}\pi_i=1$ and $\int_{\Theta_i}\pi_i g=c_i$. Thus, according to Proposition \ref{prop:constraints}, $\pi_i$ can be written as:
+  must maximize the function $l$ under the constraints $\int_{\Theta_i}\pi_i=1$ and $\int_{\Theta_i}\pi_i g=c_i$. Thus, according to \cref{prop:constraints}, $\pi_i$ can be written as:
      \begin{equation}
          \pi_i(\theta)\propto J(\theta)(\lambda_i^{(1)}+\lambda_i^{(2)}g(\theta))^{1/\delta},
      \end{equation}
@@ -863,7 +859,7 @@ To finish the proof, we still have to show that $\varPi^\ast$ is not null on any
     \end{align}
 We want to identify the possible subsequential limits of $\li1$. 
 We assume that one exists in $(0,\infty]$, we can consider if required a subsequence to assume that it is the actual the limit of $\li1$. 
-This way, Equation (\ref{eq:convexityConspi1}) does not allow $\li2$ to be non-negative.
+This way, \cref{eq:convexityConspi1} does not allow $\li2$ to be non-negative.
 Thus, $\li2$ is negative and by convexity,
  %  \begin{equation}
  %       1\geq \li1\left(\int_{\Theta_i}J\right)^\delta + \li2\frac{\left(\int_{\Theta_i} Jg^{1+1/\delta}\right)^{\delta/(1+\delta)}}{\left(\int_{\Theta_i}J\right)^{1-\delta}} \left(\int_{\Theta_i}J\right)^{1/(1+\delta)}
@@ -881,7 +877,7 @@ Therefore,
 %    \li2 \aseq{i\rightarrow\infty} o\left(\li1\left(\int_{\Theta_i}Jg\right)^\delta\right)    
 %\end{equation}
 $\li2 \aseq{i\rightarrow\infty} o\left(\li1\left(\int_{\Theta_i}Jg\right)^\delta\right) $
-and the right hand side in Equation (\ref{eq:convixity2l2leq0}) diverges to $\infty$, which is a contradiction with $(c_i)_i$ being bounded.
+and the right hand side in \cref{eq:convixity2l2leq0} diverges to $\infty$, which is a contradiction with $(c_i)_i$ being bounded.
 
 As a consequence, any subsequential limit of $(\li1)_i$ must belong to $[-\infty,0]$. Without changing the notations, we can now assume that $(\li1)_i$ has a limit, which we suppose to be strictly negative firstly, also, $(\li1)_i$ can then be assumed to be always negative.
  Thus, still to ensure that $\li1+\li2g(\theta)\geq0$ for any $i$, $\theta$, and reminding that $g(\theta)\conv{\theta\rightarrow b}0$ we deduce $\frac{\li2}{|\li1|}\conv{i\rightarrow\infty}\infty$.
@@ -910,9 +906,26 @@ In any cases, $M(\pi^\ast)$ is a quasi-reference prior over $\overline\cP'$.
 
 
 
-\section{Conclusion}
+\section{Conclusion}\label{sec:BA:conclusion}
 
-conclusion
+
+
+Prior elicitation remains an open topic in Bayesian analysis, with no solution satisfying all criteria (objectivity, computational feasibility, property, ...) simultaneously. 
+In this work, we have focused on the objectivity and exploitability of priors.
+Specifically, we have provided some solutions for practitioners seeking non-subjective priors, addressing the practical challenges of traditional reference priors, particularly in terms of complexity and proper aspect. Through the example we presented, we demonstrated that simple criteria can lead to the construction of reference priors that are either straightforward to formulate or proper, depending on the case.
+
+Moreover, our results show that one cannot completely dispense with a consideration of the asymptotic properties of Jeffreys prior. This emphasizes the importance of studying this prior for a complete construction of objective priors.
+Indeed, although one of our results  offers a way to define in a simpler way the reference prior when it has improper decay rates, Jeffreys' rate still have to be elucidated. Our other result requires to derive the whole Jeffreys prior.
+
+The approximation of the latter thus becomes a problem of a prior importance. Of course, one can thoroughly focus its explicit expression, yet it can be cumbersome to derive. In the \cref{chap:varp} we propose a numerical solution for the approximation of the Jeffreys prior.
+
+
+
+
+
+
+
+
 
 
 
