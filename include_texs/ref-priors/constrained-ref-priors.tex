@@ -63,7 +63,7 @@ Then, the  practical aspect of our work is studied by the application of our met
     %\subsection{}
 
 In this work we consider a statistic model characterized by a collection of probability distributions $(\PP_{Y|\theta})_{\theta\in\Theta}$ on  a measurable set $(\cY,\sY)$. 
-We consider the same construction of the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}): considering any prior $\varPi$ (that is a $\sigma$-finite measure on $\Theta$) we denote $\mbf Y_k$ a random vector of $k$ observations whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y^k|\theta}=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$
+We consider the same construction of the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}): considering any prior $\varPi$ (that is a $\sigma$-finite measure on $\Theta$) we denote $\mbf Y_k$ a random vector of $k$ observations whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y^k|\theta}=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$.
 
 The modeling is supposed to be regular: we assume $\Theta\subset\RR^d$ with $\nu$ being the Lebesgue measure on $\RR^d$ and every prior $\varPi$ is supposed to admit a density $\pi$ w.r.t. $\nu$ (i.e. $\varPi\in\sM^\nu$).
 We also assume that the model admits a likelihood, denoted by $\ell$ with for any $\theta\in\Theta$ and $\mbf y\in\cY^k$, $\ell_k(\mbf y|\theta):= \prod_{i=1}^k\ell(\mbf y|\theta)$. We suppose that it verifies \cref{assu:intro-ref:jeffreysexist} in \cref{chap:intro-ref}, making the Fisher information matrix (denoted $\cI$) and the Jeffreys prior (whose density is denoted $J$) being well-defined.
@@ -115,9 +115,9 @@ We also remind the following result on the $D_\delta$-mutual information and the
 We already know that the definition of the reference prior and the $D_\delta$-reference prior is satisfied by the Jeffreys prior over the large set of priors $\sM^\nu_\cC$ in most cases (see \cref{chap:intro-ref,chap:ref-generalized}).
 % in most case (see \cref{chap:intro-ref} for ). 
 
-%the large class of priors admitting locally bounded and a.e. continuous densities w.r.t. the Lebesgue measure \citep{VanBiesbroeckBA2023}. 
+%the large set of priors admitting locally bounded and a.e. continuous densities w.r.t. the Lebesgue measure \citep{VanBiesbroeckBA2023}. 
 
-This result is, however, limiting and disappointing in some cases. The reasons are the following ones: (i) the Jeffreys prior is not recommended in high-dimensional problems as it is known to be ``either too diffuse or too concentrated'' \citep{berger_overall_2015}; moreover (ii) when the expression of the likelihood is itself complex, the computation of the Jeffreys prior can become  intractable; %which is why (iii) in practice a restriction to the class of priors to ones which are easier to compute is often favored; 
+This result is, however, limiting and disappointing in some cases. The reasons are the following ones: (i) the Jeffreys prior is not recommended in high-dimensional problems as it is known to be ``either too diffuse or too concentrated'' \citep{berger_overall_2015}; moreover (ii) when the expression of the likelihood is itself complex, the computation of the Jeffreys prior can become  intractable; %which is why (iii) in practice a restriction to the set of priors to ones which are easier to compute is often favored; 
 also (iii) the Jeffreys prior is known to often lead to an improper prior, which does not necessarily issue a proper posterior distribution, essential for practical \emph{a posteriori} inference and sampling.
 
 To tackle these limitations, we propose in this work to restrict the set of priors over which we derive the reference priors.
@@ -150,13 +150,13 @@ It is already described in \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}
 In this work, the reference priors will be derived only given their formal definition (\cref{def:BA:genref}). Yet, our results can be incorporated in this sequential construction. Indeed,
 step 2 of the method depicted above consists of the derivation of a reference prior w.r.t. the variable $\theta_j$.
 %in the sense of 
-% Thus, our reference priors over constrained classes of priors can be  plainly incorporated into this method.
-Additionally, we invite to note that this construction does not solve the limitations (ii) and (iii) previously evoked. Actually, it makes them essential. Indeed, step 2 requires, firstly, a derivation of a reference prior, so that it would lead to a low-dimensional Jeffreys prior if the class of priors is not constrained. Also step 3 necessitates, secondly, that the latter leads to a proper posterior so that the integral involved does not diverge.
+% Thus, our reference priors over constrained setes of priors can be  plainly incorporated into this method.
+Additionally, we invite to note that this construction does not solve the limitations (ii) and (iii) previously evoked. Actually, it makes them essential. Indeed, step 2 requires, firstly, a derivation of a reference prior, so that it would lead to a low-dimensional Jeffreys prior if the set of priors is not constrained. Also step 3 necessitates, secondly, that the latter leads to a proper posterior so that the integral involved does not diverge.
 
 We note that this last issue is taken into account by \citet{berger_development_1992} with the suggestion of such construction on an increasing sequence of compact subsets of $\Theta$: $\bigcup_{i\in\NN}\Theta_i=\Theta$. The hierarchical reference prior can then be chosen as a limit of the ones obtained under $\Theta_i$ when $i\to\infty$. However, this limit can be cumbersome to derive in practice. Another solution suggested by \citet{mure_objective_2018} is to restrict the $\sigma$-algebra $\sY$ until the reference prior derived in step 2 leads to a proper posterior. It is still imperfect, as there is no guarantee that such a restricted $\sigma$-algebra exists outside the trivial one.
 
 
-%In the following subsections, we propose a range of solutions to some of the issues aforementioned, based on the derivation of reference priors over constrained classes of priors. In  Section  {sec:constrainedasympt}, we derive a quasi $D_\delta$-reference prior over classes of priors that are easy to compute, in order to tackle the limitations (ii) and (iii) previously evoked. Then, Section  {sec:constrainedproper} explores another kind of constrained classes of priors, which leads to $D_\delta$-reference priors that can solve the item (iv).
+%In the following subsections, we propose a range of solutions to some of the issues aforementioned, based on the derivation of reference priors over constrained setes of priors. In  Section  {sec:constrainedasympt}, we derive a quasi $D_\delta$-reference prior over setes of priors that are easy to compute, in order to tackle the limitations (ii) and (iii) previously evoked. Then, Section  {sec:constrainedproper} explores another kind of constrained setes of priors, which leads to $D_\delta$-reference priors that can solve the item (iv).
 
 
 
@@ -284,7 +284,7 @@ The reference prior that our theorem proposes keeps the improper characteristic 
 This improper aspect can, however, remain an issue in some cases, especially when the resulting posterior is improper as well.
 
 For this reason, it might happen that some asymptotic rates in some directions still have to be tackled. The work in this section is concluded by results that allow defining a $D_\delta$-reference prior (or quasi $D_\delta$-reference prior), which benefits from adjusted decay rates from Jeffreys prior. 
-The proposition below constitutes a preliminary result that gives the form of a $D_\delta$-reference prior over a class of priors with linear constraints.
+The proposition below constitutes a preliminary result that gives the form of a $D_\delta$-reference prior over a set of priors with linear constraints.
 
 \begin{assu}\label{assu:glibre}
     A family of functions from $\Theta$ to $\RR$ $(g_j)_{j=1}^p$ is said to satisfy \cref{assu:glibre} if $g_0,\dots,g_p$ are linearly independent in the space of a.e. continuous functions from $\Theta$ to $\RR$, where $g_0:=\theta\mapsto 1$.
@@ -338,12 +338,12 @@ Below, given a function $g$ that is selected to adjust the asymptotics of Jeffre
             \quad\int_\Theta J(\theta)g^{1/\delta+1}(\theta)d\theta<\infty,
         \end{equation}
     and suppose that $g$ is bounded in the neighborhood of $b$ for an element $b\in\partial\Theta$. %such that $J$ is improper in the neighborhood of $b$.
-    We denote by $\overline\cP$ the class of positive priors $\varPi$ on $\Theta$ such that $\int_\Theta gd\varPi<\infty$, and we define 
+    We denote by $\overline\cP$ the set of positive priors $\varPi$ on $\Theta$ such that $\int_\Theta gd\varPi<\infty$, and we define 
     $\varPi\in\overline\cP$ as the prior whose density $\pi$ verifies % follows 
         \begin{equation}
             \pi(\theta)\propto J(\theta)g(\theta)^{1/\delta}.
         \end{equation}
-    If $Jg$ is non-integrable in the neighborhood of $b$, then $\varPi$ is a $D_\delta$-reference prior over $\overline\cP$. Otherwise, and if $J$ is improper in the neighborhood of $b$, $\varPi$ is a $D_\delta$-reference prior over the class of proper priors in $\overline\cP$.
+    If $Jg$ is non-integrable in the neighborhood of $b$, then $\varPi$ is a $D_\delta$-reference prior over $\overline\cP$. Otherwise, and if $J$ is improper in the neighborhood of $b$, $\varPi$ is a $D_\delta$-reference prior over the set of proper priors in $\overline\cP$.
 \end{thm}
 
 \begin{proof}
@@ -427,7 +427,7 @@ where $f$ is a density function with support on $\RR$, assumed to be symmetric w
     \begin{equation}
         J(\theta) \propto \frac{1}{\sigma_1\sigma_2(\sigma_1+\sigma_2)},
     \end{equation}
-    it is improper and leads to an improper posterior. In the following, we construct different priors based on the suggestions developed in this paper. %a method which, on the basis of our suggestions developed in what precedes, to construct a more suitable prior.
+    it is improper and leads to an improper posterior. In the following, we construct different priors based on the suggestions developed in this chapter. %a method which, on the basis of our suggestions developed in what precedes, to construct a more suitable prior.
 
     \paragraph{Proper priors based on a moment constraint}
     Considering results in \cref{sec:BA:res2} and the decay rates of the Jeffreys prior above, a simple correction can be done to issue a proper reference prior w.r.t. $\sigma_1,\sigma_2$, which results in a proper posterior.
@@ -522,7 +522,7 @@ For practical details, the chosen $f$ is the standard Gaussian density, and the 
     \includegraphics[width=6cm]{figures/constrained-priors/post50.pdf}\\
     \makebox[13cm][c]{%
     {~\hspace{\stretch{1}}(c)\hspace{\stretch{2}}(d)\hspace{\stretch{1}}~}}%
-    \caption{On (a), different prior densities $\pi_\gamma$ (in dashed line) w.r.t. $\sigma_2$ along with a Jeffreys prior density (that delimits the blue area) and the \emph{Independent Jeffreys} of \citep{rubio_inference_2014} (that delimits the orange area). On each of (b), (c) and (d), posterior densities for different values of $\gamma$ are plotted. %One observed sample served the calculation of all the posteriors on one figure. 
+    \caption{On (a), different prior densities $\pi_\gamma$ (in dashed line) w.r.t. $\sigma_2$ along with a Jeffreys prior density (that delimits the blue area) and the \emph{Independent Jeffreys} of \cite{rubio_inference_2014} (that delimits the orange area). On each of (b), (c) and (d), posterior densities for different values of $\gamma$ are plotted. %One observed sample served the calculation of all the posteriors on one figure. 
     One observed sample was used to calculate all the posteriors in a figure.
     The observed sample has a size of $k=5$ in (b), $k=15$ in (c), and $k=50$ in (d).\label{fig:priorpost}}
 \end{figure}
@@ -729,7 +729,7 @@ Let us start by the uniqueness.
 %Any $D_\delta$-reference prior
 A prior $\varPi^\ast\in\cP$ is a $D_\delta$-reference prior if and only if its density $\pi^\ast$ maximizes $l$ over $\cR$, where $M(\cR)=\cP$.
 As the set $\cP$ is convex, $\cR$ is convex as well. Also, we notice that the function $\pi\mapsto l(\pi)$ is strictly concave, so that its maximizer is unique in the sense that two maximizer are equal $\nu$-a.e. That ensures the $D_\delta$-reference prior is unique.
-%$\pi^\ast$ over a convex class such as $\tilde\cP$ must maximize $l$ as a prior on $\Theta$. The mapping $\pi\mapsto l(\pi)$ being strictly convex when $\pi$ is seen as a function in $\cR^\cC$, such maximal argument is unique.
+%$\pi^\ast$ over a convex   such as $\tilde\cP$ must maximize $l$ as a prior on $\Theta$. The mapping $\pi\mapsto l(\pi)$ being strictly convex when $\pi$ is seen as a function in $\cR^\cC$, such maximal argument is unique.
 
 
 % Regarding the expression of $\pi^\ast$,it can be seen as a direct consequence of the following lemma, which proven later on.
@@ -785,7 +785,7 @@ as $l$ is strictly concave and the constraints are linear, the second order cond
 To conclude, the elements in $\tilde\cP$ are associated to densities which belong to $E$ because $\Theta$ is compact.
 They are non necessarily everywhere positive, but only supposed to be non-negative.
 This set of bounded a.e. continuous and non-negative functions satisfying the constraints is actually the closure of $U\cap C$ over which $l$ is continuous.
-Therefore, calling $\tilde\cP^\ast$ the class of positive priors in $\tilde\cP$, we have $\argmax_{M(\pi)\in\tilde\cP}l(\pi)=\argmax_{M(\pi)\in\tilde\cP^\ast}l(\pi)$ which is $\pi^\ast$.
+Therefore, calling $\tilde\cP^\ast$ the set of positive priors in $\tilde\cP$, we have $\argmax_{M(\pi)\in\tilde\cP}l(\pi)=\argmax_{M(\pi)\in\tilde\cP^\ast}l(\pi)$ which is $\pi^\ast$.
 
 
 
