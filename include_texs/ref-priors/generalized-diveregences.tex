@@ -505,7 +505,7 @@ Thus, a maximization of our function $l$ over a well-chosen set of priors consti
     Denote by $\cR\subset\sR_{\cC^b}$ the set of their associated densities.
     Let $\varPi\in\cP$ whose density is denoted by $\pi\in\cR$.
     If there exists an openly increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $\varPi\in(0,\infty)$ and $\pi\cdot\indic_{\Theta_i}\propto\pi_i$ where:
-        \begin{equation}
+        \begin{equation}\label{eq:PSGSA:piiargmaxl}
             \pi_i\in \argmax_{p_i\in\cR_i} l(p) ,\text{\ with\ }\cP_i=\left\{p:\theta\mapsto\frac{\tilde p(\theta)}{\int_{\Theta_i}\tilde p(\tilde\theta)d\tilde\theta },\,   \tilde p\in\cR,\, \int_{\Theta_i}\tilde p\in(0,\infty)    \right\};
         \end{equation}
     then $\varPi$ is a $D_f$-reference prior over $\cP$.
@@ -516,8 +516,10 @@ The following subsection suggests an example of a constrained problem.
 
 
 % \begin{proof}[Proof of \cref{thm:PSGSA:maximizel}]
-%     In the case $\delta>0$, the theorem is a direct corollary of \cref{thm:refcompactpos}. It is not the case when $\delta<0$ since \cref{thm:PSGSA:Jrefdeltaneg} stands only for strictly positive densities.
-%     However, since for any density $\pi$ in $\sR_{\cC^b}$ we have $l()$
+%      In the case $\delta>0$, the theorem is a direct corollary of \cref{thm:refcompactpos}. It is not the case when $\delta<0$ since \cref{thm:PSGSA:Jrefdeltaneg} stands only for strictly positive densities.
+%      However, suppose that $\pi$ satisfies \cref{eq:PSGSA:piiargmaxl}. We denote $N$ the set of point in which $\pi$ is discontinuous. We consider $(K_i)_i$, an openly increasing sequence a copact subsets of $\Theta$ such that 
+
+%      However, since for any density $\pi$ in $\sR_{\cC^b}$ we have $l()$
     
 %     Thus, only the case $\delta<0$ is treated in this proof. 
 % \end{proof}
@@ -548,11 +550,13 @@ In Figure \ref{fig:exbeta} are plotted the $D_f$-reference priors over different
 
 \begin{figure}
     \centering%
-    \includegraphics[width=0.32\linewidth]{figures/generalized-ref/firstPe.pdf}\hspace*{0.01\linewidth}%
-    \includegraphics[width=0.32\linewidth]{figures/generalized-ref/secondPe.pdf}\hspace*{0.01\linewidth}%
-    \includegraphics[width=0.32\linewidth]{figures/generalized-ref/Pv.pdf}\\
+    \includegraphics[width=5cm]{figures/generalized-ref/firstPe.pdf}\hspace*{0.5cm}%
+    \includegraphics[width=5cm]{figures/generalized-ref/secondPe.pdf}\hspace*{0.5cm}%
+    \includegraphics[width=5cm]{figures/generalized-ref/Pv.pdf}\\
     % \hspce*{0.16\linewidth}(a)
+    \makebox[16cm][c]{%
     {\hspace{\stretch{1}}(a)\hspace{\stretch{2}}(b)\hspace{\stretch{2}}(c)\hspace{\stretch{1}}\ }%
+    }
     % \begin{tabular}{ccc}
     %     (a) & (b)  & (c)
     % \end{tabular}

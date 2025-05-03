@@ -388,7 +388,7 @@ Also, there does not exist to our knowledge a result about the existence of the 
 Actually, the reference priors are mostly studied in what are called regular cases.
 The following assumption is a regularity assumption on the statistical model, it ensures useful tools to be well-defined.
 \begin{assu}\label{assu:intro-ref:jeffreysexist}
-    $\Theta$ is an open subset of $\RR^d$, and the likelihood is such that
+    $\Theta$ is a subset of $\RR^d$ with non-empty interior, and the likelihood is such that
     \begin{enumerate}
         \item for $\mu$-a.e. $y$, $\theta\mapsto\ell(y|\theta)$ is twice differentiable, with $\nabla^2_\theta\ell(y|\theta)$ being negative definite,
         \item for any $\theta\in\Theta$, there exists $\tau>0$ %and $K>0$ 
@@ -396,7 +396,7 @@ The following assumption is a regularity assumption on the statistical model, it
         \begin{equation}
             \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\tau} \|\nabla^2_\theta\log\ell(Y|\theta')\| \right]\quad\text{and}\quad \EE_{Y\sim\PP_{Y|\theta}}\left[\sup_{\theta',\,\|\theta-\theta'\|<\tau}\|\nabla_\theta\log\ell(Y|\theta')\|^2\right],
         \end{equation}
-        are continuous functions of $\theta$.
+        are continuous functions of $\theta$ on the interior of $\Theta$.
         %are  bounded w.r.t. $\theta\in B(\hat\theta,\tau)$.
     \end{enumerate}
 \end{assu}
@@ -712,6 +712,27 @@ is stated below. It is, according to ourselves, an appropriate condition on this
         \Theta_i\subset V_i\subset\Theta_{i+1}.
     \end{equation}
 \end{defi}
+
+% \color{orange}
+% \begin{prop}
+%     When $\Theta\subset\RR^d$, is a countable union of open sets, there always exists an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$.
+% \end{prop}
+
+% \begin{proof}
+%     We write $\Theta=\bigcap_{j\in\NN}U_i$ for some open sets $U_i$.
+
+
+%     If $\Theta$ is compact then the results follows by taking $\Theta_i=V_i=\Theta$ for all $i\in\NN$. Otherwise, we start by stating that the family of open subsets of $\Theta$ $\cF=\{V=B(\theta,\tau)\cap\Theta,\,\theta\in\QQ^d,\,\tau\in\QQ_+^\ast$ with $\overline{V}\subset\Theta\}$ is a subbase of the induced topology of $\RR^d$ on $\Theta$.
+%     Indeed, let $\theta\in\Theta$, $\tau>0$, it is possible to write $B(\theta,\tau)\cap\mathring{\Theta}$ as a countable union of elements in $\cF$: $B(\theta,\tau)\cap\mathring{\Theta}=$
+%     %Indeed, let $\theta\in\Theta$, $\tau>0$, and call $V={B}(\theta,\tau)\cap\Theta$. If $\overline{V}\subset\Theta$ then ok. Else,    %if %$\theta\in\mathring{\Theta}$ such that $\overline{B}(\theta,\tau)\cap\overline{\Theta}\not\subset\Theta $.
+%     One can apply Alexander subbase theorem (see e.g. RUDIN??): there exist a cover of $\Theta$ by elements of $\cF$ from which one cannot extract a finite subcover. We write this cover as $\Theta=\bigcup_{i\in I}V_i$. Since $\cF$ is countable, it is possible to index the sequence $(V_i)_i$ by $\NN$: $\Theta=\bigcup_{i\in I}V_i$. %We can also assume that $(V_i)_i$ is an increasing sequence.  Indeed if it is not, 
+%     We construct by induction an increasing cover of $\Theta$: first we define $(\tilde V_j)_{j\in\NN}$ from $\tilde V_0=V_0$ and for all $j$, $\tilde V_{j+1}=\bigcup_{i=1}^{m(j)} V_i$ where $m(j)=\min\{m,\,\bigcup_{i=1}^mV_i\ne \tilde V_i \} $. If $m(j)$ was infinite for some $j$, then $(V_i)_{i=0}^j$ would constitute a finite subcover of $\Theta$, which is a contradiction with Alexander subbase theorem. %This construction is licit while $m(j)$ is never infinite, which is the case since 
+%     Now let $i\in\NN$, as $\tilde V_i\subset \tilde V_{i+1}$ with $\tilde V_i\ne\tilde  V_{i+1}$, 
+% \end{proof}
+
+
+% \color{black}
+
 
 \begin{prop}
     Assume $\Theta$ is compact. Then if $\varPi$ is a reference prior over a set of priors $\cP$, it verifies
