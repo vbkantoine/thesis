@@ -15,9 +15,147 @@
 
 \section{Introduction}
 
-intro 
+
+The reference prior theory %defines priors that are used in various statistical 
+has been used in various statistical models, and the reference priors are recognized for their objective nature in several practical studies.
+However,
+while the theoretical expression of the reference priors is known in most cases (see \cref{chap:intro-ref} for a comprehensive review of the reference prior theory), they suffer from their low computational feasibility.
+Indeed, they generally take the form of a Jeffreys prior or hierarchical Jeffreys priors, whose expression necessitate a heavy numerical cost to be derived, and that becomes even more cumbersome as the dimensionality of the problem increases.
+The developments done in \cref{chap:ref-generalized,chap:constrained-prior} make the tackling of this problem essential since the expression of the generalized reference prior suggested lead (with or without constrained) to a prior that is derived from Jeffreys'.
+% C'est un freain marqué à l'applicabilité
+It is an issue that jeopardizes %becomes a primary problem regarding  
+their applicability since, in many applications, \emph{a posteriori} estimates are obtained using Markov Chain Monte Carlo (MCMC) methods, which require many prior evaluations, further compounding the computational burden.
+
+%That low computational feasibility is not solved by the development done in \cref{chap:ref-generalized,chap:constrained-prior}, and make the tackling of this problem essential. Indeed, the expression of the generalized reference prior that we have suggest lead (with or without constrained) to a prior that is derived from Jeffreys'.
+
+
+
+
+In general, when we look for sampling or approximating a probability distribution,
+several approaches arise and may be used within a Bayesian framework. %
+In this work, we focus on variational inference methods.
+Variational inference seeks to approximate a complex target distribution 
+ $p$, ---e.g. a posterior--- by optimizing over a family of simpler parameterized distributions $q_{\lambda}$. The goal then is to find the distribution $q_{\lambda^\ast}$ that is the best approximation of $p$ by minimizing an objective function, such as a dissimilarity measure. %divergence, such as the Kullback-Leibler (KL) divergence. %
+Variational inference methods have been widely adopted in various contexts, including popular models such as Variational Autoencoders (VAEs; \cite{kingma_introduction_2019}), which are a class of generative models where one wants to learn the underlying distribution of data samples. We can also mention normalizing flows (see e.g. \cite{papamakarios_normalizing_2021,kobyzev_normalizing_2021}), 
+ which consider diffeomorphism transformations to recover the density of the approximated distribution from the simpler one taken as input.
+
+
+When it resorts to approximate {reference priors}, it is possible to leverage
+that they maximize the mutual information, instead of directly maximizing a divergence between a target and an output. Indeed, the mutual information does not depend on the target distribution that we want to reach, so that iterative derivations of the theoretical {solution} are not necessary. In \cite{nalisnick_learning_2017}, the authors propose a variational inference procedure to approximate reference priors using a lower bound of the mutual information as an optimization criterion. %, a variational inference procedure is  proposed using stochastic gradient ascent of the mutual information criterion and illustrated on simple statistical models. 
+%
+By building on these foundations, this chapter proposes a novel variational inference algorithm to compute reference priors.  % {objective priors that are approximations of} {Jeffreys priors}. 
+%The priors provided by our methodology correspond to approximations of the maximizer of the mutual information.
+%{We recall that our priors correspond to approximations of reference priors when no ordering is imposed on the parameters. For simplicity, we refer to them as variational approximations of the reference priors (VA-RPs).}
+
+
+
+In this work,
+%As in \cite{nalisnick_learning_2017}, 
+the {reference priors} are approximated from a parametric family of probability distributions implicitly defined by the push-forward probability distribution through a nonlinear function that takes the form of a neural network. %(see e.g. \cite{marzouk_sampling_2016}). We will focus on push-forward probability measures through neural networks. 
+% They are computed by max
+The algorithm is thought to handle the maximization of mutual information that is defined using $f$-divergence (as suggested in the \cref{chap:ref-generalized}), instead of the traditional Kullback-Leibler divergence.
+Additionally, building on the developments conducted in the \cref{chap:constrained-prior}, we extend the framework to allow the integration of constraints on the prior. That last feature permits handling situations where the Jeffreys prior is improper. Improper priors represent a particular challenge in this work because they cannot be sampled from, yet the prior constructed from our methodology is not known explicitly and can only be used for sampling. % sampled from. 
+In comparison with the previous works, we benchmark extensively our algorithm on statistical models of different complexity and nature to ensure its robustness.
+
+%Our algorithm incorporates these constraints, providing a principled way to address improper priors and ensuring that the resulting posterior distributions are well-defined and suitable for practical use.
+
+In the following, we start by ...
+
+%First, we will introduce the reference prior theory of \cite{bernardo1979} and the recent developments around generalized reference priors made by \cite{van2023generalized} in Section \ref{sec:rp_theory}. Next, the {methodology to construct VA-RPs} is detailed in Section \ref{sec:VA-RP}. A stochastic gradient algorithm is proposed, as well as an augmented Lagrangian algorithm for the constrained optimization problem, for learning the parameters of an implicitly defined probability density function that will approximate the reference prior. Moreover, a mindful trick to sample from the posterior distribution by MCMC using the implicitly defined prior distribution is proposed. In Section \ref{sec:numexp}, different numerical experiments from various test cases are carried out in order to benchmark the VA-RP. Analytical statistical models where the {Jeffreys prior}  is known are tested to allow comparison between the VA-RP and the {Jeffreys prior}.      
+
+
+
+
 
 \section{Variational approximation of the reference prior}
+
+\subsection{Reference priors, notations}
+
+
+% The reference prior theory consider
+In this study, we consider classical and regular statistic models defined by a collection of probability distributions $(\PP_{Y|\theta})_{\theta\in\Theta}$ on a measure set $\cY$, which admit likelihoods $(\ell(\cdot|\theta))_{\theta\in\Theta}$ w.r.t. a common measure $\mu$ on $\cY$.
+Given a prior $\varPi$ on $\Theta$, one can construct the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}) to define the $D_f$-mutual information when $k$ data are observed:
+    \begin{equation}
+        \sI_{D_f}^k(\varPi) = \EE_{T\sim\varPi}[D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} ) ];
+    \end{equation}
+where $\PP_{\mbf Y_k|\theta}:= \PP_{Y|\theta}^{\otimes k} $, $\PP_{\mbf Y_k}$ being the marginal distribution and $D_f$ denoting an $f$-divergence.
+This definition of the mutual information using $f$-divergence is an extension of the original definition that uses a Kullback-Leibler divergence instead, we refer to the \cref{chap:ref-generalized} where this extension is proposed and developed.
+In this chapter, the regularity of the model will not be questioned and always be assumed sufficient for our mathematical derivations to stand. In particular the mutual information (denoted by $\cI$) exists as well as the Jeffreys prior (whose density is denoted $J$).
+
+
+Note that in the expression of the $D_f$-mutual information above, the involved distributions 
+do not always exist when $\varPi$ is improper. In this case, the quantity is not always well-defined. That is why in the context of reference priors this quantity is considered taking restrictions of $\varPi$ on compact subsets of $\Theta$. 
+Reference priors are then defined as asymptotic maximizer of the restricted mutual information as $k\to\infty$.
+
+
+In this work, we aim at ``globally'' maximizing the $D_f$-mutual information, i.e. considering its expression written as in EQ?? for priors defined on the whole space $\Theta$.
+That means that we presumably limit our study to proper priors. 
+Moreover, our method limits itself to the maximization of the mutual information as expressed in eq??, i.e. for a fixed value of $k$.
+All in all, we focus the solving of an optimization problem that takes the form:
+    \begin{equation}
+        \text{find}\quad\varPi^\ast\in\argmax_{\varPi\in\cP_N} \sI^k_{D_f}(\varPi),
+    \end{equation}
+where $\cP_N$ is a set of normalized proper continuous priors: $\cP_N=\{\varPi\in\sM^\nu_\cC,\,\varPi(\Theta)=1 \}$. In this work, we will always treat cases where $\Theta\subset\RR^d$ and $\nu$ is the Lebesgue measure.
+Actually, restricting the research of reference priors to the optimization problem written above is not very limiting. Indeed, the set $\cP_N$ contains priors that are ``very close'' to any improper priors: considering the topology on $\sM/\!\simeq$ induced by the Q-vague convergence (see \cite{bioche_approximation_2016}), $\cP_N$ is dense in $\sM^\nu_\cC$.
+Also, we expect that, if $k$ is large enough, the solution of the optimization problem should get closer to the reference prior. That intuition has already been developed by \citet{berger_formal_2009} or \cite{le_formal_2014} who proved it in the one dimensional case.
+
+
+
+
+
+
+Furthermore, as mentioned in the introduction, %improper priors can also compromise the validity of {a posteriori} estimates in some cases. 
+this work aims also at approximating ``properly constrained reference priors'', i.e. priors that are maximizer of the mutual information under some constraints. The idea is to leverage the development conducted in the \cref{chap:constrained-prior} to make reference priors being proper. We process by 
+addressing the resolution of the following optimization problem:
+    \begin{equation}
+        \text{find}\quad \tilde\varPi^\ast\in\argmax_{\substack{\varPi\in\cP_N\\ \text{s.t.\ }C(\varPi)<\infty}} \sI^k_{D_f}(\varPi),
+    \end{equation}
+where $C(\varPi)$ defines a constraint of the form $\int_\Theta g(\theta)d\varPi(\theta)$, $g$ being a positive function. We remind that, when the mutual information in the above optimization problem is defined from a $\delta$-divergence, and when $g$ verifies
+\begin{equation}\label{eq:condtitions_a}
+    \int_\Theta J(\theta)a(\theta)^{1/\delta}d\theta<\infty\quad \text{and}\quad \int_\Theta J(\theta)a(\theta)^{1+1/\delta}d\theta<\infty,
+\end{equation}
+the developments done in the \cref{chap:constrained-prior} state that the constrained
+{solution} $\tilde\varPi^\ast$ ---if it corresponds to the actual reference prior over the one satisfying that constraint--- admits a density $\tilde\pi^\ast$ that asymptotically takes the form:
+\begin{equation}
+    \tilde\pi^\ast(\theta) \propto J(\theta)a(\theta)^{1/\delta},
+\end{equation}
+which is proper.
+
+
+
+
+
+\subsection{Implicit expression of the prior using neural networks}
+
+
+
+
+
+
+\subsection{Objective functions and their gradient}
+
+
+
+\subsection{Posterior sampling from the implicit definition}
+
+
+\section{Numerical experiments on different models}
+
+
+\subsection{Multinomial model}  %: a multidimensional example with a proper Jeffreys prior}
+
+\subsection{Probit model} % peut-être pas
+
+\subsection{Normal model}
+
+
+\section{Conclusion}
+
+
+
+
+
+
 
 
 
