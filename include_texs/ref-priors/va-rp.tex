@@ -128,7 +128,7 @@ which is proper.
 
 \subsection{Implicit expression of the prior using neural networks}\label{sec:VARP:implicitdef}
 
-In this work, the goal is to solve the optimization problem expressed in \cref{eq:VARP:optimproblemintro,eq:VARP:optimproblemintroconstrained} by variational inference.
+In this work, the goal is to solve the optimization problems expressed in \cref{eq:VARP:optimproblemintro,eq:VARP:optimproblemintroconstrained} by variational inference.
 The idea is to restrict the study to a parametric set of priors $\{\varPi_\lambda,\,\lambda\in\Lambda \}$, $\Lambda\subset\RR^L$, reducing the optimization problem to a finite dimensional one: find $\argmax_{\lambda\in\Lambda}\sI_{D_f}^k(\varPi_\lambda)$. The construction of this parametric set comes by defining 
 our priors implicitly, from a simpler random variable $\eps$ and a non-linear function $g$:
     \begin{equation}
@@ -156,7 +156,7 @@ The VA-RP is formally formulated as the solution of an optimization problem of t
 \begin{equation}\label{eq:opti_pb_pilambda}
     \text{find}\quad \varPi_{\lambda^\ast} \quad\text{where}\quad \lambda^\ast=\argmax_{\lambda\in\Lambda} \cO_{D_f}^k(\varPi_{\lambda}),
 \end{equation}
-where $\varPi_\lambda$ refers to the implicit parametrization described in ??. The function $\mathcal{O}^k_{D_f}$ is called the objective function, it is maximized using  stochastic gradient optimization. It is intuitive to fix $\mathcal{O}^k_{D_f}$ to equal $\sI^k_{D_f}$, in order to maximize the mutual information of interest.
+where $\varPi_\lambda$ refers to the implicit parametrization described in \cref{sec:VARP:implicitdef}. The function $\mathcal{O}^k_{D_f}$ is called the objective function, it is maximized using  stochastic gradient optimization. It is intuitive to fix $\mathcal{O}^k_{D_f}$ to equal $\sI^k_{D_f}$, in order to maximize the mutual information of interest.
 Yet, in this section, we suggest alternative objective functions that can be considered to compute the VA-RP.
 Our method is adaptable to any objective function $\mathcal{O}^k_{D_f}$  admitting a gradient w.r.t. $\lambda$ that takes the form of the following definition. %$=(\lambda_1,\dots,\lambda_L)$ that takes the form the 
 \begin{defi}\label{def:VARP:acceptable}
@@ -409,12 +409,77 @@ For instance, variational inference techniques could be implemented. In this wor
 
 \section{Numerical experiments on different models}
 
+In this section, we apply our algorithm to different statistical models, and we assess the correct approximation of the Jeffreys prior by the obtained VA-RP. %This assessment remains a challenge as in some cases the target prior is improper. In such a case 
+
+As for the output of the neural networks, the activation function just before the output is different for each statistical model, the same can be said for the learning rate. In some cases, we apply an affine transformation on the variable $\theta$ to avoid divisions by zero during training. In every test case, we consider simple networks for an easier fine-tuning of the hyperparameters and also because the precise computation of the loss function is an important bottleneck.
+The neural networks weights are initialized randomly w.r.t. a Gaussian distribution, and their biases are initially set at $0$. % and biased are intialized randomly 
+
+
+
 
 \subsection{Multinomial model}  %: a multidimensional example with a proper Jeffreys prior}
 
-\subsection{Probit model} % peut-être pas
+\subsubsection{Description of the model}
+
+The multinomial model is a case study that is simple in the sense that the target distributions ---the Jeffreys prior and posterior--- have explicit expressions and are part of a usual parametric family of proper distributions. This study allows testing and validating our algorithm on a multidimensional problem.
+
+
+
+The multinomial distribution can be interpreted as the generalization of the binomial distribution for higher dimensions. 
+In this case, %$\cY=\{\}$ \theta\in(0,1)^d$,
+ $\cY=\{y\in\{0,\dots,n\}^d,\,\sum_{i=1}^dy^i=n\} $ for a fixed $n\in\NN^\ast$, and 
+ $\Theta=(0,1)^d$. The data follow, conditionally to $\theta$, a multinomial distribution characterized  by the likelihood:
+ \begin{equation}
+     \ell(y|\theta) = \frac{n!}{y^1!\dots y^d!}\prod_{i=1}^d\theta_i^{y^i};
+ \end{equation}
+ whose log-gradient w.r.t. $\theta$ equals
+    \begin{equation}
+        \partial_{\theta_j}\log\ell(y|\theta) = \frac{y^j}{\theta_j};
+    \end{equation}
+for all $\theta\in\Theta$, $y=(y^{1},\dots,y^d)\in\cY$.
+In this model, an explicit expression of the maximum likelihood estimator can be derived as
+    \begin{equation}
+        \ell_k(\mbf y|\hat\theta^{\text{MLE}}) = \textstyle{ \ell_k\left(\mbf y\,\middle|\, \frac{1}{nk}\sum_{i=1}^{k}y_i  \right)}\quad \text{for all} \quad \mbf y=(y_1,\dots,y_k)\in\cY^k;
+    \end{equation}
+where $\frac{1}{nk}\sum_{i=1}^{k}y_i$ is the $d$-dimensional vector whose $j$-th coordinate is $\frac{1}{nk}\sum_{i=1}^{k}y_i^j$.
+
+
+The reference prior (the prior maximizing the mutual information) is the Jeffreys prior which is a Dirichlet distribution for this model:  $\mbf J= \text{Dir}_d \left(\frac{1}{2}, ... , \frac{1}{2} \right)$, which is proper.
+The Jeffreys posterior is a conjugate Dirichlet distribution: 
+\begin{equation}
+    \mbf J_{\text{post}}(\theta| \mbf Y_k) = \text{Dir}_d(\zeta) \quad \text{with} \quad \zeta=(\zeta_j)_{j=1}^d,\,\zeta_j= \frac{1}{2} + \sum_{i=1}^k Y_i^j .    
+\end{equation}
+We recall that the probability density function $p_{\text{Dir}_d(\zeta)}$ of a Dirichlet distribution is the following: 
+\begin{equation}
+    p_{\text{Dir}_d(\zeta)}(t) = \frac{\Gamma(\sum_{j=1}^d \zeta_j)}{\prod_{j=1}^d \Gamma(\zeta_j)} \prod_{j=1}^d t_j^{\zeta_j - 1} \quad\text{for all}\quad t\in(0,1)^d.    
+\end{equation}
+
+
+In the \cref{chap:intro-ref}, we mentioned that
+although the Jeffreys prior is the prior that maximizes the mutual information, \citet{berger_ordered_1992,berger_overall_2015} argue that other priors for the multinomial model are more suited in terms of non-informativeness as the dimension of $\theta$ increases. {According to them, an appropriate reference prior should result from a sequential construction}, referred to as the $r$-group reference prior. This prior is derived through hierarchical maximizations of the mutual information where the parameter coordinates are grouped into $r$ groups. Their process is explained in the \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}). According to the cited authors, while the Jeffreys prior corresponds to the $r=1$-group reference prior using this construction, the $d$-group one should be favored for this model. 
+Nevertheless, our approach consists in approaching the maximizer of the mutual information, hence, the Jeffreys prior remains our target in this regard.
+
+
+
+
+Regarding the neural network that defines the VA-RP in this study, we opt for a simple neural network with one linear layer and a Softmax activation function assuring that all components are positive and sum to 1. Explicitly, we have that: 
+\begin{equation}
+    \theta = \text{Softmax}(W^{\top}\varepsilon + b),
+\end{equation}
+with $W \in \mathbb{R}^{p\times 4}$ the weight matrix and $b \in \mathbb{R}^4$ the bias vector. The density function of $\theta$ does not have a closed expression. The following results are obtained with $\delta=0.5$ for the divergence and the lower bound is used as the objective function.
+
+
+
+\subsubsection{Results}
+
+
+
+
+% \subsection{Probit model} % peut-être pas
 
 \subsection{Normal model}
+
+
 
 
 \section{Conclusion}
