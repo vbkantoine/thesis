@@ -36,7 +36,6 @@
 \include{include_texs/intro}
 
 
-
 \part{Contribution to the reference prior theory}\label{part:ref-theory}
 
 
@@ -70,18 +69,18 @@
 
 \chapter{Bayesian estimation of seismic fragility: irregular regularization}\label{chap:prem}
 
-\include{include_texs/fragility-curves/jeffreys-probit}
+\input{include_texs/fragility-curves/jeffreys-probit}
 
 
 \chapter{Integration of a properly constrained reference prior}\label{chap:constrained-frags}
 
-\include{include_texs/fragility-curves/constrained-ref-probit}
+\input{include_texs/fragility-curves/constrained-ref-probit}
 
 
 \chapter{Design of experiments in a Bayesian framework}\label{chap:doe}
 
 
-\include{include_texs/fragility-curves/DoE}
+\input{include_texs/fragility-curves/DoE}
 
 
 
@@ -90,14 +89,22 @@
 
 \appendix
 \part*{Appendix}\label{part:appendix}
-\addcontentsline{toc}{part}{Appendix}
+% \addcontentsline{toc}{part}{Appendix}
 
 %\renewcommand{\thechapter}{\Alph{chapter}}
 
-\chapter{Design of experiments in low fidelity model of seismic fragility curves}\label{app:chap:ESAIM}
+\chapter{Design of experiments on a low fidelity model of seismic fragility curves}\label{app:chap:ESAIM}
 
-\include{include_texs/fragility-curves/low-fidelity-doe}
+\input{include_texs/fragility-curves/low-fidelity-doe}
 
+
+\chapter{Non-asymptotic reference priors, a brief study}
+
+
+
+\chapter{Reminder of useful mathematical notions}
+
+ 
  
 \printbibliography 
 \addcontentsline{toc}{chapter}{Bibliography}
