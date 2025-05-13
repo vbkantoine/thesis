@@ -59,7 +59,12 @@ In comparison with the previous works, we benchmark extensively our algorithm on
 
 %Our algorithm incorporates these constraints, providing a principled way to address improper priors and ensuring that the resulting posterior distributions are well-defined and suitable for practical use.
 
-In the following, we start by ...
+In the following, we start by explaining the algorithmic construction of the variational approximation of the reference prior in \cref{sec:VARP:VARP}. We define in that section the optimization problem, its adaptation for incorporating constraints,  and how the output prior is built and used for posterior sampling.
+The methodology is afterward implemented in \cref{sec:VARP:experiments} on two different models: the multinomial model and the normal model.
+A conclusion terminates the chapter in \cref{sec:VARP:conclusion}.
+
+
+
 
 %First, we will introduce the reference prior theory of \cite{bernardo1979} and the recent developments around generalized reference priors made by \cite{van2023generalized} in Section \ref{sec:rp_theory}. Next, the {methodology to construct VA-RPs} is detailed in Section \ref{sec:VA-RP}. A stochastic gradient algorithm is proposed, as well as an augmented Lagrangian algorithm for the constrained optimization problem, for learning the parameters of an implicitly defined probability density function that will approximate the reference prior. Moreover, a mindful trick to sample from the posterior distribution by MCMC using the implicitly defined prior distribution is proposed. In Section \ref{sec:numexp}, different numerical experiments from various test cases are carried out in order to benchmark the VA-RP. Analytical statistical models where the {Jeffreys prior}  is known are tested to allow comparison between the VA-RP and the {Jeffreys prior}.      
 
@@ -275,7 +280,7 @@ This bound can be an indicator on how well the mutual information is optimized, 
 
 
 
-\subsubsection{Approximation of the gradients}
+\subsubsection{Approximation of the gradients}\label{sec:VARP:gradapprox}
 
 The gradients of the objective functions proposed in this section can be approximated via successive Monte-Carlo, sampling from $\PP_\eps$ and from the conditional distributions $\PP_{Y|\theta}$.
 Concerning the marginal density $p_{\lambda,\mbf Y_k}$ and the maximum likelihood $\ell_k(\mbf Y_k|\hat\theta^{\text{MLE}})$, they can be approximated using:
@@ -313,7 +318,7 @@ When $D_f$ corresponds to a $\delta$-divergence, the maximizer of the mutual inf
 \end{equation}
     where $\eta_1,\dots, \eta_R \in \mathbb{R}$ are constants determined by the constraints.
 
-According to the results stated in \cref{chap:constrained-prior}, when the constraint is defined from only a function $a$ that satisfies \cref{eq:condtitions_a}, the reference prior under the constraint $\cC(\varPi)<\infty$ has a density of the form $\pi\propto J\cdot a^{1/\delta}$ and is proper.
+According to the results stated in \cref{chap:constrained-prior}, when the constraint is defined from only a function $a$ that satisfies \cref{eq:condtitions_a}, the reference prior $\varPi^C$ under the constraint $\cC(\varPi^C)<\infty$ has a density of the form $\pi^C\propto J\cdot a^{1/\delta}$ and is proper.
 We propose the following method to approximate the VA-RP under such constraint:
 \begin{itemize}
     \item Denote by $\mbf J$ the Jeffreys prior. Compute the VA-RP $\varPi_{\hat\lambda} \approx \mbf J$, in the same manner as for the unconstrained case.
@@ -374,7 +379,7 @@ We propose the following method to approximate the VA-RP under such constraint:
 
 
 
-\subsection{Posterior sampling from the implicit definition}
+\subsection{Posterior sampling from the implicit definition}\label{sec:VARP:postsampling}
 
 
 Although our main object of study is the prior distribution, one needs to find the posterior distribution given an observed dataset $\mbf y\in\cY^k$ in order to do the inference on $\theta$. If the prior $\varPi_\lambda$ admits a density $\pi_\lambda$, the posterior density is of the form : 
@@ -406,7 +411,7 @@ For instance, variational inference techniques could be implemented. In this wor
 
 
 
-\section{Numerical experiments on different models}
+\section{Numerical experiments on different models}\label{sec:VARP:experiments}
 
 In this section, we apply our algorithm to different statistical models, and we assess the correct approximation of the Jeffreys prior by the obtained VA-RP. %This assessment remains a challenge as in some cases the target prior is improper. In such a case 
 
@@ -597,6 +602,9 @@ supports two claims: (i) the $D_{f_\delta}$ mutual information derived for a fix
 
 \subsection{Normal model}
 
+
+\subsubsection{Description of the model and results without constraints}
+
 The second case study that is developed in this chapter is the Gaussian model with known mean. Explicitly, $\cY=\RR$, $\Theta=(0,\infty)$, and the model is characterized by the likelihood 
 \begin{equation}
     \ell(y|\theta) = \frac{1}{\sqrt{2\pi\theta}}\exp\left(-\frac{1}{2\theta}(y-\mu)^2\right),
@@ -612,12 +620,48 @@ It is conjugate with the likelihood: the distribution of the Jeffreys posterior 
     \end{equation}
 which is proper.
 
+It is possible to implement the training of the VA-RP to approximate the improper Jeffreys prior. However, it becomes complicated to sample from the obtained prior, and one cannot directly compare it with the target. 
+Yet, we can circumvent this problem by comparing the posterior distributions.
+% The obtained prior becomes 
+In \cref{fig:VARP:normal-noconstr}, we present the result obtained from training a neural network with one layer and a Softplus activation function. The dimension of $\eps$ is set at $p=10$.
+% The training is condusted 
+We observe that the evolution of the $D_{f_\delta}$-mutual information (\cref{fig:VARP:normal-noconstr}-left) remains stable, and the posterior distribution obtained from the VA-RP is close to the one obtained from Jeffreys (\cref{fig:VARP:normal-noconstr}-right).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5.625cm]{figures/va-rp/MI_normal.pdf}\hspace*{0.2cm}
+    \includegraphics[width=5.625cm]{figures/va-rp/normal_post.pdf}
+    \caption{}
+    \label{fig:VARP:normal-noconstr}
+\end{figure}
 
 
 
 
+\subsubsection{Constraint incorporation}
 
-\section{Conclusion}
+
+We also propose the introduction of constraints in this model, in order to ensure the VA-RP approximates a proper prior. We define $a(\theta)=\frac{1}{\theta^{e_1}+\theta^{e_2}}$ with $e_1<0<e_2$. The constant $\cK$ and $c$ defined in \cref{sec:VARP:adaptconstraints} are finite:
+\begin{equation}
+    \forall\delta\geq1,\ \int_0^\infty\frac{1}{\theta}\left(\frac{1}{\theta^{e_1}+\theta^{e_2}}\right)^\delta d\theta \leq\frac{1}{\delta}\left(\frac{1}{e_2}-\frac{1}{e_1}\right).
+\end{equation}
+Thus, the constrained reference prior that is the target of the constrained VA-RP is the prior whose density $\pi^C$ verifies $\pi^C(\theta)\propto J(\theta)a(\theta)^{1/\delta}$.
+
+We implement the above taking $\delta=1/2$, $e_1=-1$, $e_2=1$, so that $\cK=1/2$ and $c=\pi/16$, making the explicit constraint being $C(\varPi) =\EE_{\theta\sim\varPi}[a(\theta)]=\pi/8$. In figure \cref{fig:VARP:normal-constr}-left, we compare the prior distributions, which are both proper. The figure %shows an adequate approximation 
+supports the robustness of the algorithm to approximate the reference prior even with added constraints.
+The posterior distributions are compared as well in \cref{fig:VARP:normal-constr}-right, which still reinforce the correctness of the approximation.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5.625cm]{figures/va-rp/normal_prior_constr.pdf}\hspace*{0.2cm}
+    \includegraphics[width=5.625cm]{figures/va-rp/normal_post_constr.pdf}
+    \caption{}
+    \label{fig:VARP:normal-constr}
+\end{figure}
+
+
+\section{Conclusion}\label{sec:VARP:conclusion}
 
 
 
