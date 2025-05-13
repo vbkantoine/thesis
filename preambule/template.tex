@@ -116,8 +116,12 @@ skipabove=1.2\baselineskip,
    {\end{fcor}\end{mdframed}}
 
 \theoremstyle{definition}
-\newtheorem{defi}{Definition}[chapter]
-\crefname{defi}{definition}{definitions}
+\newtheorem{fdefi}{Definition}[chapter]
+\crefname{fdefi}{definition}{definitions}
+\newenvironment{defi}[1][]%
+   {\begin{mdframed}[linecolor=niceBluelight]\begin{fdefi}[#1]}
+   {\end{fdefi}\end{mdframed}}
+
 \newtheorem{assu}{Assumption}[chapter]
 \crefname{assu}{assumption}{assumptions}
 \newtheorem{rem}{Remark}[chapter]

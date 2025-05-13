@@ -256,13 +256,12 @@ This gradient is such that the following results stands.
 
 
 We emphasize that, 
-given that  $p^{\lambda}_{\mbf Y_k}(\mbf Y_k) \leq  \ell_k(\mbf Y_k|\hat{\theta}^{\text{MLE}})$ for all $\lambda$, we have  $\cB^k_{D_f}(\varPi_{\lambda}) \leq \sI^k_{D_f}(\varPi_{\lambda})$ while $f$ is decreasing.
+given  $p^{\lambda}_{\mbf Y_k}(\mbf Y_k) \leq  \ell_k(\mbf Y_k|\hat{\theta}^{\text{MLE}})$ for all $\lambda$, we have  $\cB^k_{D_f}(\varPi_{\lambda}) \leq \sI^k_{D_f}(\varPi_{\lambda})$ while $f$ is decreasing.
 %Actually,
 We recall that, in this work, we aim at using $\delta$-divergences (with $\delta\in(0,1)$), i.e. 
 $f=f_\delta$ with %used in $\delta$-divergence (Equation (\ref{eq:falpha})), 
 $f_\delta(x) = \frac{x^\delta-\delta x-(1-\delta)}{\delta(\delta-1)}$.
-Unfortunately, $f_\delta$ is not a decreasing function
-is not decreasing, yet we can circumvent this by replacing it with $\hat{f}_\delta$ defined hereafter, because  $D_{f_\delta}=D_{\hat{f}_\delta}$: 
+Unfortunately, $f_\delta$ is not a decreasing function, yet we can circumvent this by replacing it with $\hat{f}_\delta$ defined hereafter, because  $D_{f_\delta}=D_{\hat{f}_\delta}$: 
 \begin{equation}
     \hat{f}_{\delta}(x) = \frac{x^{\delta}-1}{\delta(\delta-1)} = f_{\delta}(x) + \frac{1}{\delta-1}(x-1) .
 \end{equation}
@@ -447,7 +446,7 @@ where $\frac{1}{nk}\sum_{i=1}^{k}y_i$ is the $d$-dimensional vector whose $j$-th
 The reference prior (the prior maximizing the mutual information) is the Jeffreys prior which is a Dirichlet distribution for this model:  $\mbf J= \text{Dir}_d \left(\frac{1}{2}, ... , \frac{1}{2} \right)$, which is proper.
 The Jeffreys posterior is a conjugate Dirichlet distribution: 
 \begin{equation}
-    \mbf J_{\text{post}}(\theta| \mbf Y_k) = \text{Dir}_d(\zeta) \quad \text{with} \quad \zeta=(\zeta_j)_{j=1}^d,\,\zeta_j= \frac{1}{2} + \sum_{i=1}^k Y_i^j .    
+    \mbf J_{\text{post}}(T| \mbf Y_k) = \text{Dir}_d(\zeta) \quad \text{with} \quad \zeta=(\zeta_j)_{j=1}^d,\,\zeta_j= \frac{1}{2} + \sum_{i=1}^k Y_i^j .    
 \end{equation}
 We recall that the probability density function $p_{\text{Dir}_d(\zeta)}$ of a Dirichlet distribution is the following: 
 \begin{equation}
@@ -466,7 +465,7 @@ Regarding the neural network that defines the VA-RP in this study, we opt for a 
 \begin{equation}
     \theta = \text{Softmax}(W^{\top}\varepsilon + b),
 \end{equation}
-with $W \in \mathbb{R}^{p\times 4}$ the weight matrix and $b \in \mathbb{R}^4$ the bias vector. The density function of $\theta$ does not have a closed expression. The following results are obtained with $\delta=0.5$ for the divergence and the lower bound is used as the objective function.
+with $W \in \mathbb{R}^{p\times d}$ the weight matrix and $b \in \mathbb{R}^d$ the bias vector. The density function of $\theta$ does not have a closed expression. The following results are obtained with $d=4$ and $\delta=0.5$ for the divergence and the lower bound is used as the objective function.
 
 
 
@@ -474,10 +473,146 @@ with $W \in \mathbb{R}^{p\times 4}$ the weight matrix and $b \in \mathbb{R}^4$ t
 
 
 
+We notice (\cref{fig:multi_MI}) that the $D_{f_\delta}$-mutual information lies between $0$ and $1/\delta(1-\delta) = 4$ during the training, which is coherent with the theory, the confidence interval is rather large because it is computed with few samples, but the mean value has an increasing trend. {In order to obtain more reliable values for the mutual information, one can use more samples in the Monte Carlo estimates at the cost of heavier computations.}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5.625cm]{figures/va-rp/MI_multinomial.pdf}
+    \caption{Monte Carlo estimation of the $D_{f_\delta}$-mutual information with $\delta=0.5$ and $k=200$ of $\varPi_\lambda$ through the training of the neural network. % for $\pi_{\lambda_e}$ where $\lambda_e$ is the parameter of the neural network at epoch $e$. 
+    The red curve is the mean value and the gray zone is the 95\% confidence interval of the Monte-Carlo estimate. The learning rate used in the optimization is $0.0025$.}
+    \label{fig:multi_MI}
+\end{figure}
+
+
+
+\Cref{fig:multi_prior,fig:multi_post} propose qualitative comparisons between the obtained VA-RP at the end of the training and the Jeffreys prior.
+The first comparison takes the form of histograms of samples distributed w.r.t. each of the priors. 
+The second differs from the fact that the samples are drawn w.r.t. the posterior distributions for a given observed dataset of size $10$.
+We notice that although the shape of the fitted prior resembles the one of the Jeffreys prior, one can notice that it tends to put more weight towards the extremities of the interval (\cref{fig:multi_prior}). The posterior distribution however is quite similar to the target Jeffreys posterior on every component (\cref{fig:multi_post}).
+
+
+\begin{figure}[h]
+    \centering
+    % \hspace*{-2.0cm}
+    \includegraphics[width=3.75cm]{figures/va-rp/multi-prior_1.pdf}\hspace*{0.25cm}
+    \includegraphics[width=3.75cm]{figures/va-rp/multi-prior_2.pdf}\hspace*{0.25cm}
+    \includegraphics[width=3.75cm]{figures/va-rp/multi-prior_3.pdf}\hspace*{0.25cm}
+    \includegraphics[width=3.75cm]{figures/va-rp/multi-prior_4.pdf}%
+    \caption{Histograms of the VA-RP and the Jeffreys prior %Dir$_d(\frac{1}{2},\frac{1}{2},\frac{1}{2},\frac{1}{2})$, $d=4$, 
+    for each dimension of $\theta$, each one is obtained from $10^5$ samples.}
+    \label{fig:multi_prior}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    % \hspace*{-2.0cm}
+    \includegraphics[width=3.75cm]{figures/va-rp/multi-post_1.pdf}\hspace*{0.25cm}
+    \includegraphics[width=3.75cm]{figures/va-rp/multi-post_2.pdf}\hspace*{0.25cm}
+    \includegraphics[width=3.75cm]{figures/va-rp/multi-post_3.pdf}\hspace*{0.25cm}
+    \includegraphics[width=3.75cm]{figures/va-rp/multi-post_4.pdf}%
+    \caption{Histograms of the posteriors obtained from the VA-RP and the Jeffreys prior for each dimension of $\theta$, each one is obtained from $10^5$ samples. 
+    The posteriors are derived
+    given a random dataset of size $10$, and distributed using $\theta_{\text{true}}=(\frac{1}{4},\dots,\frac{1}{4})$.}
+    \label{fig:multi_post}
+\end{figure}
+
+
+
+Since the multinomial model is simple and computationally practical, we would like to quantify the effect of the divergence with different $\delta$ values on the output of the algorithm. In order to do so, we utilize the maximum mean discrepancy (MMD) defined as : 
+\begin{equation}
+    \text{MMD}^2(\cH;\,P||Q) = \EE_{X,X'\sim P\otimes P}[K(X,X')] + \EE_{Y,Y'\sim Q\otimes Q}[K(Y,Y')] - 2\EE_{X,Y\sim P\otimes Q}[K(X,Y)];
+\end{equation}
+for any distributions $P,Q$, and where $\cH$ denotes a reproducible kernel Hilbert space whose $K$ is a reproducing kernel. %\citep{gretton_kernel_2012}.
+%where $\mu_{p}$ and $\mu_{q}$ are respectively the kernel mean embeddings of distributions $p$ and $q$ in a reproducible kernel Hilbert space (RKHS) $(\mathcal{H}, || \cdot ||_{\mathcal{H}})$, meaning : $\mu_{p}(\theta') = \mathbb{E}_{\theta \sim p }[K(\theta,\theta')] $ for all $\theta' \in \Theta$ and $K$ being the kernel. 
+The MMD is used for instance in the context of two-sample tests \citep{gretton_kernel_2012}, whose purpose is to compare distributions. We use in our computations the Gaussian or RBF kernel : 
+\begin{equation}
+    K(\theta, \theta') = \exp(-0.5 \cdot ||\theta - \theta'||_2^2)
+\end{equation} 
+for which the MMD is a metric, this means that the following implication: 
+\begin{equation}
+    \text{MMD}(\cH;\,P||Q) = 0 \implies P=Q
+\end{equation}
+is verified with the other axioms. In practice, 
+we consider an unbiased estimator of the MMD$^2$ given by: 
+\begin{equation}
+    \widehat{\text{MMD}^2}(P||Q) =  \frac{1}{m(m-1)} \sum_{i \neq j}K(x_i,x_j) +  \frac{1}{m'(m'-1)} \sum_{i \neq j}K(y_i,y_j) - \frac{2}{mm'} \sum_{i,j} K(x_i,y_j),
+\end{equation}
+where $(x_1,...,x_m)$ and $(y_1,...,y_{m'})$ are sampled from $P$ and $Q$ respectively. In our case, $P$ is the VA-RP and $Q$ is the target Jeffreys prior. Since the MMD can be time-consuming or memory inefficient to compute in practice for very large samples, we consider only the last $2 \cdot 10^4$ entries of our priors and posterior samples.
+According to Table \ref{tab:mmd_multinom}, the difference between $\delta$ values in terms of the MMD criterion is essentially inconsequential. One remark is that the mutual information tends to be more unstable as $\delta$ gets closer to $1$. The explanation is that when $\delta$ tends to $1$, we have the approximation :
+\[ \hat{f}_{\delta}(x) \approx \frac{x-1}{\delta(\delta-1)} + \frac{x\log(x)}{\delta},    \]
+which diverges for all $x$ because of the first term. Hence, we advise the user to avoid $\delta$ values that are too close to $1$. In the following, we use $\delta = 0.5$ for the divergence.
+
+
+\begin{table}[h]
+\centering
+\setlength{\arrayrulewidth}{1.5pt}
+\begin{tabular}{|c|c|c|}
+\hline
+%\rowcolor[gray]{.9}
+$\delta$ & \textbf{Prior} & \textbf{Posterior}  \\ \hline\hline
+$0.1$ & $7.07 \times 10^{-2}$ &  $2.09 \times 10^{-3}$ \\ \hline
+$0.25$  & $7.42 \times 10^{-2}$  & $3.39 \times 10^{-3}$  \\ \hline
+$0.5$ & $5.26 \times 10^{-2}$ &  $1.96 \times 10^{-3}$   \\ \hline
+$0.75$ & $7.80 \times 10^{-2}$ & $1.50 \times 10^{-3}$  \\ \hline 
+$0.9$ & $6.15 \times 10^{-2}$ & $4.84 \times 10^{-4}$  \\ \hline 
+\end{tabular}
+\caption{MMD values for different $\delta$-divergences at prior and posterior levels. As a reference on the prior level, when computing the criterion between two independent Dirichlet Dir$_d(\frac{1}{2},\frac{1}{2},\frac{1}{2},\frac{1}{2})$ distributions (ie the Jeffreys prior) on $2 \cdot 10^4$ samples, we obtain an order of magnitude of $10^{-3}$.}
+\label{tab:mmd_multinom}
+\end{table}
+
+
+
+
+
+The last quantitative study conducted for this model validates the result developed in \cref{chap:ref-generalized} about the asymptotic expansion of the $D_{f_\delta}$-mutual information. 
+In the case $d=1$, we show on \cref{fig:VARP:rateslIM} that $l_{D_{f_\delta}}^k(\mbf J)$ and $\sI^k_{D_{f_\delta}}(\varPi_\lambda)$ are close, where $l^k_{D_{f_\delta}}(\mbf J)$ denotes
+the theoretical asymptotic rate w.r.t. $k$ of 
+$\sI^k_{D_{f_\delta}}(\mbf J)$. According to the result of \cref{chap:ref-generalized}, the latter admits the following asymptotic expansion:
+    \begin{equation}
+        \sI^k_{D_{f_\delta}}(\mbf J) \equi{k\rightarrow\infty} \frac{1}{\delta(1-\delta)} + l^k_{D_{f_\delta}}(\mbf J), \quad \text{with} \quad l^k_{D_{f_\delta}}(\mbf J) = \frac{-1}{\delta(1-\delta)^{3/2}}\left( \frac{\pi k}{2} \right)^{-\delta/2}.
+    \end{equation}
+This comparison
+supports two claims: (i) the $D_{f_\delta}$ mutual information derived for a fixed $k$ resembles to its asymptotic form w.r.t. $k$, which is the form that is maximized by the reference prior by definition; (ii) as the VA-RP maximizes the former, it is close to the maximal argument of the latter. 
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=5cm]{figures/va-rp/conv-rates-025.pdf}
+    \includegraphics[width=5cm]{figures/va-rp/conv-rates-05.pdf}
+    \includegraphics[width=5cm]{figures/va-rp/conv-rates-075.pdf}
+    \caption{Values of the quantities $\sI^k_{D_{f_\delta}}(\varPi_\lambda)$ and $l^k_{D_{f_\delta}}(\mbf J)$ when $d=1$ as a function of $k$, in log scale, for different values of $\delta$: $\delta=0.25$ (left), $\delta=0.5$ (middle), and $\delta=0.75$ (right).}
+    \label{fig:VARP:rateslIM}
+\end{figure}
+
+% the VA-RP reaches a value of the $D_{f_\delta}$-mutual information that is close of the optimal value reached by the actual reference prior.
+%  the maximal value of this asymptotic form is close 
+
+
+%the evaluation of the $D_{f_\delta}$-mutual information in the Jeffreys prior is close to the rate of the $D_{f_\delta}$-mutual information when evaluated in the VA-RP.
+
+
+
 
 % \subsection{Probit model} % peut-être pas
 
 \subsection{Normal model}
+
+The second case study that is developed in this chapter is the Gaussian model with known mean. Explicitly, $\cY=\RR$, $\Theta=(0,\infty)$, and the model is characterized by the likelihood 
+\begin{equation}
+    \ell(y|\theta) = \frac{1}{\sqrt{2\pi\theta}}\exp\left(-\frac{1}{2\theta}(y-\mu)^2\right),
+\end{equation}
+with $\mu\in\RR$ being fixed. The gradient of the log-likelihood equals
+\begin{equation}
+    \partial_{\theta_j}\log\ell_k(\mbf y|\theta) = -\frac{k}{2\theta}+\frac{1}{2\theta^2}\sum_{i=1}^k(y_i-\mu)^2\quad\text{for all}\quad \mbf y=(y_1,\dots,y_k)\in\cY^k.
+\end{equation}
+There exist an explicit expression of the  MLE as well: $\ell_k(\mbf Y_k|\hat\theta^{\text{MLE}})= \ell_k(\mbf Y_k|\frac{1}{k}\sum_{i=1}^kY_i)$. In this model, the Jeffreys prior admits a simple analytical density $J(\theta)\propto1/\theta$, which is improper. 
+It is conjugate with the likelihood: the distribution of the Jeffreys posterior is an inverse-gamma distribution:
+    \begin{equation}
+        \mbf J_{\text{post}}(T|\mbf y) = \Gamma^{-1}\left(\frac{k}{2},\,\frac{1}{2}\sum_{i=1}^{k}(y_i-\mu)^2\right)    \quad\text{for all}\quad \mbf y\in\cY^k,
+    \end{equation}
+which is proper.
+
+
 
 
 
