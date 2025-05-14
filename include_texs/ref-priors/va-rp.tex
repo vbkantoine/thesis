@@ -3,11 +3,14 @@
 \begin{abstract}[\hspace*{-10pt}]
     This chapter develops the work
     done by Nils Baillie, during his end-of-study internship that I supervised at CEA Saclay.
-    It draws mainly from the submitted work: \fullcite{baillie_variational_2025}
+    It draws mainly from the submitted paper: \fullcite{baillie_variational_2025}
 \end{abstract}
 
 \begin{abstract}
-    abstract
+    The computation of priors yielded by the framework of the reference prior theory remains a difficult task in various statistical models. 
+    In this chapter, we develop a flexible algorithm based on variational inference to compute approximations of reference priors from a set of distributions parameterized using neural networks. The algorithm is implemented to approximate the maximizer of generalized mutual information. It allows the introduction of constraints in the optimization problem that ensure the resulting prior is proper or issues proper posteriors. Also, our method incorporates the possibility to approximate the posterior distribution using Markov Chain Monte Carlo methods. Numerical experiments on two statistical models are presented, 
+    and we evaluate the performance of the algorithm by comparing both prior and posterior distributions.
+    Our results show the usefulness of this approach to recover the target distribution.
 \end{abstract}
 
 \minitoc
@@ -85,7 +88,7 @@ Given a prior $\varPi$ on $\Theta$, one can construct the Bayesian framework as 
     \end{equation}
 where $\PP_{\mbf Y_k|\theta}:= \PP_{Y|\theta}^{\otimes k} $, $\PP_{\mbf Y_k}$ being the marginal distribution and $D_f$ denoting an $f$-divergence.
 This definition of the mutual information using $f$-divergence is an extension of the original definition that uses a Kullback-Leibler divergence instead, we refer to the \cref{chap:ref-generalized} where this extension is proposed and developed.
-In this chapter, the regularity of the model will not be questioned and always be assumed sufficient for our mathematical derivations to stand. In particular the mutual information (denoted by $\cI$) exists as well as the Jeffreys prior (whose density is denoted $J$).
+In this chapter, the regularity of the model will not be questioned and always be assumed sufficient for our mathematical derivations to stand. In particular the Fisher information matrix (denoted by $\cI$) exists as well as the Jeffreys prior (whose density is denoted $J$).
 
 
 Note that in the expression of the $D_f$-mutual information above, the involved distributions 
@@ -95,7 +98,7 @@ Reference priors are then defined as asymptotic maximizer of the restricted mutu
 
 In this work, we aim at ``globally'' maximizing the $D_f$-mutual information, i.e. considering its expression written as in \cref{eq:VARP:IMalltheta} for priors defined on the whole space $\Theta$.
 That means that we presumably limit our study to proper priors. 
-Moreover, our method limits itself to the maximization of the mutual information as expressed in eq??, i.e. for a fixed value of $k$.
+Moreover, our method limits itself to the maximization of the mutual information as expressed in \cref{eq:VARP:IMalltheta}, i.e. for a fixed value of $k$.
 All in all, we focus the solving of an optimization problem that takes the form:
     \begin{equation}\label{eq:VARP:optimproblemintro}
         \text{find}\quad\varPi^\ast\in\argmax_{\varPi\in\cP_N} \sI^k_{D_f}(\varPi),
@@ -115,7 +118,7 @@ addressing the resolution of the following optimization problem:
     \begin{equation}\label{eq:VARP:optimproblemintroconstrained}
         \text{find}\quad \tilde\varPi^\ast\in\argmax_{\substack{\varPi\in\cP_N\\ \text{s.t.\ }C(\varPi)<\infty}} \sI^k_{D_f}(\varPi),
     \end{equation}
-where $C(\varPi)$ defines a constraint of the form $\int_\Theta g(\theta)d\varPi(\theta)$, $g$ being a positive function. We remind that, when the mutual information in the above optimization problem is defined from a $\delta$-divergence, and when $g$ verifies
+where $C(\varPi)$ defines a constraint of the form $\int_\Theta a(\theta)d\varPi(\theta)$, $a$ being a positive function. We remind that, when the mutual information in the above optimization problem is defined from a $\delta$-divergence, and when $a$ verifies
 \begin{equation}\label{eq:condtitions_a}
     \int_\Theta J(\theta)a(\theta)^{1/\delta}d\theta<\infty\quad \text{and}\quad \int_\Theta J(\theta)a(\theta)^{1+1/\delta}d\theta<\infty,
 \end{equation}
@@ -161,11 +164,11 @@ The VA-RP is formally formulated as the solution of an optimization problem of t
 \begin{equation}\label{eq:opti_pb_pilambda}
     \text{find}\quad \varPi_{\lambda^\ast} \quad\text{where}\quad \lambda^\ast=\argmax_{\lambda\in\Lambda} \cO_{D_f}^k(\varPi_{\lambda}),
 \end{equation}
-where $\varPi_\lambda$ refers to the implicit parametrization described in \cref{sec:VARP:implicitdef}. The function $\mathcal{O}^k_{D_f}$ is called the objective function, it is maximized using  stochastic gradient optimization. It is intuitive to fix $\mathcal{O}^k_{D_f}$ to equal $\sI^k_{D_f}$, in order to maximize the mutual information of interest.
+where $\varPi_\lambda$ refers to the implicit parametrization described in \cref{sec:VARP:implicitdef}. The function $\mathcal{O}^k_{D_f}$\vspace*{-2pt} is called the objective function, it is maximized using  stochastic gradient optimization. It is intuitive to fix $\mathcal{O}^k_{D_f}$\vspace*{-2pt} to equal $\sI^k_{D_f}$, in order to maximize the mutual information of interest.
 Yet, in this section, we suggest alternative objective functions that can be considered to compute the VA-RP.
 Our method is adaptable to any objective function $\mathcal{O}^k_{D_f}$  admitting a gradient w.r.t. $\lambda$ that takes the form of the following definition. %$=(\lambda_1,\dots,\lambda_L)$ that takes the form the 
 \begin{defi}\label{def:VARP:acceptable}
-    We recall that $\cP_\Lambda$ denotes the set of priors defined by the implicit parametrization described in Section??.
+    We recall that $\cP_\Lambda$ denotes the set of priors defined by the implicit parametrization described in \cref{sec:VARP:implicitdef}.
     A mapping $\varPi_\lambda\in\cP_{\Lambda}\mapsto\cO_{D_f}^k(\varPi_\lambda)$ is said to be an acceptable objective function if it admits a gradient w.r.t. $\lambda$ that takes the form
         \begin{equation}\label{eq:compatible_objective_function}
              \nabla_\lambda\mathcal{O}_{D_f}^k(\varPi_{\lambda}) = \mathbb{E}_{\varepsilon\sim\PP_\eps}\left[\sum_{j=1}^d\partial_{\theta_j} \Tilde{\mathcal{O}}^k_{D_f}(g(\lambda,\varepsilon))\nabla_\lambda g_j(\lambda,\varepsilon)\right]
@@ -184,14 +187,14 @@ allow for flexible implementation, as it permits the separation of sampling and 
 
     \item The gradient of $g$ is
     computed independently. In practice, 
-    it is possible to leverage usual  differentiation techniques for the neural network. An example is  PyTorch's automatic differentiation feature ``autograd''.
+    it is possible to leverage usual automatic differentiation techniques for the neural network. An example is  PyTorch's automatic differentiation feature ``autograd''.
 \end{itemize}
 This separation is advantageous as  automatic differentiation tools ---such as autograd--- are well-suited to differentiating complex networks but struggle with functions incorporating randomness. 
 This way, the optimization problem can be addressed using stochastic gradient optimization, approximating at each step the gradient in \cref{eq:compatible_objective_function} via Monte Carlo estimates.
 In our experiments, the implementation of the algorithm is done using Adam optimizer. %, with its default hyperparameters, $\beta_1=0.9$ and $\beta_2=0.999$. The learning rate is tuned more specifically for each numerical benchmark.
 
 
-Several acceptable objective functions, such as the $D_f$-mutual information $\sI_{D_f}^k$, as stated in the proposition below.
+Several acceptable objective functions exist, such as the $D_f$-mutual information $\sI_{D_f}^k$, as stated in the proposition below.
 \begin{prop}
     The $D_f$-mutual information $\sI^k_{D_f}$ is an acceptable objective function. Its gradient equals
     \begin{align}\label{eq:gradientIdf}
@@ -300,7 +303,7 @@ Concerning the marginal density $p_{\lambda,\mbf Y_k}$ and the maximum likelihoo
 
 In this section, we suggest an adaptation of the variational optimization problem to incorporate some linear constraints on the prior. As mentioned in \cref{sec:VARP:refpriors} and developed in \cref{chap:constrained-prior}, 
 there exist specific constraints that would make the theoretical solution proper.
-This is also a way to incorporate expert knowledge to some extent. We consider $M$ constraints of the form:
+This is also a way to incorporate expert knowledge to some extent. We consider $R$ constraints of the form:
 \begin{equation}
  \forall \, r \in \{1,\ldots,R\} \text{,}\, \,   \, \mathcal{C}_r(\varPi_{\lambda}) = \mathbb{E}_{\theta \sim \varPi_{\lambda}} \left[ a_r(\theta) \right] - b_r,
 \end{equation}
@@ -357,7 +360,7 @@ We propose the following method to approximate the VA-RP under such constraint:
     \begin{equation}
         \mathcal{L}_A(\lambda, \eta, \Tilde{\eta}) = \mathcal{O}^k_{D_f}(\varPi_{\lambda}) + \sum_{r=1}^R \eta_r \mathcal{C}_r(\varPi_{\lambda}) - \sum_{r=1}^R \frac{\Tilde{\eta}_r}{2} \mathcal{C}_r(\varPi_{\lambda})^2 .
     \end{equation}
-    Its gradient has a form that  is acceptable (see \cref{def:VARP:acceptable}) while $\cO_{D_f}^k$ as well: 
+    Its gradient has a form that  is acceptable (see \cref{def:VARP:acceptable}) while $\cO_{D_f}^k$ is acceptable as well: 
     \begin{equation}
     \begin{aligned}
      \nabla_\lambda \mathcal{L}_A(\lambda, \eta, \Tilde{\eta}) &= \nabla_\lambda \mathcal{O}^k_{D_f}(\varPi_{\lambda}) +  \mathbb{E}_{\varepsilon\sim\PP_\eps}\left[ \sum_{j=1}^d \left(\sum_{r=1}^R  \partial_{\theta_j} a_r(g(\lambda, \varepsilon))(\eta_k - \Tilde{\eta}_k\mathcal{C}_k(\varPi_{\lambda}))\right)\nabla_\lambda g_j(\lambda,\varepsilon)\right] \\
@@ -580,7 +583,7 @@ This comparison
 supports two claims: (i) the $D_{f_\delta}$ mutual information derived for a fixed $k$ resembles to its asymptotic form w.r.t. $k$, which is the form that is maximized by the reference prior by definition; (ii) as the VA-RP maximizes the former, it is close to the maximal argument of the latter. 
 
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=5cm]{figures/va-rp/conv-rates-025.pdf}
     \includegraphics[width=5cm]{figures/va-rp/conv-rates-05.pdf}
@@ -631,7 +634,7 @@ We observe that the evolution of the $D_{f_\delta}$-mutual information (\cref{fi
     \centering
     \includegraphics[width=5.625cm]{figures/va-rp/MI_normal.pdf}\hspace*{0.2cm}
     \includegraphics[width=5.625cm]{figures/va-rp/normal_post.pdf}
-    \caption{}
+    \caption{Left: Monte-Carlo estimation (mean in red, $95\%$ confidence interval of the estimate in gray) of the $D_{f_\delta}$-mutual information with $\delta=0.5$ and $k=200$ of $\varPi_\lambda$ through the training of the neural network. Right: histograms of the posteriors obtained from the VA-RP and from the Jeffreys prior. The posteriors are derived given a random dataset of size $10$ and distributed using $\theta_{\text{true}}=1$.}
     \label{fig:VARP:normal-noconstr}
 \end{figure}
 
@@ -645,9 +648,9 @@ We also propose the introduction of constraints in this model, in order to ensur
 \begin{equation}
     \forall\delta\geq1,\ \int_0^\infty\frac{1}{\theta}\left(\frac{1}{\theta^{e_1}+\theta^{e_2}}\right)^\delta d\theta \leq\frac{1}{\delta}\left(\frac{1}{e_2}-\frac{1}{e_1}\right).
 \end{equation}
-Thus, the constrained reference prior that is the target of the constrained VA-RP is the prior whose density $\pi^C$ verifies $\pi^C(\theta)\propto J(\theta)a(\theta)^{1/\delta}$.
+Thus, the constrained reference prior that is the target of the constrained VA-RP is the prior whose density $\pi^C$ verifies $\pi^C(\theta)\propto J(\theta)a(\theta)^{1/\delta}$ and is proper.
 
-We implement the above taking $\delta=1/2$, $e_1=-1$, $e_2=1$, so that $\cK=1/2$ and $c=\pi/16$, making the explicit constraint being $C(\varPi) =\EE_{\theta\sim\varPi}[a(\theta)]=\pi/8$. In figure \cref{fig:VARP:normal-constr}-left, we compare the prior distributions, which are both proper. The figure %shows an adequate approximation 
+We implement the above taking $\delta=1/2$, $e_1=-1$, $e_2=1$, so that $\cK=1/2$ and $c=\pi/16$, making the explicit constraint being $C(\varPi) =\EE_{\theta\sim\varPi}[a(\theta)]=\pi/8$. In  \cref{fig:VARP:normal-constr}-left, we compare the prior distributions, which are both proper. The figure %shows an adequate approximation 
 supports the robustness of the algorithm to approximate the reference prior even with added constraints.
 The posterior distributions are compared as well in \cref{fig:VARP:normal-constr}-right, which still reinforce the correctness of the approximation.
 
@@ -656,12 +659,34 @@ The posterior distributions are compared as well in \cref{fig:VARP:normal-constr
     \centering
     \includegraphics[width=5.625cm]{figures/va-rp/normal_prior_constr.pdf}\hspace*{0.2cm}
     \includegraphics[width=5.625cm]{figures/va-rp/normal_post_constr.pdf}
-    \caption{}
+    \caption{Comparisons between the VA-RP and the Jeffreys prior. Left: histogram of the VA-RP (red) and density of the target constrained reference prior $\pi^C$ (blue). Right: Histogram of the posterior obtained from the VA-RP (red) and density of the posterior obtained from the target constrained reference prior (blue). The posteriors are derived given a random dataset of size $10$ and distributed using $\theta_{\text{true}}=1$.}
     \label{fig:VARP:normal-constr}
 \end{figure}
 
 
 \section{Conclusion}\label{sec:VARP:conclusion}
+
+
+
+
+
+In this work, we developed an algorithm to perform variational approximation of reference priors using the generalized definition of mutual information based on $f$-divergences that was developed in the \cref{chap:ref-generalized}.
+%To enhance computational efficiency, we derived 
+%a lower bound of the generalized mutual information.
+Additionally, because the reference priors of interest are often improper and often yield improper posteriors, we adapted the variational definition of the problem to incorporate constraints that ensure the posteriors are proper, following the development conducted in the \cref{chap:constrained-prior}. 
+
+
+Numerical experiments have been carried out on two test cases of different complexities in order to validate our approach.
+%These test cases range from purely toy models to more real-world problems, namely the estimation of seismic fragility curve parameters using a probit statistical model. 
+The results demonstrate the usefulness of our approach in estimating both prior and posterior distributions across the considered problems. %\textcolor{Green}{, including problems where the theoretical expression of the target prior is cumbersome to compute.}
+This study thus provides a flexible and robust solution for approximating the theoretical solutions that were proposed in this \cref{part:ref-theory} of the manuscript.
+We argue that the implementation can be adapted to a wide range of statistical models, including the ones where the target prior is not known explicitly.
+In the \cref{part:spra}, an example of such statistical model will be studied.
+
+
+
+
+%Looking forward, the approximation of the tails of the reference priors could be improved. That is a complex problem in the field of variational approximation, as well as the stability of the algorithm when using deeper networks\textcolor{Green}{, or different architectures}. An extension of this work to the approximation of Maximal Data Information (MDI) priors is also appealing, thanks to the fact MDI are proper under certain assumptions precised in \cite{Bousquet2008}.   
 
 
 
