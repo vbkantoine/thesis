@@ -16,8 +16,9 @@
 
 The reference prior theory aims at defining priors that are the most objective possible. A review of the theory can be found in the \cref{chap:intro-ref}. It is built on the maximization of the mutual information, which is designed to measure the information brought by the data in the posterior distribution.
 
-While there exist infinitely many ways to compare probability distribution, the mutual information is classically defined as an expected Kullback-Leibler divergence between the prior and the posterior.
-The settings under which the reference priors are usually defined result from the aforementioned choice. Since the aim is to define priors that are not impacted by potentially subjective choice, we question how the results about reference priors stands when the definition of the mutual information is altered.
+While there exist infinitely many ways to compare probability distributions, the mutual information is classically defined as an expected Kullback-Leibler divergence between the prior and the posterior.
+The settings under which the reference priors are usually defined result from the aforementioned choice. Since the aim is to define priors that are not impacted by potentially subjective choice, we ask how the results about reference priors change when the definition of the mutual information is altered.
+% question how the results about reference priors stands when the definition of the mutual information is altered.
 
 Extensions of the mutual information in the reference prior definition have already been explored in the literature (e.g. \cite{chen_objective_2010,liu_divergence_2014,le_formal_2014}), and some do not necessarily lead to the Jeffreys prior \citep{hashimoto_reference_2021,clarke_reference_1997,ghosh_general_2011}. They are all based on the expression of mutual information as an average divergence between the posterior and the prior distributions.
 
@@ -64,7 +65,7 @@ The priors considered are absolutely continuous distributions w.r.t. $\nu$.
 
 We consider the same notations as in \cref{chap:intro-ref}: $\mbf Y_k$ denote a random vector of $k$ data items whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y_k|\theta}:=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$. The density of $\varPi$ is denoted by $\pi$.
 
-We suppose that the modeling admits a likelihood, denoted by $\ell$ with $\forall\theta\in\Theta,\mbf y\in\cY^k,\, \ell_k(\mbf y|\theta)=\prod_{i=1}^k\ell(y|\theta) $. We denote by $p_{\mbf Y^k}$ the marginal density of $\mbf Y_k$, and by $p(\cdot|\mbf y)$ the posterior density given the observations $\mbf y\in\cY^k$. %We recall that even though those quantities are defined (when they exist) only up to a constant, their definition is the usual o
+We suppose that the modeling admits a likelihood, denoted by $\ell$ with $\forall\theta\in\Theta,\mbf y\in\cY^k,\, \ell_k(\mbf y|\theta)=\prod_{i=1}^k\ell(y_i|\theta) $. For all $\theta$, $\ell(\cdot|\theta)$ is the density of $\PP_{T|\theta}$ w.r.t. a common measure $\mu$ on $\cY$. We denote by $p_{\mbf Y^k}$ the marginal density of $\mbf Y_k$, and by $p(\cdot|\mbf y)$ the posterior density given the observations $\mbf y\in\cY^k$. %We recall that even though those quantities are defined (when they exist) only up to a constant, their definition is the usual o
 Furthermore, we suppose the modeling to be regular (i.e. \cref{assu:intro-ref:jeffreysexist} in \cref{chap:intro-ref} is verified), so that the Fisher information matrix (that we denote $\cI$) and the Jeffreys prior exist. A density of the Jeffreys prior is denoted by $J$.
 
 
@@ -82,7 +83,7 @@ That last quantity expresses the mutual information as
 a measure of the influence that the stochastic parameter $T$ has on the data $\mbf Y_k$.
 That interpretation aligns with a sensitivity analysis viewpoint. Actually, the expression in \cref{eq:PS:MIGSA} can be seen as a sensitivity index, where the impact of the input $T$ on the output $\mbf Y_k$ is studied. We develop this interpretation in the following section.
 
-
+\textcolor{orange}{proof of the funbini}
 
 
 \subsection{Mutual information as a sensitivity index}
@@ -125,7 +126,7 @@ Our novel definition is the following.
 
 In the case where $D=D_f$ is an $f$-divergence, the mutual information equals
     \begin{equation}
-        \sI_{D_f}^k(\varPi) =\EE_{T\sim\pi}[D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T})] = \int_\Theta\int_{\cY^k}f\left( \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\theta)} \right) \ell_k(\mbf y|\theta)d\mu^{\otimes k}(\mbf y) \pi(\theta)d\nu(\theta).
+        \sI_{D_f}^k(\varPi) =\EE_{T\sim\pi}[D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T})] = \int_\Theta\int_{\cY^k}f\left( \frac{p_{\mbf Y_k}(\mbf y)}{\ell_k(\mbf y|\theta)} \right) \ell_k(\mbf y|\theta)d\mu^{\otimes k}(\mbf y) \pi(\theta)d\theta.
     \end{equation}
 % For the sequel, let us refer to the $D_f$-mutual  information as the $f$
 It corresponds to  the classical definition in the case where $f=-\log$. Actually, the classical definition is a subcase of the study of a particular class of the $f$-divergences:  the $\delta$-divergences. They are defined setting $f=f_\delta$ where 
@@ -135,7 +136,7 @@ It corresponds to  the classical definition in the case where $f=-\log$. Actuall
         -\log x +x -1 & \text{if\ }\delta=0.
     \end{array}\right. 
 \end{equation}    
-When $\delta=0$, we retrieve the original form of the mutual information.
+When $\delta=0$, we retrieve the original form (KL form) of the mutual information.
 
 
 \section{Generalized reference priors}\label{sec:PSGSA:generefp}
@@ -160,7 +161,7 @@ This definition matches with the original one when the dissimilarity measure is 
 work provides elements showing that such rate exists and may vary as a function of the dissimilarity measure
 considered. When it resorts to the original mutual information, the rate is constant.
 
-The results provided below ensure that the generalized reference priors verify similar properties than the original reference priors.
+The results provided below ensure that the generalized reference priors verify similar properties as the original reference priors.
 
 
 
@@ -168,22 +169,22 @@ The results provided below ensure that the generalized reference priors verify s
 
 
 
-\begin{prop}[Invariance by reparamtrization]
-    Consider a re-parametrization $\phi=g(\theta)$ with $g$ being a diffeomorphism and $\cP$ a set of priors on $\Theta$.
-    Then if $\varPi$ is  a reference prior over $\cP$ for the model parameterized w.r.t. $\theta$, $\tilde{\varPi}$ is a reference prior over $\tilde\cP$ for the model parameterized w.r.t. $\phi$, where: 
+\begin{prop}[Invariance by reparametrization]
+    Consider a reparametrization $\phi=g(\theta)$ with $g$ being a diffeomorphism and $\cP$ a set of priors on $\Theta$.
+    Then if $\varPi$ is  a reference prior over $\cP$ for the model parameterized by $\theta$, $\tilde{\varPi}$ is a reference prior over $\tilde\cP$ for the model parameterized by $\phi$, where: 
     \begin{equation}
         \tilde\cP = \{ M(\pi |\det g_\phi^{-1}|),\,M(\pi)\in\cP ) \},
     \end{equation}
-    with $M:\sR\mapsto\sM^\nu$ mapping a function to the distribution whose it is the density.
+    with $M:f\in\sR\longmapsto (B\mapsto\int_B f(\theta)d\theta)\in\sM^\nu$. %mapping a function to the distribution whose it is the density.
 \end{prop}
 
 \begin{proof}
     The proposition comes from the fact that $\sI^k_D$ is
-    clearly invariant by re-parametrization: for any prior $\varPi$ having a density $\pi$ on $\Theta$, and any $\tilde\Theta\subset\Theta$ with $\varPi\in(0,\infty)$, calling $\tilde\Xi = g(\tilde\Theta) $,
+    clearly invariant by reparametrization: for any prior $\varPi$ having a density $\pi$ on $\Theta$, and any $\tilde\Theta\subset\Theta$ with $\varPi\in(0,\infty)$, calling $\tilde\Xi = g(\tilde\Theta) $,
         \begin{equation}
-            \sI^k(\varPi(\cdot|\tilde\Theta)) = \EE_{T\sim\varPi(\cdot|\tilde\Theta)}[D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} )] = \EE_{\Phi\sim\tilde\varPi(\cdot|\tilde\Xi)} [D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|g^{-1}(\Phi)} )] =: \tilde\sI^k_D(\tilde\varPi(\cdot|\tilde\Xi))
+            \sI^k_D(\varPi(\cdot|\tilde\Theta)) = \EE_{T\sim\varPi(\cdot|\tilde\Theta)}[D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} )] = \EE_{\Phi\sim\tilde\varPi(\cdot|\tilde\Xi)} [D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|g^{-1}(\Phi)} )] =: \tilde\sI^k_D(\tilde\varPi(\cdot|\tilde\Xi))
         \end{equation}
-    where $\tilde\varPi$ is defined by its density $\tilde\pi = \pi|\det d_\phi g^{-1}|$, and $\tilde\sI^k_D$ denoted the $D$-mutual information on the re-parameterized model.
+    where $\tilde\varPi$ is defined by its density $\tilde\pi = \pi|\det d_\phi g^{-1}|$, and $\tilde\sI^k_D$ denoted the $D$-mutual information on the reparameterized model.
 \end{proof}
 
 \begin{prop}[Consistency with compact cases]
@@ -216,15 +217,15 @@ The results provided below ensure that the generalized reference priors verify s
     Let $\tilde\Theta$ be a compact subset of $\Theta$. We consider $\varPi\in\sM^\nu$ and denote $\tilde\varPi=\varPi(\cdot|\tilde\Theta)$ and  $\tilde\pi$ the latter's density. We have
         \begin{equation}
         \begin{aligned}
-            \sI^k_{D_f}(\tilde\varPi) &= \int_{\tilde\Theta}\int_{\cY^k} f\left( \frac{p_{\mbf Y^k}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)\ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y) \tilde\pi(\theta)d\nu(\theta) \\
-                &\leq \sup_{\theta\in\tilde\Theta}\int_{\cY^k} \int_{\tilde\Theta} f\left( \frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}\right)\ell_k(\mbf y|\theta) \tilde\pi(\theta')d\nu(\theta') d\mu^{\otimes k}(\mbf y) ,
+            \sI^k_{D_f}(\tilde\varPi) &= \int_{\tilde\Theta}\int_{\cY^k} f\left( \frac{p_{\mbf Y^k}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)\ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y) \tilde\pi(\theta)d\theta \\
+                &\leq \sup_{\theta\in\tilde\Theta}\int_{\cY^k} \int_{\tilde\Theta} f\left( \frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}\right)\ell_k(\mbf y|\theta) \tilde\pi(\theta')d\theta' d\mu^{\otimes k}(\mbf y) ,
         \end{aligned}
         \end{equation}
         using the convexity of $f$. Since $\tilde\Theta$ is compact, $\tilde\pi$ is bounded. Thus, we obtain $\sI^k_{D_f}(\tilde\varPi)<\infty$.
 
         For inverting the integrals, we notice that the assumption on $f$ allows writing 
         \begin{equation}
-            \int_{\tilde\Theta}\int_{\cY^k} \left|f\left( \frac{p_{\mbf Y^k}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)\right|\ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y) \tilde\pi(\theta)d\nu(\theta) \leq K + \sup_{\theta\in\tilde\Theta}\sup_{\theta'\in\tilde\Theta} \int_{A} f\left(\frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}  \right) \ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y)
+            \int_{\tilde\Theta}\int_{\cY^k} \left|f\left( \frac{p_{\mbf Y^k}(\mbf y)}{\ell_k(\mbf y|\theta)}\right)\right|\ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y) \tilde\pi(\theta)d\theta \leq K + \sup_{\theta\in\tilde\Theta}\sup_{\theta'\in\tilde\Theta} \int_{A} f\left(\frac{\ell_k(\mbf y|\theta')}{\ell_k(\mbf y|\theta)}  \right) \ell_k(\mbf y|\theta) d\mu^{\otimes k}(\mbf y)
         \end{equation}
         with $A=\{\mbf y\in\cY^k,\, p_{\mbf Y_k}(\mbf y)/\ell_k(\mbf y|\theta)\in f^{-1}((0,\infty)) \}\subset\cY^k $. We deduce that the above quantity is finite, which allows us to invert the integrals and conclude, using Fubini-Lebesgue's theorem.
 \end{proof}
@@ -259,11 +260,11 @@ To conclude this section, we mention the work of \citet{le_formal_2014}. The aut
     Let $\varPi^\ast\in\cP_s$ we call $p^\ast(\cdot|\cdot)$ its posterior density and define for any interior point $\theta_0\in\Theta$,
         \begin{equation}
             % \begin{aligned}
-                f_k(\theta) = \exp\left(\int_{\cY^k}\ell_k(\mbf y|\theta)\log(p^\ast(\theta|\mbf y)) d\mbf y \right) \quad\text{and}\quad  %\\
+                f_k(\theta) = \exp\left(\int_{\cY^k}\ell_k(\mbf y|\theta)\log(p^\ast(\theta|\mbf y)) d\mu^{\otimes k}(\mbf y) \right) \quad\text{and}\quad  %\\
                 f(\theta) = \lim_{k\rightarrow\infty}\frac{f_k(\theta)}{f_k(\theta_0)}.
             % \end{aligned}
         \end{equation}
-        Under mild assumptions that are similar to the ones of \cite{berger_formal_2009}, the prior admitting $f$ as density is a reference prior over $\cP_s$.
+        Under mild assumptions that are similar to the ones of \cite{berger_formal_2009}, the prior admitting $f$ (if it exists) as density is a reference prior over $\cP_s$.
 \end{thm}
 
 
@@ -272,7 +273,7 @@ To conclude this section, we mention the work of \citet{le_formal_2014}. The aut
 \label{sec:PSGSA:towardsdelta}
 
 The objective of this section is to study the $D_f$-reference priors for certain class of functions $f$ that resemble to $\delta$-divergence.
-We precise that from now on, the priors will always be considered continuous (they admit a $\nu$-a.e. continuous density functions). We recall that the set of such priors is denoted by $\sM^\nu_\cC $, and they all admit a density in the set $\sR_{\cC^b}$. %(the set of $\nu$-a.e. continuous and locally bounded densities).
+We precise that from now on, the priors will always be considered continuous (they admit a $\nu$-a.e. continuous density function). We recall that the set of such priors is denoted by $\sM^\nu_\cC $, and they all admit a density in the set $\sR_{\cC^b}$. %(the set of $\nu$-a.e. continuous and locally bounded densities).
 
 We recall that the random vectors are given by a process $\overline{Y}$ defined on a conditional probability space $(\mbf\Omega,\mbf\Xi,[\mbf\Pi] )$ (see \cref{prop:intro-ref:kolmog}). If $\tilde\Theta$ is a compact subset of $\Theta$, the restriction $(\tilde{\mbf\Omega},\tilde{\mbf\Xi}, \mbf\Pi(\cdot|T\in\tilde\Theta))$ of the conditional probability space to $\{T\in\tilde\Theta\}$ is a probability space.
 For some $\theta\in\tilde\Theta$ we will adopt the notation $\PP_\theta$ for the conditional probability on $\tilde{\mbf\Omega}$ to $\{T=\theta\}$. That means, for any $k$, any $A\in\sY^{\otimes k}$, 
@@ -348,7 +349,7 @@ An asymptotic limit of the $D_f$-mutual information can be given once the follow
         For every compact subset $\tilde\Theta$ of $\Theta$,
         there exist $K_0$ such that the quantity 
             \begin{equation}
-                \EE_\theta\left[\sup_{\theta\in\tilde\Theta<\tau}\|\nabla^2_\theta\log\ell(y|\tilde\theta)\|\right] \leq K_0.
+                \EE_\theta\left[\sup_{\theta\in\tilde\Theta}\|\nabla^2_\theta\log\ell(Y_1|\tilde\theta)\|\right] \leq K_0.
             \end{equation}
         %is continuous with respect to  $\theta$. %{The norm $\|\cdot\|$ denotes the Euclidean norm when applied to a vector in $\RR^d$ and the associated operator norm when applied to a matrix in $\RR^{d\times d}$ (i.e. the largest singular value of the matrix).}
     %    Note that $\|\cdot\|$ denotes as well 
@@ -356,7 +357,7 @@ An asymptotic limit of the $D_f$-mutual information can be given once the follow
 
 
 \begin{thm}\label{thm:refcompactneg}
-    Under \cref{assu:PSGSA:JDS}, let $\tilde\Theta\subset\Theta$ be a compact and $\varPi\in\sM_{\cC}$ such as $\varPi(\cdot|\tilde\Theta)$ admits a positive density $\pi$. 
+    Under \cref{assu:PSGSA:JDS}, let $\tilde\Theta\subset\Theta$ be a compact set and $\varPi\in\sM_{\cC}$ such that $\varPi(\cdot|\tilde\Theta)$ admits a positive density $\pi$. 
     The quantity $k^{d\delta/2}\sI^k_{D_f}(\varPi(\cdot|\tilde\Theta))$ has a positive limit when $k\to\infty$:
     \begin{align}
     \label{eq:limitkbeta}
@@ -412,7 +413,7 @@ The elucidating of a similar result than the one in the previous section require
     For any compact subset $\tilde\Theta\subset\Theta$,
     there exists $m>0$ such that for all $\theta\in\tilde\Theta$,
     \begin{equation}
-        \PP_\theta\left(\forall x\in\RR^d,\, \inf_{\tilde\theta\in\tilde\Theta}-x^T\nabla_\theta^2\log\ell(y|\tilde\theta)x>m\|x\|^2 \right) = 1.     
+        \PP_\theta\left(\forall x\in\RR^d,\, \inf_{\tilde\theta\in\tilde\Theta}-x^T\nabla_\theta^2\log\ell(Y_1|\tilde\theta)x>m\|x\|^2 \right) = 1.     
     \end{equation}
 \end{assu}
 
@@ -446,7 +447,7 @@ The elucidating of a similar result than the one in the previous section require
     %Under assumption \ref{assu:gaussTail} and \ref{assum:fOxinfty}, 
     Suppose \cref{assu:infeighes,assu:gausstailSk}.  %\labelcref{assu:lgolikelihood,assu:fisher,assu:g1g2,assu:infeighes}.
     %  with $\xi>\delta/2$. 
-    Let $\tilde\Theta\subset\Theta$ be a compact and  $\varPi\in\sM_\cC^\nu$. We denote $\pi\in\sR_{\cC^b}$ a density of $\varPi(\cdot|\tilde\Theta)$.
+    Let $\tilde\Theta\subset\Theta$ be a compact set and  $\varPi\in\sM_\cC^\nu$. We denote $\pi\in\sR_{\cC^b}$ a density of $\varPi(\cdot|\tilde\Theta)$.
     Then $k^{d\delta/2}\sI^k_{D_f}(\varPi(\cdot|\tilde\Theta))$ admits a finite limit when $k\to\infty$:
     \begin{equation}\label{eq:liml}
         \lim_{k\rightarrow\infty} k^{d\delta/2} \sI^k_{D_f}(\varPi(\cdot|\tilde\Theta)) = l(\pi) =
@@ -483,11 +484,13 @@ In the same way as in the previous subsection, this result implies that the Jeff
 
 
 
-Regarding the optimal characteristic of the Jeffreys prior, we argue that it actually supports  the relevance of our construction, in continuity with the original reference prior framework which we rely on. Indeed, we remind that Jeffreys prior is optimal for KL-mutual information (as shown in \cite{clarke_jeffreys_1994}). Although its multivariate derivation is criticized, its univariate form remains robust and appreciated in low-dimensional cases.
+Regarding the optimal characteristic of the Jeffreys prior, we argue that it actually supports  the relevance of our construction, in continuity with the original reference prior framework which we rely on. Indeed, we remind that Jeffreys prior is optimal for KL-mutual information (as shown in \cite{clarke_jeffreys_1994}). Although its multivariate derivation is criticized, its expression remains robust and appreciated in low-dimensional cases.
 
 
 For a practical implementation when the dimension is high, one would be invited to refer to hierarchical strategies such as the one proposed by \citet{berger_overall_2015}. 
-As these strategies are based on the sequential derivation of reference priors on sequentially conditioned models, they take the form of hierarchically derived low dimensional Jeffreys priors. Consequently, our results also supports their methodology.
+As these strategies are based on the sequential derivation of reference priors on sequentially conditioned models, they take the form of hierarchically derived low dimensional Jeffreys priors. Consequently, 
+since our result supports the consideration of Jeffreys prior as a universal maximizer of the mutual information, they left that methodology unchanged.
+% our results also support their methodology.
 
 Additionally, we draw attention to the open-ended nature of the results we express. 
 % Indeed, 
@@ -506,7 +509,7 @@ Thus, a maximization of our function $l$ over a well-chosen set of priors consti
     Let $\varPi\in\cP$ whose density is denoted by $\pi\in\cR$.
     If there exists an openly increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $\varPi\in(0,\infty)$ and $\pi\cdot\indic_{\Theta_i}\propto\pi_i$ where:
         \begin{equation}\label{eq:PSGSA:piiargmaxl}
-            \pi_i\in \argmax_{p_i\in\cR_i} l(p) ,\text{\ with\ }\cP_i=\left\{p:\theta\mapsto\frac{\tilde p(\theta)}{\int_{\Theta_i}\tilde p(\tilde\theta)d\tilde\theta },\,   \tilde p\in\cR,\, \int_{\Theta_i}\tilde p\in(0,\infty)    \right\};
+            \pi_i\in \argmax_{p_i\in\cR_i} l(p_i) ,\text{\ with\ }\cR_i=\left\{p:\theta\mapsto\frac{\tilde p(\theta)}{\int_{\Theta_i}\tilde p(\tilde\theta)d\tilde\theta },\,   \tilde p\in\cR,\, \int_{\Theta_i}\tilde p\in(0,\infty)    \right\};
         \end{equation}
     then $\varPi$ is a $D_f$-reference prior over $\cP$.
 \end{thm}
@@ -560,7 +563,7 @@ In Figure \ref{fig:exbeta} are plotted the $D_f$-reference priors over different
     % \begin{tabular}{ccc}
     %     (a) & (b)  & (c)
     % \end{tabular}
-    \caption{Comparison of histograms of samples from Jeffreys prior and from the $D_f$-reference priors over a set $\cP_\EE=\{\pi=\mathrm{Beta},\,\EE_{T\sim\pi}T=\frac{2}{3}\}$ (Figures (a) and (b)), and over a set $\cP_\VV=\{\pi=\mathrm{Beta},\,\VV_{T\sim\pi}T=\frac{3}{16}\}$ (Figure (c)). In this example, their exist 2 solutions $\pi_1^\ast$ (in Figure (a)) and $\pi_2^\ast$ (in Figure(b)) of reference priors over $\cP_\EE$. $\beta$ has been set to $1/2$ in this example.}
+    \caption{Comparison of histograms of samples from Jeffreys prior and from the $D_f$-reference priors over a set $\cP_\EE=\{\pi=\mathrm{Beta},\,\EE_{T\sim\pi}T=\frac{2}{3}\}$ (Figures (a) and (b)), and over a set $\cP_\VV=\{\pi=\mathrm{Beta},\,\VV_{T\sim\pi}T=\frac{3}{16}\}$ (Figure (c)). In this example, their exist 2 solutions $\pi_1^\ast$ (in Figure (a)) and $\pi_2^\ast$ (in Figure(b)) of reference priors over $\cP_\EE$. $\delta$ has been set to $1/2$ in this example.}
     \label{fig:exbeta}
 \end{figure}
 
@@ -573,13 +576,16 @@ In Figure \ref{fig:exbeta} are plotted the $D_f$-reference priors over different
     The sub-Gaussian assumption over the likelihood, which is required for the statement of the result in the case $\delta<0$
     remains somehow restrictive. For instance,
     the univariate Gaussian model with unknown variance does not satisfy this assumption. 
-    However, it is still be verified by other regular statistical models, like the univariate normal model with known variance, or continuous compact models ($\cY$ compact and $(y,\theta)\mapsto\ell(y|\theta)$ continuously differentiable). {Note that due to the asymptotic normality of the r.v. $\cI(\theta)^{-1/2}S_k$ induced by the central limit theorem, the parameter $\xi$ of its assumed Gaussian tail cannot exceed $1/2$. This restricts $\delta$ to be smaller than $1$.}
+    However, 
+    it is still verified by other regular statistical models, such as the
+    %it is still be verified by other regular statistical models, like the
+     univariate normal model with known variance, or continuous compact models ($\cY$ compact and $(y,\theta)\mapsto\ell(y|\theta)$ continuously differentiable). {Note that due to the asymptotic normality of the r.v. $\cI(\theta)^{-1/2}S_k$ induced by the central limit theorem, the parameter $\xi$ of its assumed Gaussian tail cannot exceed $1/2$. This restricts $\delta$ to be smaller than $1$.}
 
 Furthermore, %we would like to point out to the reader the two following remarks, raised from the proofs of our results.
 in opposition with the classical settings for $f$-divergences which tend to suppose the convexity of $f$, the Jeffreys prior optimally within our results is actually implied by the concavity of $x\mapsto f(1/x)$ in the neighborhood of $0$.
 This statement is showcased by the heuristic developed in the next subsection.
 
-That gives some insight about the potential use of other function $f$ than the ones we have considered.
+That gives some insight about the potential use of other functions $f$ than the ones we have considered.
 Note that \citet{clarke_reference_1997} proved under some assumptions that another prior than Jeffreys prior is the $D$-reference prior when $D$ is a chi-square distance. This dissimilarity measure corresponds to the case where $f(x)=x^{-1}$, making $x\mapsto f(1/x)$ both convex and concave. 
 A conclusion about the optimum of such generalized
 mutual information thus requires stronger regularity assumptions on the likelihood to push
@@ -600,7 +606,8 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
         It is important to recall that when $\delta=0$, the $\delta$-divergence is usually defined as a  $\text{KL}$ divergence, more precisely it is an $f$-divergence with $f=-\log$.
 
         This way, the $\delta=0$-divergence leads to the original definition of the mutual information.
-        In this case, similar results of \cref{thm:PSGSA:Jrefdeltaneg,thm:PSGSA:Jrefdeltapos} exist (see \cref{chap:intro-ref}, \cref{sec:intro-ref:refpriors}). 
+        In this case, 
+        results similar to those of \cref{thm:PSGSA:Jrefdeltaneg,thm:PSGSA:Jrefdeltapos} exist (see \cref{chap:intro-ref}, \cref{sec:intro-ref:refpriors}). 
         
 
 
@@ -617,7 +624,10 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
         %When we exponentialize the Taylor expansion,
         % the first term 
         The terms $\nabla_\theta^2\log\ell_k(y_i|\theta)$ are definite negative, so that when we exponentialize the Taylor expansion, they vanish quickly when $\tilde\theta$ is not close to $\theta$.
-        We then intuit that the mass concentrate around $\theta$ in the integrals that define $p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta)$, so that
+        
+        %We then intuit that the mass concentrate around 
+        We deduce that the mass is concentrated around
+        $\theta$ in the integrals that define $p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta)$, so that
             \begin{equation}
                 \begin{aligned}
                 p_{\mbf Y_k}(\mbf Y_k)/\ell_k(\mbf Y_k|\theta) &\approx \pi(\theta)\int_\Theta\exp\left(\sqrt{k}(\tilde\theta-\theta)^TS_k - \frac{k}{2} (\tilde\theta-\theta)^T\cI(\theta)(\tilde\theta-\theta)  \right)d\tilde\theta\\ 
@@ -630,7 +640,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
         % being asymptotically a Gaussian with mean $\theta$ and variance $\cI(\theta)/\sqrt{k}$.
         %  asymtotically contionally to $T=\theta$ 
 
-        To go toward an asymptotic expression of the mutual information, we must evaluate the last with $f$ and compute its expectation w.r.t. $S_k$.
+        To go toward an asymptotic expression of the mutual information, we must evaluate the last term with $f$ and compute its expectation w.r.t. $S_k$.
         Conditionally to $\theta$, the terms $\nabla_\theta\log\ell(Y_i|\theta)$ are i.i.d. and a central limit theorem gives that $(S_k)_k$ converges in distribution to a Gaussian with mean $\EE_{\theta}\nabla_\theta\log\ell(Y|\theta)=0$ and covariance matrix $\cI(\theta)$.
         
         That leads to approximating the $D_f$-mutual information  as 
@@ -641,7 +651,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
             \begin{equation}
                  \int_{\RR^k}f\left(\left(\int_\Theta (2\pi)^{-d/2}|k\cI(\theta)|^{1/2} e^{-\frac{\|x\|^2}{2}}d\theta\right)^{-1}\right)e^{-\frac{\|x\|^2}{2}}(2\pi)^{-d/2}dx ,
             \end{equation}
-        which equals the right-hand term in \cref{eq:PSGSA:heuristicconcave} evaluated in $\pi(\theta) = |k\cI(\theta)|^{1/2} / \int_\Theta|k\cI(\tilde\theta)|^{1/2} d\tilde\theta$.
+        which equals the right-hand term in \cref{eq:PSGSA:heuristicconcave} evaluated with $\pi(\theta) = |k\cI(\theta)|^{1/2} / \int_\Theta|k\cI(\tilde\theta)|^{1/2} d\tilde\theta$.
 
         This simple heuristic emphasizes that the decisive assumption on $f$ is that $x\mapsto f(1/x)$ is concave, rather than $f$ being convex.
         Regarding our developments in  \cref{sec:PSGSA:towardsdelta}, the final results on the optimally of Jeffreys stood while $a(\delta+1)>0$.
@@ -660,7 +670,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
                 \end{equation}
         where $\cH$ is a reproducing kernel Hilbert space (RKHS), and $K$ is a reproducing kernel.
 
-        We study the simple Gaussian model with unknown mean: $\cY=\RR$ $\Theta\subset\RR $, and $\ell(y|\theta)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y-\theta)^2}{2\sigma^2}}$. 
+        We study the simple Gaussian model with unknown mean: $\cY=\RR$, $\Theta\subset\RR $, and $\ell(y|\theta)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y-\theta)^2}{2\sigma^2}}$. 
         We consider the kernels $K_k:\mbf y,\mbf y'\in\cY^k,\,K_k(\mbf y,\mbf y')= \frac{1}{(\sqrt{2\pi}h)^k}e^{-\frac{\|\mbf y-\mbf y'\|^2}{2h^2}}$, and $\cH_k$ their associated RKHS. 
         For any $k$ it is thus possible to define the MMD between $\PP_{\mbf Y_k}$ and $\PP_{\mbf Y_k|\theta}$ by considering the RKHS $\cH_k$.
         Let $\tilde\Theta\subset\Theta$ be compact. %This way, for a prior
@@ -673,7 +683,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
     In this very specific case, it is possible to derive and study the $\text{MMD}^2$-reference priors. The proposition below summarizes our results.
     
     \begin{prop}
-        Let $\tilde\Theta\subset\Theta$ be a compact. 
+        Let $\tilde\Theta\subset\Theta$ be a compact set. 
         \begin{enumerate}
             \item Let $\varPi,\,\tilde\varPi\in\sM^\nu_\cC$, we denote respectively $\pi$ and $\tilde\pi$ the densities of $\varPi(\cdot|\tilde\Theta)$ and $\tilde\varPi(\cdot|\tilde\Theta)$. We have:
             \begin{equation}
@@ -718,20 +728,21 @@ with $C_1=\frac{\tilde\sigma\overline{\sigma}}{\sqrt{2\pi}h\sigma^2} = \frac{(2\
  %   \item 
  \begin{enumerate}
     \item To prove the first statement of the theorem, 
-    we start by  computing the limit as $k\to\infty$ of the integrals  $C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta $ for a fixed $\theta'$ in which $\pi$ is continuous. The scheme of this proof is standard as this integral is the convoluted of  $\pi$ with an approximation to the unity. Let $\eps>0$, by continuity of $\pi$ there exists a neighborhood $V$ of $\theta'$ such that for any $\theta\in V$,  $|\pi(\theta)-\pi(\theta')|<\eps/2$. %for any $\theta\in V$.
+    we start by  computing the limit as $k\to\infty$ of the integrals  $C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta $ for a fixed $\theta'$ in which $\pi$ is continuous. The scheme of this proof is standard as this integral is the convolution of  $\pi$ with an approximate Dirac distribution. %to the unity. 
+    Let $\eps>0$, by continuity of $\pi$ there exists a neighborhood $V$ of $\theta'$ such that for any $\theta\in V$,  $|\pi(\theta)-\pi(\theta')|<\eps/2$. %for any $\theta\in V$.
     Additionally, it is possible to choose a $k_0$ such that for all $k\geq k_0$, $C_1\sqrt{k}\int_{\RR\!\setminus\!V} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}}d\theta <\eps/(4\sup_{\tilde\Theta}\pi)$. This way, for all $k\geq k_0$,
         \begin{equation}
             \left|C_1\sqrt{k}\int_{\tilde\Theta}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)d\theta -\pi(\theta')  \right| \leq C_1\sqrt{k}\int_{\RR}e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2} |\pi(\theta)\indic_{\theta\in\tilde\Theta}-\pi(\theta')|d\theta 
             <\eps.
         \end{equation}
     
-    That being stated, we can apply a dominated convergence theorem since for $\nu$-a.e. $\theta'$ and for all $k$, the terms $|C_1\sqrt{k}\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta-\theta')^2}{2\sigma^2+h^2}}\pi(\theta)\pi(\theta') |\leq(\sup_{\tilde\Theta}\pi)^2$, which is summable on $\tilde\Theta$.
+    That being stated, we can apply a dominated convergence theorem since for $\nu$-a.e. $\theta'$ and for all $k$, the terms $|C_1\sqrt{k}\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta-\theta')^2}{2\sigma^2+h^2}}\pi(\theta)\pi(\theta')d\theta |\leq(\sup_{\tilde\Theta}\pi)^2$, which is summable on $\tilde\Theta$.
     We obtain
     \begin{equation}
         \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) = -\int_{\tilde\Theta}\pi(\theta)^2d\theta + \int_{\tilde\Theta}\tilde\pi(\theta)^2d\theta.
     \end{equation}
     We recall that the Jeffreys prior $\mbf J $ for this model is the uniform prior: $J\propto 1$.
-    Since a Chauchy-Schwarz inequality gives $\int_{\tilde\Theta}\tilde\pi(\theta)d\theta \leq \sqrt{\nu(\tilde\Theta)} \left(\int_{\tilde\Theta}\pi(\theta)^2 \right)^{1/2}$, with equality if an only if $\tilde\pi\propto 1$, we deduce 
+    Since Chauchy-Schwarz inequality implies $\int_{\tilde\Theta}\tilde\pi(\theta)d\theta \leq \sqrt{\nu(\tilde\Theta)} \left(\int_{\tilde\Theta}\pi(\theta)^2d\theta \right)^{1/2}$, with equality if and only if $\tilde\pi\propto 1$, we deduce 
     \begin{equation}
         \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\mbf J(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) \geq 0 \text{\ with equality iff\ }\mbf J(\cdot|\tilde\Theta) = \tilde\varPi(\cdot|\tilde\Theta).
     \end{equation}
@@ -745,7 +756,7 @@ This being true for any $p\in E$, we deduce for all $\theta'\in\tilde\Theta$, %s
         -2C_1^k\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)d\theta = \lambda \quad\text{and}\quad
         -2C_1^k\int_{\tilde\Theta\times\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}} \pi_k^\ast(\theta)\pi_k^\ast(\theta')d\theta d\theta' = \lambda.
     \end{equation}
-We now apply a similar reasoning as in 1. to derive the limit of the above integrals. 
+We now apply a similar reasoning as in 1. to derive the limits of the above integrals. 
 The $\pi^\ast_k$ are assumed to form a uniformly convergent sequence of functions. That ensures its limit $\pi^\ast$ is continuous on $\tilde\Theta$.
 We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\theta'$ such that for all $\theta \in V$, $|\pi^\ast(\theta)-\pi^\ast(\theta')|<\eps/4$. By uniform convergence of $(\pi^\ast_k)$, we can fix $k_0$ such that for all $k\geq k_0$, $\|\pi^\ast_k-\pi^\ast\|<\eps/4$. It is also possible to fix $k_1$ such that for all $k\geq k_1$, $C_1\sqrt{k}\int_{\RR\!\setminus\!V} e^{-\frac{k}{2}\frac{(\theta'-\theta)^2}{2\sigma^2+h^2}}d\theta <\eps/(8\sup_{k'}\|\pi^\ast_{k'}\|)$.
     We thus have for all $k\geq\max(k_1,k_0)$
@@ -799,7 +810,7 @@ We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\th
     
         \item Denote for any $i=1,\dots,k$, and for any $\mbf y \in\cY^k$,
         \begin{equation}
-            \kappa_i(\mbf y)=\{-x^T\nabla^2_\theta\log\ell(Y_i|\theta')x,\,\theta'\in\tilde\Theta,\,\|x\|=1\}.
+            \kappa_i(\mbf y)=\{-x^T\nabla^2_\theta\log\ell(y_i|\theta')x,\,\theta'\in\tilde\Theta,\,\|x\|=1\}.
         \end{equation}
      They are compact subsets of $(0,+\infty)$. The law of large numbers gives 
      \begin{equation}
@@ -807,7 +818,7 @@ We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\th
      \end{equation}
     which is positive as the infima are positive $\PP_\theta$-a.s. We choose an $\hat m_\theta>0$ smaller than this limit, and we denote
         \begin{equation}
-             \underline{\mbf B}_k(\theta)=\left\{\frac{1}{k}\sum_{i=1}^k\inf K_i(\mbf Y_k)<\hat m\right\}.       
+             \underline{\mbf B}_k(\theta)=\left\{\frac{1}{k}\sum_{i=1}^k\inf \kappa_i(\mbf Y_k)<\hat m\right\}.       
         \end{equation}
      Then $\PP_\theta( \underline{\mbf B}_k(\theta))\conv{k\rightarrow\infty}0$.
 
@@ -836,7 +847,7 @@ and $u>0$ such that $\forall|x|<uR_\theta^2,\,|e^{x}-1|< w/(2 C_\theta R^d_\thet
 
 From \cref{assu:intro-ref:jeffreysexist}, the function $\theta'\mapsto\|\nabla_\theta^2\log\ell(y|\theta')-\nabla^2_\theta\log\ell(y|\theta)\|$ is dominated on the Euclidean ball $B(\theta,\tau_1)$ by a variable that has a finite expectation $\EE_\theta$. Therefore, a dominated convergence theorem gives that the function
     \begin{equation}
-        \theta'\mapsto \EE_\theta \left[\|\nabla_\theta^2\log\ell(y|\theta')-\nabla^2_\theta\log\ell(y|\theta)\|\right]
+        \theta'\mapsto \EE_\theta \left[\|\nabla_\theta^2\log\ell(Y_1|\theta')-\nabla^2_\theta\log\ell(Y_1|\theta)\|\right]
     \end{equation}
     converges to $0$ when $\theta'\to\theta$ as a consequence of the continuity of the second order partial derivatives of the log-likelihood. 
     
@@ -916,7 +927,7 @@ If we define $k_3$ such that $k^{-d/2}<\eta/4$, and if $k\geq\max(k_1,k_2,k_3)$,
 \begin{equation}
     \begin{aligned}
     x(\mbf y) = & \int_{\tilde\Theta} \exp\left((\tilde\theta-\theta)^T\sqrt{k}S_k^{\mbf y}\right)\exp\left( -\frac{k}{2}(\tilde\theta-\theta)^T\hat\cI_k^{\mbf y}(\theta)(\tilde\theta-\theta) \right)\pi(\theta )d\tilde\theta,\\
-        \text{and}\quad l(\mbf y) =& x(\mbf y)-\frac{p_{\mbf y}(\mbf y)}{\ell_k(\mbf y|\theta)}k^{d/2} = \mbf I_1+\mbf I_2+\mbf I_3+\mbf I_4.
+        \text{and}\quad l(\mbf y) =&\, x(\mbf y)-\frac{p_{\mbf y}(\mbf y)}{\ell_k(\mbf y|\theta)}k^{d/2} = \mbf I_1+\mbf I_2+\mbf I_3+\mbf I_4.
     \end{aligned}
 \end{equation}
 

@@ -208,7 +208,7 @@ Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\varPi)$
 \begin{defi}[Mutual information]\label{def:intro-ref-MI}
     Given a Bayesian framework defined as in \cref{sec:intro-ref:classical-framework}, and given a number of observations $k$, the mutual information is defined as the quantity
     \begin{equation}
-        \sI^k(\varPi) :=  \EE_{\mbf Y_k\sim \PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)] =  \int_{\cY^k}\text{KL}(\PP_{T|\mbf y}||\varPi) p_{\mbf Y_k}(\mbf y)d\mbf y.
+        \sI^k(\varPi) :=  \EE_{\mbf Y_k\sim \PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)] =  \int_{\cY^k}\text{KL}(\PP_{T|\mbf y}||\varPi) p_{\mbf Y_k}(\mbf y)d\mu^{\otimes k}(\mbf y).
     \end{equation}
 \end{defi}
 
