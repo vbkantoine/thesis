@@ -9,23 +9,127 @@
 
 \section{Introduction}
 
+% The SPRA contains several tools and things
 
-intro
+The Seismic Probabilistic Risk Assessment (SPRA) defines a framework and a methodology for the study of seismic structural reliability. %This framework is parrt of the probabilistic 
+% As for the Pr
+It has been introduced since 1969 \citep{cornell_engineering_1968}
+to incorporate the seismic risk evaluation in the probabilistic risk assessment studies.
+% and further developed in the
+The SPRA has been mostly developed and carried out in the 1980s on nuclear facilities (see e.g. \cite{kennedy_probabilistic_1980,kennedy_seismic_1984}). 
+It includes: the determination of the seismic hazard, the analysis of the seismic fragility of structural components, the evaluation of the risks combination and their consequences in the system, as described in the report of the Electric Power Research Institute \citep{epri_seismic_2013}, which provides guidelines for its implementation. %among other ingredients.
+%The guidelines for its implementation are thoroughly described in the 
+It is since widely used in the nuclear industry (e.g. \cite{ellingwood_validation_1990,park_survey_1998,kennedy_risk_1999}) and its consideration is established among the safety standards adopted by the International Atomic Energy Agency \citep{iaea_probabilistic_2020}.
 
-\section{Data}
+% Estimating th
 
-\subsection{Generate seismic signals}
+Within the SPRA, seismic fragility curves represent a key asset that play a prominent role in the analysis of structural components' fragility step (see  \cite{epri_advanced_2011}).
+They express in probabilistic terms the fragility of structures under seismic excitation. We can mention that they are also a tool of interest of performance-based earthquake engineering (PBEE; \cite{ghobarah_performance-based_2001,noh_development_2014}), 
+which aims at relating performance objectives to level of damage to the structure.
+In any case, they are defined as a function of the seismic hazard, which ---driven by the magnitude (M), the source-site distance (R), and other earthquake parameters--- is reduced to a scalar value derived from the seismic signal: the intensity measure (IM), under the so-called ``sufficiency assumption'' \citep{cornell_hazard_2004,luco_structure-specific_2007}.
+In practice, a fragility curve, denoted $P_f$, therefore express the probability of failure of a mechanical structure as a function of an IM value of interest such as peak ground acceleration (PGA) or pseudo-spectral acceleration (PSA), among others:
+    \begin{equation}
+        P_f(a) = \PP(\text{``failure''}|\text{IM}=a).
+    \end{equation}
+Within the SPRA framework, the fragility curve expression is expected to be combined with the seismic hazard frequency to compute the damage frequency of the component $C_f$:
+    \begin{equation}
+        C_f =  \int_0^\infty P_f(a)dH(a).
+    \end{equation}
+If $H$ is the mean annual  distribution of the IM, $C_f$ represents the annual damage frequency of the component.
+It should be noted that the sufficiency assumption was introduced to reduce estimation costs since it assumes that the fragility curve of a given structure is identical regardless of the seismic scenario.
+Actually, this assumption embeds some uncertainty in the problem since, as shown in \cite{radu_earthquake-source-based_2018,grigoriu_are_2021}, different seismic scenarios can lead to identical distributions of some IMs, despite having significantly different frequency contents.
+The uncertainty rooted in the fragility curve by this assertion can be classified as an \emph{aleatoric} (irreducible) kind of uncertainty
+ (we refer to the \cref{chap:intro-english} for the definition of the uncertainty quantification framework).
+% belong to the category of
+%The evaluation of the fragility curve defined in eq?? implies the consideration of this
+% Focusing the definition of the fragility curve <
 
-\subsection{Engineering demand parameter and failure}
+
+In this second part of the manuscript, we focus on the estimation of seismic fragility curves. 
+Thus, we do not question the determination of the seismic hazard distribution $H$, nor the derivation of the damage frequency of the component $C_f$.
+Nevertheless, estimating the fragility curve itself %for given mechanical equipment 
+remains a daunting task. It is commonly done statistically, using different kind of methods depending 
+on the source of data available, their characteristics, and their quantity.
+This chapter proposes a review of these methods. 
+In the next section,
+we define the different kind of data involved in the seismic fragility curve estimation in the literature. In particular, we present a stochastic seismic signal generator, and  we present how the failure of mechanical equipment is generally defined.
+In section ?? and section ?? different modeling of the fragility curves for its statistical estimation are presented, they are grouped in two categories: non-parametric and parametric.
+Explicit examples of case studies are given in section ??, from a theoretical one to an experimental one for which really few data are available.
+Given those and the non-exhaustive list of modeling we present from the literature, we question 
+
+
+
+
+
+% steps of seismic hzarad determination or r
+% The derivation 
+
+
+
+
+% it embedds uncertainty suinc...
+
+% that in the step
+%As shown in \cite{Radu2018,Grigoriu2021}, different seismic scenarios can however lead to identical distributions of some IMs, although the underlying seismic signals have significantly different frequency contents. As a result, the sufficiency assumption is not met, especially for non-linear, multimodal structures, etc., with current IMs. 
+%
+%
+% Despite this, it is possible to focus on the definition of the resulting fragility curve, without taking the assumption for granted, which is the case in this work.
+
+% and is widely used in in the nuclear industry
+
+
+
+
+
+
+
+% Seismic fragility curves represent a key one. They were introduced in the 1980s for seismic risk assessment studies carried out on nuclear facilities \citep{kennedy_probabilistic_1980,kennedy_seismic_1984,ellingwood_validation_1990,park_survey_1998,kennedy_risk_1999,cornell_hazard_2004}.
+
+
+% %IN the SPRA, historic, lot of things are defined,
+% %among them, the seismic fragility curves. 
+% %They represent an essential tool..
+% Also used in PBEE, link with insurance?
+
+% IM, sufficientcy assumption. Different, various scenario and methods
+% Quantification of uncertainty?
+
+
+% This chapter suggests a review of the main methods that exist in the literature 
+
+
+
+
+\section{Data: from seismic signals to equipments failures}
+
+
+\subsubsection{Seismic signals generator and IMs}
+
+SAinct et al
+
+definition of IMs
+
+
+\subsubsection{Engineering demand parameter and failure}
+
+
 
 
 
 \section{Non-parametric modeling}
 
+MC method,
+
+MC method with 
+
+SVM? GP et  other metamodel?
+
 
 
 
 \section{Parametric modeling}
+
+probit lognormal
 
 
 
@@ -34,21 +138,30 @@ intro
 \section{Example of case studies}
 
     \subsection{An elasto-plastic oscillator}
+
+s
+
     
     \subsection{A piping system from a pressurized water reactor}
 
+
+s
+
+
     \subsection{Stacked structure for storage of packages: typical low data example}
 
-
-    \subsection{Appropriate modeling with how many data and what data}
+s
+    % \subsection{Appropriate modeling with how many data and what data}
 
 
 \section{Which case study and which data for a Bayesian estimation of fragility curves?}
+
+s
 
 
 \section{Conclusion}
 
 
-
+conclusion
 
 

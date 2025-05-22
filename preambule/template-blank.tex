@@ -5,32 +5,40 @@
 % \renewcommand{\frontmatter}{\cleardoublepage\@mainmatterfalse}
 % \renewcommand{\mainmatter}{\cleardoublepage\@mainmattertrue}
 % \makeatother
+% \usepackage[amsmath,thmmarks,framed]{ntheorem} 
 
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}[chapter]
-\crefname{thm}{theorem}{theorems}
-\newtheorem{prop}{Proposition}[chapter]
-\crefname{prop}{proposition}{propositions}
-\newtheorem{lem}{Lemma}[chapter]
-\crefname{lem}{lemma}{lemmas}
-\newtheorem{cor}{Corollary}[chapter]
-\crefname{cor}{corollary}{corollaries}
+\usepackage[style=0,ntheorem]{mdframed}
+\mdfsetup{%
+topline=false,
+rightline=false,
+bottomline=false,
+linewidth=1.5pt,
+innerleftmargin=10pt,
+innerrightmargin=0pt,
+skipabove=\baselineskip,
+skipabove=1.2\baselineskip,
+}
 
-\theoremstyle{definition}
-\newtheorem{defi}{Definition}[chapter]
-\crefname{defi}{definition}{definitions}
-\newtheorem{assu}{Assumption}[chapter]
-\crefname{assu}{assumption}{assumptions}
-\newtheorem{rem}{Remark}[chapter]
-\crefname{rem}{remark}{remarks}
-\newtheorem{ex}{Example}[chapter]
-\crefname{ex}{example}{examples}
+% \newtheorem{mdbeispiel}{Beispiel}[section]
+% \newtheorem{mdspiele}{Spiele}[section]
+% \newenvironment{beispiel}[1][]%
+%    {\begin{mdframed}[linecolor=blue]\begin{mdbeispiel}[#1]}
+%    {\end{mdbeispiel}\end{mdframed}}
+% \newenvironment{spiele}[1][]%
+%    {\begin{mdframed}[linecolor=red]\begin{mdspiele}[#1]}
+%    {\end{mdspiele}\end{mdframed}}
+% \newframedRtheorem{beispiel}{Beispiel}[section]
+% \newframedBtheorem{theo}[beispiel]{Theorem}
+% \newframedGtheorem{exam}[beispiel]{Example}
+% \theoremstyle{plain}
+
 
 
 
 
 \DeclareSymbolFont{CMletters}{OML}{cmm}{m}{it}
 \DeclareMathSymbol{\xi}{\mathord}{CMletters}{"18}
+\DeclareMathSymbol{j}{\mathalpha}{CMletters}{"6A}
 
 
 
@@ -39,8 +47,8 @@
 \definecolor{ayellow}{HTML}{D62828}
 \hypersetup{linkcolor=niceBlue, citecolor=niceBlue, urlcolor=niceBlue}
 
-% \renewcommand{\beforeminitoc}{\hypersetup{linkcolor=niceBluelight}}
-% \renewcommand{\afterminitoc}{\hypersetup{linkcolor=niceBlue}}
+\renewcommand{\beforeminitoc}{\vspace*{-12pt}}%\hypersetup{linkcolor=niceBluelight}}
+\renewcommand{\afterminitoc}{\vspace*{-10pt}} %\hypersetup{linkcolor=niceBlue}}
 
 \mtcsetrules{minitoc}{off}
 
@@ -65,7 +73,7 @@
 \renewcommand{\sectionmark}[1]{\markright{#1}}
 
 
-\fancyhead[EL]{\color{niceBlue}\chaptertitlename\ \thechapter.\ \emph{\leftmark}}
+\fancyhead[EL]{\hyperlink{section.\arabic{chapter}}{\color{niceBlue}\chaptertitlename\ \thechapter.}\color{niceBlue}\ \emph{\leftmark}}
 \fancyhead[ER]{}
 \fancyhead[OR]{\color{niceBlue}\thesection.\ \emph{\rightmark}}
 \fancyhead[OL]{}
@@ -79,3 +87,72 @@
 \crefformat{part}{\textcolor{niceBlue}{#2\MakeLowercase\partname~#1#3}}
 \Crefformat{part}{\textcolor{niceBlue}{#2\partname~#1#3}}
 
+
+
+
+\newtheoremstyle{mythmstyle}{0pt}{2pt}{\itshape}{}{\bfseries}{.}{0.5em}{}
+\theoremstyle{mythmstyle}
+
+\newtheorem{fthm}{Theorem}[chapter]
+\crefname{fthm}{theorem}{theorems}
+\newtheorem{fprop}{Proposition}[chapter]
+\crefname{fprop}{proposition}{propositions}
+\newtheorem{flem}{Lemma}[chapter]
+\crefname{flem}{lemma}{lemmas}
+\newtheorem{fcor}{Corollary}[chapter]
+\crefname{fcor}{corollary}{corollaries}
+
+\newenvironment{thm}[1][]%
+   {\begin{mdframed}[linecolor=niceBluelight]\begin{fthm}[#1]}
+   {\end{fthm}\end{mdframed}}
+\newenvironment{prop}[1][]%
+   {\begin{mdframed}[linecolor=niceBluelight]\begin{fprop}[#1]}
+   {\end{fprop}\end{mdframed}}
+\newenvironment{lem}[1][]%
+   {\begin{mdframed}[linecolor=niceBluelight]\begin{flem}[#1]}
+   {\end{flem}\end{mdframed}}
+\newenvironment{cor}[1][]%
+   {\begin{mdframed}[linecolor=niceBluelight]\begin{fcor}[#1]}
+   {\end{fcor}\end{mdframed}}
+
+\theoremstyle{definition}
+\newtheorem{fdefi}{Definition}[chapter]
+\crefname{fdefi}{definition}{definitions}
+\newenvironment{defi}[1][]%
+   {\begin{mdframed}[linecolor=niceBluelight]\begin{fdefi}[#1]}
+   {\end{fdefi}\end{mdframed}}
+
+\newtheorem{assu}{Assumption}[chapter]
+\crefname{assu}{assumption}{assumptions}
+\newtheorem{rem}{Remark}[chapter]
+\crefname{rem}{remark}{remarks}
+\newtheorem{ex}{Example}[chapter]
+\crefname{ex}{example}{examples}
+
+
+
+% \newenvironment{proofb}{\begin{mdframed[linecolor=gray]}{\end{mdframed}}
+
+
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\begin{mdframed}[linecolor=gray]\par
+\pushQED{\qed}%
+\normalfont \topsep6\p@\@plus6\p@\relax
+\trivlist
+\item\relax
+{\itshape
+#1\@addpunct{.}}\hspace\labelsep\ignorespaces
+}{%
+\popQED\endtrivlist\@endpefalse
+\end{mdframed}}
+
+\newenvironment{proofb}[1][\proofname]{\par
+\pushQED{\qed}%
+\normalfont \topsep6\p@\@plus6\p@\relax
+\trivlist
+\item\relax
+{\itshape
+#1\@addpunct{.}}\hspace\labelsep\ignorespaces
+}{%
+\popQED\endtrivlist\@endpefalse}
+\makeatother

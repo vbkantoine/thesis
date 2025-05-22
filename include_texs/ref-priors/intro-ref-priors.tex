@@ -39,7 +39,7 @@ Many of these  methods involve subjective choices that remain open to criticism.
 
 The research for so-called ``objective priors'' arose in contexts where the incorporation of uncritical beliefs is impossible (either by lack of available beliefs, or by lack of confidence within the existing ones).
 In those contexts, there is consensus that an appropriate prior belongs within the non-informative ones. In this respect, \citet{lindley_measure_1956} already suggested the maximization of the Shannon's entropy, as a way to choose a prior that would provide the least possible information.
-The same philosophy has been the source of several rules, which lead to different definitions of objective priors. \textcolor{orange}{A review of the  existing rules and their application on simple examples is proposed by \cite{kass_selection_1996} and by \citet{berger_overall_2015}. We also mention the work of  \citet{datta_invariance_1996}, in which the question of invariance by re-parametrization of several of these rules is thoroughly focused.}
+The same philosophy has been the source of several rules, which lead to different definitions of objective priors. {A review of the  existing rules and their application on simple examples is proposed by \cite{kass_selection_1996} and by \citet{berger_overall_2015}. We also mention the work of  \citet{datta_invariance_1996}, in which the question of invariance by re-parametrization of several of these rules is thoroughly focused.}
 %propose a review of these rules and provide applications of them on simple examples.}
 
 
@@ -52,7 +52,7 @@ the idea was to shift from minimizing the information in the prior to maximizing
 This notion of expected information, is defined with the support of the mutual information which allows for a formal construction of priors that are designed to let the data dominate the inference.
 
 The reference prior theory has been extensively studied since its deepen formalization by \citet{berger_formal_2009}. 
-\textcolor{orange}{The derivation of reference priors and the study of their properties in different contexts has been extensively focused. We can mention the works in \cite{berger_objective_2008} for bivariate normal models, 
+{The derivation of reference priors and the study of their properties in different contexts has been extensively focused. We can mention the works in \cite{berger_objective_2008} for bivariate normal models, 
  \cite{berger_ordered_1992} for multinomial models,  and \cite{gu_parallel_2016} for Gaussian process models, among others. 
 More recent studies on the theory are scarce, yet we can
 we cite the work of \citet{bodnar_analytical_2014}, who suggest the derivation of reference priors using sequential maximization of Shannon's entropy, and the work of \citet{gao_deep_2022} 
@@ -118,14 +118,14 @@ It is common to assume that the statistical model admits a likelihood: there exi
         \forall A\in\sY,\,\PP_{Y|\theta}(A) = \int_A\ell(y|\theta)d\mu(y).
     \end{equation}
 
-\color{orange}
+
 \begin{ex}[Multinomial model]\label{ex:intro-ref:multinomialmodel}
     The multinomial model is an example of statistical model where $\theta\in(0,1)^d$, $\cY=\{y\in\{0,\dots,n\}^d,\,\sum_{i=1}^dy^i=n\} $ for a fixed $n\in\NN^\ast$, and with
         $%\begin{equation}
             \ell(y|\theta) = \frac{n!}{y^1!\dots y^d!}\prod_{i=1}^d\theta_i^{y^i}.
         $%\end{equation}
 \end{ex}
-\color{black}
+
 
 This way, $\PP_{\mbf Y_k}$ admits a \textbf{marginal density} $p_{\mbf Y_k}$ w.r.t. $\mu^{\otimes k}$ defined as
     \begin{equation}
@@ -271,7 +271,7 @@ Actually,  the original definition does not restrict the choices of that sequenc
 However, we will see in the sequel that some studies on reference priors require to impose some assumptions on $(\Theta_i)_i$. 
 %we will that some assumptions are mode on them by 
 
-\textcolor{orange}{
+{
 \begin{ex}
     If $\Theta$ is finite with $\sT=\sP(\Theta)$, and if $\PP_{Y|\theta}\ne\PP_{Y|\theta'}$ for any $\theta'\ne\theta$ then the reference prior $\varPi$ over the set of all priors is the uniform prior: $\varPi(B)=\varPi(B')$ for all $B,B'\subset\Theta$. A proof of this result is proposed in \cite{mure_objective_2018}.
 \end{ex}
@@ -297,7 +297,7 @@ In \cite{berger_formal_2009}, the authors prove that in the real and one paramet
     then $F$ is a reference prior over $\cP_s$.
  \end{thm}
 
- \textcolor{orange}{
+ {
 The form of the functions $f_k$ in the above theorem comes from maximizing the mutual information when $k$ is fixed. Indeed, it is possible to research for a maximal argument of the mutual information
 form a constrained optimization viewpoint. A Lagrange multipliers theorem should give
 an implicit expression of the density whose prior maximizes the mutual information for a fixed $k$: it is
@@ -331,7 +331,7 @@ Typically, it is recommended to assume $\Theta_j\subset\RR^{d_j}$ with small dim
 This construction is often considered in the literature when it resorts to define reference priors in multidimensional context. 
 However, it relies on the hierarchization of the parameter fixed in \cref{eq:intro-ref:hierartheta}, and the recommended  one depends on the model of interest.
 There are a few models, such as the multinomial (defined in \cref{ex:intro-ref:multinomialmodel}) one, for which the different reference priors resulting from this construction have been extensively studied. In the case of the multinomial model, it is claimed that this construction with an ordering where $r=d$ when $\Theta\subset\RR^d$ must be favored  \citep{berger_ordered_1992,berger_overall_2015}.
-\textcolor{orange}{In this case, the authors show that the density $\pi^\ast$ of this reference prior given by this construction is given by
+{In this case, the authors show that the density $\pi^\ast$ of this reference prior given by this construction is given by
     \begin{equation}\label{eq:intro-ref:multinomialhierarref}
         \pi^\ast(\theta) = K \left[\prod_{j=1}^r\prod_{i=1}^{d_j}\theta_j^{(i)-1/2} \right] \left[\prod_{j=1}^{r-1} \left(1- \sum_{j'=1}^j\sum_{i=1}^{d_j}\theta_{j'}^{(i)}   \right)^{-d_{j+1}/2}  \right] \left[1- \sum_{j=1}^r\sum_{i=1}^{d_j}\theta_j^{(i)} \right]^{-1/2},
     \end{equation}
@@ -414,9 +414,9 @@ The Jeffreys prior refers to the prior whose density is $J$, defined by
     \begin{equation}
         J(\theta) = \sqrt{\det\cI(\theta)}.
     \end{equation}
-Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive function on $\Theta$. \textcolor{orange}{Here are a few examples of Jeffreys priors in different modelings.}
+Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive function on $\Theta$. {Here are a few examples of Jeffreys priors in different modelings.}
 
-\color{orange}
+
 
 \begin{ex}[A proper Jeffreys prior in the multinomial case]
     The multinomial model is defined as $\theta\in(0,1)^d$, $\cY=\{y\in\{0,\dots,n\}^d,\,\sum_{i=1}^dy^i=n\} $ for a fixed $n\in\NN^\ast$.
@@ -440,14 +440,14 @@ Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive func
     In the known variance case it corresponds to a uniform distribution on $\RR$. In both cases, it is improper.  However, its posteriors are always proper.
 \end{ex}
 
-\color{black}
+
 
 
 \citet{clarke_jeffreys_1994} have shown that the Jeffreys prior  is the reference prior over the priors with continuous and positive densities on $\Theta$. Their result can be expressed as follows.
     \begin{thm}\label{thm:intro-ref:clarke}
         Under \cref{assu:intro-ref:jeffreysexist}. Call an ``appropriate'' increasing sequence of set $(\Theta)_i$, an increasing sequence such that for any $i$ $\Theta_i$ is compact. Assume $\nu$ is the Lebesgue measure and let $\cP$ be the set of priors admitting a continuous and positive density. Then the Jeffreys prior is the unique reference prior over $\cP$.
     \end{thm}
-\citet{mure_objective_2018} has shown that the above theorem still stands when ``appropriate'' refers to open subsets of $\Theta$. \textcolor{orange}{This result can be anticipated by reminding that the form of the density maximizing the mutual information for a fixed $k$ is $\exp\left(\int_{\cY_k}\ell_k(\mbf y|\theta)\log(p(\theta|\mbf y) ) d\mu^{\otimes k}(\mbf y)\right)$. 
+\citet{mure_objective_2018} has shown that the above theorem still stands when ``appropriate'' refers to open subsets of $\Theta$. {This result can be anticipated by reminding that the form of the density maximizing the mutual information for a fixed $k$ is $\exp\left(\int_{\cY_k}\ell_k(\mbf y|\theta)\log(p(\theta|\mbf y) ) d\mu^{\otimes k}(\mbf y)\right)$. 
 Indeed, according to the Bernstein von Mises theorem (see e.g. \cite{van_der_vaart_asymptotic_1992}), under appropriate assumptions, the posterior density $p(\theta|\mbf y)$ is asymptotically close  to a %converges to a 
 centered Gaussian density whose  variance is $\cI(\theta)^{-1/2}/\sqrt{k}$ when $\mbf y$ are sitributed w.r.t. $\PP_{\mbf Y_k|\theta}$.
 %where $\hat\theta_k$ is} an asymptotically sufficient and consistent estimator, such as the {Maximum Likelihood Estimator} (MLE) under general assumptions. 
@@ -713,12 +713,12 @@ is stated below. It is, according to ourselves, an appropriate condition on this
     \end{equation}
 \end{defi}
 
-\color{orange}
+
 Such sequence does not necessarily exist if $\Theta$ has an ``unusual'' form. 
 In most cases, one would work on sets $\Theta$ that are ``almost'' open or ``almost'' closed, i.e. $\nu(\partial\Theta)=0$. In this case, one can restrict the study to $\overline{\Theta}$ or to $\mathring{\Theta}$. If $\Theta$ is moreover a subset of $\RR^d$ then there always exist openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$, $(\Theta'_i)_{i\in\NN}$ with $\bigcup_{i\in\NN}\Theta_i=\mathring{\Theta}$ and $\bigcup_{i\in\NN}\Theta_i'=\overline{\Theta}$. We express that statement in the proposition below.
 
 
-% \color{orange}
+% 
 \begin{prop}
      If $\Theta$, is an open or a closed subset of $\RR^d$ there exist an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$.
 \end{prop}
@@ -758,7 +758,7 @@ That makes $(\Theta_i)_{i\in\NN}$ being an openly increasing sequence of subsets
 % \end{proof}
 
 
-\color{black}
+
 
 
 \begin{prop}
@@ -825,7 +825,7 @@ The same arguments stand for the measurability of $Y_j$ for any $j$.
 
 
 
-%\color{black}
+%
 
 
 

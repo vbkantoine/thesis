@@ -73,7 +73,7 @@ skipabove=1.2\baselineskip,
 \renewcommand{\sectionmark}[1]{\markright{#1}}
 
 
-\fancyhead[EL]{\color{niceBlue}\chaptertitlename\ \thechapter.\ \emph{\leftmark}}
+\fancyhead[EL]{\hyperlink{section.\arabic{chapter}}{\color{niceBlue}\chaptertitlename\ \thechapter.}\color{niceBlue}\ \emph{\leftmark}}
 \fancyhead[ER]{}
 \fancyhead[OR]{\color{niceBlue}\thesection.\ \emph{\rightmark}}
 \fancyhead[OL]{}
@@ -131,6 +131,8 @@ skipabove=1.2\baselineskip,
 
 
 
+% \newenvironment{proofb}{\begin{mdframed[linecolor=gray]}{\end{mdframed}}
+
 
 \makeatletter
 \renewenvironment{proof}[1][\proofname]{\begin{mdframed}[linecolor=gray]\par
@@ -143,4 +145,14 @@ skipabove=1.2\baselineskip,
 }{%
 \popQED\endtrivlist\@endpefalse
 \end{mdframed}}
+
+\newenvironment{proofb}[1][\proofname]{\par
+\pushQED{\qed}%
+\normalfont \topsep6\p@\@plus6\p@\relax
+\trivlist
+\item\relax
+{\itshape
+#1\@addpunct{.}}\hspace\labelsep\ignorespaces
+}{%
+\popQED\endtrivlist\@endpefalse}
 \makeatother

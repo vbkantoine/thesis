@@ -701,11 +701,6 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
     \end{prop}
 
 \begin{proof}
-    
-
-
-
-
     First we derive for any $\theta,\theta'\in\tilde\Theta$
             \begin{multline}
                 \int_{\RR\times\RR} e^{-\frac{(y-y')^2}{2h^2}} e^{-\frac{(y-\theta)^2}{2\sigma^2} } e^{-\frac{(y'-\theta')^2}{2\sigma^2} }  d yd y' 
@@ -784,9 +779,6 @@ We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\th
 
 
  \end{enumerate}
- 
-
-
 \end{proof}
 
 
@@ -794,7 +786,7 @@ We fix $\theta'\in\tilde\Theta$. Let $\eps>0$, we fix a neighborhood $V$ of $\th
 
 \subsection{Proof of the convergence in probability}
 
-\begin{proof}[Proof of \cref{prop:PSGSA:cvptheta}]
+\begin{proofb}[Proof of \cref{prop:PSGSA:cvptheta}]
     We fix $\theta$ in the interior of $\Supp\pi$ such that $\pi$ is continuous in $\theta$. Let $\eps,\tilde\eps>0$. We want to show that there exist $k_0$, such that for all $k\geq k_0$
         \begin{equation}
             \PP_\theta\left(\tilde g_2^{C,c}(k^{-d/2})^{-1}\left| f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right.            \left. - g_1\left(k^{-d/2}\pi(\theta)(2\pi)^{d/2}|\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k \right)\right) \right|<\tilde\eps   \right)>1-\eps,
@@ -944,7 +936,7 @@ This way, defining $k_0=\max(k_1,k_2,k_3,k_4)$, the following inequality is true
 \begin{equation}
     \PP_\theta\left(\tilde g_2^{C_\theta,c_\theta}(k^{-d/2})^{-1}\left| f\left(\frac{p_{\mbf Y_k}(\mbf Y_k)}{\ell_k(\mbf Y_k|\theta)}\right) \right.            \left. - g_1\left(k^{-d/2}\pi(\theta)(2\pi)^{d/2}|\cI(\theta)|^{-1/2}\exp\left(\frac{1}{2}S_k^T\cI(\theta)^{-1}S_k \right)\right) \right|<\tilde\eps   \right)>1-\eps.
 \end{equation}
-\end{proof}
+\end{proofb}
 
 
 \newcommand{\ubf}[1]{\underline{\mbf{#1}}}
@@ -952,7 +944,7 @@ This way, defining $k_0=\max(k_1,k_2,k_3,k_4)$, the following inequality is true
 
 \subsection{Proof of the results when $\delta<0$} %\cref{thm:refcompactneg,thm:PSGSA:Jrefdeltaneg}}
 
-\begin{proof}[Proof of \cref{thm:refcompactneg,prop:JlimIMdeltaneg,thm:PSGSA:Jrefdeltaneg}]
+\begin{proofb}[Proof of \cref{thm:refcompactneg,prop:JlimIMdeltaneg,thm:PSGSA:Jrefdeltaneg}]
     We suppose that \cref{assu:PSGSA:JDS} is verified. We recall that in this proof $\delta<0$. The following lemma is required for the proof. It is proven later on.
     \begin{lem}
         \label{lem:dfbeta}
@@ -1035,7 +1027,7 @@ $\pi(\theta)^\delta|\cI(\theta)|^{-\delta/2}$ is constant with respect to  $\the
 
 
 
-\end{proof}
+\end{proofb}
 
 
 
@@ -1096,7 +1088,7 @@ That allows to conclude using Jensen's inequality:
 \subsection{Proof of the results when $\delta>0$} % \cref{thm:refcompactpos,thm:PSGSA:Jrefdeltapos}}
 
 
-\begin{proof}[Proof of \cref{thm:refcompactpos,prop:JlimIMdeltapos,thm:PSGSA:Jrefdeltapos}]
+\begin{proofb}[Proof of \cref{thm:refcompactpos,prop:JlimIMdeltapos,thm:PSGSA:Jrefdeltapos}]
     We suppose that \cref{assu:infeighes,assu:gausstailSk} are verified, we recall that in this proof $\delta>0$. The following lemmas are required for the proof. They are proven later on.
 
     \begin{lem}\label{lem:technicalLemma}
@@ -1212,7 +1204,7 @@ concavity of $x\mapsto a x^{-\delta}$, which results from $a(\delta+1)>0$ and  g
 The concavity of $x\mapsto a x^{-\delta}$ being strict, the above inequality is an equality if and only if 
 $\pi(\theta)^\delta|\cI(\theta)|^{-\delta/2}$ is constant with respect to  $\theta$, i.e. $\pi\propto J$.
 
-\end{proof}
+\end{proofb}
 
 
 \begin{proof}[Proof of \cref{lem:technicalLemma}]
