@@ -37,7 +37,8 @@ Within the SPRA framework, the fragility curve expression is expected to be comb
     \end{equation}
 If $H$ is the mean annual  distribution of the IM, $C_f$ represents the annual damage frequency of the component.
 It should be noted that the sufficiency assumption was introduced to reduce estimation costs since it assumes that the fragility curve of a given structure is identical regardless of the seismic scenario.
-Actually, this assumption embeds some uncertainty in the problem since, as shown in \cite{radu_earthquake-source-based_2018,grigoriu_are_2021}, different seismic scenarios can lead to identical distributions of some IMs, despite having significantly different frequency contents.
+Actually, this assumption embeds some uncertainty in the problem since, as shown in \citeauthor{radu_earthquake-source-based_2018}, \citeyearlink{radu_earthquake-source-based_2018,grigoriu_are_2021}, %\cite{radu_earthquake-source-based_2018,grigoriu_are_2021}, 
+different seismic scenarios can lead to identical distributions of some IMs, despite having significantly different frequency contents.
 The uncertainty rooted in the fragility curve by this assertion can be classified as an \emph{aleatoric} (irreducible) kind of uncertainty
  (we refer to the \cref{chap:intro-english} for the definition of the uncertainty quantification framework).
 % belong to the category of
@@ -103,14 +104,120 @@ Given those and the non-exhaustive list of modeling we present from the literatu
 \section{Data: from seismic signals to equipments failures}
 
 
+
+
+
+In the literature, different source of data are exploited to estimate seismic fragility curves. 
+We can cite, for instance:
+(i) expert assessments supported by test data (e.g. \cite{kennedy_probabilistic_1980,kennedy_seismic_1984,zentner_fragility_2017}), (ii) experimental data (e.g. \cite{park_survey_1998}), (iii) empirical data from past earthquakes (e.g. \cite{shinozuka_statistical_2000,straub_improved_2008,lallemant_statistical_2015,buratti_empirical_2017,laguerre_empirical_2024}), and (iv) analytical results obtained from various numerical models using artificial or natural seismic excitations (e.g. \cite{ellingwood_earthquake_2001,kim_development_2004,zentner_numerical_2010,koutsourelakis_assessing_2010,mai_seismic_2017,trevlopoulos_parametric_2019,wang_influence_2020,mandal_seismic_2016,wang_seismic_2018,wang_bayesian_2018,zhao_seismic_2020,katayama_bayesian-estimation-based_2021,gauchy_importance_2021,khansefid_fragility_2023,lee_efficient_2023}).
+In every of these studies, each sample in 
+the dataset regroups:
+\begin{enumerate}
+    \item Information about a seismic ground motion. The considered ground motions are sometimes natural and sometimes artificial. The information can take several forms, %(such as the temporal signal), 
+    as stated in the introduction it is generally used  to derive one or several scalars called intensity measures (IMs).
+    % as stated in the introduction, it is generally used to 
+    \item Information about the response of the structure or the equipment of interest to the seismic excitation. To define the fragility curve, this information, must permit to characterize the failure of the studied system.
+\end{enumerate}
+%(i) information about the seismic ground motion (it can be the temporal signal itself,)
+
+In the subsection ?? we pre
+
+
+
+Since available records of real seismic excitations for a given site are often scarce, it is common to construct a dataset of artificial earthquake accelerograms using a seismic signal generator.
+Various techniques exist for this purpose. According to \citet{rezaeian_stochastic_2008}, the methods can be categorized among the ``source-based'' ones, which model the occurrence of
+earthquake rupture at some sources and the propagation of seismic waves to the studied site, and the ``site-based'' ones, which model the seismic signals for the site of interest from the consideration its characteristics and historical recorded earthquake.
+A review of the first kind is proposed in \cite{zerva_seismic_1988}, and a review of the second can be found in \cite{shinozuka_stochastic_1988}.
+As more recent examples for the latter, we can also cite \cite{trevlopoulos_parametric_2019}; and \cite{zentner_enrichment_2012}.
+In the following, we present a stochastic seismic signal generator that is proposed by \citet{rezaeian_simulation_2010}. It lies among the site-based model, and has been implemented by \citet{sainct_efficient_2020}, who calibrated it using $97$ real accelerograms selected in the European Strong Motion Database  for a magnitude $M$ such that $5.5 \leq M \leq 6.5$, and a source-to-site distance $R < 20$~km \citep{ambraseys_dissemination_2000}. 
+
+
+
+As said in the introduction, this thesis does not seek to question thoroughly the seismic hazard, and we aim at providing methods that can be applied to any modeling of the seismic signals. Nevertheless, in the following chapters, our methods are applied and validated on different case studies that are presented later on. These case studies take the form of mechanical equipment that have been submitted to artificial seismic signals generated using the generator implemented by \citet{sainct_efficient_2020}, and presented below.
+
+
+%the case studies that we present and onto which we will apply our methods are excited using
+
+
+
 \subsubsection{Seismic signals generator and IMs}
 
-SAinct et al
+The seismic excitation generated takes the form of a temporal signal that is the realization $s:t\in[0,T]\mapsto s(t)\in\RR$ of a random process $S$ defined on a probability space $(\Omega,\Xi,\PP)$. The generator presented here corresponds to a modulated filtered stochastic white noise with time dependent parameters:
+    \begin{equation}
+        s(t)= s(t;w,\boldsymbol{\rho},\boldsymbol{\lambda}) = q(t,\boldsymbol\rho)\left[\frac{1}{\sigma_f(t)}\int_{-\infty}^t h(t-\tau,\boldsymbol\lambda(\tau))W(\tau)d\tau \right],
+    \end{equation}
+where $w$ being a realization of a white noise process $W$. In other terms $W:[0,T]\times\Omega\to\RR$ is such that for all $t_1\ne t_2$, $\EE W(t_1)=0$, $\EE W(t_1)^2=\EE W(t_2)^2$, and $\EE W(t_1)W(t_2)=0$.
 
-definition of IMs
+The integral in the above equation corresponds to the filtering of $w$, $h(t,\boldsymbol{\lambda})$ being to the impulse response function (IRF) of the linear filter and $\sigma_f$ being its variance: $\sigma_f(t)=\int_{-\infty}^th^2(t-\tau,\boldsymbol{\lambda}(\tau))d\tau$. The IRF is defined by
+    \begin{equation}
+        h(t-\tau,\boldsymbol{\lambda}(\tau)) = \frac{\omega_f(\tau)}{\sqrt{1-\zeta^2_f}}\exp[-\zeta_f\omega_f(\tau)(t-\tau)]\sin\left(\omega_f(\tau)\sqrt{1-\zeta^2_f}(1-\tau)\right)\indic_{t\geq\tau},
+    \end{equation}
+where $\boldsymbol{\lambda}(\tau)=(\omega_f(\tau),\zeta_f) $ with $\omega_f(\tau):=\omega_0+\frac{\tau}{T}(\omega_n-\omega)$ being the natural frequency and $\zeta_f\in[0,1]$ being a constant damping ratio. The quantities $\omega_0$ and $\omega_n$ are parameters of the IRF.
+
+ The function $q(t,\boldsymbol\rho)$ is the non-negative modulating function, it is defined by
+    \begin{equation}
+        q(t,\boldsymbol\rho) = \left\lbrace \begin{array}{ll}
+            \rho_1t^2/T_1^2 & \text{if\ } 0\leq t< T_1 \\
+            \rho_1 & \text{if\ }T_1\leq t< T_2\\
+            \rho_1\exp\left[-\rho_2(t-T_2)^{\rho_3}\right] &\text{if\ }T_2\leq t
+        \end{array}\right.
+    \end{equation}
+where $\boldsymbol\rho=(\rho_1,\rho_2,\rho_3,T_1,T_2)\in(0,\infty)^5$.
+Therefore, the signal $s$ depends on $w$ and 
+$\boldsymbol{\phi}:=(\boldsymbol{\rho},\omega_0,\omega_n,\zeta_f)\in\boldsymbol{\Phi}:=(0,\infty)^7\times[0,1]$.
+The generator consists in deriving realization of $s(\cdot;W,\boldsymbol\phi)$ where 
+$\boldsymbol{\phi}$
+is stochastic,
+its distribution being identified using real acceleration records.
+As previously announced,
+the records considered are $N_r=97$ real acceleration records form the European Strong Motion Database for a magnitude $M$ such that $5.5\leq M\leq 6.5$ and a source-to-site distance $R<20$~km.
+Each of the records corresponds to a realization of $s(\cdot;W,\overline{\boldsymbol{\phi}}_i)$ using a tuple $\overline{\boldsymbol\phi}_i$ as parameters. The distribution of $\boldsymbol{\phi}$ is given by the Gaussian kernel density estimation (see \cite{kristan_multivariate_2011}) of the one of the $(\overline{\boldsymbol\phi}_i)_i$, i.e. its density $p_{\boldsymbol{\phi}}$ is given by
+    \begin{equation}
+        p_{\boldsymbol{\phi}}(x) \propto \sum_{i=1}^{N_r}\exp\left( -\frac{1}{2} (x-\overline{\boldsymbol\phi}_i)^\top\Sigma^{-1}(x-\overline{\boldsymbol\phi}_i) \right)\indic_{x\in\boldsymbol{\Phi}},
+    \end{equation}
+where $\Sigma$ is derived from the $(\overline{\boldsymbol{\phi}}_i)_i$ (see \cite{kristan_multivariate_2011}).
+
+
+From a seismic signal $s$ that is a realization of the process described above, different intensity measure (IM) indicators can be derived.
+The choice of the appropriate IM to estimate seismic fragility curves
+remains a complex question. 
+According to \citet{giovenale_comparing_2004}, the appropriateness of an IM must be defined in terms of efficiency, sufficiency, and hazard compatibility.
+However, the most efficient or sufficient IM is not the same for two different case studies (see \cite{mackie_probabilistic_2001,hariri-ardebili_probabilistic_2016}). % changes when a different case 
+%regarding the studied system, the results given
+% study is considered (see ). 
+Moreover, while we do not  thoroughly research the best IM in this thesis, we will see in the following chapters that the best choice is not necessarily simply the one that is the most correlated with the structure's response.
+Below we propose a non-exhaustive list of common IMs, a more complete one can be found in \cite{luco_structure-specific_2007}:
+    \begin{itemize}
+        \item the peak ground acceleration (PGA) is defined as $\text{PGA}=\max_{t\in[0,T]}|s(t)|$;
+        \item the peak ground velocity (PGV) is defined as $\text{PGV}=\max_{t\in[0,T]}\left|\int_0^ts(\tau)d\tau \right|$;
+        \item the peak ground displacement (PGD) is defined as $\text{PGD}=\max_{t\in[0,T]}\left|\int_{0}^{t}\int_{0}^{\tau}s(u)dud\tau\right|$;
+        \item the pseudo spectral acceleration (PSA) at frequency $f_L$ and damping ratio $\xi$ is defined as $\text{PSA}=(2\pi f_L)^2\max_{t\in[0,T]}|x(t)|$, where $x$ is the solution of the linear equation
+        \begin{equation}\label{eq:intro-frag:ALS}
+            x''(t) + 2\xi2\pi f_Lx'(t)+(2\pi f_L)^2x(t) = -s(t).
+        \end{equation}
+        This IM is component-dependent since, in practice, the damping ratio $\xi$ and the frequency $f_L$ are evaluated from the mechanical characteristic of the studied system. Generally, the frequency $f_L$ considered for deriving the PSA corresponds to the first mode of the structure's displacement under excitation. \Cref{eq:intro-frag:ALS} corresponds to the displacement equation of the linear single degree of freedom system associated to the structure.
+    \end{itemize}
+
+
+
+
+
+%different IMs
+
+
+% Regarding seismic ground motions, a common methodology
+
+
+
+% SAinct et al
+
+% definition of IMs
 
 
 \subsubsection{Engineering demand parameter and failure}
+
+
+As evoked in the preamble of this section, numerous data sources exist for identifying the fragility (and the failure) of mechanical structures and components.
 
 
 

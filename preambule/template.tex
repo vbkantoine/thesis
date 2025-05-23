@@ -156,3 +156,11 @@ skipabove=1.2\baselineskip,
 }{%
 \popQED\endtrivlist\@endpefalse}
 \makeatother
+
+
+
+\DeclareCiteCommand{\citeyearlink}
+    {\usebibmacro{prenote}}
+    {\bibhyperref{\printfield{year}}\bibhyperref{\printfield{extrayear}}}
+    {\multicitedelim}
+    {\usebibmacro{postnote}}
