@@ -1,7 +1,9 @@
 
 
 \begin{abstract}
-    abstract
+    Seismic fragility curves are key quantities of interest in the seismic probabilistic risk assessment framework because they efficiently describe the fragility of a mechanical system of interest under a seismic excitation. They are studied since the 1980s on various types of data and characterization of the seismic motion and of the structure's response. 
+    In this chapter, we propose a review of the numerous methods that exist to estimate the curves. We particularly describe the role played by the characteristics of the available data to select a modeling of the fragility curve.
+    This chapter is also the occasion to present some mechanical equipments that will be studied in the following chapters of this manuscript.
 \end{abstract}
 
 \minitoc
@@ -13,7 +15,7 @@
 
 The Seismic Probabilistic Risk Assessment (SPRA) defines a framework and a methodology for the study of seismic structural reliability. %This framework is parrt of the probabilistic 
 % As for the Pr
-It has been introduced since 1969 \citep{cornell_engineering_1968}
+It has been introduced since 1968 \citep{cornell_engineering_1968}
 to incorporate the seismic risk evaluation in the probabilistic risk assessment studies.
 % and further developed in the
 The SPRA has been mostly developed and carried out in the 1980s on nuclear facilities (see e.g. \cite{kennedy_probabilistic_1980,kennedy_seismic_1984}). 
@@ -27,7 +29,7 @@ Within the SPRA, seismic fragility curves represent a key asset that play a prom
 They express in probabilistic terms the fragility of structures under seismic excitation. We can mention that they are also a tool of interest of performance-based earthquake engineering (PBEE; \cite{ghobarah_performance-based_2001,noh_development_2014}), 
 which aims at relating performance objectives to level of damage to the structure.
 In any case, they are defined as a function of the seismic hazard, which ---driven by the magnitude (M), the source-site distance (R), and other earthquake parameters--- is reduced to a scalar value derived from the seismic signal: the intensity measure (IM), under the so-called ``sufficiency assumption'' \citep{cornell_hazard_2004,luco_structure-specific_2007}.
-In practice, a fragility curve, denoted $P_f$, therefore express the probability of failure of a mechanical structure as a function of an IM value of interest such as peak ground acceleration (PGA) or pseudo-spectral acceleration (PSA), among others:
+In practice, a fragility curve, denoted $P_f$, therefore expresses the probability of failure of a mechanical structure as a function of an IM value of interest such as peak ground acceleration (PGA) or pseudo-spectral acceleration (PSA), among others:
     \begin{equation}
         P_f(a) = \PP(\text{``failure''}|\text{IM}=a).
     \end{equation}
@@ -42,7 +44,7 @@ different seismic scenarios can lead to identical distributions of some IMs, des
 The uncertainty rooted in the fragility curve by this assertion can be classified as an \emph{aleatoric} (irreducible) kind of uncertainty
  (we refer to the \cref{chap:intro-english} for the definition of the uncertainty quantification framework).
 % belong to the category of
-%The evaluation of the fragility curve defined in eq?? implies the consideration of this
+%The evaluation of the fragility curve defined in eq  implies the consideration of this
 % Focusing the definition of the fragility curve <
 
 
@@ -53,10 +55,12 @@ remains a daunting task. It is commonly done statistically, using different kind
 on the source of data available, their characteristics, and their quantity.
 This chapter proposes a review of these methods. 
 In the next section,
-we define the different kind of data involved in the seismic fragility curve estimation in the literature. In particular, we present a stochastic seismic signal generator, and  we present how the failure of mechanical equipment is generally defined.
-In section ?? and section ?? different modeling of the fragility curves for its statistical estimation are presented, they are grouped in two categories: non-parametric and parametric.
-Explicit examples of case studies are given in section ??, from a theoretical one to an experimental one for which really few data are available.
-Given those and the non-exhaustive list of modeling we present from the literature, we question 
+we define the different kind of data involved when estimating seismic fragility curves. In particular, we present a stochastic seismic signal generator, and  we present how the failure of mechanical equipment is generally defined.
+In \cref{sec:intro-frags:models}, different models and methods are presented, they are grouped in two categories: the non-parametric ones and the parametric ones.
+Explicit examples of case studies are then given in \cref{sec:intro-frags:casstudies}, from a theoretical one to an experimental one for which really few data are available.
+%Given those and the non-exhaustive list of modeling we present from the literature, we question 
+Conclusive thoughts are proposed in \cref{sec:intro-frags:conclusion}.
+
 
 
 
@@ -101,13 +105,13 @@ Given those and the non-exhaustive list of modeling we present from the literatu
 
 
 
-\section{Data: from seismic signals to equipments failures}
+\section{Data: from seismic signals to equipments failures}\label{sec:intro-frags:data}
 
 
 
 
 
-In the literature, different source of data are exploited to estimate seismic fragility curves. 
+In the literature, different sources of data are exploited to estimate seismic fragility curves. 
 We can cite, for instance:
 (i) expert assessments supported by test data (e.g. \cite{kennedy_probabilistic_1980,kennedy_seismic_1984,zentner_fragility_2017}), (ii) experimental data (e.g. \cite{park_survey_1998}), (iii) empirical data from past earthquakes (e.g. \cite{shinozuka_statistical_2000,straub_improved_2008,lallemant_statistical_2015,buratti_empirical_2017,laguerre_empirical_2024}), and (iv) analytical results obtained from various numerical models using artificial or natural seismic excitations (e.g. \cite{ellingwood_earthquake_2001,kim_development_2004,zentner_numerical_2010,koutsourelakis_assessing_2010,mai_seismic_2017,trevlopoulos_parametric_2019,wang_influence_2020,mandal_seismic_2016,wang_seismic_2018,wang_bayesian_2018,zhao_seismic_2020,katayama_bayesian-estimation-based_2021,gauchy_importance_2021,khansefid_fragility_2023,lee_efficient_2023}).
 In every of these studies, each sample in 
@@ -120,20 +124,30 @@ the dataset regroups:
 \end{enumerate}
 %(i) information about the seismic ground motion (it can be the temporal signal itself,)
 
-% In the subsection ?? we pre
+% In the subsection   we pre
 
 
 
 Since available records of real seismic excitations for a given site are often scarce, it is common to construct a dataset of artificial earthquake accelerograms using a seismic signal generator.
 Various techniques exist for this purpose. According to \citet{rezaeian_stochastic_2008}, the methods can be categorized among the ``source-based'' ones, which model the occurrence of
-earthquake rupture at some sources and the propagation of seismic waves to the studied site, and the ``site-based'' ones, which model the seismic signals for the site of interest from the consideration its characteristics and historical recorded earthquakes.
+earthquake rupture at some sources and the propagation of seismic waves to the studied site, and the ``site-based'' ones, which model the seismic signals for the site of interest from the consideration of its characteristics and historical recorded earthquakes.
 A review of the first kind is proposed in \cite{zerva_seismic_1988}, and a review of the second can be found in \cite{shinozuka_stochastic_1988}.
 As more recent examples for the latter, we can also cite \cite{trevlopoulos_parametric_2019}; and \cite{zentner_enrichment_2012}.
-In the following, we present a stochastic seismic signal generator that is proposed by \citet{rezaeian_simulation_2010}. It lies among the site-based models, and has been implemented by \citet{sainct_efficient_2020}, who calibrated it using $97$ real accelerograms selected in the European Strong Motion Database  for a magnitude $M$ such that $5.5 \leq M \leq 6.5$, and a source-to-site distance $R < 20$~km \citep{ambraseys_dissemination_2000}. 
+In the following, we present a stochastic seismic signal generator that is proposed by \citet{rezaeian_simulation_2010}. It lies among the site-based models, and has been implemented by \citet{sainct_efficient_2020}, who calibrated it using $97$ real accelerograms selected in the European Strong Motion Database  for a magnitude $M$ such that $5.5 \leq M \leq 6.5$, and a source-to-site distance $R < 20$~km \citep{ambraseys_dissemination_2000}.  An example of one of these real signal is plotted in 
+\cref{fig:intro-frags:real-seism}.
+
 
 
 
 As said in the introduction, this thesis does not seek to question thoroughly the seismic hazard, and we aim at providing methods that can be applied to any modeling of the seismic signals. Nevertheless, in the following chapters, our methods are applied and validated on different case studies that are presented later on. These case studies take the form of mechanical equipments that have been submitted to artificial seismic signals generated using the generator implemented by \citet{sainct_efficient_2020}, and presented below.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5.625cm]{figures/intro-frags/exseism.pdf}
+    \caption{Example of an accelerogram record of a real seismic signal} %: the realtive acceleration $s$ of the ground is .}
+    \label{fig:intro-frags:real-seism}
+\end{figure}
 
 
 %the case studies that we present and onto which we will apply our methods are excited using
@@ -165,17 +179,17 @@ where $\boldsymbol{\lambda}(\tau)=(\omega_f(\tau),\zeta_f) $ with $\omega_f(\tau
 where $\boldsymbol\rho=(\rho_1,\rho_2,\rho_3,T_1,T_2)\in(0,\infty)^5$.
 Therefore, the signal $s$ depends on $w$ and 
 $\boldsymbol{\phi}:=(\boldsymbol{\rho},\omega_0,\omega_n,\zeta_f)\in\boldsymbol{\Phi}:=(0,\infty)^7\times[0,1]$.
-The generator consists in deriving realization of $s(\cdot;W,\boldsymbol\phi)$ where 
+The generator consists in deriving realizations of $s(\cdot;W,\boldsymbol\phi)$ where 
 $\boldsymbol{\phi}$
 is stochastic,
 its distribution being identified using real acceleration records.
 As previously announced,
 the records considered are $N_r=97$ real acceleration records form the European Strong Motion Database for a magnitude $M$ such that $5.5\leq M\leq 6.5$ and a source-to-site distance $R<20$~km.
-Each of the records corresponds to a realization of $s(\cdot;W,\overline{\boldsymbol{\phi}}_i)$ using a tuple $\overline{\boldsymbol\phi}_i$ as parameters. The distribution of $\boldsymbol{\phi}$ is given by the Gaussian kernel density estimation (see \cite{kristan_multivariate_2011}) of the one of the $(\overline{\boldsymbol\phi}_i)_i$, i.e. its density $p_{\boldsymbol{\phi}}$ is given by
+Each of the records corresponds to a realization of $s(\cdot;W,\overline{\boldsymbol{\phi}}_i)$ using a tuple $\overline{\boldsymbol\phi}_i$ as parameters. The distribution of $\boldsymbol{\phi}$ is given by the Gaussian kernel density estimation (see \cite{kristan_multivariate_2011}) of the one of the $(\overline{\boldsymbol\phi}_i)_{i=1}^{N_r}$, i.e. its density $p_{\boldsymbol{\phi}}$ is given by
     \begin{equation}
         p_{\boldsymbol{\phi}}(x) \propto \sum_{i=1}^{N_r}\exp\left( -\frac{1}{2} (x-\overline{\boldsymbol\phi}_i)^\top\Sigma^{-1}(x-\overline{\boldsymbol\phi}_i) \right)\indic_{x\in\boldsymbol{\Phi}},
     \end{equation}
-where $\Sigma$ is derived from the $(\overline{\boldsymbol{\phi}}_i)_i$ (see \cite{kristan_multivariate_2011}).
+where $\Sigma$ is derived from the $(\overline{\boldsymbol{\phi}}_i)_{i=1}^{N_r}$ (see \cite{kristan_multivariate_2011}).
 
 
 From a seismic signal $s$ that is a realization of the process described above, different intensity measure (IM) indicators can be derived.
@@ -199,14 +213,14 @@ Below we propose a non-exhaustive list of common IMs, a more complete one can be
     \end{itemize}
 
 For  conducting the numerical experiments of this thesis, $10^5$ seismic signals have been computed using this generator.
-In \cref{fig:intro-frags:IM-density}, we draw the distribution of the PGA and the PSA (at frequency 5~Hz and damping ratio $1\%$) given by this generator. It is compared with the kernel density approximation of the PGA and PSA values of the $97$ real seismic signals that have been used for fitting the generator, and with a lognormal distribution with same median and same log deviation. 
+In \cref{fig:intro-frags:IM-density}, we draw the distribution of the PGA and the PSA (at frequency $5$~Hz and damping ratio $1\%$) given by this generator. It is compared with the kernel density approximation of the PGA and PSA values of the $97$ real seismic signals that have been used for fitting the generator. %, and with a lognormal distribution with same median and same log deviation. 
 These comparisons show that the synthetic signals have realistic features.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=5cm]{figures/intro-frags/PSA_density_withLN.pdf}\ 
-    \includegraphics[width=5cm]{figures/intro-frags/PGA_density_withLN.pdf}
-    \caption{Histograms of IMs derived from $10^5$ generated synthetic signals : the IM is the PSA (left) and the PGA (right). They are compared with the densities of IMs coming from real accelerograms estimated by Gaussian kernel estimation (dashed lines), {and with the densities of a lognormal distribution with same median and same log deviation (solid lines).}}
+    \includegraphics[width=5cm]{figures/intro-frags/PSA_density.pdf}\ 
+    \includegraphics[width=5cm]{figures/intro-frags/PGA_density.pdf}
+    \caption{Histograms of IMs derived from $10^5$ generated synthetic signals : the IM is the PSA (left) and the PGA (right). They are compared with the densities of IMs coming from real accelerograms estimated by Gaussian kernel estimation (dashed lines).} %, {and with the densities of a lognormal distribution with same median and same log deviation (solid lines).}}
     \label{fig:intro-frags:IM-density}
 \end{figure}
 
@@ -238,7 +252,7 @@ In those cases, the failure is defined when the EDP exceeds a threshold limit.
 
 All in all, available datasets often take the form of tuples $((\cS_i,\cD_i))_{i=1}^k$, where $\cS_i$ is the $i$-th seismic signal submitted to the system and $\cD_i$ is the EDP that was observed during the experiment. %The reduced 
 %
-In the case studies that are treated in this manuscript a specific IM is chosen, and a reduced dataset of the form $((a_i,z_i))_{i=1}^k$ is studied, where $a_i$ is the IM of the $i$-th seismic signal, and $z_i=\indic_{\cD_i>\text{TH}}$, where $\text{TH}$ is the threshold that defines the failure of the system. In other words, $z_i=1$ if the system has failed when submitted to the  $i$-th seismic signal, and $z_i=0$ otherwise.
+In the case studies that are treated in this manuscript a specific IM is chosen, and a reduced dataset of the form $((a_i,z_i))_{i=1}^k$ is studied, where $a_i$ is the IM of the $i$-th seismic signal, and $z_i=\indic_{\cD_i> C }$, where $ C $ is the threshold that defines the failure of the system. In other words, $z_i=1$ if the system has failed when submitted to the  $i$-th seismic signal, and $z_i=0$ otherwise.
 The dataset permits to statistically estimate the fragility curve of the system of interest. In this thesis, we restrict the study to cases where the observations can be considered independent. Naturally, that restriction excludes some case studies, such as experimental campaigns conducted on concrete structures for instance, since such system get damaged during the experiment, impacting their mechanical behavior. 
 As mechanical systems that enter the scope of this thesis, we can cite
 %\begin{itemize}
@@ -261,7 +275,7 @@ In the last two examples evoked, the failure is not always characterized by obse
 
 
 
-\section{Modeling of the fragility curve}
+\section{Modeling of the fragility curve}\label{sec:intro-frags:models}
 
 Different models and methods have been suggested in the literature to estimate seismic fragility curves.
 %Historically, the 
@@ -278,8 +292,8 @@ In the latter, the fragility curve is assumed to belong to a parameterized set, 
 While the first method is more general in the sense that it covers a wider range of possible estimates, it is also often less efficient than the second. Indeed, reducing the problem to a finite-parameter one allows providing satisfying estimates with fewer data. However, their reliability depends on the trustworthiness of the chosen parametric modeling.
 
 In the following, we review briefly the
-state-of-the art on the estimation of seismic fragility curves. We start by a review of non-parametric methods in section??. In that section we also describe a non-parametric estimation that is based on Monte-Carlo estimates, and that can serve as a reference when a large dataset is available.
-In section?? we discuss the parametric modelings of the fragility curves, and we present the most common one: the probit-lognormal model.
+state-of-the art on the estimation of seismic fragility curves. We start by a review of non-parametric methods in \cref{sec:intro-frags:subsec-nonparametric}. In that section we also describe a non-parametric estimation that is based on Monte-Carlo estimates, and that can serve as a reference when a large dataset is available.
+In \cref{sec:intro-frags:subsec-parametric} we discuss the parametric modelings of the fragility curves, and we present the most common one: the probit-lognormal model.
 
 
 
@@ -303,20 +317,20 @@ In section?? we discuss the parametric modelings of the fragility curves, and we
 
 
 
-\subsection{Non-parametric modeling}
+\subsection{Non-parametric modeling}\label{sec:intro-frags:subsec-nonparametric}
 
 
 Most of non-parametric models for seismic fragility curves estimation leverage ---if possible--- the knowledge of an EDP that describes more precisely the response of the structure under seismic excitation than just the binary outcome ---failure or non-failure.
 In this case it is possible to estimate the conditional distribution of the EDP to the IM (or IMs) via a surrogate modeling of the system $\text{EDP}=\cM(\text{IM})$.
 
-Among common surrogates we can mention the Gaussian processes (GPs). As examples of their use for seismic fragility curves estimation, we can cite \cite{gidaris_kriging_2015}, in which GPs are used to estimate the EDP given multiple parameters characterizing the ground motion; and \cite{gauchy_uncertainty_2024}, in which the GPs-based estimation of the EDP is coupled with a sensitivity analysis of the fragility curve to the mechanical parameter of the studied system.
+Among common surrogates we can mention the Gaussian processes (GPs). As examples of their use for seismic fragility curves estimation, we can cite \cite{gidaris_kriging_2015}, in which GPs are used to estimate the EDP given multiple parameters characterizing the ground motion; and \cite{gauchy_uncertainty_2024}, in which the GPs-based estimation of the EDP is coupled with a sensitivity analysis of the fragility curve to the mechanical parameters of the studied system.
 
 We also mention polynomial chaos expansion (PCE) as a surrogate numerously used for seismic fragility curves estimation. For instance, PCEs are combined in \cite{mai_surrogate_2016} with non-linear autoregressive with exogenous input models to estimate the temporal response of the mechanical system as a function of the seismic signal.
-In \cite{zhu_surrogate_2023}, a stochastic PCE is conducted, consisting in the addition of a latent variable and an additive noise to the deterministic PCE expression.
+In \cite{zhu_seismic_2023}, a stochastic PCE is conducted, consisting in the addition of a latent variable and an additive noise to the deterministic PCE expression.
 %It is applied to the 
 
-Outside surrogate modeling, what on would call machine-learning-based techniques are also implemented to estimate seismic fragility curves.
-For examples, we quote linear regression or generalized linear regression \citep{lallemant_statistical_2015}, classification-based methods (see the review suggested in \cite{kiani_application_2019}) such as  logistic regression (as in \cite{bernier_fragility_2019}) or support vector machine (as in \cite{sainct_efficient_2020}). In the latter work, support vector machine is used to classify EDPs weather they led to failures or non-failures as a function of combinations of IMs.
+Outside surrogate modeling, what one would call machine-learning-based techniques are also implemented to estimate seismic fragility curves.
+For examples, we quote linear regression or generalized linear regression \citep{lallemant_statistical_2015}, classification-based methods (see the review suggested in \cite{kiani_application_2019}) such as  logistic regression (as in \cite{bernier_fragility_2019}) or support vector machine (as in \cite{sainct_efficient_2020}). In the latter work, support vector machine is used to classify EDPs whether they led to failures or non-failures as a function of combinations of IMs.
 We also mention artificial networks based methods, such as used in \cite{mitropoulou_developing_2011,wang_seismic_2018}.
  
 
@@ -351,7 +365,7 @@ The latter is used to derive what we call a reference fragility curve that is id
 
 
 
-\subsection{Parametric modeling: probit-lognormal model}
+\subsection{Parametric modeling: probit-lognormal model}\label{sec:intro-frags:subsec-parametric}
 
 \subsubsection{The probit-lognormal model}
 
@@ -364,13 +378,16 @@ This model consists in introducing a parameter $\theta=(\alpha,\beta)$ and defin
     \begin{equation}\label{eq:intro-frag:probit}
         P_f(a) = \PP(\text{``failure''}|\text{IM}=a) = \Phi\left( \frac{\log a-\log\alpha}{\beta} \right),
     \end{equation}
-where $\Phi$ is the cumulative distribution function of a standard normal variable. An example of such curves is given in fig??.
-We mention that, sometimes, the parametrization of the model is slightly different. As recalled by \cite{zentner_fragility_2017}, the distinguishing of epistemic and aleatoric uncertainty in $\beta$ is commonly suggested, leading to rewriting eq?? with $\beta=\sqrt{\beta^2_U+\beta^2_R}$. 
-% The EPRI guide ?? suggested standard values 
+where $\Phi$ is the cumulative distribution function of a standard normal variable. An example of such curves is given in \cref{fig:intro-frags:exfrags}.
+We mention that, sometimes, the parametrization of the model is slightly different. As recalled by \cite{zentner_fragility_2017}, the distinguishing of epistemic and aleatoric uncertainty in $\beta$ is commonly suggested, leading to rewriting \cref{eq:intro-frag:probit} with $\beta=\sqrt{\beta^2_U+\beta^2_R}$. 
+% The EPRI guide   suggested standard values 
 The literature suggests that the uncertainty embedded in $\alpha$ is only epistemic.
 
-\begin{figure}
-    \caption{examples of probit lognormal fragility curves}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5.225cm]{figures/intro-frags/exfrags.pdf}
+    \caption{Examples of probit-lognormal fragility curves.}
+    \label{fig:intro-frags:exfrags}
 \end{figure}
 
 
@@ -387,7 +404,7 @@ Thus, the likelihood $\ell_k$ given observations $(\mbf a^k,\mbf z^k)$ with $\mb
     \begin{equation}
         \ell_k(\mbf z^k,\mbf a^k|\theta) = \prod_{i=1}^k\ell(z_i,a_i|\theta) = \prod_{i=1}^k\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{1-z_i}\right)h(a_i),
     \end{equation}
-where $h$ is the p.d.f. of $A$. Since the $(h(a_i))_i$ are constants of $\theta$ anad are not known in general, it is common to consider the following alternative form of the likelihood:
+where $h$ is the p.d.f. of $A$. Since the $(h(a_i))_i$ are constants of $\theta$ and are not known in general, it is common to consider the following alternative form of the likelihood:
 \begin{equation}
     \ell_k(\mbf z^k|\mbf a^k,\theta) = \prod_{i=1}^k\ell(z_i|a_i,\theta) = \prod_{i=1}^k\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{1-z_i}\right).
 \end{equation}
@@ -414,6 +431,7 @@ lies in the selection of the prior.
 As a matter of fact, as announced since the \cref{chap:intro-english}, selecting a prior is a critical step in Bayesian analysis, %especially in a context where (i) the datasets of interest are light, and (ii) the methodology must be auditable.
 and when exploring the literature, a wide range of different consideration can be found regarding its construction. % prior
 %
+
 %In earthquake engineering, Bayesian inference is often used to update existing log-normal fragility curves previously obtained through various approaches, assuming independent distributions for the prior values of $\alpha$ and $\beta$, such as log-normal distributions. 
 %
 For example, in \cite{tadinada_structural_2017} and \cite{kwag_computationally_2018}, the median prior values come from equivalent linearized mechanical models. In \cite{wang_bayesian_2018}, both aleatory and epistemic uncertainties are taken into account in the parametric model originally introduced in \cite{kennedy_probabilistic_1980}: an artificial neural network is trained and used to characterize (i) the aleatory uncertainty and (ii) the prior median value of $\alpha$, while the associated epistemic uncertainty is taken from the existing literature. The log-normal prior distribution of $\alpha$ is then updated with empirical data. 
@@ -431,23 +449,23 @@ Finally, we note that the Bayesian framework is also relevant for fitting numeri
 % independent distributions for the prior values of $\alpha$ and $\beta$ such as uniform distributions \cite{KOUTSOURELAKIS2010}, the product of a normal distribution for $\ln(\alpha)$ and the improper distribution $1/\beta$ for $\beta$ \cite{Straub2008}, etc.
 
 
-% in \cite{wang_bayesian_2018}, $\beta$ is replaced by in eq?? to 
+% in \cite{wang_bayesian_2018}, $\beta$ is replaced by in eq  to 
 
 
 %\cite{Shinozuka2000,Lallemant2015,Straub2008,ZENTNER20101614, WangF2020, MANDAL201611, WANGZ2018, WANG2018232, ZHAO2020103, ELLINGWOOD2001251, KIM2004, Mai2017, TREVLOPOULOS2019,Katayama2021,LEE2023}
 
 
-\section{Example of case studies}
+\section{Example of case studies}\label{sec:intro-frags:casstudies}
 
-    \subsection{An elasto-plastic oscillator}
+    \subsection{An elasto-plastic oscillator}\label{sec:intro-frags:elastoplastic}
 
     The first case study that we present is 
     a single-degree-of-freedom elasto-plastic oscillator with kinematic hardening.
     %It represents a con
-    This simple mechanical system illustrates the essential features which can be found in the nonlinear responses of some real-world structures under seismic excitation and has, for this reason, already been used in several studies~\cite{trevlopoulos_parametric_2019,sainct_efficient_2020,gauchy_importance_2021}.
+    This simple mechanical system illustrates the essential features which can be found in the nonlinear responses of some real-world structures under seismic excitation and has, for this reason, already been used in several studies \citep{trevlopoulos_parametric_2019,sainct_efficient_2020,gauchy_importance_2021}.
     In addition, it provides reference results as a reasonable numerical cost.
-    It is depicted in fig.??, 
-    Its motion equation when submitted to an excitation $s$ is the following:
+    It is depicted in \cref{fig:intro-frags:elasto}, and
+    its motion equation when submitted to an excitation $s$ is the following:
     \begin{equation}
         x''(t) +2\xi2\pi f_L x'(t)+f^{\text{nl}}(t) = -s(t),
     % \ddot{y}(t) + 2 \zeta \omega_{\text{L}}\dot{y}(t) + f(t) = -s(t) \ ,
@@ -455,41 +473,194 @@ Finally, we note that the Bayesian framework is also relevant for fitting numeri
     %with $s(t)$ a seismic signal, $\dot{y}(t)$ and $\ddot{y}(t)$ respectively the relative velocity and acceleration of the mass, 
     with $x''$ and $x'$ respectively the relative velocity and acceleration of the mass,  $\xi$ the damping ratio, $f_L$ the circular frequency, and $f^{\text{nl}}$ the nonlinear resisting force.
 
-    \begin{figure}[h]
+    \begin{figure}[t]
         \centering
         \includegraphics[width=6cm]{figures/intro-frags/KBEPO_rheo.pdf}
-        \caption{Elasto-plastic oscillator of mass $m$ with kinematic hardening, with parameters $f_{\text{L}} = 5$ Hz and $\xi = 2\%$. The yield limit is $Y = 5.10^{-3}$~m, and the post-yield stiffness is $20\%$ of the elastic stiffness, i.e., $a = 0.2$.}   
+        \caption{Elasto-plastic oscillator of mass $m$ with kinematic hardening, with parameters $f_{\text{L}} = 5$ Hz and $\xi = 2\%$. The yield limit is $Y = 5.10^{-3}$~m, and the post-yield stiffness is $20\%$ of the elastic stiffness, i.e., $a = 0.2$.} 
+        \label{fig:intro-frags:elasto}  
     \end{figure}
 
     
     
-    The relevant EDP is the absolute maximum value of the mass’ displacement, i.e., $\text{EDP}=\max_{t\in [0, T]}|x(t)|$, where $T$ is the duration of the seismic excitation.
-    
-    The failure criterion $\text{TH}$ is chosen to be the $90\%$-level quantile of the maximum displacement calculated with $10^5$ artificial signals, i.e., $C = 8.0 \; 10^{-3}$~m.
-    Figure \ref{fig:ref-osci} compares the MC-based reference fragility curve $P_f^{\mathrm{MC}}$ (Eq.~(\ref{eq:refMC})) with its log-normal estimation $P_f^{\mathrm{MLE}}$, both estimated using the results of the $10^5$ simulations. In this case, the log-normal fragility curve is a good approximation of the reference curve.
+    The relevant EDP is the absolute maximum value of the mass’ displacement, i.e., $\text{EDP}=\max_{t\in [0, T]}|x(t)|$, where $T$ is the duration of the seismic excitation. In \cref{fig:intro-frags:oscillclouds}, we plot that EDP that has been derived for the $10^5$ seismic signals generated and presented in \cref{sec:intro-frags:data}.
+
+    \begin{figure}[t]
+        \centering
+        \includegraphics[width=5cm]{figures/intro-frags/oscill/cloudPSA.pdf}
+        \includegraphics[width=5cm]{figures/intro-frags/oscill/cloudPGA.pdf}
+        \caption{Results of the $10^5$ simulations. Each cross is an element of the dataset (IM, EDP) where the IM is the PSA (left) and the PGA (right). Different critical rotation thresholds $C$ are plotted in dashed lines. They yield different proportions of failures in the dataset: respectively 95$\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+        \label{fig:intro-frags:oscillclouds}
+    \end{figure}
+
+
+    Since a very large number of data are available for this case study, it is possible to derive a reference fragility curve using the non-parametric method that is described in \cref{sec:intro-frags:subsec-nonparametric}.
+    Such reference fragility curves are plotted in \cref{fig:intro-frags:oscillrefs}, for different thresholds $ C $ that define the failure.
+    In general, the failure criterion that corresponds to the $90\%$-level quantile of the maximum displacements calculated with the $10^5$ artificial signals is chosen, i.e., $C = 8.0 \; 10^{-3}$~m.
+    The reference 
+    curves are compared with the probit-lognormal fragility curves (described in \cref{sec:intro-frags:subsec-parametric}) where $\theta$ is estimated by MLE using the full dataset as well. This comparison is presented for both the PSA and the PGA as IM.
+    It demonstrates that the probit-lognormal model allows a good approximation of the reference curve.
+
+    \begin{figure}[H!]
+        \centering
+        \includegraphics[width=5cm]{figures/intro-frags/oscill/refs_PSA.pdf}
+        \includegraphics[width=5cm]{figures/intro-frags/oscill/refs_PGA.pdf}
+        \caption{{Reference non-parametric fragility curves obtained via Monte Carlo estimates (dashed lines) surrounded by their $95\%$ confidence intervals, for different critical rotation threshold $C$ with (left) the PSA and (right) the PGA as IM.} The thresholds yield different proportions of failures in the dataset: respectively $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).
+        For each value of $C$ are plotted (same color, solid line) the corresponding probit-lognormal MLE.}
+        \label{fig:intro-frags:oscillrefs}
+    \end{figure}
 
 
     
-    \subsection{A piping system from a pressurized water reactor}
+    \subsection{A piping system from a pressurized water reactor}\label{sec:intro-frags:piping}
+
+    {The case study presented in this section is a piping system that was tested on the Azalee shaking table at the EMSI laboratory of CEA/Saclay, as shown in \cref{fig:ASG}-left. \Cref{fig:ASG}-right depicts the finite element model (FEM), based on beam elements and implemented through the proprietary FE code CAST3M \citep{cea_cast3m_2019}. The validation of the FEM was carried out thanks to an experimental campaign described in \cite{touboul_seismic_1999}.}
+
+    The mock-up comprises a carbon steel TU42C pipe with an outer diameter of 114.3 mm, a thickness of 8.56 mm, and a 0.47 elbow characteristic parameter. This pipe, filled with water without pressure, includes three elbows, with a valve-mimicking mass of 120 kg, constituting over 30\% of the mock-up's total mass. One end of the mock-up is clamped, while the other is guided to restrict displacements in the X and Y directions. Additionally, a rod is positioned atop the specimen to limit mass displacements in the Z direction (refer to \cref{fig:ASG}-right). During testing, excitation was applied exclusively in the X direction.
 
 
-s
+
+\begin{figure}[h]
+		\centering		
+		\includegraphics[width=5.2cm]{figures/intro-frags/ASG.jpg}
+		\hspace{1cm}
+		\includegraphics[width=2.5cm]{figures/intro-frags/ASG_FEM.pdf}
+		\caption{(left) Overview of the piping system ---which is part of a French pressurized water reactor--- on the Azalee shaking table and (right) associated finite element model.}
+		\label{fig:ASG}
+	\end{figure}
 
 
-    \subsection{Stacked structure for storage of packages: typical low data example}
 
-s
+
+    {In order to conduct comparative performance studies, numerous simulations have been performed. They were carried out from a subset of $8\cdot10^4$ of the $10^5$ artificial seismic signals. Nevertheless, as in practice the piping system is located in a building, the artificial signals were filtered using a fictitious 2\% damped linear single-mode building at 5 Hz, which corresponds to the first eigenfrequency of the 1\% damped piping system.  In such a situation, for some seismic signals, the behavior of the piping system is nonlinear. Regarding the nonlinear constitutive law of the material, a bilinear law exhibiting kinematic hardening was used to reproduce the overall nonlinear behavior of the mock-up with satisfactory agreement compared to the results of the seismic tests \citep{touboul_seismic_1999}. Following the recommendation in \cite{touboul_enhanced_2006}, we consider that the engineering demand parameter (EDP) is the out-of-plane rotation of the elbow near the clamped end of the mock-up. As a result we have a dataset of $8\cdot10^4$ independent tuples of the form (IM, EDP) for different IMs. In \cref{fig:asg:scattersIMs} are plotted the elements of the datasets (PSA, EDP) and (PGA, EDP), along with different critical thresholds.}
+    %The binary data are defined from the condition that failure happens when the EDP is larger than the threshold value.}
+
+    \begin{figure}[h]
+        \centering%
+        \includegraphics[width=5cm]{figures/intro-frags/asg/cloud_PSA_light.pdf}%
+        \includegraphics[width=5cm]{figures/intro-frags/asg/cloud_PGA_light.pdf}%
+        \caption{Results of the $8\cdot10^4$ numerical simulations. Each cross is an element of the dataset (IM, EDP) where the IM is the PSA (left) and the PGA (right). Different critical rotation thresholds $C$ are plotted in dashed lines. They yield different proportions of failures in the dataset: respectively 95$\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+        \label{fig:asg:scattersIMs}
+        \end{figure}
+    
+    The complete set of $8\cdot 10^4$ simulations provides a satisfactory dataset to derive a reference of the seismic fragility curve for this case study, still using the non-parametric method depicted in \cref{sec:intro-frags:subsec-nonparametric}.
+    % In 
+    In \cref{fig:asg:reference-frags}, we compare this non-parametric reference with the parametric fragility curve using the probit-lognormal model (\cref{sec:intro-frags:subsec-parametric}) where $\alpha$ and $\beta$ are estimated by MLE using the $\cdot 10^4$ data items as well. {This comparison is presented considering different critical rotation thresholds $ C $ of the equipment for both the PSA and the PGA. First, it should be noted that, with the PGA as IM, it is not possible to completely describe the fragility curve. For the maximum PGA values observed, the failure probabilities stagnate between 0.5 and 0.8 depending on the failure criterion considered. Therefore, the PGA is not the most suitable IM of the two. For the type of structure considered here, this point is well documented in the literature. Then, the comparisons demonstrate, in our setting, the adequacy of a probit-lognormal modeling of the fragility curves, even with high failure thresholds.} Its bias with non-parametric fragility curve exists but remains limited. When the number of observations is small, this model bias is negligible in front of the uncertainty on the estimates.
+
+
+    
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=5cm]{figures/intro-frags/asg/refs_PSA.pdf}
+        \includegraphics[width=5cm]{figures/intro-frags/asg/refs_PGA.pdf}
+        \caption{{Reference non-parametric fragility curves obtained via Monte Carlo estimates (dashed lines) surrounded by their $95\%$ confidence intervals, for different critical rotation threshold $C$ with (left) the PSA and (right) the PGA as IM.} The thresholds yield different proportions of failures in the dataset: respectively $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).
+        For each value of $C$ are plotted (same color, solid line) the corresponding probit-lognormal MLE.}
+        \label{fig:asg:reference-frags}
+        \end{figure}
+
+    
+    %The others serve the illustration.
+    %These values are turned into binary outcomes ---failures or successes--- depending on them exceeding a critical threshold. 
+    %Response here corresponds to the binary outcome: failure or success.
+
+    
+   
+    
+
+
+    \subsection{Stacked structure for storage of packages}\label{sec:intro-frags:stacked}
+
+% \cite{beylat_contribution_2020}
     % \subsection{Appropriate modeling with how many data and what data}
 
 
-\section{Which case study and which data for a Bayesian estimation of fragility curves?}
+    The case study considered hereafter concerns a freestanding stacked structure composed of three pallets intended for the storage of packages. As shown in \cref{fig:intro-frags:EDEN}, it is a square-based structure 3 meters high with a slenderness of 2.4.
+    
+    
+    
+    The mass of one package is equal to 265~kg, whereas the mass of one pallet is equal to 60 kg. The total mass of the structure is equal to $3,360$~kg. The pallets are made of 3~mm-thick hollow-section aluminum square tubes. These tubes are welded and form the base and uprights of the pallets. The base of a pallet supports four freestanding packages, whereas the uprights support the upper freestanding pallet(s). The stacked structure was studied in \cite{beylat_contribution_2020} by means, among others, of a complete experimental campaign, which was carried out on the 1D shaking table ``Vesuve'' of CEA/Saclay. In particular, the stack was subjected to 21 of the 97 real signals that were used to fit the generator depicted in \cref{sec:intro-frags:data}.
+    For this structure, the EDP corresponds to the maximal displacement of the top of the stack.
+    % the failure criterion relates to an excessive displacement. %of the top of the stack. 
+    An example of a test result is shown in \cref{fig:intro-frags:EDEN}, which depicts the horizontal displacements over time of the top of the stack. The initial position is indicated in red, while the different positions in time are indicated in blue. {Due to uplift, sliding, and rotation motions, the top of the stack exceeds, for 2 of the 21 tests, the admissibility criterion, which is materialized in black. }
+    Only a little number of experimental result are available for this case study, so that it is not possible to derive a reference fragility curve here.
 
-s
 
 
-\section{Conclusion}
 
 
-conclusion
+    \begin{figure}[h]
+		\centering		
+		\includegraphics[width=4.5cm]{figures/intro-frags/EDEN.jpg}
+		\hspace{0.5cm}
+		\includegraphics[width=7cm]{figures/intro-frags/EDEN_R169.pdf}
+		\caption{(left) Overview of the stacked structure placed on the Vesuve 1D shaking table and (right) example of test result: horizontal displacements of the top of the stack when subjected to seismic excitation in the X direction.}
+		\label{fig:intro-frags:EDEN}
+	\end{figure}  
+
+
+\section{Conclusion: which case study and which data for a Bayesian estimation of fragility curves?}\label{sec:intro-frags:conclusion}
+
+% The estimation of seismic fragility curves is an open question that is 
+
+
+In the literature, many works address the estimation of seismic fragility curves, introducing many approaches to handle that task.
+Nevertheless, the appropriate method to provide robust estimates heavily depends on the characteristics of the studied equipments, on the 
+type of data that are available, and on their number.
+% As a matter of fact, we have cited numerou
+% The data curation is itself a main step that has to be taken into account when conducting a methodology of seismic fragility curves estimation. 
+In this chapter, we have described standard forms of datasets considered in the literature, and we have depicted how they are used to providing approximation of fragility curves using different approaches.
+
+In the worst case, the dataset is %, limiting the use of non-parametric methods
+%and 
+made of tuples composed by (i) a value of the IM, and (ii) a binary outcome about the system's response: failure or non-failure.
+In those cases, the non-parametric models provide limited estimation, and a parametric model, such as the prominent probit-lognormal one has to be favored.
+If the dataset is also scarce, then most classical frequentist methods become unsatisfying as well, letting the Bayesian framework to arise as a cornerstone.
+% leading to 
+
+However, 
+a major issue connects all the studies 
+% while a plethora of studies 
+suggesting a Bayesian estimation of seismic fragility curves that we reviewed: the prior selection is not thoroughly questioned. Moreover, the choices done regarding its construction are hard to justify, and one could question the reliability of the provided estimates.
+% , we observed
+% they all suffer from their prior choice, 
+
+% questionable priors
+% choices
+
+%when reviewing the literature, we observed that 
+
+All in all, this chapter and that last thought introduces the essential interplay that exists between the \cref{part:ref-theory} and the \cref{part:spra} of this manuscript.
+Since our work is sought to be applied on case studies taken from the nuclear industry, we aim at providing a reliable and auditable methodology when we estimate seismic fragility curves.
+The expected  auditability also concerns the choice of the prior, which hence must be constructed in a way that ensures its objectivity.
+
+
+
+
+
+
+
+
+
+
+
+
+% In this case, a paramterized model is prominent
+
+
+
+
+
+
+
+% We have described 
+
+
+
+
+
+
+
+% \section{Conclusion}
+
 
 
