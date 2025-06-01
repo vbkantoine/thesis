@@ -402,11 +402,11 @@ we define first the associated statistical model: the observations are modeled a
 where $H$ is the distribution of $A$ and $\cB(p)$ denotes a Bernoulli distribution of mean  $p$.
 Thus, the likelihood $\ell_k$ given observations $(\mbf a^k,\mbf z^k)$ with $\mbf a^k=(a_i)_{i=1}^k$ and $\mbf z_k=(z_i)_{i=1}^{k}$ is expressed as
     \begin{equation}
-        \ell_k(\mbf z^k,\mbf a^k|\theta) = \prod_{i=1}^k\ell(z_i,a_i|\theta) = \prod_{i=1}^k\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{1-z_i}\right)h(a_i),
+        \ell_k(\mbf z^k,\mbf a^k|\theta) = \prod_{i=1}^k\ell(z_i,a_i|\theta) = \prod_{i=1}^k\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)\right)^{1-z_i}h(a_i),
     \end{equation}
 where $h$ is the p.d.f. of $A$. Since the $(h(a_i))_i$ are constants of $\theta$ and are not known in general, it is common to consider the following alternative form of the likelihood:
 \begin{equation}
-    \ell_k(\mbf z^k|\mbf a^k,\theta) = \prod_{i=1}^k\ell(z_i|a_i,\theta) = \prod_{i=1}^k\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{1-z_i}\right).
+    \ell_k(\mbf z^k|\mbf a^k,\theta) = \prod_{i=1}^k\ell(z_i|a_i,\theta) = \prod_{i=1}^k\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)\right)^{1-z_i}.
 \end{equation}
 The maximum likelihood estimator is $\theta^{\text{MLE}}(\mbf z^k,\mbf a^k)=\argmax_{\theta\in\Theta}\ell_k(\mbf z^k,\mbf a^k|\theta)$.
 The bootstrap technique consists in deriving a stochastic estimator $\hat\theta_k^{\text{BMLE}}(\mbf z^k,\mbf a^k)$ whose distribution is defined from expressing it as: $\hat\theta^{\text{BMLE}}(\mbf z^k,\mbf a^k)=\theta^{\text{MLE}}((z_{U_i},a_{U_i})_{i=1}^k)$, where $U_1,\dots,U_k$ are i.i.d. random variables distributed w.r.t. a uniform distribution in $\{1,\dots,k\}$.
@@ -488,7 +488,7 @@ Finally, we note that the Bayesian framework is also relevant for fitting numeri
         \centering
         \includegraphics[width=5cm]{figures/intro-frags/oscill/cloudPSA.pdf}
         \includegraphics[width=5cm]{figures/intro-frags/oscill/cloudPGA.pdf}
-        \caption{Results of the $10^5$ simulations. Each cross is an element of the dataset (IM, EDP) where the IM is the PSA (left) and the PGA (right). Different critical rotation thresholds $C$ are plotted in dashed lines. They yield different proportions of failures in the dataset: respectively 95$\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+        \caption{Results of the $10^5$ simulations conducted on the elasto-plastic oscillator. Each cross is an element of the dataset (IM, EDP) where the IM is the PSA (left) and the PGA (right). Different critical rotation thresholds $C$ are plotted in dashed lines. They yield different proportions of failures in the dataset: respectively 95$\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
         \label{fig:intro-frags:oscillclouds}
     \end{figure}
 
@@ -504,7 +504,7 @@ Finally, we note that the Bayesian framework is also relevant for fitting numeri
         \centering
         \includegraphics[width=5cm]{figures/intro-frags/oscill/refs_PSA.pdf}
         \includegraphics[width=5cm]{figures/intro-frags/oscill/refs_PGA.pdf}
-        \caption{{Reference non-parametric fragility curves obtained via Monte Carlo estimates (dashed lines) surrounded by their $95\%$ confidence intervals, for different critical rotation threshold $C$ with (left) the PSA and (right) the PGA as IM.} The thresholds yield different proportions of failures in the dataset: respectively $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).
+        \caption{{Reference non-parametric fragility curvesof the elasto-plastic oscillator obtained via Monte Carlo estimates (dashed lines) surrounded by their $95\%$ confidence intervals, for different critical displacement threshold $C$ with (left) the PSA and (right) the PGA as IM.} The thresholds yield different proportions of failures in the dataset: respectively $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).
         For each value of $C$ are plotted (same color, solid line) the corresponding probit-lognormal MLE.}
         \label{fig:intro-frags:oscillrefs}
     \end{figure}
@@ -538,7 +538,7 @@ Finally, we note that the Bayesian framework is also relevant for fitting numeri
         \centering%
         \includegraphics[width=5cm]{figures/intro-frags/asg/cloud_PSA_light.pdf}%
         \includegraphics[width=5cm]{figures/intro-frags/asg/cloud_PGA_light.pdf}%
-        \caption{Results of the $8\cdot10^4$ numerical simulations. Each cross is an element of the dataset (IM, EDP) where the IM is the PSA (left) and the PGA (right). Different critical rotation thresholds $C$ are plotted in dashed lines. They yield different proportions of failures in the dataset: respectively 95$\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+        \caption{Results of the $8\cdot10^4$ numerical simulations conducted on the piping system. Each cross is an element of the dataset (IM, EDP) where the IM is the PSA (left) and the PGA (right). Different critical rotation thresholds $C$ are plotted in dashed lines. They yield different proportions of failures in the dataset: respectively 95$\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
         \label{fig:asg:scattersIMs}
         \end{figure}
     
@@ -553,7 +553,7 @@ Finally, we note that the Bayesian framework is also relevant for fitting numeri
         \centering
         \includegraphics[width=5cm]{figures/intro-frags/asg/refs_PSA.pdf}
         \includegraphics[width=5cm]{figures/intro-frags/asg/refs_PGA.pdf}
-        \caption{{Reference non-parametric fragility curves obtained via Monte Carlo estimates (dashed lines) surrounded by their $95\%$ confidence intervals, for different critical rotation threshold $C$ with (left) the PSA and (right) the PGA as IM.} The thresholds yield different proportions of failures in the dataset: respectively $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).
+        \caption{{Reference non-parametric fragility curves of the piping system obtained via Monte Carlo estimates (dashed lines) surrounded by their $95\%$ confidence intervals, for different critical rotation threshold $C$ with (left) the PSA and (right) the PGA as IM.} The thresholds yield different proportions of failures in the dataset: respectively $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).
         For each value of $C$ are plotted (same color, solid line) the corresponding probit-lognormal MLE.}
         \label{fig:asg:reference-frags}
         \end{figure}
@@ -563,7 +563,7 @@ Finally, we note that the Bayesian framework is also relevant for fitting numeri
     %These values are turned into binary outcomes ---failures or successes--- depending on them exceeding a critical threshold. 
     %Response here corresponds to the binary outcome: failure or success.
 
-    
+  
    
     
 

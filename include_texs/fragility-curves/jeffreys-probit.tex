@@ -13,3 +13,78 @@
 \minitoc
 
 \section{Introduction}
+
+
+\section{Probit-lognormal model and Bayesian framework}
+
+We remind that the probit-lognormal model of the fragility curve has been described in the \cref{chap:frags-intro}.
+It defines the fragility curve of the mechanical system of interest as 
+\begin{equation}\label{eq:PEM:probitfrag}
+    P_f(a)=\PP({``failure''}|IM=a) = \Phi\left(\frac{\log a-\log\alpha}{\beta}\right),
+\end{equation}
+where $\Phi$ is the c.d.f. of a standard Gaussian, and $\alpha$, $\beta$ are parameters that we seek to estimate. To be precise, $\alpha\in(0,\infty)$ is the median and $\beta\in(0,\infty)$ is the log standard deviation of the curve. We denote $\theta=(\alpha,\beta)\in\Theta=(0,\infty)^2$.
+
+In statistical terms, we consider that the failure of the equipment is the realization of a random variable $Z$, which takes values in $\{0,1\}$ ($1$ for failure, $0$ for non-failure). We also denote by $A$ the random variable of the IM. It takes value in a set $\cA=(0,\infty)$ and is supposed to follow a distribution $H$. Conditionally to $\theta$, the tuple $Y=(Z,A)$ follows a distribution defined by $A\sim H$ and $Z|A,\theta\sim\cB(P_f(a))$, where $\cB(p)$ denotes the Bernoulli distribution of parameter $p$, and $P_f(a)$ is defined in \cref{eq:PEM:probitfrag}.
+
+We recall that given realizations $(\mbf z_k,\mbf a_k)$, where $\mbf z_k=(z_i)_{i=1}^k$, $\mbf a_k=(a_i)_{i=1}^k$, of the r.v. $Y$, this model admits the following likelihood:
+\begin{equation}
+    \ell_k(\mbf z^k|\mbf a^k,\theta) = \prod_{i=1}^k\ell(z_i|a_i,\theta) = \prod_{i=1}^k\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)\right)^{1-z_i}.
+\end{equation}
+
+
+
+
+We also recall that the reference prior theory is comprehensively introduced in the \cref{chap:intro-ref}. 
+
+
+
+
+
+\section{Jeffreys prior construction in the probit-lognormal model}
+
+
+    \subsection{Derivation of the Jeffreys prior}
+
+
+    \subsection{Practical implementation}
+
+
+
+    \subsection{Thorough study of the prior's decay rates}
+
+
+
+
+\section{Competing approaches and estimation tools}
+
+
+
+    \subsection{Bayesian estimates of the seismic fragility curve}
+
+    \subsection{Competing prior taken from the literature}
+
+    \subsection{Maximum likelihood estimation with bootstrapping}
+
+
+
+
+\section{Limits of the estimates given by the three approaches: the curse of degeneracy}
+
+
+\section{Performance evaluation metrics}
+
+
+
+\section{Numerical applications}
+
+
+\subsection{Case study 1: the elasto-plastic oscillator}
+
+\subsection{Case study 2: the piping system from a pressurized reactor}
+
+\subsection{Case study 3: the stacked structure for storage of packages}
+
+
+
+\section{Conclusion}
+
