@@ -453,7 +453,11 @@ Our priors differ as a function of $\gamma=\eps/\delta\in(0,\frac{1}{1+\delta})\
 rearranges the quantity of information in the prior. Its referential nature decreases in favor of an increase in its entropy.
 %make the prior more informative, and probably more subjective. 
 Therefore, a trade-off has to be made between suitability for inference and objectivity.
-Finally, note that in \cref{fig:priorpost}.(a) is also drawn the \emph{independent Jeffreys prior} proposed by the authors in \cite{rubio_inference_2014} for this model as an alternative to Jeffreys. Its decay rates are actually the same as the ones of $\pi_\gamma$ when $\gamma=1/2$, and the two priors are hard to distinguish. Note that this latter prior $\pi_{1/2}$ equals the hierarchical reference prior (as described in  \cref{sec:BA:mots}) constructed from the ordering $\pi(\theta)=\pi_1(\sigma_1,\sigma_2|\mu)\pi_2(\mu)$.
+Finally, note that in \cref{fig:priorpost}.(a) is also drawn the \emph{independent Jeffreys prior} ($\text{IJ}$) proposed by the authors in \cite{rubio_inference_2014} for this model as an alternative to Jeffreys:
+        \begin{equation}
+            \text{IJ}(\mu,\sigma_1,\sigma_2) \propto \frac{\sqrt{\sigma_1+\alpha_2(\sigma_1+\sigma_1)}\sqrt{\sigma_2+\alpha_2(\sigma_1+\sigma_2)}}{\sqrt{\sigma_1\sigma_2}(\sigma_1+\sigma_2)^2}.
+        \end{equation}
+Its decay rates are actually the same as the ones of $\pi_\gamma$ when $\gamma=1/2$, and the two priors are hard to distinguish. Note that this latter prior $\pi_{1/2}$ equals the hierarchical reference prior (as described in  \cref{sec:BA:mots}) constructed from the ordering $\pi(\theta)=\pi_1(\sigma_1,\sigma_2|\mu)\pi_2(\mu)$.
 
 
 
@@ -519,12 +523,12 @@ For practical details, the chosen $f$ is the standard Gaussian density, and the 
 
 \begin{figure}[h]%
     \centering%
-    \includegraphics[width=5.8cm]{figures/constrained-priors/priors_.pdf}\hspace*{1cm}%
-    \includegraphics[width=5.8cm]{figures/constrained-priors/post5.pdf}\\
+    \includegraphics[width=5.7cm]{figures/constrained-priors/priors_.pdf}\hspace*{1cm}%
+    \includegraphics[width=5.7cm]{figures/constrained-priors/post5.pdf}\\
     \makebox[13cm][c]{%
     {~\hspace{\stretch{1}}(a)\hspace{\stretch{2}}(b)\hspace{\stretch{1}}~}}\\[5pt]
-    \includegraphics[width=5.8cm]{figures/constrained-priors/post15.pdf}\hspace*{1cm}%
-    \includegraphics[width=5.8cm]{figures/constrained-priors/post50.pdf}\\
+    \includegraphics[width=5.7cm]{figures/constrained-priors/post15.pdf}\hspace*{1cm}%
+    \includegraphics[width=5.7cm]{figures/constrained-priors/post50.pdf}\\
     \makebox[13cm][c]{%
     {~\hspace{\stretch{1}}(c)\hspace{\stretch{2}}(d)\hspace{\stretch{1}}~}}%
     \caption{On (a), different prior densities $\pi_\gamma$ (in dashed line) w.r.t. $\sigma_2$ along with a Jeffreys prior density (that delimits the blue area) and the \emph{Independent Jeffreys} of \cite{rubio_inference_2014} (that delimits the orange area). On each of (b), (c) and (d), posterior densities for different values of $\gamma$ are plotted. %One observed sample served the calculation of all the posteriors on one figure. 
