@@ -88,7 +88,7 @@ That interpretation aligns with a sensitivity analysis viewpoint. Actually, the 
 %\textcolor{orange}{proof of the funbini}
 
 \begin{proof}[Proof that \cref{eq:PS:MI1orig} and \cref{eq:PS:MIGSA} are  equal]
-    One can use that for any $x\in(1,\infty)$, $|\log x|\leq x-\log x$. That statement allows applying \cref{prop:PS:invertibility}, which is stated later on, with $f=-\log$. It provides the desired equality whether the involved quantities are finite or infinite.
+    One can remark that for any $x\in(1,\infty)$, $|\log x|\leq x-\log x$. That statement allows applying \cref{prop:PS:invertibility}, which is stated later on, with $f=-\log$. It provides the desired equality whether the involved quantities are finite or infinite.
     %One can prove that the quantities are finit
     % We wdefine $f(x)=-\log x$
 \end{proof}
@@ -525,7 +525,10 @@ In the same way as in the previous subsection, this result implies that the Jeff
 Regarding the optimal characteristic of the Jeffreys prior, we argue that it actually supports  the relevance of our construction, in continuity with the original reference prior framework which we rely on. Indeed, we remind that Jeffreys prior is optimal for KL-mutual information (as shown in \cite{clarke_jeffreys_1994}). Although its multivariate derivation is criticized, its expression remains robust and appreciated in low-dimensional cases.
 
 
-For a practical implementation when the dimension is high, one would be invited to refer to hierarchical strategies such as the one proposed by \citet{berger_overall_2015}. 
+For a practical implementation when the dimension is high, 
+some authors would recommend referring
+%one would be invited to refer 
+to hierarchical strategies such as the one proposed by \citet{berger_overall_2015} and evoked in the \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}). 
 As these strategies are based on the sequential derivation of reference priors on sequentially conditioned models, they take the form of hierarchically derived low dimensional Jeffreys priors. Consequently, 
 since our result supports the consideration of Jeffreys prior as a universal maximizer of the mutual information, they left that methodology unchanged.
 % our results also support their methodology.
