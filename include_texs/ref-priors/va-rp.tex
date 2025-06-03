@@ -97,7 +97,7 @@ Reference priors are then defined as asymptotic maximizer of the restricted mutu
 
 
 In this work, we aim at ``globally'' maximizing the $D_f$-mutual information, i.e. considering its expression written as in \cref{eq:VARP:IMalltheta} for priors defined on the whole space $\Theta$.
-That means that we presumably limit our study to proper priors. 
+% That means that we limit our study to proper priors. 
 Moreover, our method limits itself to the maximization of the mutual information as expressed in \cref{eq:VARP:IMalltheta}, i.e. for a fixed value of $k$.
 All in all, we focus the solving of an optimization problem that takes the form:
     \begin{equation}\label{eq:VARP:optimproblemintro}
@@ -547,7 +547,9 @@ we consider an unbiased estimator of the MMD$^2$ given by:
 \end{equation}
 where $(x_1,...,x_m)$ and $(y_1,...,y_{m'})$ are sampled from $P$ and $Q$ respectively. In our case, $P$ is the VA-RP and $Q$ is the target Jeffreys prior. Since the MMD can be time-consuming or memory inefficient to compute in practice for very large samples, we consider only the last $2 \cdot 10^4$ entries of our priors and posterior samples.
 According to Table \ref{tab:mmd_multinom}, the difference between $\delta$ values in terms of the MMD criterion is essentially inconsequential. One remark is that the mutual information tends to be more unstable as $\delta$ gets closer to $1$. The explanation is that when $\delta$ tends to $1$, we have the approximation :
-\[ \hat{f}_{\delta}(x) \approx \frac{x-1}{\delta(\delta-1)} + \frac{x\log(x)}{\delta},    \]
+\begin{equation}
+    \hat{f}_{\delta}(x) \approx \frac{x-1}{\delta(\delta-1)} + \frac{x\log(x)}{\delta},
+\end{equation}
 which diverges for all $x$ because of the first term. Hence, we advise the user to avoid $\delta$ values that are too close to $1$. In the following, we use $\delta = 0.5$ for the divergence.
 
 
@@ -573,11 +575,11 @@ $0.9$ & $6.15 \times 10^{-2}$ & $4.84 \times 10^{-4}$  \\ \hline
 
 
 The last quantitative study conducted for this model validates the result developed in \cref{chap:ref-generalized} about the asymptotic expansion of the $D_{f_\delta}$-mutual information. 
-In the case $d=1$, we show on \cref{fig:VARP:rateslIM} that $l_{D_{f_\delta}}^k(\mbf J)$ and $\sI^k_{D_{f_\delta}}(\varPi_\lambda)$ are close, where $l^k_{D_{f_\delta}}(\mbf J)$ denotes
+In the case $d=1$, we show on \cref{fig:VARP:rateslIM} that $l_{D_{f_\delta}}^k(\mbf J)$ and $\overline\sI^k_{D_{f_\delta}}(\varPi_\lambda):=\sI^k_{D_{f_\delta}}(\varPi_\lambda)+\frac{1}{\delta(1-\delta)}$ are close, where $l^k_{D_{f_\delta}}(\mbf J)$ denotes
 the theoretical asymptotic rate w.r.t. $k$ of 
 $\sI^k_{D_{f_\delta}}(\mbf J)$. According to the result of \cref{chap:ref-generalized}, the latter admits the following asymptotic expansion:
     \begin{equation}
-        \sI^k_{D_{f_\delta}}(\mbf J) \equi{k\rightarrow\infty} \frac{1}{\delta(1-\delta)} + l^k_{D_{f_\delta}}(\mbf J), \quad \text{with} \quad l^k_{D_{f_\delta}}(\mbf J) = \frac{-1}{\delta(1-\delta)^{3/2}}\left( \frac{\pi k}{2} \right)^{-\delta/2}.
+        \sI^k_{D_{f_\delta}}(\mbf J) \equi{k\rightarrow\infty} \frac{-1}{\delta(1-\delta)} + l^k_{D_{f_\delta}}(\mbf J), \quad \text{with} \quad l^k_{D_{f_\delta}}(\mbf J) = \frac{-1}{\delta(1-\delta)^{3/2}}\left( \frac{\pi k}{2} \right)^{-\delta/2}.
     \end{equation}
 This comparison
 supports two claims: (i) the $D_{f_\delta}$ mutual information derived for a fixed $k$ resembles to its asymptotic form w.r.t. $k$, which is the form that is maximized by the reference prior by definition; (ii) as the VA-RP maximizes the former, it is close to the maximal argument of the latter. 
@@ -588,7 +590,7 @@ supports two claims: (i) the $D_{f_\delta}$ mutual information derived for a fix
     \includegraphics[width=5cm]{figures/va-rp/conv-rates-025.pdf}
     \includegraphics[width=5cm]{figures/va-rp/conv-rates-05.pdf}
     \includegraphics[width=5cm]{figures/va-rp/conv-rates-075.pdf}
-    \caption{Values of the quantities $\sI^k_{D_{f_\delta}}(\varPi_\lambda)$ and $l^k_{D_{f_\delta}}(\mbf J)$ when $d=1$ as a function of $k$, in log scale, for different values of $\delta$: $\delta=0.25$ (left), $\delta=0.5$ (middle), and $\delta=0.75$ (right).}
+    \caption{Values of the quantities $-\overline\sI^k_{D_{f_\delta}}(\varPi_\lambda)$ and $-l^k_{D_{f_\delta}}(\mbf J)$ when $d=1$ as a function of $k$, in log scale, for different values of $\delta$: $\delta=0.25$ (left), $\delta=0.5$ (middle), and $\delta=0.75$ (right).}
     \label{fig:VARP:rateslIM}
 \end{figure}
 

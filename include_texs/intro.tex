@@ -490,13 +490,13 @@ Plusieurs questions principales se détachent de cette introduction et de ces pr
 
 \ques{iv}{Dans le contexte des études sismiques probabilistes de sûreté, comment s'implémentent ces priors objectifs dans un modèle concret d'estimation de fiabilité sismique ?}
 
-\ques{v}{Quelles conséquences peuvent avoir le manque d'information \emph{a priori} ou provenant des données dans ce modèle et comment les solutionner ?}
+\ques{v}{Quelles conséquences peut avoir le manque d'information \emph{a priori} ou provenant des données dans ce modèle et comment les solutionner ?}
 
 \ques{vi}{Comment peut-on finalement bénéficier au mieux des différentes sources d'information dans le workflow bayésien du modèle étudié dans son ensemble ?}\\
 
 
-Dans cette thèse, nous tentons de répondre à ces six problématiques au travers d'une étude selon deux axes. Le premier axe a une dimension qualifiée de théorique, en adressant les problématiques liées à la construction de prior dits ``objectifs'' dans son ensemble. Il se concentre sur le développement d'une théorie appelée la théorie des priors de référence. Le second axe est alors plutôt qualifié de pratique, en étudiant la mise en œuvre des développements théoriques sur des cas d'études réels, en se concentrant sur l'estimation de courbes de fragilité sismiques, qui représentent un outil important du cadre des études sismiques probabilistes de sûreté.
-Il reste important de rappeler que, bien qu'indépendants, les deux grands axes de travail sus-mentionnés s'alimentent l'un l'autre. Ce sont autant les problématiques pratiques qui ont motivé les recherches théoriques, que les découvertes pratiques qui ont permi les études pratiques.\\
+Dans cette thèse, nous tentons de répondre à ces six problématiques au travers d'une étude selon deux axes. Le premier axe a une dimension qualifiée de théorique, en adressant les problématiques liées à la construction de prior dits ``objectifs'' dans son ensemble. Il se concentre sur le développement d'une théorie appelée la théorie des priors de référence. Le second axe est alors plutôt qualifié de pratique, en étudiant la mise en œuvre des développements théoriques sur des cas d'études réels, en se concentrant sur l'estimation de courbes de fragilité sismique, qui représentent un outil important du cadre des études sismiques probabilistes de sûreté.
+Il reste important de rappeler que, bien qu'indépendants, les deux grands axes de travail sus-mentionnés s'alimentent l'un l'autre. Ce sont autant les problématiques pratiques qui ont motivé les recherches théoriques, que les découvertes théoriques qui ont été mise au service des études pratiques.\\
 
 
 %l'un étant plutôt théorique et adresse les questions de construction, de définiton, et d'objectivité des priors ; l'autre étant plut
@@ -508,7 +508,7 @@ Il reste important de rappeler que, bien qu'indépendants, les deux grands axes 
 La \textbf{\cref{part:ref-theory}} de ce manuscrit est alors dévouée au développement de la théorie des priors de référence.
 
 \noindent
-Dans le \cref{chap:intro-ref}, on introduit la théorie et on développe son état de l'art. Il permet d'introduire la notion de prior de référence telle qu'elle est communément définie dans la littérature, et leur place parmi les priors objectifs. Ce chapitre permet aussi de formaliser le cadre mathématique de travail pour la suite de la partie.
+Dans le \cref{chap:intro-ref}, on introduit la théorie et on développe son état de l'art. Il permet d'introduire la notion de prior de référence telle qu'elle est communément définie dans la littérature, et sa place parmi les priors objectifs. Ce chapitre permet aussi de formaliser le cadre mathématique de travail pour la suite de la partie.
 
 \noindent
 Dans le \cref{chap:ref-generalized}, on observe que la définition des priors de référence s'appuie sur une mesure de dissimilarité. On cherche alors dans ce chapitre à généraliser la définition de cette dernière afin d'appuyer le caractère objectif des priors de référence. Ce chapitre apporte une réponse à la \textbf{question i}.
@@ -520,13 +520,13 @@ Dans le \cref{chap:constrained-prior}, on cherche une ouverture au cadre des pri
 Dans le \cref{chap:varp}, on développe une méthode numérique d'approximation des priors de référence. Cette méthode s'appuie sur l'inférence variationnelle en définissant le prior comme la sortie d'un réseau de neurones, afin d'éviter un calcul explicite de celui-ci. Ce chapitre apporte une réponse à la \textbf{question iii}. \\
 
 
-La \textbf{\cref{part:spra}} de ce manuscrit aborde le sujet de l'estimation bayésienne dite objective des courbes de fragilité sismiques.
+La \textbf{\cref{part:spra}} de ce manuscrit aborde le sujet de l'estimation bayésienne dite objective des courbes de fragilité sismique.
 
 \noindent
-Dans le \cref{chap:frags-intro}, on introduit les courbes de fragilité sismiques, leur définition, leur historique et leur intégration dans le cadre des études sismiques probabilistes de sûreté. Un état de l'art des méthodes d'estima\-tion de ces courbes suivant les différents types de données à disposition y est proposé.
+Dans le \cref{chap:frags-intro}, on introduit les courbes de fragilité sismique, leur définition, leur historique et leur intégration dans le cadre des études sismiques probabilistes de sûreté. Un état de l'art des méthodes d'estima\-tion de ces courbes suivant les différents types de données à disposition y est proposé.
 
 \noindent
-Dans le \cref{chap:prem}, on propose un calcul et une étude en profondeur du prior de référence pour un modèle classique employé pour l'estimation de ces courbes de fragilité. L'inférence bayésienne via l'emploi de ce prior y est comparé à d'autres méthodes. Ce chapitre apporte une réponse à la \textbf{question iv}.
+Dans le \cref{chap:prem}, on propose un calcul et une étude en profondeur du prior de référence pour un modèle classique employé pour l'estimation de ces courbes de fragilité. L'inférence bayésienne via l'emploi de ce prior y est comparée à d'autres méthodes. Ce chapitre apporte une réponse à la \textbf{question iv}.
 
 \noindent
 Dans le \cref{chap:constrained-frags}, on s'intéresse en profondeur aux limites du modèle considéré pour l'estimation des courbes de fragilité. On propose une solution qui est appuyée par les développements théoriques de la première partie. Ce chapitre apporte une réponse à la \textbf{question v}.
@@ -540,7 +540,7 @@ Une conclusion générale viendra clore le manuscrit dans une \textbf{\cref{part
 
 \subsection{Liste des contributions}
 
-La recherche conduite au cours de cette thèse a donné lieu à plusieurs contributions dans la littérature scientifique. Ci après sont listés les travaux publiés pendant celle-ci.
+La recherche conduite au cours de cette thèse a donné lieu à plusieurs contributions dans la littérature scientifique. Ci-après sont listés les travaux publiés pendant celle-ci.
 
 \nocite{van_biesbroeck_design_2025,van_biesbroeck_generalized_2024,van_biesbroeck_influence_2023,van_biesbroeck_properly_2024,van_biesbroeck_reference_2024,baillie_variational_2025,baillie_bayesian_2025,van_biesbroeck_design_2025-1}
 

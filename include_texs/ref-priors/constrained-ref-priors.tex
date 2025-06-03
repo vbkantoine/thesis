@@ -63,7 +63,7 @@ Then, the  practical aspect of our work is studied by the application of our met
     %\subsection{}
 
 In this work we consider a statistic model characterized by a collection of probability distributions $(\PP_{Y|\theta})_{\theta\in\Theta}$ on  a measurable set $(\cY,\sY)$. 
-We consider the same construction of the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}): considering any prior $\varPi$ (that is a $\sigma$-finite measure on $\Theta$) we denote $\mbf Y_k$ a random vector of $k$ observations whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y^k|\theta}=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$.
+We consider the same construction of the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}): considering any prior $\varPi$ (that is a $\sigma$-finite measure on $\Theta$) we denote $\mbf Y_k$ a random vector of $k$ observations whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y^k|\theta}=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$ (see \cref{sec:intro-ref:novelframework}).
 
 The modeling is supposed to be regular: we assume $\Theta\subset\RR^d$ with $\nu$ being the Lebesgue measure on $\RR^d$ and every prior $\varPi$ is supposed to admit a density $\pi$ w.r.t. $\nu$ (i.e. $\varPi\in\sM^\nu$).
 We also assume that the model admits a likelihood, denoted by $\ell$ with for any $\theta\in\Theta$ and $\mbf y\in\cY^k$, $\ell_k(\mbf y|\theta):= \prod_{i=1}^k\ell(\mbf y|\theta)$. We suppose that it verifies \cref{assu:intro-ref:jeffreysexist} in \cref{chap:intro-ref}, making the Fisher information matrix (denoted $\cI$) and the Jeffreys prior (whose density is denoted $J$) being well-defined.
@@ -128,7 +128,7 @@ to counter the limitations (ii) and (iii) aforementioned. In most cases, they wi
 
 
 
-The tackling of limitation (i) mentioned above is not a purpose of this work. We recall that it is actually frequently tackled a sequential construction of the reference prior as %presented in \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}).
+The tackling of limitation (i) mentioned above is not a purpose of this work. We recall that it is actually frequently tackled by a sequential construction of the reference prior as %presented in \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}).
 suggested by \citet{bernardo_reference_1979}.
 On the condition that an ordering of the parameters is set:
  \begin{equation}
@@ -464,7 +464,7 @@ An approach is to compare the variations of an \emph{a posteriori} quantity as a
 In \cref{fig:priorpost}.(b), (c) and (d) are plotted, for numerous $\gamma$ and several data set sizes $k$, the posterior densities that result from a sample of data and from the prior densities $\pi_\gamma$.
 %The influence of the priors can be recognized, especially for tiny values of $k$. 
 As expected, the influence of the prior appears for small values of $k$.
-Indeed, we can notice that for higher values of $\gamma$, the posterior is slightly more shifted to the right and seems to be a little flatter. 
+Indeed, we can notice that for high values of $\gamma$, the posterior is slightly more shifted to the right and seems to be a little flatter. 
 It is remarkable that this observation becomes limited when $k$ increases. When $k=50$, the difference between the posterior densities 
 is hard to distinguish. %limited and it is 
 %The remarkable result is that all the posterior median densities are very close in this example. 

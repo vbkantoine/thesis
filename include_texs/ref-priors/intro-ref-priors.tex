@@ -66,8 +66,8 @@ who consider reference priors to the training of deep neural networks.
 We mention that \citet{mure_objective_2018} provides a comprehensive review of the theory, and introduces original results about the uniqueness of the reference priors.}
 
 This chapter proposes a novel brief review of the reference prior theory. We fix the framework and define important main tools for the theory in \cref{sec:intro-ref:classical-framework}. %, such as the mutual information. 
-The reference priors are formally defined in \cref{sec:intro-ref:mutalinfo-ref-priors}, and we review its different properties that are proven in the literature.
-Eventually, this chapter is the occasion to discuss the limitations of the standard framework of the reference prior, and to suggest a solution based on an original formalization of the Bayesian inference tools.  The latter in done in \cref{sec:intro-refs:limits} and fixes the mathematical elements and notations that we will manipulate through the whole manuscript. A short conclusion terminates the chapter in \cref{sec:intro-ref:conclusion}.
+The reference priors are formally defined in \cref{sec:intro-ref:mutalinfo-ref-priors}, and we review their different properties that are proven in the literature.
+Eventually, this chapter is the occasion to discuss the limitations of the standard framework of the reference priors, and to suggest a solution based on an original formalization of the Bayesian inference tools.  The latter is done in \cref{sec:intro-refs:limits} and fixes the mathematical elements and notations that we will manipulate throughout the  whole manuscript. A short conclusion terminates the chapter in \cref{sec:intro-ref:conclusion}.
 
 
 
@@ -86,7 +86,7 @@ Eventually, this chapter is the occasion to discuss the limitations of the stand
 
 \subsection{A minimal framework}\label{sec:intro-ref:minimalclassicframework}
 
-The Bayesian framework is commonly defined from the given of statistical model.
+The Bayesian framework is commonly defined from the given of a statistical model.
 Let $(\Omega,\sP,\PP)$ be a probability space, and define $Y$, a random variable defined on $\Omega$ and taking values on a measurable space $(\cY,\sY)$.
 A statistical model is characterized by a collection of parameterized probability measures $(\PP_{Y|\theta})_{\theta\in\Theta}$ on $(\cY,\sY)$.
 The Bayesian viewpoint considers a random variable $T:\Omega\to\Theta$ taking values in a measurable space $(\Theta,\sT)$, following a \textbf{prior distribution} denoted $\varPi$, and which is such that the conditional distribution of $Y$ to $T=\theta$ is $\PP_{Y|\theta}$. In other terms:
@@ -147,7 +147,7 @@ To conclude this section, we acknowledge the usual confusion between the notatio
 \subsection{Improper priors}\label{sec:intro-ref:improperway-around}
 
 It is common when dealing with non-informative priors in Bayesian analysis to define improper ones.
-Improper priors are defined as distributions whose density $\pi$ integrates to infinity: $\int_\Theta\pi(\theta)d\nu(\theta)=\infty$. 
+Improper priors are defined as distributions admitting a density $\pi$ that integrates to infinity: $\int_\Theta\pi(\theta)d\nu(\theta)=\infty$. 
 
 Of course, such a prior is not a probability distribution anymore, so that the framework elucidated in \cref{sec:intro-ref:minimalclassicframework,sec:intro-ref:likelihoods} does not stand. 
 A way-around to be able to use improper priors is to focus on restrictions of the model, %In precise terms,  
@@ -182,7 +182,7 @@ If the posterior density integrates to $\infty$, the posterior is said to be imp
 
 
 This construction is called a way-around because the framework remains incomplete: $T$ is not embedded with a probability distribution  anymore, and %appropriately defined anymore, nor 
-the marginal distribution $\PP_{\mbf Y_k}$ in not appropriately defined. 
+the marginal distribution $\PP_{\mbf Y_k}$ is not appropriately defined. 
 Later in this chapter, we will introduce a novel construction that authorizes the definition of improper priors in a more suitable way.
 Before that, the current construction is enough to define the reference priors among the admissible priors: priors that are either proper, either admissible improper priors.
 
@@ -199,18 +199,23 @@ is to minimize the role of the prior within the posterior, in order to maximize 
 Thus, it amounts to maximize how ``away'' is the prior to the posterior.
 
 When it resorts to compare information between probability distributions, we generally consider dissimilarity measures. The most common one is the Kullback-Leibler divergence, it is the one that is considered in the historical settings of the reference prior theory.
-We recall below the expression of the Kullback-Leibler divergence between two distribution $P$ and $Q$ on $\cX$, which admit densities $p,q$ w.r.t. a common measure $\omega$:
+We recall below the expression of the Kullback-Leibler divergence between two distributions $P$ and $Q$ on $\cX$, which admit densities $p,q$ w.r.t. a common measure $\omega$: % such that $\int_\cX p(x)d\omega(x)<\infty$:
     \begin{equation}
         \text{KL}(Q||P)=\int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\omega(x).
     \end{equation}
+We extend the definition of the Kullback-Leibler divergence when $P$ and $Q$ are not probability distributions, but are such that $P(\cX),Q(\cX)<\infty$ as $\text{KL}(Q||P):=\text{KL}(\tilde Q||\tilde P)$ where $\tilde P$, $\tilde Q$ respectively equal $P/P(\cX)$ and $Q/Q(\cX)$.
 
 Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\varPi)$. As the observed sample $\mbf y$ is unknown, the average value of the divergence is considered:
 \begin{defi}[Mutual information]\label{def:intro-ref-MI}
-    Given a Bayesian framework defined as in \cref{sec:intro-ref:classical-framework}, and given a number of observations $k$, the mutual information is defined as the quantity
+    Given a Bayesian framework defined as in \cref{sec:intro-ref:classical-framework} with a proper prior $\varPi$, and given a number of observations $k$, the mutual information is defined as the quantity: %(if it exist)
     \begin{equation}
         \sI^k(\varPi) :=  \EE_{\mbf Y_k\sim \PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)] =  \int_{\cY^k}\text{KL}(\PP_{T|\mbf y}||\varPi) p_{\mbf Y_k}(\mbf y)d\mu^{\otimes k}(\mbf y).
     \end{equation}
 \end{defi}
+
+
+%One is invited to note that the mutual information is a quantity that does not always exist. If $\varPi$ is proper ($\varPi(\Theta)<\infty$) then the definition has a sense since the . 
+
 
 
 %This quantity is called the mutual information.
@@ -242,14 +247,14 @@ However, formally maximizing the mutual information $\sI^k(\varPi)$ w.r.t. $\var
 \begin{enumerate}
     \item First, its expression depends on the value of the number of  observations $k$, and $k$ alters the form of its maximal argument. %The prior expression comes, by nature, prior to the observations, and should depend neither on $k$, neither on $\mbf y$. A 
     %In normal settings, there are no knowledge on the v
-    This problem is tackled arguing that $\sI^k$ only measures a limited quantity of information brought by $T$ onto the distribution of the data $\mbf Y$. The Bayesian framework does considerate the data $(Y_1,\dots,Y_k)$ to be dependent, so that the distribution of $\mbf Y$ is enriched as $k$ rises.
-    According to \citet{bernardo_bayesian_1994}, the limit $\sI^\infty$ (if it exists) measures the knowledge missing form the prior.
+    This problem is tackled arguing that $\sI^k$ only measures a limited quantity of information brought by $T$ onto the distribution of the data $\mbf Y$. The Bayesian framework does considerate the data $(Y_1,\dots,Y_k)$ to be non-independent, so that the distribution of $\mbf Y$ is enriched as $k$ rises.
+    According to \citet{bernardo_bayesian_1994}, the limit $\sI^\infty$ (if it exists) measures the knowledge missing from the prior.
     Thus, the formal definition tends to maximize $\sI^k$ as $k$ diverges to $\infty$.
     \item The second issue comes with the fact that the quantity $\sI^k(\varPi)$ generally does not admit a finite limit as $k$ diverges to $\infty$.
     \item The third issue is that the mutual information is only correctly defined when the prior is proper, while many non-informative priors used in Bayesian analysis are improper.
 \end{enumerate}
 
-The commonly admitted definition for the reference prior, which takes into account the three issues aforementioned is the following, adapted from \cite{dey_reference_2005}.
+The commonly admitted definition for the reference priors, which takes into account the three issues aforementioned is the following, adapted from \cite{dey_reference_2005}.
 \begin{defi}[Reference priors]\label{def:intro-ref:ref-priors}
     Let $\cP$ be a set of priors on $\Theta$, a prior $\varPi\in\cP$ %whose prior density is $\pi$ 
     is a reference prior over $\cP$ if there exists an appropriate increasing sequence $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$ with for any $i$: $0<\varPi(\Theta_i)<\infty  $ and
@@ -267,7 +272,7 @@ We provide a thorough definition of such a class in \cref{sec:intro-refs:limits}
 Until then, it refers to a set of priors that are admissible as described in the \cref{sec:intro-ref:improperway-around}.
 This definition also
 requires the sequence $(\Theta_i)$ to be ``appropriate''.
-Actually,  the original definition does not restrict the choices of that sequence, so that this word can be ignored in this section.
+Actually,  the original definition does not restrict the choices of that sequence, so that this qualifying adjective can be ignored in this section.
 However, we will see in the sequel that some studies on reference priors require to impose some assumptions on $(\Theta_i)_i$. 
 %we will that some assumptions are mode on them by 
 
@@ -279,10 +284,10 @@ However, we will see in the sequel that some studies on reference priors require
 
 
 We must note that other definitions of reference priors exist.
-In the geneses of the reference prior theory, \citet{bernardo_reference_1979} suggested maximizing the mutual information $\sI^k$, and derive the limit of the maximizers when $k\to\infty$ to define reference priors.
+In the genesis of the reference prior theory, \citet{bernardo_reference_1979} suggested maximizing the mutual information $\sI^k$, and derive the limit of the maximizers when $k\to\infty$ to define reference priors.
 In \cite{berger_formal_2009}, the authors prove that in the real and one parameter case (i.e. $\Theta\subset\RR$), this strategy is consistent with \cref{def:intro-ref:ref-priors}. Their result is the following, sometimes taken as a definition.
 
-\begin{thm}[Explicit for of the reference prior]\label{thm:intro-ref:explicitRP}
+\begin{thm}[Explicit form of the reference prior]\label{thm:intro-ref:explicitRP}
     Assume $\Theta\subset\RR$ with $\nu$ being the Lebesgue measure.\\
     Call $\cP_s$ the set of admissible priors that are positive and continuous, and that issue proper posterior distributions.\\
     Let $\varPi^\ast\in\cP_s$ we call $p^\ast(\cdot|\cdot)$ its posterior and define for any interior point $\theta_0\in\Theta$,
@@ -298,7 +303,7 @@ In \cite{berger_formal_2009}, the authors prove that in the real and one paramet
  \end{thm}
 
  {
-The form of the functions $f_k$ in the above theorem comes from maximizing the mutual information when $k$ is fixed. Indeed, it is possible to research for a maximal argument of the mutual information
+The form of the functions $f_k$ in the above theorem comes from maximizing the mutual information (expressed in \cref{def:intro-ref-MI}) when $k$ is fixed. Indeed, it is possible to research for a maximal argument of the mutual information
 form a constrained optimization viewpoint. A Lagrange multipliers theorem should give
 an implicit expression of the density whose prior maximizes the mutual information for a fixed $k$: it is
 proportional to 
@@ -329,7 +334,7 @@ Typically, it is recommended to assume $\Theta_j\subset\RR^{d_j}$ with small dim
 
 
 This construction is often considered in the literature when it resorts to define reference priors in multidimensional context. 
-However, it relies on the hierarchization of the parameter fixed in \cref{eq:intro-ref:hierartheta}, and the recommended  one depends on the model of interest.
+However, it relies on the hierarchization of the parameter's coordinates fixed in \cref{eq:intro-ref:hierartheta}, and the recommended  one depends on the model of interest.
 There are a few models, such as the multinomial (defined in \cref{ex:intro-ref:multinomialmodel}) one, for which the different reference priors resulting from this construction have been extensively studied. In the case of the multinomial model, it is claimed that this construction with an ordering where $r=d$ when $\Theta\subset\RR^d$ must be favored  \citep{berger_ordered_1992,berger_overall_2015}.
 {In this case, the authors show that the density $\pi^\ast$ of this reference prior given by this construction is given by
     \begin{equation}\label{eq:intro-ref:multinomialhierarref}
@@ -378,7 +383,7 @@ We summarize his main result as follows:
 \begin{thm}
     Let $\cP$ be the set of admissible priors. 
     Call an ``appropriate'' increasing sequence of subsets $(\Theta_i)_i$, an increasing sequence such that each for any $i$, $\Theta_i$ is open.
-    Under the assumption that there exist a weakly estimator of $\theta$, the reference prior over $\cP$, if it exists, is unique up to a multiplicative constant.
+    Under the assumption that there exists a weakly estimator of $\theta$, the reference prior over $\cP$, if it exists, is unique up to a multiplicative constant.
 \end{thm}
 
 This result allows referring to ``the reference prior'' instead to ``reference priors'' in some cases. %However, it is limited to cases where a very general class $\cP$. %is considered
@@ -437,7 +442,7 @@ Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive func
         \begin{equation}
             J(\theta)\propto \frac{1}{\sigma}.
         \end{equation}    
-    In the known variance case it corresponds to a uniform distribution on $\RR$. In both cases, it is improper.  However, its posteriors are always proper.
+    In the known variance case the prior for $\mu$ corresponds to a uniform distribution on $\RR$. In both cases, it is improper.  However, its posteriors are always proper.
 \end{ex}
 
 
@@ -449,7 +454,7 @@ Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive func
     \end{thm}
 \citet{mure_objective_2018} has shown that the above theorem still stands when ``appropriate'' refers to open subsets of $\Theta$. {This result can be anticipated by reminding that the form of the density maximizing the mutual information for a fixed $k$ is $\exp\left(\int_{\cY_k}\ell_k(\mbf y|\theta)\log(p(\theta|\mbf y) ) d\mu^{\otimes k}(\mbf y)\right)$. 
 Indeed, according to the Bernstein von Mises theorem (see e.g. \cite{van_der_vaart_asymptotic_1992}), under appropriate assumptions, the posterior density $p(\theta|\mbf y)$ is asymptotically close  to a %converges to a 
-centered Gaussian density whose  variance is $\cI(\theta)^{-1/2}/\sqrt{k}$ when $\mbf y$ are sitributed w.r.t. $\PP_{\mbf Y_k|\theta}$.
+centered Gaussian density whose  variance is $\cI(\theta)^{-1/2}/\sqrt{k}$ when $\mbf y$ are distributed w.r.t. $\PP_{\mbf Y_k|\theta}$.
 %where $\hat\theta_k$ is} an asymptotically sufficient and consistent estimator, such as the {Maximum Likelihood Estimator} (MLE) under general assumptions. 
 This convergence does not depend {on} the prior. We thus asymptotically have
     \begin{equation}
@@ -659,30 +664,32 @@ We formalize this terminology in the following definitions.
 
 \begin{defi}
     A set of priors refers to a subset of $\sM^\nu$.\\
-    When $\nu$ is the Lebesgue measure, a set of continuous prior refers to a subset $\cP\subset\sM^\nu$ where for any $\varPi\in\cP$, $\varPi$ admits a $\nu$-a.e. continuous density $\pi$. We call $\sM_\cC^\nu$ the union of the sets of continuous priors.\\
-    The subset of $\sR$ composed by $\nu$-a.e. continuous functions is denoted $\sR_\cC$.
+    When $\nu$ is the Lebesgue measure, a set of continuous prior refers to a subset $\cP\subset\sM^\nu$ where for any $\varPi\in\cP$, $\varPi$ admits a $\nu$-a.e. continuous and locally bounded density $\pi$. We call $\sM_\cC^\nu$ the set of continuous priors.\\
+    The subset of $\sR$ composed by $\nu$-a.e. continuous and locally bounded functions is denoted $\sR_{\cC^b}$.
 \end{defi}
 
 \begin{prop}
-    $\sM_\cC^\nu$ is stable by $\simeq$ and $\sR_\cC$ is stable by $\propto$.\\
-    If $\Theta\subset\RR^d$, and if $f\in\sR_\cC$, there exists $g$ that equals $f$ $\nu$-a.e. and that is locally bounded on $\Theta$.\\
-    The subset of $\sR$ composed by locally bounded and $\nu$-a.e. continuous functions is denoted $\sR_{\cC^b}$, it is stable by $\propto$ and any $f$ in $\sR_\cC$ is bounded on every compact.
+    $\sM_\cC^\nu$ is stable by $\simeq$ and $\sR_{\cC^b}$ is stable by $\propto$.\\
+    %If $\Theta$ is op
+    If $\Theta\subset\RR^d$, and if $f$ is $\nu$-a.e. continuous, $f$ is $\nu$-a.e. locally bounded.\\ %there exists $g$ that equals $f$ $\nu$-a.e. and that is locally bounded on $\Theta$.\\
+    %The subset of $\sR$ composed by locally bounded and $\nu$-a.e. continuous functions is denoted $\sR_{\cC^b}$, it is stable by $\propto$ and a
+    Any $f$ in $\sR_{\cC^b}$ is bounded on every compact.
 \end{prop}
 
 \begin{proof} 1.
 % \begin{enumerate}
 %     \item 
-The stability of $\sR_\cC$ and $\sR_{\cC^b}$ to $\propto$ comes since multiplying a function by a constant does not affect its continuity. \\
-We consider $M$ the mapping assigning a density in $\sR$ to its associated measure in $\sM^\nu/$ as
+The stability of $\sR_{\cC^b}$ to $\propto$ comes since multiplying a function by a constant does not affect its continuity nor its locally bounded characteristic. \\
+We consider $M$ the mapping assigning a density in $\sR$ to its associated measure in $\sM^\nu$ as
 \begin{equation}
     M:f\in\sR \longmapsto \left(B\in\sT\mapsto \int_Bf(\theta)d\nu(\theta) \right).
 \end{equation}
-We have $f\propto g\implies M(f)\simeq M(g)$, so that $M(\sR_\cC) $ is stable by $\simeq$. The second statement of the proposition comes since $M(\sR_\cC)=\sM^\nu_\cC$ by definition.\\
-2. For the second statement, we consider $f\in\sR_\cC$
+We have $f\propto g\implies M(f)\simeq M(g)$, so that $M(\sR_{\cC^b}) $ is stable by $\simeq$. The second statement of the proposition comes since $M(\sR_{\cC^b})=\sM^\nu_\cC$ by definition.\\
+2. For the second statement, we consider $f$ $\nu$-a.e. continuous. %\in\sR_\cC$
 We note $E=\{\theta,\, \forall\tau>0,\, f$ is not bounded on $B(\theta,\tau) \} $.
 Let $\theta\in E$, 
 for any $n>0$, $f$ is not bounded on $B(\theta,1/n)$, so that there exists $\theta_n\in B(\theta,1/n)$ such that $f(\theta_n)>n$. That leading to $f(\theta_n)\conv{n\rightarrow\infty}\infty$ while $\theta_n\conv{n\rightarrow\infty}\theta$, $f$ is discontinuous on $\theta$. 
-We deduce that $\nu(E)=0$. Thus, defining $g$ by $g=f$ on $\Theta\!\setminus\! E$ and $g=0$ otherwise ensures $g$ is in $\sR_\cC$ and is locally bounded, with $g=f$ $\nu$-a.e. \\
+We deduce that $\nu(E)=0$.\\ %Thus, defining $g$ by $g=f$ on $\Theta\!\setminus\! E$ and $g=0$ otherwise ensures $g$ is in $\sR_\cC$ and is locally bounded, with $g=f$ $\nu$-a.e. \\
 3. If $\tilde\Theta$ is a compact subset of $\Theta$, we can cover $\tilde\Theta$ by open balls on which $f$ is bounded (consequently to statement~2.). Since $\tilde\Theta$ is compact, the open cover admits a finite  subcover. $f$ being bounded on this finite subcover, we deduce that it is bounded on $\tilde\Theta$.
 % \item 
 % \end{enumerate}
@@ -720,7 +727,8 @@ In most cases, one would work on sets $\Theta$ that are ``almost'' open or ``alm
 
 % 
 \begin{prop}
-     If $\Theta$, is an open or a closed subset of $\RR^d$ there exist an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$.
+     1. If $\Theta$, is an open or a closed subset of $\RR^d$ there exist an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$.\\
+     2. If $\Theta$ is a countable intersection of open subsets of $\RR^d$, there exist an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$ such that $\bigcup_{i\in\NN}\Theta_i=\Theta$.
 \end{prop}
 
 \begin{proof}
@@ -730,7 +738,7 @@ In most cases, one would work on sets $\Theta$ that are ``almost'' open or ``alm
             %\Theta &= \bigcup_{\substack{\theta\in\Theta\cap\QQ^d\\ \tau\in R(\theta)}} B(\theta,\tau) \quad\text{with}\quad R(\theta)=\{\tau\in\QQ_+^\ast,\, B(\theta,\tau)\subset\Theta \}\\
             \Theta = \bigcup_{n\in\NN^\ast}\bigcup_{\theta\in\Theta\cap\RR^d} B(\theta, \min(R(\theta)-\frac{1}{n},n) ) \quad \text{with} \quad R(\theta) = \sup\{\tau>0,\,B(\theta,\tau)\subset\Theta\}. 
         \end{equation}
-    We write $\Theta\cap\QQ^d=\{\theta_i,\,i\in\NN^\ast\}$, and write $\Theta=\bigcup_{n\in\NN^\ast}V_n$ with $V_n=\bigcup_{i=1}^nB(\theta_i,\hat R^i_n)$, where $\hat R^i_n =\min(R(\theta_i)-\frac{1}{n},n)$. This way, each $V_n$ is a finite union of closed balls, so that $\overline{V_n}$ is compact. Also, $V_{n+1}$ contains balls with the same center as the one that constitute $V_i$, yet with higher radius. Thus, $\overline{V_n}\subset V_{n+1}$. Therefore, setting $\Theta_i=\overline{V_i}$ for all $i$ makes $(\Theta_i)_{i\in\NN^\ast}$ being an openly incresing sequence of compact subsets that cover $\Theta$.
+    We write $\Theta\cap\QQ^d=\{\theta_i,\,i\in\NN^\ast\}$, and write $\Theta=\bigcup_{n\in\NN^\ast}V_n$ with $V_n=\bigcup_{i=1}^nB(\theta_i,\hat R^i_n)$, where $\hat R^i_n =\min(R(\theta_i)-\frac{1}{n},n)$. This way, each $V_n$ is a finite union of closed balls, so that $\overline{V_n}$ is compact. Also, $V_{n+1}$ contains balls with the same center as the one that constitute $V_n$, yet with higher radius. Thus, $\overline{V_n}\subset V_{n+1}$. Therefore, setting $\Theta_i=\overline{V_i}$ for all $i$ makes $(\Theta_i)_{i\in\NN^\ast}$ being an openly incresing sequence of compact subsets that cover $\Theta$.
 
     If $\Theta$ is closed, %if it compact then the results comes taking $\Theta_i=V_i=\Theta$ for all $i$. If it is not compact
     we recall that $\cF=\{\Theta\cap B(\theta,\tau),\,\theta\in\QQ^d,\,\tau\in\QQ^\ast_+\} $ is a subbase  of the induced topology of $\RR^d$ on $\Theta$.
@@ -740,9 +748,22 @@ In most cases, one would work on sets $\Theta$ that are ``almost'' open or ``alm
     $\Theta=\bigcup_{i\in I}U_i$. It is possible to index this cover by $\NN$. We  now construct the sequences $(\Theta_i)_i\in\NN$ and $(V_i)_{i\in\NN}$ by induction. Starting from $V_0=U_0$ and $\Theta_0=\overline{V_0}$, we then take for all $i$, $V_{i+1}=\bigcup_{j=1}^{m(i)}U_j $, where $m(i) = \min\{j',\, \bigcup_{j=0}^{j'}U_j \supset {\Theta_i} \}$. %\in\NN\cup\{\infty\}$. 
     By induction, ${\Theta_i}$ is compact, so that $m(i)<\infty$ and $\Theta_{i+1}=\overline{V_{i+1}}$ also is.
 %    We notice that if $m(i)=\infty$, then $V_{i+1}=\Theta\supset\overline{V_{i}}$, which remains an open subset of $\Theta$. Also, since $\Theta$ is closed, every $\Theta_i$ are compact subsets of $\Theta$. 
-That makes $(\Theta_i)_{i\in\NN}$ being an openly increasing sequence of subsets that covers $\Theta$.
+That makes $(\Theta_i)_{i\in\NN}$ being an openly increasing sequence of subsets that covers $\Theta$.\\
     % It is possible to index this cover by $\NN$ and to consider that it is strictly increasing. Doing so, the $V_i$ are not necessarily in $\cF$ anymore but are finite unions of elements in $\cF$.  Thus, for all $i$, $\Theta_i=\overline{V_i}$ is a finite union of closed balls, so that is it a compact. Since $\Theta$ is closed, $\Theta_i$ is a subset of $\Theta$
     %  Moreover, $\overline{V_i}\subset\overline{V_{i+1}}$    % The result comes from noticing that the family $\cF=\{V=B(\theta,\tau)\cap\Theta,\,\theta\in\QQ^d,\,\tau\in\QQ_+^\ast$ with $\overline{V}\subset\Theta\}$ is a subbase of the induced topology of $\RR^d$ on $\Theta$.
+
+    To prove the second statement, we write $\Theta=\bigcup_{n\in\NN} U_n$ where the $(U_n)_{n\in\NN}$ are open subsets of $\RR^d$.
+    Using the first statement, there exists an openly increasing cover for each of the $(U_n)_{n\in\NN}$: $U_n=\bigcup_{j\in\NN}\Theta_j^n$, with $\Theta_j^n\subset V_j^n\subset\Theta_{j+1}^n$ for some open subsets $(V_j^n)_{j\in\NN}$ of $\Theta$.
+    Let us define $\Theta_i=\bigcup_{j,n\leq i}\Theta_j^n$. 
+    We verify that $\Theta_i$ is compact and that $\Theta_i\subset\bigcup_{j,n\leq i}V_j^n $. Since for all $n,j$ $V_j^n$ is an open subset of $U_n$, it is an open subset of $\Theta$. This concludes the proof since $\Theta=\bigcup_{i\in\NN}\Theta_i$.
+\end{proof}
+
+\begin{cor}
+    If $\Theta$ is an open subset of $\RR^d$ and $f:\Theta\to\RR$ is a $\nu$-a.e. continuous function of $\Theta$, there exists an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$  such that $\bigcup_{i\in\NN}\Theta_i = \Theta\setminus E$. Where $E$ is the negligible set of points on which $f$ is discontinuous.
+\end{cor}
+
+\begin{proof}
+    The corollary follows from the previous proposition recalling that $E$ is a countable intersection of closed subsets of $\Theta$.
 \end{proof}
 
 % \begin{proof}
