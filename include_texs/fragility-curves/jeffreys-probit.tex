@@ -15,6 +15,44 @@
 \section{Introduction}
 
 
+Seismic fragility curves are key quantities of interest of the seismic probabilistic risk assessment (SPRA) framework.
+They are defined as the probability of failure of a mechanical system conditionally to a scalar value that is derived from a seismic signal, coined intensity measure (IM).
+A detailed review of those curves and of the methods that exist to estimate them is proposed in the \cref{chap:frags-intro}.
+
+Although various data sources can be exploited to evaluate the curves, they often suffer from their scarcity,
+complicating the uncertainty quantification.
+Moreover, we focus in this work on cases where the dataset contains information of the mechanical system's response under seismic excitation that is limited to binary outcome, i.e. failure or non-failure.
+In this sense, this paper will mainly address equipment problems for which only binary results of seismic qualification tests (e.g., tests of electrical relays, etc.) or empirical data such as presented in \cite{straub_improved_2008} are available. However, the methodology developed here could perfectly be applied to simulation-based approaches as well.
+
+
+%we focus in this work on cases where 
+%In this chapter
+
+In those cases, the Bayesian framework became heavily popular in the literature, being praised for its capability to regularize the estimates. As a matter of fact, the framework is known to
+avoid the generation of unrealistic fragility curves such as unit-step functions, which are common with
+ classical frequentest methods.  %are known to often lead to unrealistic estimates, such as unit§step functions.
+In these settings where only the binary outcome about the system's response are available, Bayesian analysis is used to infer a parameterized fragility curve to the data. The
+parametric model generally taking the form of a probit-lognormal fragility curve, prominent in the field of earthquake engineering.
+%
+% used to update existing log-normal fragility curves previously obtained through various approaches,
+%
+However, the estimates given by the posterior distribution Bayesian paradigm %is questionned regarding the cho
+are significantly influenced by the prior, 
+compounding their reliability.
+%which may regularize more the estimates when it is more informed.
+Additionally, there are plethora of different considerations (which are sometimes questionable in terms of the subjectivity they introduced)  to define the prior in the literature .
+As an example, \citet{straub_improved_2008}
+consider independent prior distributions for the parameters defining the fragility curve, namely the median $\alpha$ and the log standard deviation $\beta$. The prior is defined as the product of a normal distribution for $\ln(\alpha)$, and the improper distribution $1/\beta$ for $\beta$. The definition of the normal distribution is based on engineering assessments, assuming that, for the relevant component for example, the median lies between 0.02~g and 3~g with a probability of 90\%. This prior was preferred to $1/\alpha$ on the grounds that it led to unrealistically large posterior values of $\alpha$.
+
+
+%In those settings
+
+In this study, the goal is to choose the prior while eliminating, insofar as it is possible, any subjectivity which would unavoidably lead to open questions regarding the impact of the prior on the final results. %The reference prior 
+
+
+
+
+
 \section{Probit-lognormal model and Bayesian framework}
 
 We remind that the probit-lognormal model of the fragility curve has been described in the \cref{chap:frags-intro}.
