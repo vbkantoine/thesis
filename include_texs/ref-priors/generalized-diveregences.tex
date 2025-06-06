@@ -588,7 +588,7 @@ Then, %solving $\lambda^\ast=\argmax_\lambda l(\pi_\lambda)$ leads to the refere
 solving $\lambda^\ast=\argmax_\lambda l(\pi_\lambda)$ can be carried out numerically or analytically to issue the reference prior $\pi_{\lambda^\ast}$ over $\cP_\EE$.
 The same way, some class $\cP_{\VV}$ could be considered this time to fix the variance of the prior.
 
-In Figure \ref{fig:exbeta} are plotted the $D_f$-reference priors over different sets of Beta priors with constrained expectations first, and with constrained variances second. We notice that, when it concerns the class $\cP_\EE$, two priors are reference priors. Actually, the considered class is not convex in this case, which makes the uniqueness not ensured. An additional constraint on the researched reference prior should be set to make it unique. For instance, with the idea of constructing non-informative priors, the one with maximal Shanon's entropy could be chosen. In our example, $\pi_1^\ast$ (Figure \ref{fig:exbeta}.(a)) has a higher entropy than $\pi_2^\ast$ (Figure \ref{fig:exbeta}.(b)).
+In \cref{fig:exbeta} are plotted the $D_f$-reference priors over different sets of Beta priors with constrained expectations first, and with constrained variances second. We notice that, when it concerns the class $\cP_\EE$, two priors are reference priors. Actually, the considered class is not convex in this case, which makes the uniqueness not ensured. An additional constraint on the researched reference prior should be set to make it unique. For instance, with the idea of constructing non-informative priors, the one with maximal Shanon's entropy could be chosen. In our example, $\pi_1^\ast$ (\cref{fig:exbeta}.(a)) has a higher entropy than $\pi_2^\ast$ (\cref{fig:exbeta}.(b)).
 
 
 
@@ -604,7 +604,7 @@ In Figure \ref{fig:exbeta} are plotted the $D_f$-reference priors over different
     % \begin{tabular}{ccc}
     %     (a) & (b)  & (c)
     % \end{tabular}
-    \caption{Comparison of histograms of samples from Jeffreys prior and from the $D_f$-reference priors over a set $\cP_\EE=\{\pi=\mathrm{Beta},\,\EE_{T\sim\pi}T=\frac{2}{3}\}$ (Figures (a) and (b)), and over a set $\cP_\VV=\{\pi=\mathrm{Beta},\,\VV_{T\sim\pi}T=\frac{3}{16}\}$ (Figure (c)). In this example, their exist 2 solutions $\pi_1^\ast$ (in Figure (a)) and $\pi_2^\ast$ (in Figure(b)) of reference priors over $\cP_\EE$. $\delta$ has been set to $1/2$ in this example.}
+    \caption{Comparison of histograms of samples from Jeffreys prior and from the $D_f$-reference priors over a set $\cP_\EE=\{\pi=\mathrm{Beta},\,\EE_{T\sim\pi}T=\frac{2}{3}\}$ (\namecref{fig:exbeta} (a) and (b)), and over a set $\cP_\VV=\{\pi=\mathrm{Beta},\,\VV_{T\sim\pi}T=\frac{3}{16}\}$ (\namecref{fig:exbeta} (c)). In this example, their exist 2 solutions $\pi_1^\ast$ (in \namecref{fig:exbeta} (a)) and $\pi_2^\ast$ (in \namecref{fig:exbeta} (b)) of reference priors over $\cP_\EE$. $\delta$ has been set to $1/2$ in this example.}
     \label{fig:exbeta}
 \end{figure}
 

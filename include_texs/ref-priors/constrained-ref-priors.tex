@@ -7,7 +7,7 @@
 \begin{abstract}
     Reference priors are widely recognized for their objective nature. Yet, they often lead to intractable and improper priors, which complicates their application.
 Besides, informed prior elicitation methods are penalized by the subjectivity of the choices they require. %to be made.
-In this chapter, we aim at proposing a reconciliation of the aforementioned aspects. Leveraging the objective aspect of reference prior theory, we introduce two strategies of constraint incorporation to build tractable reference priors.
+In this chapter, we aim at proposing a reconciliation of the aforementioned aspects. Leveraging the objective aspect of the reference prior theory, we introduce two strategies of constraint incorporation to build tractable reference priors.
 One provides a simple and easy-to-compute solution when the improper aspect is not questioned, and the other introduces constraints to ensure the reference prior is proper, or it provides proper posterior.
 Our methodology emphasizes the central role of Jeffreys prior decay rates in this process, and the practical applicability of our results is demonstrated using an example taken from the literature.
 \end{abstract}
@@ -30,13 +30,13 @@ However, despite their  objective nature,  their implementation is often cumbers
 Moreover, the low-informative nature of these priors is associated with their common improper aspect, necessitating careful handling to ensure valid statistical inference.
 Thus, the construction of priors is expected to strike a balance between several criteria. While many works restrict their sets of priors to ones that are tractable, proper, or suitable for high dimensions, others seek to minimize any source of subjectivity.
 
-This chapter aims to reconcile all these criteria to improve the prior elicitation.
+This chapter aims to reconcile all these viewpoints to improve the prior elicitation.
 Our contribution takes the form of an enrichment of the reference prior theory to leverage the objective aspect that it provides to reference priors. Building on the developments presented in \cref{chap:ref-generalized},
 we restrict priors to the ones that belong to  well-chosen ---and not too restrictive--- sets, and we introduce two strategies to define  convenient reference priors.
 % First 
 Our first strategy provides a simple,  tractable solution for constraining reference priors when the improper aspect is not questioned. The second, by contrast, introduces constraints that lead to  reference priors that are proper, or lead to proper posteriors. 
 % 
-For both strategies, we try to define the potential loss of objectivity induced by the constraints and we discuss their limits.
+For both strategies, we try to examine the potential loss of objectivity induced by the constraints, and we discuss their limits.
 Our results emphasize the central role of Jeffreys prior decay rates when they are improper.
 Additionally, we draw attention to the fact that our methodology opens a way to define various reference priors on the basis of constraints that could result from any other motivation.
 
@@ -63,7 +63,7 @@ Then, the  practical aspect of our work is studied by the application of our met
     %\subsection{}
 
 In this work we consider a statistic model characterized by a collection of probability distributions $(\PP_{Y|\theta})_{\theta\in\Theta}$ on  a measurable set $(\cY,\sY)$. 
-We consider the same construction of the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}): considering any prior $\varPi$ (that is a $\sigma$-finite measure on $\Theta$) we denote $\mbf Y_k$ a random vector of $k$ observations whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y^k|\theta}=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$ (see \cref{sec:intro-ref:novelframework}).
+We consider the same construction of the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}): considering any prior $\varPi$ (that is a $\sigma$-finite measure on $\Theta$) we denote $\mbf Y_k$ a random vector of $k$ observations whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y^k|\theta}=\PP_{Y|\theta}^{\otimes k}$, where $T$ is a r.v. whose distribution is the prior $\varPi$ (see \cref{sec:intro-ref:novelframework}).
 
 The modeling is supposed to be regular: we assume $\Theta\subset\RR^d$ with $\nu$ being the Lebesgue measure on $\RR^d$ and every prior $\varPi$ is supposed to admit a density $\pi$ w.r.t. $\nu$ (i.e. $\varPi\in\sM^\nu$).
 We also assume that the model admits a likelihood, denoted by $\ell$ with for any $\theta\in\Theta$ and $\mbf y\in\cY^k$, $\ell_k(\mbf y|\theta):= \prod_{i=1}^k\ell(\mbf y|\theta)$. We suppose that it verifies \cref{assu:intro-ref:jeffreysexist} in \cref{chap:intro-ref}, making the Fisher information matrix (denoted $\cI$) and the Jeffreys prior (whose density is denoted $J$) being well-defined.
@@ -80,7 +80,7 @@ In this chapter, we mostly focus on such generalized mutual information when $D$
     \begin{equation}
         D_\delta(P||Q) = \int_\cX f_\delta\left( \frac{p(x)}{q(x)}  \right) q(x) d\omega(x)\quad \text{with}\quad f_\delta(x) = \frac{x^\delta-\delta x-(1-\delta)}{\delta(1-\delta)},
     \end{equation}
-where $p,q$ respectively are densities pf $P$ and $Q$ w.r.t. a common measure $\omega$ on $\cX$.
+where $p,q$ respectively are densities of $P$ and $Q$ w.r.t. a common measure $\omega$ on $\cX$.
 When evoking reference priors in a general way, we will refer to generalized reference priors, as proposed in the \cref{chap:ref-generalized}.
 We remind below their definition:
 \begin{defi}[Generalized reference prior]\label{def:BA:genref}
@@ -96,7 +96,7 @@ We remind below their definition:
 We also remind the following result on the $D_\delta$-mutual information and their reference priors (see \cref{chap:ref-generalized}).
 %  that are defined considering a generalized ,
 \begin{thm}\label{thm:BA:l(pi)}
-    Suppose $\Theta$ to be compact and $\varPi\in\sM^\nu_\cC$ be a prior with $\varPi(\Theta)=1$. the $D_\delta$-mutual information admits a limit:
+    Suppose $\Theta$ to be compact and $\varPi\in\sM^\nu_\cC$ be a prior with $\varPi(\Theta)=1$. The $D_\delta$-mutual information admits a limit:
         \begin{equation}
             \lim_{k\rightarrow\infty} k^{d\delta/2} \sI_{D_\delta}(\varPi) = l(\pi) - (\delta(1-\delta))^{-1}, \quad l(\pi) = C_\delta \int_{\Theta}\pi(\theta)^{1+\delta} |\cI(\theta)|^{-\delta/2}  d\theta ,
         \end{equation}
@@ -222,7 +222,7 @@ Proposition below ensures that this definition properly extends \cref{def:BA:gen
 \section{Constrained $D_\delta$-reference priors}\label{sec:BA:ress}
 
 
-In this section, we present results of two different constraint incorporation on the reference priors.
+In this section, we present results of two different constraint incorporations on the reference priors.
 In \cref{sec:BA:res1}, the constraint limits the set of priors to exponentiation of coordinates of $\theta$. The result suggests a simpler reference priors in a case where the improper Jeffreys prior's decay rates are not an issue.
 %When the Jeffreys prior has an improper asymptotic behavior that matches with a prior in this set, we show that
 In \cref{sec:BA:res2}, we introduce a well-chosen linear constraint on the set of priors that ensures the constraint reference prior is proper, or leads to proper posteriors.
@@ -285,7 +285,9 @@ In \cref{sec:BA:res2}, we introduce a well-chosen linear constraint on the set o
 
 
 In \cref{sec:BA:res1}, we have provided some elements to construct a tractable reference prior on the coordinates over which Jeffreys prior is improper.
-The reference prior that our theorem proposes keeps the improper characteristic of Jeffreys prior on the same coordinates.
+The reference prior proposed by our theorem
+%that our theorem proposes 
+keeps the improper characteristic of Jeffreys prior on the same coordinates.
 This improper aspect can, however, remain an issue in some cases, especially when the resulting posterior is improper as well.
 
 For this reason, it might happen that some asymptotic rates in some directions still have to be tackled. The work in this section is concluded by results that allow defining a $D_\delta$-reference prior (or quasi $D_\delta$-reference prior), which benefits from adjusted decay rates from Jeffreys prior. 
@@ -447,8 +449,8 @@ where $f$ is a density function with support on $\RR$, assumed to be symmetric w
         \end{equation}
 
 
-\paragraph{Overview and sensibility on the parameters}
-Our prior densities are compared with the Jeffreys prior one on \cref{fig:priorpost}.(a), w.r.t. the parameter $\sigma_2$ the others being fixed to $1$. For this comparison, a multiplicative constant had to be chosen on $J$, we have chosen the one such that $J(1,1,1)=2$.
+\paragraph{Overview and sensitivity on the parameters}
+Our prior densities are compared with the Jeffreys prior one in \cref{fig:priorpost}.(a), w.r.t. the parameter $\sigma_2$ the others being fixed to $1$. For this comparison, a multiplicative constant had to be chosen on $J$, we have chosen the one such that $J(1,1,1)=2$.
 Our priors differ as a function of $\gamma=\eps/\delta\in(0,\frac{1}{1+\delta})\subset(0,1)$. On the one hand, when $\gamma$ becomes close to $0$, the prior ---which we denote by $\pi_\gamma$ from now on--- becomes close to the Jeffreys prior, i.e., the most objective prior w.r.t. the mutual information criterion. However, in this case, $\pi_\gamma$ becomes close to an improper prior, and its posterior becomes close to an improper posterior. On the other hand, setting $\gamma$ away from $0$ 
 rearranges the quantity of information in the prior. Its referential nature decreases in favor of an increase in its entropy.
 %make the prior more informative, and probably more subjective. 
@@ -531,7 +533,7 @@ For practical details, the chosen $f$ is the standard Gaussian density, and the 
     \includegraphics[width=5.7cm]{figures/constrained-priors/post50.pdf}\\
     \makebox[13cm][c]{%
     {~\hspace{\stretch{1}}(c)\hspace{\stretch{2}}(d)\hspace{\stretch{1}}~}}%
-    \caption{On (a), different prior densities $\pi_\gamma$ (in dashed line) w.r.t. $\sigma_2$ along with a Jeffreys prior density (that delimits the blue area) and the \emph{Independent Jeffreys} of \cite{rubio_inference_2014} (that delimits the orange area). On each of (b), (c) and (d), posterior densities for different values of $\gamma$ are plotted. %One observed sample served the calculation of all the posteriors on one figure. 
+    \caption{In (a), different prior densities $\pi_\gamma$ (in dashed line) w.r.t. $\sigma_2$ along with a Jeffreys prior density (that delimits the blue area) and the \emph{Independent Jeffreys} of \cite{rubio_inference_2014} (that delimits the orange area). In (b), (c) and (d), posterior densities for different values of $\gamma$ are plotted. %One observed sample served the calculation of all the posteriors on one figure. 
     One observed sample was used to calculate all the posteriors in a figure.
     The observed sample has a size of $k=5$ in (b), $k=15$ in (c), and $k=50$ in (d).\label{fig:priorpost}}
 \end{figure}

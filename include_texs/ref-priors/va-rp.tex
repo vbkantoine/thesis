@@ -575,7 +575,7 @@ $0.9$ & $6.15 \times 10^{-2}$ & $4.84 \times 10^{-4}$  \\ \hline
 
 
 The last quantitative study conducted for this model validates the result developed in \cref{chap:ref-generalized} about the asymptotic expansion of the $D_{f_\delta}$-mutual information. 
-In the case $d=1$, we show on \cref{fig:VARP:rateslIM} that $l_{D_{f_\delta}}^k(\mbf J)$ and $\overline\sI^k_{D_{f_\delta}}(\varPi_\lambda):=\sI^k_{D_{f_\delta}}(\varPi_\lambda)+\frac{1}{\delta(1-\delta)}$ are close, where $l^k_{D_{f_\delta}}(\mbf J)$ denotes
+In the case $d=1$, we show in \cref{fig:VARP:rateslIM} that $l_{D_{f_\delta}}^k(\mbf J)$ and $\overline\sI^k_{D_{f_\delta}}(\varPi_\lambda):=\sI^k_{D_{f_\delta}}(\varPi_\lambda)+\frac{1}{\delta(1-\delta)}$ are close, where $l^k_{D_{f_\delta}}(\mbf J)$ denotes
 the theoretical asymptotic rate w.r.t. $k$ of 
 $\sI^k_{D_{f_\delta}}(\mbf J)$. According to the result of \cref{chap:ref-generalized}, the latter admits the following asymptotic expansion:
     \begin{equation}
@@ -618,7 +618,7 @@ with $\mu\in\RR$ being fixed. The gradient of the log-likelihood equals
 \begin{equation}
     \partial_{\theta_j}\log\ell_k(\mbf y|\theta) = -\frac{k}{2\theta}+\frac{1}{2\theta^2}\sum_{i=1}^k(y_i-\mu)^2\quad\text{for all}\quad \mbf y=(y_1,\dots,y_k)\in\cY^k.
 \end{equation}
-There exist an explicit expression of the  MLE as well: $\ell_k(\mbf Y_k|\hat\theta^{\text{MLE}})= \ell_k(\mbf Y_k|\frac{1}{k}\sum_{i=1}^kY_i)$. In this model, the Jeffreys prior admits a simple analytical density $J(\theta)\propto1/\theta$, which is improper. 
+There exists an explicit expression of the  MLE as well: $\ell_k(\mbf Y_k|\hat\theta^{\text{MLE}})= \ell_k(\mbf Y_k|\frac{1}{k}\sum_{i=1}^kY_i)$. In this model, the Jeffreys prior admits a simple analytical density $J(\theta)\propto1/\theta$, which is improper. 
 It is conjugate with the likelihood: the distribution of the Jeffreys posterior is an inverse-gamma distribution:
     \begin{equation}
         \mbf J_{\text{post}}(T|\mbf y) = \Gamma^{-1}\left(\frac{k}{2},\,\frac{1}{2}\sum_{i=1}^{k}(y_i-\mu)^2\right)    \quad\text{for all}\quad \mbf y\in\cY^k,
@@ -685,7 +685,7 @@ This study thus provides a flexible and robust solution for approximating the th
 We argue that the implementation can be adapted to a wide range of statistical models, including the ones where the target prior is not known explicitly.
 In the \cref{part:spra}, an example of such statistical model will be studied.
 
-
+\textcolor{orange}{Challenges remain...}
 
 
 %Looking forward, the approximation of the tails of the reference priors could be improved. That is a complex problem in the field of variational approximation, as well as the stability of the algorithm when using deeper networks\textcolor{Green}{, or different architectures}. An extension of this work to the approximation of Maximal Data Information (MDI) priors is also appealing, thanks to the fact MDI are proper under certain assumptions precised in \cite{Bousquet2008}.   

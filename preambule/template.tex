@@ -16,7 +16,9 @@ linewidth=1.5pt,
 innerleftmargin=10pt,
 innerrightmargin=0pt,
 skipabove=\baselineskip,
-skipabove=1.2\baselineskip,
+innertopmargin=2pt,
+frametitleaboveskip=0pt,
+frametitlebelowskip=0pt
 }
 
 % \newtheorem{mdbeispiel}{Beispiel}[section]
@@ -116,7 +118,9 @@ skipabove=1.2\baselineskip,
    {\begin{mdframed}[linecolor=niceBluelight]\begin{fcor}[#1]}
    {\end{fcor}\end{mdframed}}
 
-\theoremstyle{definition}
+% \theoremstyle{definition}
+\newtheoremstyle{mydefstyle}{0pt}{2pt}{\upshape}{}{\bfseries}{.}{0.5em}{}
+\theoremstyle{mydefstyle}
 \newtheorem{fdefi}{Definition}[chapter]
 \crefname{fdefi}{definition}{definitions}
 \newenvironment{defi}[1][]%
