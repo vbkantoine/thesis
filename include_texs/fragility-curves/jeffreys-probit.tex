@@ -861,22 +861,29 @@ The fragility curve estimations are shown in Figure~\ref{fig:curvesONL}. They ar
 
 \begin{figure}
     \centering%
+    \includegraphics[width=5.2cm]{figures/PREM/oscill/PGA20.pdf}\hspace*{0.5cm}
+    \includegraphics[width=5.2cm]{figures/PREM/oscill/PGA30.pdf}
     %\hspace*{-0.1\linewidth}\includegraphics[width=1.2\linewidth]{figures/curves.pdf}
     % \includegraphics[width=130pt]{figures/Jeff_curves.pdf}% %0.33\linewidth
     % \includegraphics[width=130pt]{figures/SK_curves.pdf}%
     % \includegraphics[width=130pt]{figures/MLE_curves.pdf}%
-    \caption{$95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimations for the elastoplastic oscillator, obtained from a total of $L=5000$ estimations of $\theta$ using the {statistical methods introduced in Section~\ref{sec:reference}}: (from left to right) Bayesian estimation using the Jeffreys prior, Bayesian estimation using the SK prior, and MLE with bootstrapping. For each of these, we considered two data samples {of nonlinear dynamical simulations} of two different sizes ($k=20$ in blue, $k=30$ in orange). $P_f^{\mathrm{MLE}}$ {(see Section \ref{sec:metrics}) is plotted in magenta}.}
+    \caption{$95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimations for the elasto-plastic oscillator, using the methods described in \cref{sec:PREM:competing}. %, obtained from a total of $5000$ estimations of $\theta$ using the {statistical methods introduced in \cref{sec:PREM:metrics}. In the left (resp. right) figure $k=20$ (resp. $k=30$) data are observed. 
+    The cyan curve is the reference $P^\text{ref}_f$ suggested in \cref{sec:PREM:metrics}, surrounded by its $95\%$ confidence interval (dashed lines). The red crosses represent the observed data.}
     \label{fig:curvesONL}
 \end{figure}
 
 
 \begin{figure}
     \centering%
+    \includegraphics[width=5.2cm]{figures/PREM/oscill/PGA20scatter.pdf}\hspace*{0.5cm}
+    \includegraphics[width=5.2cm]{figures/PREM/oscill/PGA30scatter.pdf}
     % \includegraphics[width=130pt]{figures/Jeff_scat_light.pdf}%0.33\linewidth
     % \includegraphics[width=130pt]{figures/SK_scat_light.pdf}%
     % \includegraphics[width=130pt]{figures/MLE_scat_light.pdf}%
     %\hspace*{-0.1\linewidth}\includegraphics[width=1.2\linewidth]{figures/scatter.pdf}
-     \caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in Figure~\ref{fig:curvesONL} for the elastoplastic oscillator. For all three statistical methods, we plotted $500$ points out of the $L=5000$ $\theta=(\alpha,\beta)$ {estimated} with two data sets of nonlinear dynamical simulations (of size $k=20$ in blue and $k=30$ in orange). The magenta crosses represent $\theta^{\mathrm{MLE}}$, used for the computation of $P_f^{\mathrm{MLE}}$ (see Section~\ref{sec:metrics}). This figure reveals both the outliers generated from the SK prior (center) and the irregularities characterized by null estimates of $\beta$ for the coupled MLE and bootstrap approach (right).}
+     \caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in \cref{fig:curvesONL} for the elasto-plastic oscillator. For all three statistical methods, we plotted $5000$  $\theta=(\alpha,\beta)$ {estimated} with two observed datasets of size $k=20$ (left figure) and $k=30$ (right figure). The magenta crosses represent $\theta^{\mathrm{MLE}}$ derived from the $10^5$ samples composing the validation dataset.
+     %This figure reveals both the outliers generated from the SK prior (center) and the irregularities characterized by null estimates of $\beta$ for the coupled MLE and bootstrap approach (right).
+     }
     \label{fig:scatterONL}
 \end{figure}
 
