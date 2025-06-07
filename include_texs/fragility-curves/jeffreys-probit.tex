@@ -842,8 +842,9 @@ The $L^2$ norms are approximated using Simpson's interpolation, and the expectat
 
 
 In this section, we will examine three case studies.
-Two of them leverage the many simulation datasets available that have been previously computed for validation purposes. They will be used in the derivation of a reference fragility curve (as explained in \cref{sec:PREM:metrics}), and allow us to validate the corresponding log-normal models. The first case, described in Section~\ref{sec:onl}, deals with a nonlinear oscillator,
-for which $N_s=10^5$ nonlinear simulations have been implemented for validation purposes. The second case study, described in Section~\ref{sec:ASG}, deals with a piping system which is part of the secondary cooling system of a French Pressurized Water Reactor. Due to the high computational cost, only $N_s=10^4$ simulations have been performed for this case. In both cases, estimations are performed using different testing data sets of a size $k$ chosen as negligible compared to $N_s$. These testing data sets are taken from the set of available nonlinear dynamical simulation results. {A third case study is presented in ?? %as supplementary material 
+Two of them leverage the many simulation datasets available that have been previously computed for validation purposes. They will be used in the derivation of a reference fragility curve (as explained in \cref{sec:PREM:metrics}), and allow us to validate the corresponding probit-lognormal models. 
+The three case studies were presented in the \cref{chap:frags-intro}. The first one is a nonlinear oscillator
+for which $N_s=10^5$ nonlinear simulations have been implemented for validation purposes. The second case study deals with a piping system which is part of the secondary cooling system of a French Pressurized Water Reactor. Due to the high computational cost, only $N_s=10^4$ simulations have been performed for this case. In both cases, estimations are performed using different testing data sets of a size $k$ chosen as negligible compared to $N_s$. These testing data sets are taken from the set of available nonlinear dynamical simulation results. {A third case study is presented in ?? %as supplementary material 
 in order to showcase how our method could be applied to practical experiments.}
 
 
@@ -851,7 +852,52 @@ in order to showcase how our method could be applied to practical experiments.}
 
 \subsection{Case study 1: the elasto-plastic oscillator}
 
-1
+\textcolor{orange}{description}
+
+
+
+The fragility curve estimations are shown in Figure~\ref{fig:curvesONL}. They are obtained from $L=5000$ samples of $\theta$ generated with the implemented statistical methods (see Section~\ref{sec:tools}), which are based on two observation sets of sizes $k=20$ and $k=30$. Although the nature of the two intervals compared is different ---credibility interval for the Bayesian framework and confidence interval for the MLE---, these results clearly illustrate the advantage of the Bayesian framework over the MLE for small samples. With the MLE, irregularities characterized by null estimates of $\beta$ appear, resulting in ``vertical'' confidence intervals. In \ref{app:asymptotics}, we established that the likelihood is easily maximized for $\beta=0$ when samples are partitioned into two disjunct subsets when classified according to IM values: one subset for which there is no failure and one for which there is failure. Moreover, when few failures are observed in the initial sample, the bootstrap technique can lead to the generation of a large number of samples that maximize the likelihood at $\beta=0$. This is better evidenced by an examination of the raw values of $\theta$ generated in Figure \ref{fig:scatterONL}. The degenerate $\beta$ values resulting from the MLE appear clearly but, although it should theoretically also be affected, the Bayesian framework shows no evidence of a similar phenomenon for this type of samples.
+
+
+\begin{figure}
+    \centering%
+    %\hspace*{-0.1\linewidth}\includegraphics[width=1.2\linewidth]{figures/curves.pdf}
+    % \includegraphics[width=130pt]{figures/Jeff_curves.pdf}% %0.33\linewidth
+    % \includegraphics[width=130pt]{figures/SK_curves.pdf}%
+    % \includegraphics[width=130pt]{figures/MLE_curves.pdf}%
+    \caption{$95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimations for the elastoplastic oscillator, obtained from a total of $L=5000$ estimations of $\theta$ using the {statistical methods introduced in Section~\ref{sec:reference}}: (from left to right) Bayesian estimation using the Jeffreys prior, Bayesian estimation using the SK prior, and MLE with bootstrapping. For each of these, we considered two data samples {of nonlinear dynamical simulations} of two different sizes ($k=20$ in blue, $k=30$ in orange). $P_f^{\mathrm{MLE}}$ {(see Section \ref{sec:metrics}) is plotted in magenta}.}
+    \label{fig:curvesONL}
+\end{figure}
+
+
+\begin{figure}
+    \centering%
+    % \includegraphics[width=130pt]{figures/Jeff_scat_light.pdf}%0.33\linewidth
+    % \includegraphics[width=130pt]{figures/SK_scat_light.pdf}%
+    % \includegraphics[width=130pt]{figures/MLE_scat_light.pdf}%
+    %\hspace*{-0.1\linewidth}\includegraphics[width=1.2\linewidth]{figures/scatter.pdf}
+     \caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in Figure~\ref{fig:curvesONL} for the elastoplastic oscillator. For all three statistical methods, we plotted $500$ points out of the $L=5000$ $\theta=(\alpha,\beta)$ {estimated} with two data sets of nonlinear dynamical simulations (of size $k=20$ in blue and $k=30$ in orange). The magenta crosses represent $\theta^{\mathrm{MLE}}$, used for the computation of $P_f^{\mathrm{MLE}}$ (see Section~\ref{sec:metrics}). This figure reveals both the outliers generated from the SK prior (center) and the irregularities characterized by null estimates of $\beta$ for the coupled MLE and bootstrap approach (right).}
+    \label{fig:scatterONL}
+\end{figure}
+
+Since the SK prior is calibrated to look like the Jeffreys prior, Figure~\ref{fig:curvesONL} shows a strong similarity between the Bayesian estimations of the fragility curves obtained with these two priors. However, Figure~\ref{fig:scatterONL} (middle) shows that many outliers are obtained with the SK prior. These values explain why the credibility intervals of the fragility curves are larger with the SK prior when $k = 20$. This observation is supported theoretically by the calculation provided in \ref{app:asymptotics}. There is actually a better convergence of the Jeffreys prior toward $0$ when $\beta\to\infty$. This superior asymptotic behavior obviously results in posteriors that happen to assign a lower probability to outlier points (a phenomenon particularly noticeable when the data sample is small) as well as to the weight of the likelihood within the posterior.
+
+For a better understanding of this phenomenon, we calculated the quantitative metrics defined in Section~\ref{sec:metrics}. For any $k$ ranging from $15$ to $100$, we considered $m=200$ different draws of observations $(\mbf z^k_{(j)},\mbf a^{k}_{(j)})_{j=1}^m$ in order to derive the average values and $95\%$-confidence intervals of the  metrics $\cE^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, $\cW^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, $j\in\{1,\dots,m\}$, for each of the three methods. %, $L=5000$, $1-r=95\%$. 
+They are plotted in Figure~\ref{fig:errors}. Firstly, these diagrams demonstrate the benefits of the Bayesian framework compared to the MLE approach for small observation sets. Secondly, the compared performance of the Jeffreys and SK posteriors is highlighted by the confidence interval endpoints of the quadratic error and the credibility interval. Specifically, the latter highlights the effect of the superior asymptotic behavior of the Jeffreys prior along the width of the credibility interval. It shows variations similar to but smaller than the SK prior, thus highlighting its capacity to generate fewer outliers for the pair $(\alpha, \beta)$, as expected.
+
+\begin{figure}
+    \centering%
+    % \includegraphics[width=154pt]{figures/erreur_quadratique.pdf} %0.4\linewidth
+    % \includegraphics[width=154pt]{figures/taille_zone_credib.pdf}%
+    \caption{%
+    Performance evaluation metrics (see Section~\ref{sec:metrics}) for the elasto-plastic oscillator computed by replications from independent draws in the full data set {of nonlinear dynamical simulations} and for sample sizes ranging from $k=15$ to $100$. Left: the dashed lines plot the quadratic errors as a function of the number of observations, and the shaded areas show their confidence intervals. Right: the dashed lines plot the widths of the credibility (for the Bayesian estimation) or confidence intervals
+    (for the MLE), and the shaded areas show their confidence intervals.}
+    \label{fig:errors}
+\end{figure}
+
+
+
+
 
 \subsection{Case study 2: the piping system from a pressurized reactor}
 
