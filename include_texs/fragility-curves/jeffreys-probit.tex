@@ -852,14 +852,30 @@ in order to showcase how our method could be applied to practical experiments.}
 
 \subsection{Case study 1: the elasto-plastic oscillator}
 
-\textcolor{orange}{description}
+% \textcolor{orange}{description}
+
+The first case study is a single-degree-of-freedom elasto-plastic oscillator
+with kinematic hardening. This mechanical system was presented in the \cref{chap:frags-intro} (\cref{sec:intro-frags:elastoplastic}).
+For this case study, $10^5$ nonlinear dynamical simulations have been conducted to constitute a validation dataset.
+In \cref{fig:PREM:oscill}, we recall (i) a scheme of the oscillator, (ii) the validation dataset in the plan (PGA,EDP), (iii) reference fragility curves derived using non-parametric estimation from the validation dataset (see \cref{sec:PREM:metrics}).
+In this study, the failure is defined when the EDP exceeds a threshold $C=0.8$~cm.
+
+\begin{figure}[h]
+    \centering
+    \parbox[b][3.8cm][t]{5.2cm}{
+        \includegraphics[height=3.2cm]{figures/intro-frags/KBEPO_rheo.pdf}}\ \ 
+    \includegraphics[height=3.8cm]{figures/intro-frags/oscill/cloudPGA.pdf}\ \ 
+    \includegraphics[height=3.8cm]{figures/intro-frags/oscill/refs_PGA.pdf}
+    \caption{Illustration of the first case-study. Left: scheme of an elasto-plastic oscillator of mass $m$. Middle: results of $10^5$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $10^5$. Different threshold $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+    \label{fig:PREM:oscill}
+\end{figure}
 
 
 
-The fragility curve estimations are shown in Figure~\ref{fig:curvesONL}. They are obtained from $L=5000$ samples of $\theta$ generated with the implemented statistical methods (see Section~\ref{sec:tools}), which are based on two observation sets of sizes $k=20$ and $k=30$. Although the nature of the two intervals compared is different ---credibility interval for the Bayesian framework and confidence interval for the MLE---, these results clearly illustrate the advantage of the Bayesian framework over the MLE for small samples. With the MLE, irregularities characterized by null estimates of $\beta$ appear, resulting in ``vertical'' confidence intervals. In \ref{app:asymptotics}, we established that the likelihood is easily maximized for $\beta=0$ when samples are partitioned into two disjunct subsets when classified according to IM values: one subset for which there is no failure and one for which there is failure. Moreover, when few failures are observed in the initial sample, the bootstrap technique can lead to the generation of a large number of samples that maximize the likelihood at $\beta=0$. This is better evidenced by an examination of the raw values of $\theta$ generated in Figure \ref{fig:scatterONL}. The degenerate $\beta$ values resulting from the MLE appear clearly but, although it should theoretically also be affected, the Bayesian framework shows no evidence of a similar phenomenon for this type of samples.
+Examples of fragility curve estimations are shown in \cref{fig:curvesONL}. They are obtained from $5000$ samples of $\theta$ generated with the implemented statistical methods (see \cref{sec:PREM:competing}), which are based on two observation sets of sizes $k=20$ and $k=30$. Although the nature of the two intervals compared is different ---credibility interval for the Bayesian framework and confidence interval for the MLE---, these results clearly illustrate the advantage of the Bayesian framework over the MLE for small samples. With the MLE, irregularities characterized by null estimates of $\beta$ appear, resulting in ``vertical'' confidence intervals. In \cref{sec:PREM:degeneracy}, we established that the likelihood is easily maximized for $\beta=0$ when samples are partitioned into two disjunct subsets when classified according to IM values: one subset for which there is no failure and one for which there is failure. Moreover, when few failures are observed in the initial sample, the bootstrap technique can lead to the consideration of many sub-samples that maximize the likelihood at $\beta=0$. This is better evidenced by an examination of the raw values of $\theta$ generated in \cref{fig:scatterONL}. The degenerate $\beta$ values resulting from the MLE appear clearly but, although it should theoretically also be affected, the Bayesian framework shows no evidence of a similar phenomenon for this type of samples.
 
 
-\begin{figure}
+\begin{figure}[h]
     \centering%
     \includegraphics[width=5.2cm]{figures/PREM/oscill/PGA20.pdf}\hspace*{0.5cm}
     \includegraphics[width=5.2cm]{figures/PREM/oscill/PGA30.pdf}
@@ -868,12 +884,12 @@ The fragility curve estimations are shown in Figure~\ref{fig:curvesONL}. They ar
     % \includegraphics[width=130pt]{figures/SK_curves.pdf}%
     % \includegraphics[width=130pt]{figures/MLE_curves.pdf}%
     \caption{$95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimations for the elasto-plastic oscillator, using the methods described in \cref{sec:PREM:competing}. %, obtained from a total of $5000$ estimations of $\theta$ using the {statistical methods introduced in \cref{sec:PREM:metrics}. In the left (resp. right) figure $k=20$ (resp. $k=30$) data are observed. 
-    The cyan curve is the reference $P^\text{ref}_f$ suggested in \cref{sec:PREM:metrics}, surrounded by its $95\%$ confidence interval (dashed lines). The red crosses represent the observed data.}
+    The cyan curve is the reference $P^\text{ref}_f$ suggested in \cref{sec:PREM:metrics}, surrounded by its $95\%$-confidence interval (dashed lines). The red crosses represent the observed data.}
     \label{fig:curvesONL}
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[h]
     \centering%
     \includegraphics[width=5.2cm]{figures/PREM/oscill/PGA20scatter.pdf}\hspace*{0.5cm}
     \includegraphics[width=5.2cm]{figures/PREM/oscill/PGA30scatter.pdf}
@@ -881,24 +897,25 @@ The fragility curve estimations are shown in Figure~\ref{fig:curvesONL}. They ar
     % \includegraphics[width=130pt]{figures/SK_scat_light.pdf}%
     % \includegraphics[width=130pt]{figures/MLE_scat_light.pdf}%
     %\hspace*{-0.1\linewidth}\includegraphics[width=1.2\linewidth]{figures/scatter.pdf}
-     \caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in \cref{fig:curvesONL} for the elasto-plastic oscillator. For all three statistical methods, we plotted $5000$  $\theta=(\alpha,\beta)$ {estimated} with two observed datasets of size $k=20$ (left figure) and $k=30$ (right figure). The magenta crosses represent $\theta^{\mathrm{MLE}}$ derived from the $10^5$ samples composing the validation dataset.
+     \caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in \cref{fig:curvesONL} for the elasto-plastic oscillator. For all three statistical methods, we plotted $5000$  $\theta=(\alpha,\beta)$ {estimated} with two observed datasets of size $k=20$ (left figure) and $k=30$ (right figure). The cyan cross represents $\theta^{\mathrm{MLE}}$ derived from the $10^5$ samples composing the validation dataset.
      %This figure reveals both the outliers generated from the SK prior (center) and the irregularities characterized by null estimates of $\beta$ for the coupled MLE and bootstrap approach (right).
      }
     \label{fig:scatterONL}
 \end{figure}
 
-Since the SK prior is calibrated to look like the Jeffreys prior, Figure~\ref{fig:curvesONL} shows a strong similarity between the Bayesian estimations of the fragility curves obtained with these two priors. However, Figure~\ref{fig:scatterONL} (middle) shows that many outliers are obtained with the SK prior. These values explain why the credibility intervals of the fragility curves are larger with the SK prior when $k = 20$. This observation is supported theoretically by the calculation provided in \ref{app:asymptotics}. There is actually a better convergence of the Jeffreys prior toward $0$ when $\beta\to\infty$. This superior asymptotic behavior obviously results in posteriors that happen to assign a lower probability to outlier points (a phenomenon particularly noticeable when the data sample is small) as well as to the weight of the likelihood within the posterior.
+Since the SK prior is calibrated to look like the Jeffreys prior, \cref{fig:curvesONL} shows a strong similarity between the Bayesian estimations of the fragility curves obtained with these two priors. However, \cref{fig:scatterONL} shows that many outliers are obtained with the SK prior. These values explain why the credibility intervals of the fragility curves are larger with the SK prior when $k = 20$. This observation is supported theoretically by the calculation provided in \cref{sec:PREM:Jeffreys}. There is actually a better convergence of the Jeffreys prior toward $0$ when $\beta\to\infty$. This superior asymptotic behavior obviously results in posteriors that happen to assign a lower probability to outlier points (a phenomenon particularly noticeable when the data sample is small) as well as to the weight of the likelihood within the posterior.
 
-For a better understanding of this phenomenon, we calculated the quantitative metrics defined in Section~\ref{sec:metrics}. For any $k$ ranging from $15$ to $100$, we considered $m=200$ different draws of observations $(\mbf z^k_{(j)},\mbf a^{k}_{(j)})_{j=1}^m$ in order to derive the average values and $95\%$-confidence intervals of the  metrics $\cE^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, $\cW^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, $j\in\{1,\dots,m\}$, for each of the three methods. %, $L=5000$, $1-r=95\%$. 
+For a better understanding of this phenomenon, we calculated the quantitative metrics defined in \cref{sec:PREM:metrics}. For any $k$ ranging from $15$ to $100$, we considered $m=200$ different draws of observations $(\mbf z^k_{(j)},\mbf a^{k}_{(j)})_{j=1}^m$ in order to derive the average values and $95\%$-confidence intervals of the metrics $\cE^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, $\cW^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, $j\in\{1,\dots,m\}$, for each of the three methods. %, $L=5000$, $1-r=95\%$. 
 They are plotted in Figure~\ref{fig:errors}. Firstly, these diagrams demonstrate the benefits of the Bayesian framework compared to the MLE approach for small observation sets. Secondly, the compared performance of the Jeffreys and SK posteriors is highlighted by the confidence interval endpoints of the quadratic error and the credibility interval. Specifically, the latter highlights the effect of the superior asymptotic behavior of the Jeffreys prior along the width of the credibility interval. It shows variations similar to but smaller than the SK prior, thus highlighting its capacity to generate fewer outliers for the pair $(\alpha, \beta)$, as expected.
 
-\begin{figure}
+\begin{figure}[h]
     \centering%
-    % \includegraphics[width=154pt]{figures/erreur_quadratique.pdf} %0.4\linewidth
+    \includegraphics[width=5.2cm]{figures/PREM/oscill/errE.pdf}\hspace*{0.5cm}
+    \includegraphics[width=5.2cm]{figures/PREM/oscill/errW.pdf}
+    %\includegraphics[width=154pt]{figures/erreur_quadratique.pdf} %0.4\linewidth
     % \includegraphics[width=154pt]{figures/taille_zone_credib.pdf}%
     \caption{%
-    Performance evaluation metrics (see Section~\ref{sec:metrics}) for the elasto-plastic oscillator computed by replications from independent draws in the full data set {of nonlinear dynamical simulations} and for sample sizes ranging from $k=15$ to $100$. Left: the dashed lines plot the quadratic errors as a function of the number of observations, and the shaded areas show their confidence intervals. Right: the dashed lines plot the widths of the credibility (for the Bayesian estimation) or confidence intervals
-    (for the MLE), and the shaded areas show their confidence intervals.}
+    Average values of the performance evaluation metrics $\cE^{|\mbf z^k,\mbf a^k}$ (left) and $\cW^{|\mbf z^k,\mbf a^k}$ (right) for the elasto-plastic oscillator computed by replications of the experiment with different observation sets and for different sample sizes, ranging from $k=15$ to $100$. In each figure, the shaded areas show the $95\%$-confidence intervals of the metrics.}
     \label{fig:errors}
 \end{figure}
 
@@ -908,7 +925,144 @@ They are plotted in Figure~\ref{fig:errors}. Firstly, these diagrams demonstrate
 
 \subsection{Case study 2: the piping system from a pressurized reactor}
 
+% \textcolor{orange}{description}
+
+This second case study deals with a piping system which is part of the secondary cooling system of a French Pressurized Water Reactor. This piping system was presented in details in the \cref{chap:frags-intro} (\cref{sec:intro-frags:piping}).
+% We evoked in the \cref{labellist}
+Nonlinear dynamical simulations of this system's response have been carried out for $8\cdot10^4$ of the seismic signals we dispose.
+The resulting validation dataset in the plan (PGA,EDP) is depicted in \cref{fig:PREM:asg}, along with a picture of the system's mock-up and reference fragility curves derived using non-parametric estimation from the validation set (as explicated in \cref{sec:PREM:metrics}).
+In this study, the failure is defined when the EDP exceeds a threshold $C=3.8^\circ$.
+
+%Along with a picture of the system's mock-up, the resulting validation 
+
+
+
+%was studied experimentally and numerically within the framework of the ASG program \cite{TOUBOUL1999}
+
+\begin{figure}[h]
+    \centering
+    \parbox[b][3.8cm][c]{4.5cm}{%
+    \includegraphics[height=3.2cm]{figures/intro-frags/ASG.jpg}\vspace*{1em}%
+    }
+    \includegraphics[height=3.8cm]{figures/intro-frags/asg/cloud_PGA_light.pdf}\ \ 
+    \includegraphics[height=3.8cm]{figures/intro-frags/asg/refs_PGA.pdf}
+    \caption{Illustration of the second case-study. Left: picture of the mock-up on the Azalee shaking table of CEA. Middle: results of $8\cdot10^4$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $10^5$. Different threshold $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+    \label{fig:PREM:asg}
+\end{figure}
+
+
+
+
+Estimations similar to the first case study’s were performed here, and were found to highlight the same trends.
+As expected, for sets of $5000$ values of $\theta$ ---generated with each statistical method considered in this work--- and for two sample sizes $k = 20$ and $k = 30$ of nonlinear dynamical simulations, \cref{fig:ASG-curves} shows the superiority of the Bayesian framework over the coupled MLE and bootstrap approach. Just like in the case study with the oscillator, irregularities appear with the MLE-based approach: the confidence intervals are similarly ``quasi-vertical'', reflecting the fact that many estimations of $\beta$ are equal to $0$. Moreover, the credibility intervals are wider with the SK prior than with the Jeffreys prior, which here too can be interpreted as an increased number of outliers of $\theta$ being generated with the SK prior. These observations are clearly supported by the results presented in \cref{fig:ASG-scatter}.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5.2cm]{figures/PREM/asg/PGA20.pdf}\hspace*{0.5cm}
+    \includegraphics[width=5.2cm]{figures/PREM/asg/PGA30.pdf}
+    % \includegraphics[width=130pt]{figures/curves_ASG_Jeff.pdf}%
+    % \includegraphics[width=130pt]{figures/curves_ASG_SK.pdf}%
+    % \includegraphics[width=130pt]{figures/curves_ASG_MLE.pdf}% 0.32\linewidth
+    \caption{$95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimations for the piping system, using the methods described in \cref{sec:PREM:competing}. %, obtained from a total of $5000$ estimations of $\theta$ using the {statistical methods introduced in \cref{sec:PREM:metrics}. In the left (resp. right) figure $k=20$ (resp. $k=30$) data are observed. 
+    The cyan curve is the reference $P^\text{ref}_f$ suggested in \cref{sec:PREM:metrics}, surrounded by its $95\%$-confidence interval (dashed lines). The red crosses represent the observed data.}
+    %\caption{$95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimations for the piping system, obtained from a total of $L=5000$ estimations of $\theta$ using the {statistical methods introduced in Section~\ref{sec:reference}}: (from left to right) Bayesian estimation using the Jeffreys prior, Bayesian estimation using the SK prior, and MLE with bootstrapping. For each of these, we considered two data samples {of nonlinear dynamical simulations} of two different sizes ($k=20$ in blue, $k=30$ in orange). $P_f^{\mathrm{MLE}}$ (see Section~\ref{sec:metrics}) is plotted in magenta.}
+    \label{fig:ASG-curves}
+\end{figure}
+
+
+\begin{figure}[h!]%
+    \centering%
+    \includegraphics[width=5.2cm]{figures/PREM/asg/PGA20scatter.pdf}\hspace*{0.5cm}
+    \includegraphics[width=5.2cm]{figures/PREM/asg/PGA30scatter.pdf}
+    % \includegraphics[width=130pt]{figures/scatter_ASG_Jeff_light.pdf}% 0.32\linewidth
+    % \includegraphics[width=130pt]{figures/scatter_ASG_SK_light.pdf}%
+    % \includegraphics[width=130pt]{figures/scatter_ASG_MLE_light.pdf}%
+    \caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in \cref{fig:curvesONL} for the piping system. For all three statistical methods, we plotted $5000$  $\theta=(\alpha,\beta)$ {estimated} with two observed datasets of size $k=20$ (left figure) and $k=30$ (right figure). The cyan cross represents $\theta^{\mathrm{MLE}}$ derived from the $10^5$ samples composing the validation dataset.}
+    %\caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in Figure~\ref{fig:ASG-curves} for the piping system. For all three statistical methods, we plotted $500$ points out of the $L=5000$ $\theta=(\alpha,\beta)$ estimated with two data sets of nonlinear dynamical simulations (of size $k=20$ in blue and $k=30$ in orange). The magenta crosses represent $\theta^{\mathrm{MLE}}$, used for the computation of $P_f^{\mathrm{MLE}}$ {(see Section~\ref{sec:metrics})}. This figure unveils both the outliers generated from the SK prior (center) and the irregularities characterized by null estimates of $\beta$ for the coupled MLE and bootstrap approach (right).}
+    \label{fig:ASG-scatter}
+\end{figure}
+
+
+
+
+
+
+For a more complete overview of their relative performances, the evaluation metrics described in \cref{sec:PREM:metrics}  have been computed in the same way as for the first case study: $m=200$ draws of data samples $(\mbf z^k_{(j)},\mbf a^k_{(j)})_{j=1}^m$ have been randomly chosen to compute, for any value of $k$ ranging from $15$ to $100$, the average values and $95\%$-confidence intervals of the metrics $\cE^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, $\cW^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, for each of the three methods. They are presented in \cref{fig:ASG-errors}. These results confirm the superior performance of the Jeffreys prior compared to the other two methods.    
+
+
+
+
+
+\begin{figure}[h]
+    \centering%
+    \includegraphics[width=5.2cm]{figures/PREM/asg/errE.pdf}\hspace*{0.5cm}
+    \includegraphics[width=5.2cm]{figures/PREM/asg/errW.pdf}
+    %\includegraphics[width=154pt]{figures/erreur_quadratique.pdf} %0.4\linewidth
+    % \includegraphics[width=154pt]{figures/taille_zone_credib.pdf}%
+    \caption{%
+    Average values of the performance evaluation metrics $\cE^{|\mbf z^k,\mbf a^k}$ (left) and $\cW^{|\mbf z^k,\mbf a^k}$ (right) for the piping system computed by replications of the experiment with different observation sets and for different sample sizes, ranging from $k=15$ to $100$. In each figure, the shaded areas show the $95\%$-confidence intervals of the metrics.}
+    \label{fig:ASG-errors}
+\end{figure}
+
+
+% \begin{figure}
+%     \centering%
+%         % \includegraphics[width=154pt]{figures/ASG_quadra_error.pdf} %0.4\linewidth
+%         % \includegraphics[width=154pt]{figures/ASG_cred_width.pdf}%
+%         \caption{Performance evaluation metrics (see Section~\ref{sec:metrics}) for the piping system computed by replications from independent draws in the full data set of nonlinear dynamical simulations and for sample sizes ranging from $k=15$ to $100$. Left: the dashed lines plot the quadratic errors as a function of the number of observations, and the shaded areas show their confidence intervals. Right: the dashed lines plot the widths of the credibility intervals (for the Bayesian estimation) or confidence intervals (for the MLE), and the shaded areas show their confidence intervals.}
+%     \label{fig:ASG-errors}
+% \end{figure}
+
+
+
+
+
+
 \subsection{Case study 3: the stacked structure for storage of packages}
+
+
+The case study considered hereafter concerns a freestanding stacked structure composed of three pallets intended
+for the storage of packages. A complete description of the system was proposed in the \cref{chap:frags-intro}. In \cref{fig:PREM:EDEN}-left. %, we 
+% depict a picture of the structure and an example of test results.
+%  and a picture of the structure is depicted in \cref{fig:PREM:EDEN}. 
+%
+%
+%As shown in Figure 1, it is a square-based structure 3 meters high with a slenderness of
+%2.4.
+%
+For this case study, only $k=21$
+experimental results have been performed on a shaking table. %for seismic 
+%fragility curve estimation. It illustrates the use of the
+% method in practice and the interpretation of its results in a realistic context.
+% This context does not permit the 
+An example of a result is
+shown in \cref{fig:PREM:EDEN}-right, which depicts the horizontal displacements over time of the top of the stack. The initial position is
+indicated in red, while the different positions in time are indicated in blue. Due to uplift, sliding, and rotation motions,
+the top of the stack exceeds, for 2 of the 21 tests, the admissibility criterion, which is materialized in black. Due to
+the signals used for these tests, the Jeffreys prior is suitable for estimating a fragility curve of the stack, as is the SK
+prior calibrated to approximate the Jeffreys prior.
+
+
+\begin{figure}[h]
+    \centering		
+    \includegraphics[width=3cm]{figures/intro-frags/EDEN.jpg}
+    \hspace{0.5cm}
+    \includegraphics[width=6cm]{figures/intro-frags/EDEN_R169.pdf}
+    \caption{(left) Overview of the stacked structure placed on the Vesuve 1D shaking table and (right) example of test result: horizontal displacements of the top of the stack when subjected to seismic excitation in the X direction.}
+    \label{fig:PREM:EDEN}
+\end{figure}  
+
+
+The small number of data points does not allow comparison with a reference. Therefore, only a qualitative study can be carried out. \Cref{fig:PREM:eden-results} shows the results from $5000$ estimations of $\theta$ performed with the three {statistical methods considered in this study}. These results do not call into question the previous ones because they, once again, highlight the same phenomena, namely: (i) some irregularities of the MLE-based approach characterized by ``quasi-vertical'' confidence intervals; (ii) wider credibility intervals with the SK prior than with the Jeffreys prior; and (iii) the generation of many outliers of $\theta$ with the SK posterior compared to the Jeffreys posterior, which explains the slightly larger credibility intervals on the log-normal estimates of the fragility curves.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5.2cm]{figures/PREM/EDEN/PGA21.pdf}\hspace*{0.5cm}
+    \includegraphics[width=5.2cm]{figures/PREM/EDEN/PGA21scatter.pdf}
+    \caption{Left: $95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimation for the stacked structure. The red crosses represent the observed data. Right: scatter plot of the $5000$ generated $\theta$ used for the computation of the credibility or confidence zones depicted in the left figure.}
+    \label{fig:PREM:eden-results}
+\end{figure}
 
 
 \section{Appendix: a review of the properties of the SK posterior}\label{app:SKreview}
