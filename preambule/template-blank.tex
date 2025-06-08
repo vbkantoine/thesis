@@ -16,7 +16,9 @@ linewidth=1.5pt,
 innerleftmargin=10pt,
 innerrightmargin=0pt,
 skipabove=\baselineskip,
-skipabove=1.2\baselineskip,
+innertopmargin=2pt,
+frametitleaboveskip=0pt,
+frametitlebelowskip=0pt
 }
 
 % \newtheorem{mdbeispiel}{Beispiel}[section]
@@ -116,13 +118,16 @@ skipabove=1.2\baselineskip,
    {\begin{mdframed}[linecolor=niceBluelight]\begin{fcor}[#1]}
    {\end{fcor}\end{mdframed}}
 
-\theoremstyle{definition}
+% \theoremstyle{definition}
+\newtheoremstyle{mydefstyle}{0pt}{2pt}{\upshape}{}{\bfseries}{.}{0.5em}{}
+\theoremstyle{mydefstyle}
 \newtheorem{fdefi}{Definition}[chapter]
 \crefname{fdefi}{definition}{definitions}
 \newenvironment{defi}[1][]%
    {\begin{mdframed}[linecolor=niceBluelight]\begin{fdefi}[#1]}
    {\end{fdefi}\end{mdframed}}
 
+\theoremstyle{definition}
 \newtheorem{assu}{Assumption}[chapter]
 \crefname{assu}{assumption}{assumptions}
 \newtheorem{rem}{Remark}[chapter]
@@ -165,3 +170,23 @@ skipabove=1.2\baselineskip,
     {\bibhyperref{\printfield{year}}\bibhyperref{\printfield{extrayear}}}
     {\multicitedelim}
     {\usebibmacro{postnote}}
+
+
+    \makeatletter
+    \DeclareCiteCommand{\fullcite}
+      {\defcounter{maxnames}{\blx@maxbibnames}%
+        \usebibmacro{prenote}}
+      {\usedriver
+         {\DeclareNameAlias{sortname}{default}}
+         {\thefield{entrytype}}}
+      {\multicitedelim}
+      {\usebibmacro{postnote}}
+    \DeclareCiteCommand{\footfullcite}[\mkbibfootnote]
+      {\defcounter{maxnames}{\blx@maxbibnames}%
+        \usebibmacro{prenote}}
+      {\usedriver
+         {\DeclareNameAlias{sortname}{default}}
+         {\thefield{entrytype}}}
+      {\multicitedelim}
+      {\usebibmacro{postnote}}
+    \makeatother

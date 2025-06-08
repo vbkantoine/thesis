@@ -34,12 +34,13 @@
 
 \pagestyle{fancy}
 %\section{}
-
 \include{include_texs/intro}
 
 
-\part{Contribution to the reference prior theory}\label{part:ref-theory}
 
+\part{Contribution to the reference prior theory}\label{part:ref-theory}
+% \renewcommand{\chaptername}{Chapter}
+% \renewcommand{\partname}{Part}
 
 \chapter{Review of the reference prior theory}\label{chap:intro-ref}
 
@@ -51,12 +52,12 @@
 \input{include_texs/ref-priors/generalized-diveregences}
 
 
-\chapter{Properly constrained generalized reference priors}\label{chap:constrained-prior}
+\chapter{Properly constrained generalized reference~priors}\label{chap:constrained-prior}
 
 \input{include_texs/ref-priors/constrained-ref-priors}
 
 
-\chapter{Variational approximation of the reference priors}\label{chap:varp}
+\chapter{Variational approximation of generalized reference priors using neural networks}\label{chap:varp}
 
 \input{include_texs/ref-priors/va-rp.tex}
 
@@ -69,7 +70,7 @@
 \input{include_texs/fragility-curves/intro-frags}
 
 
-\chapter{Bayesian estimation of seismic fragility: irregular regularization}\label{chap:prem}
+\chapter{Bayesian estimation of seismic fragility curves using a reference prior}\label{chap:prem}
 
 \input{include_texs/fragility-curves/jeffreys-probit}
 
@@ -95,6 +96,8 @@
 
 %\renewcommand{\thechapter}{\Alph{chapter}}
 
+\chapter{Influence of the choice of the IM on fragility curves estimation in a Bayesian framework based on reference prior}\label{app:chap:uncecomp}
+
 \chapter{Design of experiments on a low fidelity model of seismic fragility curves}\label{app:chap:ESAIM}
 
 \input{include_texs/fragility-curves/low-fidelity-doe}
@@ -106,7 +109,6 @@
 
 \chapter{Reminder of useful mathematical notions}
 
- 
  
 \printbibliography 
 \addcontentsline{toc}{chapter}{Bibliography}
