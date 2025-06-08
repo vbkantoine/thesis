@@ -127,6 +127,7 @@ frametitlebelowskip=0pt
    {\begin{mdframed}[linecolor=niceBluelight]\begin{fdefi}[#1]}
    {\end{fdefi}\end{mdframed}}
 
+\theoremstyle{definition}
 \newtheorem{assu}{Assumption}[chapter]
 \crefname{assu}{assumption}{assumptions}
 \newtheorem{rem}{Remark}[chapter]
@@ -169,3 +170,23 @@ frametitlebelowskip=0pt
     {\bibhyperref{\printfield{year}}\bibhyperref{\printfield{extrayear}}}
     {\multicitedelim}
     {\usebibmacro{postnote}}
+
+
+    \makeatletter
+    \DeclareCiteCommand{\fullcite}
+      {\defcounter{maxnames}{\blx@maxbibnames}%
+        \usebibmacro{prenote}}
+      {\usedriver
+         {\DeclareNameAlias{sortname}{default}}
+         {\thefield{entrytype}}}
+      {\multicitedelim}
+      {\usebibmacro{postnote}}
+    \DeclareCiteCommand{\footfullcite}[\mkbibfootnote]
+      {\defcounter{maxnames}{\blx@maxbibnames}%
+        \usebibmacro{prenote}}
+      {\usedriver
+         {\DeclareNameAlias{sortname}{default}}
+         {\thefield{entrytype}}}
+      {\multicitedelim}
+      {\usebibmacro{postnote}}
+    \makeatother

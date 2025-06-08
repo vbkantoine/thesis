@@ -7,7 +7,21 @@
 \end{abstract}
 
 \begin{abstract}
-    abstract
+    For many structures of interest, estimating seismic fragility curves is a daunting task because of the limited amount of data available, and the limited amount of information they contain
+    (such as binary data, i.e. only describing the structure as being in a failure or non-failure state).
+    In such a context, a probit-lognormal modeling of the fragility curve is prominent, 
+    and among various methods that exist to estimate the parameters of the model, the Bayesian inference became popular in the literature. However, the latter's trustworthiness relies on the prior selection, jeopardizing the approach if the selection is motivated by subjective consideration.
+    This chapter proposes a comprehensive Bayesian estimation of seismic fragility curves, implementing the Jeffreys prior for the probit-lognormal model.
+    This prior is completely studied along with the decay rates of the likelihood to ensure the validity of our methodology.
+    %
+    %
+    %The posterior distribution is proven to be proper (i.e., it integrates to unity) with the Jeffreys prior but improper with some traditional priors found in the literature. With the Jeffreys prior, the posterior distribution is also shown to vanish at the boundaries of the parameters' domain, which means that sampling the posterior distribution of the parameters does not result in anomalously small or large values. 
+    It is also implemented on three different case studies, including an industrial example. %--- to illustrate the theoretical 
+    Our theoretical and practical results show that the Jeffreys prior leads to more robust and efficient fragility curves estimates in comparison with other methods of the literature. 
+%
+ %   Therefore, the use of the Jeffreys prior does not result in degenerate fragility curves such as unit-step functions, and leads to more robust credibility intervals. The numerical results obtained from two different case studies---including an industrial example---illustrate the theoretical predictions.
+    %For estimating seimsic fragility curves wh
+    %Seismic fragility curves 
 \end{abstract}
 
 
@@ -42,7 +56,7 @@ are significantly influenced by the prior,
 compounding their reliability since there is no consensus on some rule for the choice of the latter.
 %which may regularize more the estimates when it is more informed.
 Actually,
-there are plethora of different considerations (which are sometimes questionable in terms of the subjectivity they introduced) to define the prior in the literature.
+there are plethora of different considerations (which are sometimes questionable because of the subjectivity they introduce) to define the prior in the literature.
 As an example, \citet{straub_improved_2008}
 consider independent prior distributions for the parameters defining the fragility curve, namely the median $\alpha$ and the log standard deviation $\beta$. The prior is defined as the product of a normal distribution for $\ln(\alpha)$, and the improper distribution $1/\beta$ for $\beta$. The definition of the normal distribution is based on engineering assessments, assuming that, for the relevant component and considering the peak ground acceleration (PGA) as IM for example, the median lies between 0.02~g and 3~g with a probability of 90\%. This prior was preferred to $1/\alpha$ on the grounds that it led to unrealistically large posterior values of $\alpha$.
 
@@ -55,11 +69,21 @@ We remind that a complete review of the theory is proposed in \cref{chap:intro-r
 %Among the main re
 This allows us to focus on the well-known Jeffreys prior, the asymptotic optimum of the mutual information w.r.t. the size of the data set (see \cref{chap:intro-ref} or \cref{chap:ref-generalized}), and which will be explicitly derived and studied for the first time in this context. 
 
-Of course, from a subjectivity perspective, the choice of a parametric model for the fragility curve is debatable. However, numerical experiments based on the seismic responses of mechanical systems suggest that the choice of an appropriate IM makes it possible to reduce the potential biases between reference fragility curves (that can be obtained by massive Monte-Carlo methods) and their log-normal estimations \citep{gauchy_importance_2021}. This observation is reinforced by recent studies on the impact of IMs on fragility curves \citep{sainct_efficient_2020,ciano_role_2020,ciano_novel_2022}. {In this paper, we will ensure the relevance of the estimations by comparing them to the results of massive Monte-Carlo methods on academic examples. 
-Most of the results are illustrated with the PGA, yet we also question for one of the case study that we consider the influence of the IM ---PGA vs. PSA--- on the convergence of the estimate.
-We also recall that our method can be implemented with any other IM of interest, without additional complexity.}
+Of course, from a subjectivity perspective, the choice of a parametric model for the fragility curve is debatable. However, numerical experiments based on the seismic responses of mechanical systems suggest that the choice of an appropriate IM makes it possible to reduce the potential biases between reference fragility curves (that can be obtained by massive Monte-Carlo methods) and their log-normal estimations \citep{gauchy_importance_2021}. This observation is reinforced by recent studies on the impact of IMs on fragility curves \citep{sainct_efficient_2020,ciano_role_2020,ciano_novel_2022}. In this paper, we will ensure the relevance of the estimations by comparing them to the results of massive Monte-Carlo methods on academic examples. 
+% Most of 
+The results are illustrated with the PGA, yet we recall that our method can be implemented with any other IM of interest, without additional complexity.
+% yet we also question for one of the case study that we consider the influence of the IM ---PGA vs. PSA--- on the convergence of the estimate.
+We also indicate that the influence of the IM ---PGA vs. PSA--- on the convergence of the estimates is questioned in the \cref{app:chap:uncecomp}.
+% We also recall that our method can be implemented with any other IM of interest, without additional complexity.
 
-This chapter is organized as follows...
+
+This chapter is organized as follows. In the next section, we recall the definition of the probit-lognormal model, and we express the implementation of reference prior theory framework in this context.
+Then, the Jeffreys prior is derived and completely studied in \cref{sec:PREM:Jeffreys}. The conduction of Bayesian inference for estimating fragility curves using the Jeffreys prior is the proposed approach of this study, it is compared with other approaches taken from the literature that are depicted in \cref{sec:PREM:competing}. %(including a Bayesian framework with another prior taken from the literatur)
+In \cref{sec:PREM:degeneracy}, we discuss the limitation of the different methods implemented, that results from the form of the likelihood of the probit-lognormal model, whose decay rates are derived.
+The comparison of the approaches is done by computing the performance evaluation metrics proposed in \cref{sec:PREM:metrics}, and by evaluating  them on three case studies in \cref{sec:PREM:numapp}.
+Eventually, an appendix precedes the conclusion in \cref{app:SKreview}. It proposes a deeper study of the competing prior considered in this chapter.
+
+
 
 
 
@@ -96,7 +120,7 @@ We remind that it consists in choosing the prior that maximizes the mutual infor
     \end{equation}
 where $f=-\log$ classically, or follows the suggestion we made in the  \cref{chap:ref-generalized}; and $\mbf h(\mbf a^k):=\prod_{i=1}^kh(a_i) $, $h$ being the density of $A$.
 
-The solution of this asymptotic optimization problem is the Jeffreys prior (see the \cref{chap:intro-ref,chap:ref-generalized}). The Jeffreys prior is already praised in Bayesian inference of its property to be invariance by re-parametrization of the model. Its density $J$ is defined up to a constant as follows
+The solution of this asymptotic optimization problem is the Jeffreys prior (see the \cref{chap:intro-ref,chap:ref-generalized}). The Jeffreys prior is already praised in Bayesian inference of its property to be invariant by re-parametrization of the model. Its density $J$ is defined up to a constant as follows
     \begin{equation}\label{eq:PREM:JcI}
         J(\theta)\propto \sqrt{|\det\cI(\theta)|}\quad \text{with}\quad \cI(\theta)= -\sum_{z\in\{0,1\}}\int_{\cA} \nabla^2_\theta\log\ell(z|a,\theta)h(a)da.
     \end{equation}
@@ -118,7 +142,7 @@ The solution of this asymptotic optimization problem is the Jeffreys prior (see 
 Based on the elements discussed in the previous section, the Jeffreys prior seems to be the best objective candidate for this problem. In this section, we will therefore study the Jeffreys prior in order to estimate probit-lognormal seismic fragility curves with binary data. To our knowledge, the application of the reference prior theory to this field of study is completely new. The explicit calculation of this prior is carried out in \cref{sec:PREM:subsecJeffcalc}. It is followed in \cref{sec:PREM:subsec-jeffprectical} by an explanation about the practical implementation suggested.
 In \cref{sec:PREM:subsec:jeffasymp}, we propose a thorough study of the prior's decay rates and its proper characteristic. % and discuss 
 %
-%and discussed in Section~\ref{sec:JeffDiscussion}. That last section in particular tackles the question of the proper characteristic of its resulting posterior, which is essential for the validation of any MCMC-based posterior sampling algorithm.
+%and discussed in Section~ {sec:JeffDiscussion}. That last section in particular tackles the question of the proper characteristic of its resulting posterior, which is essential for the validation of any MCMC-based posterior sampling algorithm.
 
 
     \subsection{Derivation of the Jeffreys prior}\label{sec:PREM:subsecJeffcalc}
@@ -169,7 +193,7 @@ Denoting $\gamma=\gamma(a)=\beta^{-1}\log({a}/{\alpha})$, the first-order partia
     
     
     
-    %In this section we develop the calculation began in section \ref{sec:fisherPar} and explain how we implement it numerically.
+    %In this section we develop the calculation began in section  {sec:fisherPar} and explain how we implement it numerically.
 The expressions in \cref{eq:partialalphbet,eq:partial2alph,eq:partial2bet} of the second-order partial derivatives of $\ell(z|a,\theta)$ need to be integrated over $\cZ$ and $\cA$. Summing over the discrete variable $z$ first replaces $z$ by $\Phi(\gamma)$ in the equations.
 Finally, if we denote $A_{01}$, $A_{02}$, $A_{11}$, $A_{12}$, $A_{21}$, $A_{22}$ by
     \begin{equation}\label{eq:Aij}
@@ -233,10 +257,10 @@ Finally, the Jeffreys prior density is obtained by taking the square root of the
  
     \begin{figure}[h] %[!ht]
         \centering
-        \includegraphics[width=5cm]{figures/PREM/Jeff_prior_PSA-1.pdf}\hspace*{0.5cm}
-        \includegraphics[width=5cm]{figures/PREM/Jeff_prior_PGA-2.pdf}
+        \includegraphics[height=3.8cm]{figures/PREM/Jeff_prior_PSA-1.pdf}\hspace*{0.5cm}
+        \includegraphics[height=3.8cm]{figures/PREM/Jeff_prior_PGA-2.pdf}
         %\includegraphics[width=220pt]{figures/Jeffreys_prior.pdf}%\includegraphics[height=0.4\linewidth]{figures/}
-        \caption{The Jeffreys' priors calculated from PSA (left) and PGA (right) on subdomains of $\Theta=(0,+\infty)^2$.}
+        \caption{The Jeffreys priors calculated from PSA (left) and PGA (right) on subdomains of $\Theta=(0,+\infty)^2$.}
         \label{fig:jeff_prior}
     \end{figure}
     
@@ -248,9 +272,10 @@ Finally, the Jeffreys prior density is obtained by taking the square root of the
 
 
 
-    The computational complexity of the Jeffreys prior is not in itself a major drawback. Since it depends exclusively on the distribution of the IM, the initial cost of the Jeffreys prior’s complex calculation would quickly be recovered in installations on the scale of a nuclear power plant, where it is necessary to determine the fragility curves of many Structures and Components (SCs). Compared to methodologies that aim to define a prior based on mechanical calculations which are, by definition, specific to SCs, the generic character of the Jeffreys prior is a clear advantage. This will be explored in the applications section of this paper (Section~\ref{sec:application}). Moreover, the Jeffreys prior is completely defined and does not depend on any additional subjective choices. 
+    The computational complexity of the Jeffreys prior is not in itself a major drawback. Since it depends exclusively on the distribution of the IM, the initial cost of the Jeffreys prior’s complex calculation would quickly be recovered in installations on the scale of a nuclear power plant, where it is necessary to determine the fragility curves of many Structures and Components (SCs). Compared to methodologies that aim to define a prior based on mechanical calculations which are, by definition, specific to SCs, the generic character of the Jeffreys prior is a clear advantage. This will be explored in the applications section of this paper (\cref{sec:PREM:numapp}). %Section~ {sec:application}). 
+    Moreover, the Jeffreys prior is completely defined and does not depend on any additional subjective choices. 
     
-    %The Jeffreys prior is known to be improper in numerous common cases (i.e., it cannot be normalized as a probability). This is relevant to our study, as evidenced in \ref{app:asymptotics}, where a calculation of the asymptotic behavior for different limits of $\theta = (\alpha,\beta)$ shows that the Jeffreys prior is indeed improper in our case. However, this characteristic is not an issue since our study focuses on the posterior, which is itself proper, as proven in \ref{app:asymptotics}. This is a critical issue, since MCMC algorithms would not make any sense if the posterior were improper. These asymptotic expansions also provide complementary and essential insight into the Jeffreys prior. They make it possible to understand that its behavior in $\alpha$ is similar to that of a log-normal distribution having the same median as that of the IM (i.e., here 1.1~m/s$^2$) with a variance calculated as the sum of the variance of the IM and of a term that depends on $\beta$. Figure~\ref{fig:IM} clearly illustrates this result.
+    %The Jeffreys prior is known to be improper in numerous common cases (i.e., it cannot be normalized as a probability). This is relevant to our study, as evidenced in  {app:asymptotics}, where a calculation of the asymptotic behavior for different limits of $\theta = (\alpha,\beta)$ shows that the Jeffreys prior is indeed improper in our case. However, this characteristic is not an issue since our study focuses on the posterior, which is itself proper, as proven in  {app:asymptotics}. This is a critical issue, since MCMC algorithms would not make any sense if the posterior were improper. These asymptotic expansions also provide complementary and essential insight into the Jeffreys prior. They make it possible to understand that its behavior in $\alpha$ is similar to that of a log-normal distribution having the same median as that of the IM (i.e., here 1.1~m/s$^2$) with a variance calculated as the sum of the variance of the IM and of a term that depends on $\beta$. Figure~ {fig:IM} clearly illustrates this result.
     
 
 
@@ -258,7 +283,7 @@ Finally, the Jeffreys prior density is obtained by taking the square root of the
     \subsection{Thorough study of the prior's decay rates}\label{sec:PREM:subsec:jeffasymp}
 
 
-    Since the Jeffreys prior is known to be often improper, we propose in this section to determine its asymptotic decay rates. In the \cref{sec:PREM:degeneracy}, the decay rates of the likelihood well be computed as well, leading us to elucidate whether the posteriors yielded by Jeffreys are propers.
+    Since the Jeffreys prior is known to be often improper, we propose in this section to determine its asymptotic decay rates. In the \cref{sec:PREM:degeneracy}, the decay rates of the likelihood will be computed as well, leading us to elucidate whether the posteriors yielded by Jeffreys are propers or not.
 
     We focus on the asymptotic behavior of Jeffreys in four bounds of the space $\Theta$, the study is compiled in the following propositions. 
     The statements rely on the assumption below about the distribution of the IM. %This assumption is the most appropriate 
@@ -336,7 +361,7 @@ While it is clear that the inequality still stands for $\gamma=0$, notice that f
 
 
 
-\begin{proof}[Proof of lemma \ref{lem:phi(1-phi)ineq2}]
+\begin{proof}[Proof of \cref{lem:phi(1-phi)ineq2}]
     Komatsu's inequality \citep[p.~17]{ito_diffusion_1974}:
     \begin{equation}
         \forall \gamma>0,\, \frac{2}{\sqrt{\gamma^2+4}+\gamma}\leq e^{\frac{\gamma^2}{2}}\hspace*{-4pt}\int_\gamma^\infty\hspace*{-4pt} e^{-\frac{t^2}{2}}dt\leq \frac{2}{\sqrt{\gamma^2+2}+\gamma}
@@ -362,10 +387,8 @@ While it is clear that the inequality still stands for $\gamma=0$, notice that f
 
 
 \subsubsection{Proofs of the propositions}
-    
-
 \begin{proof}[Proof of \cref{prop:jeffb0}]
-    Let $\alpha>0$. For $0\leq k\leq2$, let us consider $A_{k1,k2}=A_{k1}+A_{k2}$ with $A_{kj}$ defined in (\ref{eq:Aij}):
+    Let $\alpha>0$. For $0\leq k\leq2$, let us consider $A_{k1,k2}=A_{k1}+A_{k2}$ with $A_{kj}$ defined \cref{eq:Aij}:
 \begin{equation}
     A_{k1,k2} =  \int_{0}^{\infty}\log^k\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(\gamma(a))(1-\Phi(\gamma(a)))}h(a)da .
 \end{equation}
@@ -417,7 +440,7 @@ where $D'(\alpha)>0$ is a constant independent of $\beta$.
 
 
 
-\begin{proof}[Proof of proposition \ref{prop:jeffbinf}]
+\begin{proof}[Proof of \cref{prop:jeffbinf}]
 
 The asymptotic expansion of the $\erf$ function in $0$ is:
     \begin{equation}
@@ -511,9 +534,9 @@ Then for a clear understanding of the asymptotic behavior of $\hat F_{A_{k1,k2}}
 \label{eq:Jasymp:nurs}
     \end{aligned}
 \end{equation}
-We expand $\hat F_{k1,k2}(\nu) = \sum_{j=1}^kC_k^j(r-1)^j\log^j\alpha(\nu+s\mu)^{k-j}g(\nu)$ $ = \sum_{j=0}^k\hat F_{k1,k2}^{(j)}(\nu)$, with $g(\nu)$ defined as    \begin{equation*}
+We expand $\hat F_{k1,k2}(\nu) = \sum_{j=1}^kC_k^j(r-1)^j\log^j\alpha(\nu+s\mu)^{k-j}g(\nu)$ $ = \sum_{j=0}^k\hat F_{k1,k2}^{(j)}(\nu)$, with $g(\nu)$ defined as    \begin{equation}
         g(\nu) = \frac{e^{-\frac{(\nu + (r+1)\log\alpha +s\mu)^2 }{\beta^2} } e^{-\frac{(\nu +r\log\alpha+ (s-1)\mu)^2}{2\sigma^2}}}{\left[\Phi(1-\Phi)\right](\beta^{-1}(\nu + (r-1)\log\alpha + s\mu))}.
-    \end{equation*}
+    \end{equation}
 Therefore, by combining \cref{eq:Jasymp:phi1phinurs,eq:Jasymp:nurs}, we obtain that $\hat F_{k1,k2}^{(j)}$ satisfies
     \begin{equation}
          \hat F_{k1,k2}^{(j)}(\nu)e^{\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}}(\log\alpha)^{-j}|\log\alpha|^{-1} 
@@ -547,7 +570,7 @@ C''\beta A_{22,22}e^{\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}}
 with $C''=(C'\sqrt{2\pi})^{-1}$, $G=\sigma\beta\sqrt{2\pi(\beta^2+\sigma^2)^{-1}}$ and $G'=G^2/2\pi$. 
 This way
 \begin{align}\nonumber
-    C''\alpha\beta^{8} J(\theta)^2e^{\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}}
+    (C'')^2\alpha^2\beta^{8} J(\theta)^2e^{2\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}}
       &  \aseq{\log\alpha\rightarrow\infty}\hspace*{-4pt}  
         3(r-1)^2s^2\mu^2G^2\log^2\alpha 
         + 3(r-1)^2s^2\mu^2G^2\log^2\alpha \\
@@ -570,6 +593,9 @@ with
 
 \end{proof}
 
+This study states that the Jeffreys prior is improper, since it is not integrable w.r.t. $\beta$.
+
+
 \section{Competing approaches and estimation tools}\label{sec:PREM:competing}
 
 
@@ -578,7 +604,7 @@ with
 
 
     The most relevant method in order to benefit from the Bayesian theory and the reference prior construction presented in \cref{sec:PREM:model} consists in deriving the posterior defined in \cref{eq:PREM:posterior}.
-    When the latter is proper, it then becomes possible to generate, according to that distribution, samples of $\theta$ conditioned on the observed data. These \emph{a posteriori} generations of $\theta$ can be obtained using MCMC methods. In this study, we have implemented an adaptive Metropolis-Hastings (M-H) algorithm with a Gaussian transition kernel and a covariance adaptation process (following the suggestions of \cite{haario_adaptive_2001}). Such an algorithm allows sampling from a probability density known up to a multiplicative constant. In this context, the \emph{a posteriori} samples of $\theta$ can be used to define credibility intervals for the log-normal estimations of the fragility curves.
+    When the latter is proper, it then becomes possible to generate, according to that distribution, samples of $\theta$ conditioned on the observed data. These \emph{a posteriori} generations of $\theta$ can be obtained using MCMC methods. In this study, we have implemented an adaptive Metropolis-Hastings (M-H) algorithm with a Gaussian transition kernel and a covariance adaptation process (following the suggestions of \cite{haario_adaptive_2001}). Such an algorithm allows sampling from a probability density known up to a multiplicative constant. In this context, the \emph{a posteriori} samples of $\theta$ can be used to define credibility intervals for the probit-lognormal estimations of the fragility curves.
 
 
 
@@ -589,7 +615,7 @@ with
         \pi_{SK}(\theta)\propto\frac{1}{\alpha\beta} \exp\Big( -\frac{(\log\alpha-\mu)^2}{2\sigma^2}\Big).
     \end{equation}
 In \cite{straub_improved_2008}, the parameters $\mu$ and $\sigma$ of the log-normal distribution are chosen to generate a non-informative prior. 
-%As specified in the introduction to Section~\ref{sec:tools}, 
+%As specified in the introduction to Section~ {sec:tools}, 
 For a fair comparison with the approach proposed in this paper, we decided to pick $\mu$ and $\sigma$ as equal to the mean and the standard deviation of the logarithm of the IM. This choice is consistent with the fact that the Jeffreys prior is similar to a log-normal distribution with these parameters (see \cref{fig:IM}). The prior $\pi_{SK}(\theta)$ is plotted in \cref{fig:Straubprior} for both the PSA and the PGA as IM.
 
 \begin{figure}[h]
@@ -775,7 +801,7 @@ In particular, we show that the Jeffreys prior may produce improper posteriors i
 For this reason, this chapter addresses the estimation of seismic fragility curves from dataset issuing non-degenerate likelihoods.
 
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=4.6cm]{figures/PREM/likelihood_degen.pdf}\qquad
     \includegraphics[width=4.44cm]{figures/PREM/degeneracy.pdf}
@@ -792,7 +818,7 @@ For this reason, this chapter addresses the estimation of seismic fragility curv
 
 
 The Jeffreys and SK priors are not proper with respect to $\beta$ (see \cref{sec:PREM:Jeffreys} for the Jeffreys prior and eq?? for the SK prior). For the Jeffreys prior, the divergence and convergence rates with respect to $\beta$ only make the resulting posterior proper when the prior is coupled with non-degenerate likelihoods. 
-%The particular circumstances leading to a likelihood divergence when $\beta\rightarrow0$, as mentioned in \ref{app:lieklihood-asympt}, do not apply.
+%The particular circumstances leading to a likelihood divergence when $\beta\rightarrow0$, as mentioned in  {app:lieklihood-asympt}, do not apply.
  However, one can see that this is not the case for the SK posterior, which is not integrable w.r.t. $\beta$ because of a convergence rate that is too low at $+\infty$. This prevents the validation of the MCMC estimates for this posterior, unless a truncation of the distribution is considered. %This explains the generation of \emph{a posteriori} outliers using the SK prior. 
  Note that \citet{straub_improved_2008} considered this prior within a Bayesian framework that slightly differs from ours. In the appendix~\ref{app:SKreview}, we confirm that the posterior is not proper even when derived in the exact framework of their paper. % \cite{Straub2008}.
 
@@ -805,7 +831,7 @@ The Jeffreys and SK priors are not proper with respect to $\beta$ (see \cref{sec
 % We stated above that, within our framework, the SK prior always results in an improper posterior. This puts the validity of the MCMC estimations into question, unless if the domain is truncated in $\beta$. %and could explain the lower performance of the SK prior compared to the Jeffreys prior. 
 % In \cite{straub_improved_2008}, the authors use the Bayesian methodology the same way we do, yet the consideration of uncertainties over the observed earthquake intensity measures and the equipment capacities leads to a slightly different likelihood.
 % In order to verify that the drawbacks of their prior highlighted in this paper are not due to our statistical choices, we dedicated this appendix to the study of the asymptotic expansions of the posterior in the exact framework presented in \cite{Straub2008}.
-% We shall first introduce the exact model of \citeauthor{Straub2008} for the estimation of seismic fragility curves in \ref{subapp:C1}, using notations consistent with our study. We will then derive the likelihood and its asymptotics in \ref{subapp:C2}. Finally, we will express the convergence rates of the posterior in \ref{subapp:C3}, which will allow us to conclude that the SK posterior is indeed improper.
+% We shall first introduce the exact model of \citeauthor{Straub2008} for the estimation of seismic fragility curves in  {subapp:C1}, using notations consistent with our study. We will then derive the likelihood and its asymptotics in  {subapp:C2}. Finally, we will express the convergence rates of the posterior in  {subapp:C3}, which will allow us to conclude that the SK posterior is indeed improper.
 
 
 
@@ -838,13 +864,13 @@ The $L^2$ norms are approximated using Simpson's interpolation, and the expectat
 
 
 
-\section{Numerical applications}
+\section{Numerical applications}\label{sec:PREM:numapp}
 
 
 In this section, we will examine three case studies.
 Two of them leverage the many simulation datasets available that have been previously computed for validation purposes. They will be used in the derivation of a reference fragility curve (as explained in \cref{sec:PREM:metrics}), and allow us to validate the corresponding probit-lognormal models. 
 The three case studies were presented in the \cref{chap:frags-intro}. The first one is a nonlinear oscillator
-for which $N_s=10^5$ nonlinear simulations have been implemented for validation purposes. The second case study deals with a piping system which is part of the secondary cooling system of a French Pressurized Water Reactor. Due to the high computational cost, only $N_s=10^4$ simulations have been performed for this case. In both cases, estimations are performed using different testing data sets of a size $k$ chosen as negligible compared to $N_s$. These testing data sets are taken from the set of available nonlinear dynamical simulation results. {A third case study is presented in ?? %as supplementary material 
+for which $10^5$ nonlinear simulations have been implemented for validation purposes. The second case study deals with a piping system which is part of the secondary cooling system of a French Pressurized Water Reactor. Due to the high computational cost, only $10^4$ simulations have been performed for this case. In both cases, estimations are performed using different testing data sets of a size $k$ chosen as negligible compared to the size of the validation dataset. These testing datasets are taken from the set of available nonlinear dynamical simulation results. {A third case study is eventually presented %as supplementary material 
 in order to showcase how our method could be applied to practical experiments.}
 
 
@@ -866,7 +892,7 @@ In this study, the failure is defined when the EDP exceeds a threshold $C=0.8$~c
         \includegraphics[height=3.2cm]{figures/intro-frags/KBEPO_rheo.pdf}}\ \ 
     \includegraphics[height=3.8cm]{figures/intro-frags/oscill/cloudPGA.pdf}\ \ 
     \includegraphics[height=3.8cm]{figures/intro-frags/oscill/refs_PGA.pdf}
-    \caption{Illustration of the first case-study. Left: scheme of an elasto-plastic oscillator of mass $m$. Middle: results of $10^5$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $10^5$. Different threshold $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+    \caption{Illustration of the first case study. Left: scheme of an elasto-plastic oscillator of mass $m$. Middle: results of $10^5$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $10^5$. Different threshold $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
     \label{fig:PREM:oscill}
 \end{figure}
 
@@ -906,7 +932,7 @@ Examples of fragility curve estimations are shown in \cref{fig:curvesONL}. They 
 Since the SK prior is calibrated to look like the Jeffreys prior, \cref{fig:curvesONL} shows a strong similarity between the Bayesian estimations of the fragility curves obtained with these two priors. However, \cref{fig:scatterONL} shows that many outliers are obtained with the SK prior. These values explain why the credibility intervals of the fragility curves are larger with the SK prior when $k = 20$. This observation is supported theoretically by the calculation provided in \cref{sec:PREM:Jeffreys}. There is actually a better convergence of the Jeffreys prior toward $0$ when $\beta\to\infty$. This superior asymptotic behavior obviously results in posteriors that happen to assign a lower probability to outlier points (a phenomenon particularly noticeable when the data sample is small) as well as to the weight of the likelihood within the posterior.
 
 For a better understanding of this phenomenon, we calculated the quantitative metrics defined in \cref{sec:PREM:metrics}. For any $k$ ranging from $15$ to $100$, we considered $m=200$ different draws of observations $(\mbf z^k_{(j)},\mbf a^{k}_{(j)})_{j=1}^m$ in order to derive the average values and $95\%$-confidence intervals of the metrics $\cE^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, $\cW^{|\mbf z^k_{(j)},\mbf a^k_{(j)}}$, $j\in\{1,\dots,m\}$, for each of the three methods. %, $L=5000$, $1-r=95\%$. 
-They are plotted in Figure~\ref{fig:errors}. Firstly, these diagrams demonstrate the benefits of the Bayesian framework compared to the MLE approach for small observation sets. Secondly, the compared performance of the Jeffreys and SK posteriors is highlighted by the confidence interval endpoints of the quadratic error and the credibility interval. Specifically, the latter highlights the effect of the superior asymptotic behavior of the Jeffreys prior along the width of the credibility interval. It shows variations similar to but smaller than the SK prior, thus highlighting its capacity to generate fewer outliers for the pair $(\alpha, \beta)$, as expected.
+They are plotted in \cref{fig:errors}. Firstly, these diagrams demonstrate the benefits of the Bayesian framework compared to the MLE approach for small observation sets. Secondly, the compared performance of the Jeffreys and SK posteriors is highlighted by the confidence interval endpoints of the quadratic error and the credibility interval. Specifically, the latter highlights the effect of the superior asymptotic behavior of the Jeffreys prior along the width of the credibility interval. It shows variations similar to but smaller than the SK prior, thus highlighting its capacity to generate fewer outliers for the pair $(\alpha, \beta)$, as expected.
 
 \begin{figure}[h]
     \centering%
@@ -946,7 +972,7 @@ In this study, the failure is defined when the EDP exceeds a threshold $C=3.8^\c
     }
     \includegraphics[height=3.8cm]{figures/intro-frags/asg/cloud_PGA_light.pdf}\ \ 
     \includegraphics[height=3.8cm]{figures/intro-frags/asg/refs_PGA.pdf}
-    \caption{Illustration of the second case-study. Left: picture of the mock-up on the Azalee shaking table of CEA. Middle: results of $8\cdot10^4$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $10^5$. Different threshold $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+    \caption{Illustration of the second case study. Left: picture of the mock-up on the Azalee shaking table of CEA. Middle: results of $8\cdot10^4$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $10^5$. Different threshold $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
     \label{fig:PREM:asg}
 \end{figure}
 
@@ -966,7 +992,7 @@ As expected, for sets of $5000$ values of $\theta$ ---generated with each statis
     % \includegraphics[width=130pt]{figures/curves_ASG_MLE.pdf}% 0.32\linewidth
     \caption{$95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimations for the piping system, using the methods described in \cref{sec:PREM:competing}. %, obtained from a total of $5000$ estimations of $\theta$ using the {statistical methods introduced in \cref{sec:PREM:metrics}. In the left (resp. right) figure $k=20$ (resp. $k=30$) data are observed. 
     The cyan curve is the reference $P^\text{ref}_f$ suggested in \cref{sec:PREM:metrics}, surrounded by its $95\%$-confidence interval (dashed lines). The red crosses represent the observed data.}
-    %\caption{$95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimations for the piping system, obtained from a total of $L=5000$ estimations of $\theta$ using the {statistical methods introduced in Section~\ref{sec:reference}}: (from left to right) Bayesian estimation using the Jeffreys prior, Bayesian estimation using the SK prior, and MLE with bootstrapping. For each of these, we considered two data samples {of nonlinear dynamical simulations} of two different sizes ($k=20$ in blue, $k=30$ in orange). $P_f^{\mathrm{MLE}}$ (see Section~\ref{sec:metrics}) is plotted in magenta.}
+    %\caption{$95\%$ credibility (for Bayesian estimation) or confidence (for the MLE) intervals of fragility curve estimations for the piping system, obtained from a total of $L=5000$ estimations of $\theta$ using the {statistical methods introduced in Section~ {sec:reference}}: (from left to right) Bayesian estimation using the Jeffreys prior, Bayesian estimation using the SK prior, and MLE with bootstrapping. For each of these, we considered two data samples {of nonlinear dynamical simulations} of two different sizes ($k=20$ in blue, $k=30$ in orange). $P_f^{\mathrm{MLE}}$ (see Section~ {sec:metrics}) is plotted in magenta.}
     \label{fig:ASG-curves}
 \end{figure}
 
@@ -979,7 +1005,7 @@ As expected, for sets of $5000$ values of $\theta$ ---generated with each statis
     % \includegraphics[width=130pt]{figures/scatter_ASG_SK_light.pdf}%
     % \includegraphics[width=130pt]{figures/scatter_ASG_MLE_light.pdf}%
     \caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in \cref{fig:curvesONL} for the piping system. For all three statistical methods, we plotted $5000$  $\theta=(\alpha,\beta)$ {estimated} with two observed datasets of size $k=20$ (left figure) and $k=30$ (right figure). The cyan cross represents $\theta^{\mathrm{MLE}}$ derived from the $10^5$ samples composing the validation dataset.}
-    %\caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in Figure~\ref{fig:ASG-curves} for the piping system. For all three statistical methods, we plotted $500$ points out of the $L=5000$ $\theta=(\alpha,\beta)$ estimated with two data sets of nonlinear dynamical simulations (of size $k=20$ in blue and $k=30$ in orange). The magenta crosses represent $\theta^{\mathrm{MLE}}$, used for the computation of $P_f^{\mathrm{MLE}}$ {(see Section~\ref{sec:metrics})}. This figure unveils both the outliers generated from the SK prior (center) and the irregularities characterized by null estimates of $\beta$ for the coupled MLE and bootstrap approach (right).}
+    %\caption{Scatter plots of the generated $\theta$ for the estimation of the fragility curves presented in Figure~ {fig:ASG-curves} for the piping system. For all three statistical methods, we plotted $500$ points out of the $L=5000$ $\theta=(\alpha,\beta)$ estimated with two data sets of nonlinear dynamical simulations (of size $k=20$ in blue and $k=30$ in orange). The magenta crosses represent $\theta^{\mathrm{MLE}}$, used for the computation of $P_f^{\mathrm{MLE}}$ {(see Section~ {sec:metrics})}. This figure unveils both the outliers generated from the SK prior (center) and the irregularities characterized by null estimates of $\beta$ for the coupled MLE and bootstrap approach (right).}
     \label{fig:ASG-scatter}
 \end{figure}
 
@@ -994,7 +1020,7 @@ For a more complete overview of their relative performances, the evaluation metr
 
 
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering%
     \includegraphics[width=5.2cm]{figures/PREM/asg/errE.pdf}\hspace*{0.5cm}
     \includegraphics[width=5.2cm]{figures/PREM/asg/errW.pdf}
@@ -1010,7 +1036,7 @@ For a more complete overview of their relative performances, the evaluation metr
 %     \centering%
 %         % \includegraphics[width=154pt]{figures/ASG_quadra_error.pdf} %0.4\linewidth
 %         % \includegraphics[width=154pt]{figures/ASG_cred_width.pdf}%
-%         \caption{Performance evaluation metrics (see Section~\ref{sec:metrics}) for the piping system computed by replications from independent draws in the full data set of nonlinear dynamical simulations and for sample sizes ranging from $k=15$ to $100$. Left: the dashed lines plot the quadratic errors as a function of the number of observations, and the shaded areas show their confidence intervals. Right: the dashed lines plot the widths of the credibility intervals (for the Bayesian estimation) or confidence intervals (for the MLE), and the shaded areas show their confidence intervals.}
+%         \caption{Performance evaluation metrics (see Section~ {sec:metrics}) for the piping system computed by replications from independent draws in the full data set of nonlinear dynamical simulations and for sample sizes ranging from $k=15$ to $100$. Left: the dashed lines plot the quadratic errors as a function of the number of observations, and the shaded areas show their confidence intervals. Right: the dashed lines plot the widths of the credibility intervals (for the Bayesian estimation) or confidence intervals (for the MLE), and the shaded areas show their confidence intervals.}
 %     \label{fig:ASG-errors}
 % \end{figure}
 
@@ -1046,7 +1072,7 @@ prior calibrated to approximate the Jeffreys prior.
 
 \begin{figure}[h]
     \centering		
-    \includegraphics[width=3cm]{figures/intro-frags/EDEN.jpg}
+    \hspace*{0.3cm}\includegraphics[width=3cm]{figures/intro-frags/EDEN.jpg}
     \hspace{0.5cm}
     \includegraphics[width=6cm]{figures/intro-frags/EDEN_R169.pdf}
     \caption{(left) Overview of the stacked structure placed on the Vesuve 1D shaking table and (right) example of test result: horizontal displacements of the top of the stack when subjected to seismic excitation in the X direction.}
@@ -1072,7 +1098,7 @@ The small number of data points does not allow comparison with a reference. Ther
 In this paper, we have compared our approach with the one that results from an adaptation of the prior suggested by \citet{straub_improved_2008}. We proved in \cref{sec:PREM:degeneracy} that within our framework, this prior results in an improper posterior. This puts the validity of the MCMC estimations into question, and could explain the lower performance of the SK prior compared to the Jeffreys prior. 
 In \cite{straub_improved_2008}, the authors use the Bayesian methodology the same way we do, yet the consideration of uncertainties over the observed earthquake intensity measures and the equipment capacities leads to a slightly different likelihood.
 In order to verify that the drawbacks of their prior highlighted in this paper are not due to our statistical choices, we dedicated this appendix to the study of the asymptotic expansions of the posterior in the exact framework presented in \cite{straub_improved_2008}.
-We shall first introduce the exact model of their paper for the estimation of seismic fragility curves in \ref{subapp:C1}, using notations consistent with our study. We will then derive the likelihood and its asymptotics in \ref{subapp:C2}. Finally, we will express the convergence rates of the posterior in \ref{subapp:C3}, which will allow us to conclude that the SK posterior is indeed improper.
+We shall first introduce the exact model of their paper for the estimation of seismic fragility curves in \cref{subapp:C1}, using notations consistent with our study. We will then derive the likelihood and its asymptotics in \cref{subapp:C2}. Finally, we will express the convergence rates of the posterior in \cref{subapp:C3}, which will allow us to conclude that the SK posterior is indeed improper.
 
 \subsection{Statistical model and likelihood}
 \label{subapp:C1}
@@ -1108,12 +1134,12 @@ Finally, the likelihood for this model can be expressed as:
         \ell_J(\mbf z | \mbf{\hat a}, \Sigma)
             = \prod_{j=1}^J \int_\RR\prod_{i=1}^{I_j} p(z_{ij}|x_{j},\log\hat a_{j},\Sigma) \frac{\exp\left({-\frac{(x_{j}-\log\hat{a}_{j})^2}{2(\sigma^2_\eps+\sigma^2_y)}}\right)}{\sqrt{2\pi(\sigma_\eps^2+\sigma_y^2)}}dx_{j}  ,
     \end{equation}
-denoting $\mbf z=(\mbf z_j)_{j=1}^J$, $\mbf{\hat a}=(\hat a_j)_{j=1}^J$, and with the integrated conditional distribution defined in Eq.~(\ref{eq:SKr:condzx}).
+denoting $\mbf z=(\mbf z_j)_{j=1}^J$, $\mbf{\hat a}=(\hat a_j)_{j=1}^J$, and with the integrated conditional distribution defined in \cref{eq:SKr:condzx}.
 
 
 %\subsection{Prior}
     In the Bayesian framework introduced in \cite{straub_improved_2008}, the model parameter is $\Sigma$. Let us denote 
-    $\alpha=\exp\mu_r$, $\beta=\sqrt{\sigma_r^2+\sigma^2_y}$ and $\rho=\sigma^2_y/\beta^2$. Denoting $\theta=(\alpha,\beta,\rho)$, the knowledge of $\Sigma$ then becomes equivalent to the one of $\theta$ and the likelihood of Eq.~(\ref{eq:SKr:likelihood}) can be expressed conditionally to $\theta$ instead of $\Sigma$:
+    $\alpha=\exp\mu_r$, $\beta=\sqrt{\sigma_r^2+\sigma^2_y}$ and $\rho=\sigma^2_y/\beta^2$. Denoting $\theta=(\alpha,\beta,\rho)$, the knowledge of $\Sigma$ then becomes equivalent to the one of $\theta$ and the likelihood of \cref{eq:SKr:likelihood} can be expressed conditionally to $\theta$ instead of $\Sigma$:
 
     \begin{equation}
     \label{eq:SKr:likelihood-theta}
@@ -1137,7 +1163,7 @@ denoting $\mbf z=(\mbf z_j)_{j=1}^J$, $\mbf{\hat a}=(\hat a_j)_{j=1}^J$, and wit
         
 \subsection{Likelihood asymptotics}
 \label{subapp:C2}
-    In this appendix, we will study the asymptotics of the likelihood defined in (\ref{eq:SKr:likelihood-theta}) when $\beta\to\infty$.
+    In this appendix, we will study the asymptotics of the likelihood defined in \cref{eq:SKr:likelihood-theta} when $\beta\to\infty$.
     Let us first consider the substitution $u=(x-\log\hat a_j)/\sqrt{\sigma_\eps^2+\rho\beta^2}$ to express the likelihood as
     \begin{equation}
         \ell_J(\mbf z | \mbf{\hat a}, \theta) = \prod_{j=1}^J\int_\RR f_{j}^\beta(u)du,
@@ -1167,7 +1193,7 @@ denoting $\mbf z=(\mbf z_j)_{j=1}^J$, $\mbf{\hat a}=(\hat a_j)_{j=1}^J$, and wit
 
     \subsection{Posterior asymptotics}
 \label{subapp:C3}
-    By combining Eqs.~(\ref{eq:SKr:limitlik}), (\ref{eq:SKr:post}) and (\ref{eq:SKr:SKprior}) we obtain the posterior asymptotics
+    By combining \cref{eq:SKr:limitlik,eq:SKr:post,eq:SKr:SKprior} we obtain the posterior asymptotics
     \begin{equation}
             p(\theta|\mbf z, \mbf{\hat a}) \equi{\beta\rightarrow{\infty}} \frac{C}{\beta},
         \end{equation}
@@ -1178,4 +1204,35 @@ denoting $\mbf z=(\mbf z_j)_{j=1}^J$, $\mbf{\hat a}=(\hat a_j)_{j=1}^J$, and wit
 
 
 \section{Conclusion}
+
+
+
+
+
+Assessing the seismic fragility of Structures and Components (SCs) is a daunting task when data is limited. The performance of the Bayesian framework in this kind of situation is well-known. Nevertheless, choosing a prior remains difficult because its impact on the \emph{a posteriori} distribution cannot be neglected, and therefore neither can its impact on the estimation of any relevant element linked to the fragility curves. 
+
+Elaborating on the reference prior theory in order to define an objective prior, we derived, for the first time in this field of study, the Jeffreys prior for the log-normal model, with binary data that indicates the state of the structure (i.e. failure or non-failure). This prior is completely defined and thoroughly studied, and does not depend on any additional subjective choice.
+
+This work is also an opportunity to develop a better theoretical understanding of the conditions that result in irregular fragility curves such as  unit-step functions in practice. This issue is quite inevitable when data is limited, since such curves are a result of the very composition of the sample. Although this issue affects every approach, 
+our results prove the robustness of the proposed approach over the traditional ones in terms of regularization (i.e. the absence of irregular estimation of the fragility curve) and stability (i.e. the absence of outliers when sampling the \emph{a posteriori} distribution of the parameters).  %is %outperform
+%how that phenomenon affects priorly 
+Nevertheless, we recall that the present study is limited to the generation of estimates when the observed data do not yield what we call a degenerate likelihood. In the latter case, we have proven theoretically that all the methods carried out in this chapter ---including ours--- are jeopardized.
+That statement paves the way for further work that could (i)~reinforce the prior construction to suppress its posteriors' weaknesses under degenerate likelihoods; and (ii)~study the probability and the methods to reduce that of the existence of degenerate likelihoods. % an and the methods to reduce 
+%enhance the data curation in order to reduce 
+
+%we could demonstrate rigorously ---i.e., both theoretically and numerically--- the robustness and advantages of the proposed approach over the traditional ones found in the literature for estimating fragility curves in terms of regularization (i.e., the absence of degenerate functions when sampling fragility curves with the \emph{a posteriori} distribution) and stability (i.e., the absence of outliers when sampling the \emph{a posteriori} distribution of the parameters). {The Jeffreys prior therefore leads to more robust credibility intervals.} 
+
+Although its numerical implementation is complex ---more so than a prior defined as the product of two classical distributions such as log-normal distributions, for instance--- it is not a major issue. As a matter of fact, since it depends solely on the distribution of the IM, the ``cost'' of the initial calculation would quickly be recovered on the scale of an industrial installation containing several SCs whose fragility curves must be estimated. {For example, compared to methodologies that aim to define a prior based on mechanical calculations for a given SC, the advantage of the Jeffreys prior lies in its generic nature. The fact that it can be applied to all SCs subjected to the same seismic scenario largely compensates for the implementation of mechanical studies dedicated to each relevant SC. Additionally, the methodology can be implemented with any relevant IM without creating additional complexity.}
+
+
+
+
+
+
+
+
+
+
+
+
 
