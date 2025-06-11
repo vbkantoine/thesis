@@ -10,13 +10,13 @@
     For many structures of interest, estimating seismic fragility curves is a daunting task because of the limited amount of data available, and the limited amount of information they contain
     (such as binary data, i.e. only describing the structure as being in a failure or non-failure state).
     In such a context, a probit-lognormal modeling of the fragility curve is prominent, 
-    and among various methods that exist to estimate the parameters of the model, the Bayesian inference became popular in the literature. However, the latter's trustworthiness relies on the prior selection, jeopardizing the approach if the selection is motivated by subjective consideration.
-    This chapter proposes a comprehensive Bayesian estimation of seismic fragility curves, implementing the Jeffreys prior for the probit-lognormal model.
+    and among various methods that exist to estimate the parameters of the model, the Bayesian inference became popular in the literature. However, the latter's trustworthiness relies on the prior selection, jeopardizing the approach if the selection is motivated by subjective considerations.
+    This chapter proposes a comprehensive objective Bayesian estimation of seismic fragility curves, implementing the Jeffreys prior for the probit-lognormal model.
     This prior is completely studied along with the decay rates of the likelihood to ensure the validity of our methodology.
     %
     %
     %The posterior distribution is proven to be proper (i.e., it integrates to unity) with the Jeffreys prior but improper with some traditional priors found in the literature. With the Jeffreys prior, the posterior distribution is also shown to vanish at the boundaries of the parameters' domain, which means that sampling the posterior distribution of the parameters does not result in anomalously small or large values. 
-    It is also implemented on three different case studies, including an industrial example. %--- to illustrate the theoretical 
+    It is also implemented on three different case studies, including industrial examples. %--- to illustrate the theoretical 
     Our theoretical and practical results show that the Jeffreys prior leads to more robust and efficient fragility curves estimates in comparison with other methods of the literature. 
 %
  %   Therefore, the use of the Jeffreys prior does not result in degenerate fragility curves such as unit-step functions, and leads to more robust credibility intervals. The numerical results obtained from two different case studies---including an industrial example---illustrate the theoretical predictions.
@@ -152,7 +152,7 @@ In \cref{sec:PREM:subsec:jeffasymp}, we propose a thorough study of the prior's 
     The first step consists in computing the Fisher information matrix $\cI(\theta)$ in our model, defined in \cref{eq:PREM:JcI}. 
     Here, $\theta=(\theta_1,\theta_2)=(\alpha,\beta)\in \Theta$ and 
     \begin{equation}
-        \cI(\theta)_{i,j}= -\sum_{z \in \{0,1\}} \int_{\cA } p(z|a,\theta){\partial^2_{\theta_i\theta_j} \log \ell(z|a,\theta)} h(a)da
+        \cI(\theta)_{i,j}= -\sum_{z \in \{0,1\}} \int_{\cA } \ell(z|a,\theta){\partial^2_{\theta_i\theta_j} \log \ell(z|a,\theta)} h(a)da
     \end{equation}
     for $i,j\in\{1,2\}$, with
         \begin{equation}
@@ -168,14 +168,14 @@ Denoting $\gamma=\gamma(a)=\beta^{-1}\log({a}/{\alpha})$, the first-order partia
     and the second-order partial derivatives are:
     \begin{align}
     % \nonumber
-        {\partial^2_{\alpha\beta}}\log \ell(z|a,\theta)  =&-\frac{1}{\beta}{\partial_\alpha}p(z|a,\theta) 
+        {\partial^2_{\alpha\beta}}\log \ell(z|a,\theta)  =&-\frac{1}{\beta}{\partial_\alpha}\ell(z|a,\theta) 
         + \frac{\log\frac{a}{\alpha}}{\alpha\beta^3}z\frac{\Phi''(\gamma)\Phi(\gamma)-\Phi'(\gamma)^2}{\Phi(\gamma)^2}\label{eq:partialalphbet}\\
         &
             - \frac{\log\frac{a}{\alpha}}{\alpha\beta^3}(1-z)\frac{\Phi''(\gamma)(1-\Phi(\gamma))+\Phi'(\gamma)^2}{(1-\Phi(\gamma))^2} ,\nonumber
     \end{align}
     \begin{align}
     % \nonumber
-        {\partial^2_{\alpha\alpha}}\log \ell(z|a,\theta)  =&  -\frac{1}{\alpha}{\partial_\beta}\log p(z|a,\theta) 
+        {\partial^2_{\alpha\alpha}}\log \ell(z|a,\theta)  =&  -\frac{1}{\alpha}{\partial_\beta}\log \ell(z|a,\theta) 
         + \frac{1}{\alpha^2\beta^2}z\frac{\Phi''(\gamma)\Phi(\gamma)-\Phi'(\gamma)^2}{\Phi(\gamma)^2}\label{eq:partial2alph}\\
         &
             - \frac{1}{\alpha^2\beta^2}(1-z)\frac{\Phi''(\gamma)(1-\Phi(\gamma))+\Phi'(\gamma)^2}{(1-\Phi(\gamma))^2} , \nonumber
@@ -184,7 +184,7 @@ Denoting $\gamma=\gamma(a)=\beta^{-1}\log({a}/{\alpha})$, the first-order partia
     \begin{align}
     % \nonumber
         {\partial^2_{\beta\beta}}\log \ell(z|a,\theta) =& 
-        -\frac{2}{\beta}{\partial_\beta}\log p(z|a,\theta) 
+        -\frac{2}{\beta}{\partial_\beta}\log \ell(z|a,\theta) 
         + \frac{\log^2\frac{a}{\alpha}}{\beta^4}z\frac{\Phi''(\gamma)\Phi(\gamma)-\Phi'(\gamma)^2}{\Phi(\gamma)^2} \label{eq:partial2bet}\\
         &
         - \frac{\log^2\frac{a}{\alpha}}{\beta^4}(1-z)\frac{\Phi''(\gamma)(1-\Phi(\gamma))+\Phi'(\gamma)^2}{(1-\Phi(\gamma))^2}.\nonumber
@@ -199,11 +199,11 @@ Finally, if we denote $A_{01}$, $A_{02}$, $A_{11}$, $A_{12}$, $A_{21}$, $A_{22}$
     \begin{equation}\label{eq:Aij}
     \begin{aligned}
         %A_{11} &= \int_\cA\Phi'(\gamma)d\PP_A(a) & A_{12} &= \int_\cA\log\frac{a}{\alpha}\Phi'(\gamma)d\PP_A(a) \\
-        A_{0u} &= \int_\cA\frac{\Phi'(\gamma(a))^2}{\Phi((-1)^{u+1}\gamma(a))}p(a)da,\\
+        A_{0u} &= \int_\cA\frac{\Phi'(\gamma(a))^2}{\Phi((-1)^{u+1}\gamma(a))}h(a)da,\\
         %& A_{02} &= \int_{\cA}\frac{\Phi'(\gamma(a))^2}{\Phi(-\gamma(a))}p(a)da,\\
-        A_{1u} &= \int_\cA\log\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi((-1)^{u+1}\gamma(a))}p(a)da,\\
+        A_{1u} &= \int_\cA\log\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi((-1)^{u+1}\gamma(a))}h(a)da,\\
         %& A_{12} &= \int_{\cA}\log\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(-\gamma(a))}p(a)da,\\
-        A_{2u} &= \int_\cA\log^2\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi((-1)^{u+1}\gamma(a))}p(a)da,
+        A_{2u} &= \int_\cA\log^2\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi((-1)^{u+1}\gamma(a))}h(a)da,
         %& A_{22} &= \int_{\cA}\log^2\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(-\gamma(a))}p(a)da,\\
     \end{aligned}
     \end{equation}
@@ -293,7 +293,7 @@ Finally, the Jeffreys prior density is obtained by taking the square root of the
     \begin{assu}
         The IM is distributed according to a log-normal distribution, i.e., there exists $\mu\in \RR$ and $\sigma\in (0,+\infty)$ such that 
     \begin{equation}
-        p(a) = \frac{1}{\sqrt{2\pi\sigma^2}a}\exp\left({-\frac{(\log a-\mu)^2}{2\sigma^2}}\right).
+        h(a) = \frac{1}{\sqrt{2\pi\sigma^2}a}\exp\left({-\frac{(\log a-\mu)^2}{2\sigma^2}}\right).
     \end{equation}
     \end{assu}
     %propositions that are developed below.
@@ -540,7 +540,7 @@ We expand $\hat F_{k1,k2}(\nu) = \sum_{j=1}^kC_k^j(r-1)^j\log^j\alpha(\nu+s\mu)^
 Therefore, by combining \cref{eq:Jasymp:phi1phinurs,eq:Jasymp:nurs}, we obtain that $\hat F_{k1,k2}^{(j)}$ satisfies
     \begin{equation}
          \hat F_{k1,k2}^{(j)}(\nu)e^{\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}}(\log\alpha)^{-j}|\log\alpha|^{-1} 
-            \conv{|\log\alpha|\rightarrow\infty} (\sqrt{2\pi}\beta)^{-1}C_k^j(r-1)^{j+1}(\nu+s\mu)^{k-j} e^{-\left(\frac{1}{2\beta^2}+\frac{1}{2\sigma^2}\right)\nu^2}.
+            \conv{|\log\alpha|\rightarrow\infty} (\sqrt{2\pi}\beta)^{-1}C_k^j(-1)^j(1-r)^{j+1}(\nu+s\mu)^{k-j} e^{-\left(\frac{1}{2\beta^2}+\frac{1}{2\sigma^2}\right)\nu^2}.
     \end{equation}
 Using \cref{lem:phi(1-phi)ineq2}, we can also define an integrable upper bound for the above function as: %in the form of an integrable function expressed as
 \begin{equation}
@@ -555,7 +555,7 @@ Thus, we can switch the limits and the integration, and the following results ar
 %\end{align}
 %\begin{align}
 C''\beta A_{22,22}e^{\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}}
-&\aseq{\log\alpha\rightarrow\infty}\hspace*{-4pt}
+&\aseq{\log\alpha\rightarrow\infty} %\hspace*{-4pt}
 (1-r)^3G\log^3\alpha - s^3\mu^3 G 
 -3(1-r)^2s\mu G\log^2\alpha \\
 &\hspace*{2em}-3(1-r)s^2\mu^2 G\log\alpha+3(1-r)G'\log\alpha  + o(1), \nonumber
@@ -972,7 +972,7 @@ In this study, the failure is defined when the EDP exceeds a threshold $C=3.8^\c
     }
     \includegraphics[height=3.8cm]{figures/intro-frags/asg/cloud_PGA_light.pdf}\ \ 
     \includegraphics[height=3.8cm]{figures/intro-frags/asg/refs_PGA.pdf}
-    \caption{Illustration of the second case study. Left: picture of the mock-up on the Azalee shaking table of CEA. Middle: results of $8\cdot10^4$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $10^5$. Different threshold $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+    \caption{Illustration of the second case study. Left: picture of the mock-up on the Azalee shaking table of CEA. Middle: results of $8\cdot10^4$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $8\cdot 10^4$. Different thresholds $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
     \label{fig:PREM:asg}
 \end{figure}
 
@@ -1082,7 +1082,7 @@ prior calibrated to approximate the Jeffreys prior.
 
 The small number of data points does not allow comparison with a reference. Therefore, only a qualitative study can be carried out. \Cref{fig:PREM:eden-results} shows the results from $5000$ estimations of $\theta$ performed with the three {statistical methods considered in this study}. These results do not call into question the previous ones because they, once again, highlight the same phenomena, namely: (i) some irregularities of the MLE-based approach characterized by ``quasi-vertical'' confidence intervals; (ii) wider credibility intervals with the SK prior than with the Jeffreys prior; and (iii) the generation of many outliers of $\theta$ with the SK posterior compared to the Jeffreys posterior, which explains the slightly larger credibility intervals on the log-normal estimates of the fragility curves.
 
-\begin{figure}[h]
+\begin{figure}[!h]
     \centering
     \includegraphics[width=5.2cm]{figures/PREM/EDEN/PGA21.pdf}\hspace*{0.5cm}
     \includegraphics[width=5.2cm]{figures/PREM/EDEN/PGA21scatter.pdf}
