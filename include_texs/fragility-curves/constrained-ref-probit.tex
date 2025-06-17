@@ -81,7 +81,7 @@ take the form of linear constraints that slightly regularize the reference prior
 
 
 %The objective of this work is 
-To implement the constraint reference prior, we compare two methodologies.
+To implement the constrained reference prior, we compare two methodologies.
 The first one consists in approximating numerically the prior density by interpolating the integrals involved in its theoretical non-explicit formulation. %\emph{A posteriori} samples can be obtained 
 This approach corresponds to the one conducted in the \cref{chap:prem} with the unconstrained reference prior, it has the disadvantage of being computationally expensive.
 The second methodology consists in using a variational approximation of the reference prior (VA-RP).
@@ -92,7 +92,20 @@ In both methods, we assess the performance of the posterior distributions, which
 
 
 After this introduction, we briefly recall the probit-lognormal modeling of % of the probit-lognormal model of 
-fragility curves. Then, we ..
+fragility curves. Then, we derive the theoretical expression of a constrained reference prior in \cref{sec:constr-frags:constrained}.
+This expression is non-explicit, yet we explain how it can be used to numerically approximate the prior's density.
+In \cref{sec:constr-frags:varp}, we propose a second approach that is based on variational inference to approximate the constrained reference prior.
+The two approaches are then compared in \cref{sec:constr-frags:coparisonpriors}, before being applied on a real case study in \cref{sec:constr-frags:appasg}.
+Before to conclude, we propose some results in an appendix (\cref{sec:constr-frags:app}) to provide more insight about the impact of the neural network's architecture on the variational approximation of the reference prior.
+
+
+
+%We also explain how 
+%This theoretical expression can be used 
+
+
+
+%propose a linear constraint
 
 
 \section{Reminder of the probit-lognormal model and of the Bayesian framework}\label{sec:constr-frags:model}
@@ -860,7 +873,7 @@ and if $f_{Z_n}(x) = \mu_n e^{\mu_n x}\indic_{x<0}$ for  $\mu_n>0$ then
 In any case, it fits the expected form.
 \end{proof}
 
-\subsection{Variance of $\log\alpha$ a prior}
+\subsection{Variance of $\log\alpha$ a priori}
     \label{sec:var_prior_alpha}
 
 
