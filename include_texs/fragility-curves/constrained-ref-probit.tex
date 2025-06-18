@@ -6,7 +6,17 @@
 \end{abstract}
 
 \begin{abstract}
-    abstract
+Estimating seismic fragility curves under conditions of limited data and binary structural responses remains a challenge that is commonly addressed using Bayesian inference to update a probit-lognormal modeling of fragility curves.
+% Building on the reference prior theory to ensure 
+Since the prior selection remains a critical step in such a context, we aim at constructing in this chapter a prior that (i) minimizes the subjectivity it embeds, and (ii) is robust in terms of generation of irregular estimates (such as unit-step functions).
+To do so, we introduce 
+a constrained reference prior that is designed to regularize the posterior distribution while conserving an objective characteristic.
+Two implementation strategies are explored: a numerical approximation of the constrained prior density and a variational approximation using a neural network that implicitly parameterizes the prior. %trained to maximize mutual information. 
+We compare both approaches through synthetic examples and a real case study.
+Our results highlight the capacity of the constrained prior to provide accurate and efficient estimates.
+% ur results show the usefulness of this approach in recovering the target distribution.
+%, highlighting the trade-offs between computational cost and estimation quality. An appendix further examines the impact of neural network architecture on the variational method’s performance.
+%
 \end{abstract}
 
 \minitoc
@@ -265,7 +275,7 @@ While we do not exactly know the shape of the prior on the whole domain, we assu
 
 
 It is thus possible to construct a constraint that will adjust the decay rate at $\beta\to0$ of the Jeffreys prior in order to make it integrable.
-We chose $a(\theta)=\theta^\epsilon$, that satisfies \cref{eq:constr-frag:inta} for $\eps\in(0,\frac{2\delta}{1+\delta})$. That makes the solution of the optimization problem \cref{eq:constr-frag:optimconstr} being the prior whose density $\pi^\ast$ verifies $\pi^\ast(\theta)\propto J(\theta)\beta^{\eps/\delta}$. In this work, we denote by $\varPi^\ast_\gamma$ this prior and by $\pi^\ast_\gamma$ its density, where $\gamma:=\eps/\delta\in(0,\frac{2}{1+\delta})\subset(0,2)$.
+We chose $a(\theta)=\theta^\kappa$, that satisfies \cref{eq:constr-frag:inta} for $\kappa\in(0,\frac{2\delta}{1+\delta})$. That makes the solution of the optimization problem \cref{eq:constr-frag:optimconstr} being the prior whose density $\pi^\ast$ verifies $\pi^\ast(\theta)\propto J(\theta)\beta^{\kappa/\delta}$. In this work, we denote by $\varPi^\ast_\gamma$ this prior and by $\pi^\ast_\gamma$ its density, where $\gamma:=\kappa/\delta\in(0,\frac{2}{1+\delta})\subset(0,2)$.
 
 
 %A little regularization of that decay rates allows to make it integrable.
@@ -313,7 +323,7 @@ $A_{01}$, $A_{02}$, $A_{11}$, $A_{12}$, $A_{21}$, $A_{22}$ as
 for $u\in\{1,2\}$, and where $h$ denotes the p.d.f. of the IM.
 %It is then 
 
-Using the above, it is possible to approximate $J(\theta)$ by conducting Simpson's interpolations of the involved integrals in the Fisher information matrix. The interpolations are conducted on the basis of a large dataset of IM values. We refer to the \cref{chap:frags-intro} where a seismic signal generator providing a large dataset of seismic signals is presented. The empirical distribution of the PGA of the seismic signals in that dataset is recalled in fig??. %That generator has been used to construct a dataset of $10^5$ seismic signals for which different IMs have been derived.
+Using the above, it is possible to approximate $J(\theta)$ by conducting Simpson's interpolations of the involved integrals in the Fisher information matrix. The interpolations are conducted on the basis of a large dataset of IM values. We refer to the \cref{chap:frags-intro} where a seismic signal generator providing a large dataset of seismic signals is presented. The empirical distribution of the PGA of the seismic signals in that dataset is recalled in \cref{fig:constr-frags:PGA}. %That generator has been used to construct a dataset of $10^5$ seismic signals for which different IMs have been derived.
 The interpolations are done a regular grid of $\cA=[a_{\min},a_{\max}]$, where $a_{\min}$ (resp. $a_{\max}$) is the minimal (reps. the maximal) value of the IM in the dataset.
 The density $h$ is approximated by Gaussian kernel density estimation. 
 
@@ -322,9 +332,16 @@ The density $\pi^\ast_\gamma$ is then obtained by multiplying the interpolated a
 
 \begin{figure}[h]
     \centering
-    
+    \includegraphics[width=5.2cm]{figures/constr-frags/pgadistrib.pdf}
     \label{fig:constr-frags:PGA}
+    \caption{%
+    Comparison of the histograms of the PGA values of generated signals (blue) with a lognormal
+    density (red) that has same median (i.e. $0$) and same log deviation (i.e. $1$).}
+    %approximations (red) for both IMs (PSA in the left figure, PGA in the right figure).}
 \end{figure}
+
+
+
 
 
 \section{Variational approximation of the constrained reference prior}\label{sec:constr-frags:varp}
@@ -339,7 +356,7 @@ For more information about variational inference, we refer to the \cref{chap:var
 Given that our objective involves finding the prior that maximizes the mutual information defined in \cref{eq:constr-frag:MI}, variational inference naturally lends itself to the approximation of reference priors.  
 
 The approach that we conduct is based on the variational approximation of the reference prior (VA-RP) proposed in the \cref{chap:varp}.
-It consists in limiting the family of priors to a parametric class $\{\varPi_\lambda,\,\lambda\in\Lambda\}$, with $\Lambda\subset\mathbb{R}^L$, thereby reducing the problem to a finite-dimensional setting. Consequently, the optimization tasks in equations \cref{eq:constr-frag:optimnoconstr,eq:constr-frag:optimconstr} %(\ref{eq:RPdef}) and (\ref{eq:def_const_RP}) 
+It consists in limiting the family of priors to a parametric class $\{\varPi_\lambda,\,\lambda\in\Lambda\}$, with $\Lambda\subset\mathbb{R}^L$, thereby reducing the problem to a finite-dimensional setting. Consequently, the optimization tasks in equations \cref{eq:constr-frag:optimnoconstr,eq:constr-frag:optimconstr} %(  {eq:RPdef}) and (  {eq:def_const_RP}) 
 translate into maximizing $\sI^k(\varPi_\lambda)$ over $\lambda\in\Lambda$. We define the priors $\varPi_\lambda$ implicitly through the transformation:
 \begin{equation}
     \theta \sim \varPi_{\lambda} \iff \theta = g(\lambda,\varepsilon), \quad \text{where} \quad \varepsilon \sim \PP_{\varepsilon}.
@@ -435,7 +452,7 @@ They are specifically chosen in order to ensure the VA-RP's decay rates match wi
     t_1(x) = x;\quad t_2(x) = \log(1-\Phi(x)),
 \end{equation}
 where $\Phi$ designates the c.d.f. of a standard Gaussian.
-In Appendix~\ref{app:decay-rates}, we prove that under those settings the VA-RP yields marginal distributions $ p_\alpha$, $p_\beta$ w.r.t. $\alpha$, $\beta$, that take the following form:
+In appendix~\ref{sec:constr-frags:app}, we prove that under those settings the VA-RP yields marginal distributions $ p_\alpha$, $p_\beta$ w.r.t. $\alpha$, $\beta$, that take the following form:
     \begin{equation}
         \begin{aligned}
         p_\alpha(\alpha) &= \frac{1}{\alpha\sqrt{2\pi}\|\mbf w_1 \|_2}\exp\left(-\frac{(\log\alpha - b_1)^2}{2\|\mbf w_1\|^2_2}\right) \\
@@ -487,11 +504,13 @@ We consider that the AJ is a more accurate approximation of the target than the 
 
 
 We have implemented the probit-lognormal modeling by setting the p.d.f. $h$ of the IM as
-    \begin{equation}
+    \begin{equation}\label{eq:constr-frags:ha}
         h(a) = \frac{1}{\sqrt{2\pi}\sigma_a^2 a}\exp\left(-\frac{(\log a-\mu_a)^2}{2\sigma_a^2}\right)
     \end{equation}
 with
-$\mu_a=0$ and $\sigma_a=1$. These parameters, which define the distribution of $a$, are the only elements that have a theoretical impact on the reference prior. Their values are derived from the case study which is considered in \cref{sec:constr-frags:appasg}.
+$\mu_a=0$ and $\sigma_a=1$. These parameters, which define the distribution of $a$, are the only elements that have a theoretical impact on the reference prior.
+Their value are derived to fit the empirical distribution of the PGA values of the seismic signals that we consider. That empirical distribution is compared with the p.d.f. of \cref{eq:constr-frags:ha} in \cref{fig:constr-frags:PGA}.
+%Their values are derived from the case study which is considered in \cref{sec:constr-frags:appasg}.
 %  Section~{sec:case-study}.
 
 
@@ -508,7 +527,7 @@ for the training, we take $k=50$ and $p=50$. The training consists in the maximi
 The optimization has been done through a number of $9000$ epochs, with a learning rate of $0.005$.
 
 
-Figure~\ref{fig:unconstr_weights} shows the evolutions of the weights of the neural network that define the marginal distributions of $p_\alpha$ and $p_\beta$ (see \cref{eq:marginaldist}), as a function of the number of epochs. Thus, the bias $b_1$ is constant and equal to $0$, which is consistent with the asymptotic distribution of $\alpha$. $1/w_{2l}$ and $1/w_{2j}$ both tend to 0. As a result, the marginal distribution of $\beta$ tends to $1/\beta$. This is an improper distribution which does not exactly match the expected improper Jeffreys prior (see \cref{eq:constr-frag:decaysJbeta}): it has a heavier tail as $\beta\to\infty$ than the original Jeffreys. However, we will see in the end of this section that the distribution is not limited to its tails, and that this prior actually ascribes huge weights to small values of $\beta$ (see the paragraph ``Posterior evaluation''). Finally, $\|\mbf w_1\|_2$ tends to $+\infty$. This means that the variance of  $\log\alpha$ tends to $+\infty$ as it is expected (see appendix~\ref{sec:var_prior_alpha}), even though this does not lead to the target distribution. This last result is nevertheless not surprising. It is the consequence of the chosen architecture of the VA-RP: $p_\alpha$ is a lognormal distribution (\cref{eq:palphabeta}), which is not exactly the case for the Jeffreys prior (\cref{eq:constr-frag:decaysJalpha}). What fundamentally distinguishes these two distributions is that (i) in the first case, that of Jeffreys, the variance of $\log\alpha$ is finite conditionally to $\beta$, and is infinite otherwise because of the heavy tail of the distribution w.r.t. $\beta$ %is infinite because of the heavy tail of the distribution
+\Cref{fig:unconstr_weights} shows the evolutions of the weights of the neural network that define the marginal distributions of $p_\alpha$ and $p_\beta$ (see \cref{eq:marginaldist}), as a function of the number of epochs. Thus, the bias $b_1$ is constant and equal to $0$, which is consistent with the asymptotic distribution of $\alpha$. $1/w_{2l}$ and $1/w_{2j}$ both tend to 0. As a result, the marginal distribution of $\beta$ tends to $1/\beta$. This is an improper distribution which does not exactly match the expected improper Jeffreys prior (see \cref{eq:constr-frag:decaysJbeta}): it has a heavier tail as $\beta\to\infty$ than the original Jeffreys. However, we will see in the end of this section that the distribution is not limited to its tails, and that this prior actually ascribes huge weights to small values of $\beta$ (see the paragraph ``Posterior evaluation''). Finally, $\|\mbf w_1\|_2$ tends to $+\infty$. This means that the variance of  $\log\alpha$ tends to $+\infty$ as it is expected (see appendix~\ref{sec:constr-frags:app}), even though this does not lead to the target distribution. This last result is nevertheless not surprising. It is the consequence of the chosen architecture of the VA-RP: $p_\alpha$ is a lognormal distribution (\cref{eq:palphabeta}), which is not exactly the case for the Jeffreys prior (\cref{eq:constr-frag:decaysJalpha}). What fundamentally distinguishes these two distributions is that (i) in the first case, that of Jeffreys, the variance of $\log\alpha$ is finite conditionally to $\beta$, and is infinite otherwise because of the heavy tail of the distribution w.r.t. $\beta$ %is infinite because of the heavy tail of the distribution
 while (ii) in the second case, the variance becomes infinite to correspond, via the training process, to the target variance of the Jeffreys prior. In doing so, the marginal distribution of $\alpha$ tends towards the improper distribution $1/\alpha$. Although this result is open to criticism, it appears to be an ``acceptable'' compromise insofar as the model's likelihood tends to substantially attenuate the prior's tails with respect to $\alpha$, thereby limiting the influence of the prior's decay rates on the posterior. An alternative approach could involve modifying the neural network architecture to better capture the correlation between $\alpha$ and $\beta$. However, such adjustments would inevitably increase the computational complexity of the training process.
 
 
@@ -607,7 +626,7 @@ we precise that the likelihood is not degenerate.
 
 
 
-Figures \ref{fig:scatterhist_unconstr} and \ref{fig:scatterhist_constr} show that the posterior distribution obtained from the VA-RP is more like Jeffreys prior %more closely resembles to the Jeffreys prior 
+\Cref{fig:scatterhist_unconstr,fig:scatterhist_constr} show that the posterior distribution obtained from the VA-RP is more like Jeffreys prior %more closely resembles to the Jeffreys prior 
 in the constrained case than in the unconstrained one. 
 More specifically, w.r.t. $\alpha$, the VA-RP is similar to the Jeffreys prior in the both cases. That suggests that the limitation of our neural network architecture discussed earlier has little impact on the posterior distribution.
 Regarding $\beta$,
@@ -672,9 +691,9 @@ In this work, we evaluate our estimates by comparing them to a reference fragili
 In \cref{fig:constr-frag:asg},
 different fragility curves, derived considering different excessive rotation threshold for defining the equipment's failure are elucidated. 
 In this study, the failure of the system was defined when the EDP exceeded $C=3.8^\circ$.
-%in Figure~\ref{fig:refs}.
+%in Figure~  {fig:refs}.
 The reference $P^{\text{ref}}_f$ is compared to a probit-lognormal curve $P^{\text{MLE}}_f$ whose parameters are estimated by maximum likelihood estimation using the same validation dataset.
-%Each are compared with a probit-lognormal curve $P^{\text{MLE}}_f$, derived implementing a maximum likelihood estimate of the probit-lognormal fragility curve using the full batch of the $8\cdot 10^4$ results depicted in Figure~\ref{fig:cloud_data}. 
+%Each are compared with a probit-lognormal curve $P^{\text{MLE}}_f$, derived implementing a maximum likelihood estimate of the probit-lognormal fragility curve using the full batch of the $8\cdot 10^4$ results depicted in Figure~  {fig:cloud_data}. 
 That comparison demonstrates the adequacy of such modeling of the fragility curve. However, it also emphasizes an existing bias that the model has compared with the non-parametric estimate. In the following, we refer to this difference between $P_f^{\text{MLE}}$ and $P_f^{\text{ref}}$ as the square model bias, denoted by $\cM\cB$:
 \begin{equation}
     \cM\cB = \|P^{\text{ref}}_f - P^{\text{MLE}}_f  \|_{L^2}^2;
@@ -710,7 +729,7 @@ The quantiles and the medians are approximated using generated samples.
 
 
 %In this section, we compare the evaluation of our estimates that results from using the VA-RP with the evaluation of the ones that result from using an approximation via numerical derivation of the Jeffreys prior. In the following, we refer to the latter as AJ.
-%Both are implemented with and without the incorporation of a constraint that is tailored to ensure they are proper. The considered constraint is detailed in Section~\ref{sec:varp-implementation}.
+%Both are implemented with and without the incorporation of a constraint that is tailored to ensure they are proper. The considered constraint is detailed in Section~  {sec:varp-implementation}.
 
 
 In \cref{fig:frag-ex-asg} we provide examples of \emph{a posteriori} fragility curves credibility intervals yielded by the two priors, with and without incorporating a constraint on the decay rates.
@@ -822,8 +841,8 @@ We rely on the two following lemmas.
 \end{lem}
 
 
-The expression of $\beta$ as written in Equation (\ref{eq:app-expr-beta}) expresses $\log(\beta-b_2)$ as a sum of independent exponential or opposite exponential distributions with parameters $(|w_{2i}|^{-1})_{i}$, which are distinct.
-Thus, the r.v. $\log(\beta-b_2)$ admits a density $\tilde p$ that is defined as in Equation (\ref{eq:lem-pdf-Z}):
+The expression of $\beta$ as written in \cref{eq:app-expr-beta} expresses $\log(\beta-b_2)$ as a sum of independent exponential or opposite exponential distributions with parameters $(|w_{2i}|^{-1})_{i}$, which are distinct.
+Thus, the r.v. $\log(\beta-b_2)$ admits a density $\tilde p$ that is defined as in \cref{eq:lem-pdf-Z}:
 \begin{equation}
     \tilde p(z) = \sum_{i,\,w_{2i}>0}K_ie^{-\frac{z}{w_{2i}}}\indic_{z>0} + \sum_{i,\,w_{2i}<0}K_ie^{-\frac{z}{w_{2i}}}\indic_{z<0}.
 \end{equation}
@@ -843,7 +862,7 @@ To conclude, notice that the second statement of the lemma simply results by elu
 
 
 \begin{proof}[{Proof of \cref{lemma:sum-of-expon}}]
-We prove this result by induction over $n$. When $n=1$, the form in Equation (\ref{eq:lem-pdf-Z}) is consistent with the p.d.f. of an exponential or opposite exponential distribution.
+We prove this result by induction over $n$. When $n=1$, the form in \cref{eq:lem-pdf-Z} is consistent with the p.d.f. of an exponential or opposite exponential distribution.
 
 We suppose this statement true for $n-1$ such r.v., we denote by $\tilde f$ the p.d.f. of $\sum_{i=1}^{n-1}Z_i$, and by $f_{Z_n}$ the one of $Z_n$. As $\sum_{i=1}^{n-1}Z_i$ and $Z_n$ are independent, $f_{\overline{Z}}$ equals the convolution between $\tilde f$ and $f_{Z_n}$: $f_{\overline{Z}}=\tilde f\ast f_{Z_n}$.
 
@@ -878,11 +897,21 @@ In any case, it fits the expected form.
 
 
 
-In this section we consider the asymptotic version of the reference prior, that we denote by $\pi^{\gamma}_a$:
-    \begin{equation}
-        \pi^\gamma_a(\theta) = \frac{K}{\beta^{1-\gamma}+\beta^{3-\gamma}}\frac{|\log\alpha|}{\alpha}\exp\left(-\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}  \right), 
-    \end{equation}
-where $\mu\in\RR$, $\sigma>0$. The parameter $\gamma$ is non-null if the reference prior is not constrained, it lives  in $(0,2)$ if a constraint is incorporated as elucidated in \cref{sec:constr-frags:constrained}. $K$ represents a normalization constant that depends only on $\gamma$.
+In this section, we assume that the constrained reference prior has a density that takes the following form:
+\begin{equation}
+    \pi^\gamma(\theta) = p(\alpha|\beta)p^\gamma(\beta),\quad p(\alpha|\beta)\propto \frac{|\log\alpha|}{\alpha}\exp\left(-\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}\right),\quad p^\gamma(\beta) \propto\frac{1}{\beta^{1-\gamma}+\beta^{3-\gamma}},
+\end{equation}
+where $\mu\in\RR$, $\sigma>0$, and $\gamma\in(0,2)$ that is null if the reference prior is not constrained.
+The prior corresponds to (i) a marginal distribution w.r.t. $\beta$ that has the same decay rates as the theoretical target, and (ii) a distribution of $\alpha$ conditionally to $\beta$ whose decay rates corresponds to the ones in \cref{eq:constr-frag:decaysJalpha}.
+We recall that $\gamma\in(0,2)$.
+
+
+
+% In this section we consider the asymptotic version of the reference prior, that we denote by $\pi^{\gamma}_a$:
+%     \begin{equation}
+%         \pi^\gamma_a(\theta) = \frac{K}{\beta^{1-\gamma}+\beta^{3-\gamma}}\frac{|\log\alpha|}{\alpha}\exp\left(-\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}  \right), 
+%     \end{equation}
+% where $\mu\in\RR$, $\sigma>0$. The parameter $\gamma$ is non-null if the reference prior is not constrained, it lives  in $(0,2)$ if a constraint is incorporated as elucidated in \cref{sec:constr-frags:constrained}. $K$ represents a normalization constant that depends only on $\gamma$.
 
 We fix $\beta>0$, let us consider a random variable $X\sim\cN(\mu,\Sigma^2)$, where $\Sigma=\Sigma(\beta) = \sqrt{\sigma^2+\beta^2}$. We can write
     \begin{align}
@@ -890,22 +919,19 @@ We fix $\beta>0$, let us consider a random variable $X\sim\cN(\mu,\Sigma^2)$, wh
        \text{and}\quad &
             \EE|X|^3 = \int_{-\infty}^\infty  \frac{|x|^3}{\sqrt{2\pi\Sigma^2}}e^{-\frac{(x-\mu)^2}{2\Sigma^2}}dx = \frac{1}{\sqrt{2\pi\Sigma^2}} \int_0^\infty \frac{|\log y|^3}{y}e^{-\frac{(\log y-\mu)^2}{2\Sigma^2}}dy.
     \end{align}
-Equation (\ref{eq:app2-|x|}) elucidates the conditional distribution of $\alpha|\beta$ as the one whose density is
+\Cref{eq:app2-|x|} elucidates the conditional distribution of $\alpha|\beta$ as the one whose density is
     \begin{equation}
-        p^\gamma_a(\alpha|\beta) = (\EE|X|\sqrt{2\pi\Sigma^2})^{-1}\frac{|\log\alpha|}{\alpha} \exp\left(-\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}  \right);
+        p^\gamma_a(\alpha|\beta) = (\EE|X|\sqrt{2\pi\Sigma^2})^{-1}\frac{|\log\alpha|}{\alpha} \exp\left(-\frac{(\log\alpha-\mu)^2}{2\beta^2+2\sigma^2}  \right).
     \end{equation}
-and the marginal distribution of $\beta$ as the one whose density is
-    \begin{equation}
-        p_a^\gamma(\beta) = \frac{K(\EE|X|\sqrt{2\pi\Sigma^2})}{\beta^{1-\gamma}+\beta^{3-\gamma}} .
-    \end{equation}
+% and the marginal distribution of $\beta$ as the one whose density is
     % \begin{equation}
-    %     \EE[|\log\alpha|^2|\beta] = \frac{K \sqrt{2\pi\Sigma^2}}{\beta^{1-\gamma}+\beta^{3-\gamma}} \EE|X|^3
+    %     p_a^\gamma(\beta) = \frac{K(\EE|X|\sqrt{2\pi\Sigma^2})}{\beta^{1-\gamma}+\beta^{3-\gamma}} .
     % \end{equation}
 This way,
     \begin{equation}\label{eq:app-Elog2|beta}
         \EE[|\log\alpha|^2\,|\,\beta] = \frac{\EE|X|^3}{\EE|X|}.
     \end{equation}
-The right hand term of the above equation equals the following (see \cite{winkelbauer_moments_2014}):
+To derive the right-hand term of the above equation, we use the following (see \cite{winkelbauer_moments_2014}):
     \begin{equation}
         \begin{aligned}
         &\EE|X|^3 =  2^{3/2}\Sigma^3 \frac{\Gamma(2)}{\Gamma(-\frac{3}{2})} \sum_{k=0}^\infty \frac{\Gamma(-\frac{3}{2}+k)}{\Gamma(\frac{1}{2}+k)}\frac{\left(-\frac{\mu}{2\Sigma^2}\right)^k}{k!}, \\
@@ -917,23 +943,24 @@ Using the identity $z\Gamma(z)=\Gamma(z+1)$, we derive
     \begin{equation}
         \frac{\Gamma(-\frac{3}{2}+k)}{\Gamma(\frac{1}{2}+k)} = \frac{\Gamma(-\frac{1}{2}+k)}{(-\frac{3}{2}+k)\Gamma(\frac{1}{2}+k)}= \frac{1}{(-\frac{3}{2}+k)(-\frac{1}{2}+k)}.
     \end{equation}
-Going back to Equation (\ref{eq:app-Elog2|beta}), we deduce:
+Going back to \cref{eq:app-Elog2|beta}, we deduce:
     \begin{equation}\label{eq:app-Elogalpha2-int}
-        \EE|\log\alpha|^2 = \EE\left[\EE[|\log\alpha|^2\,|\,\beta]\right] = K'\int_0^\infty \frac{(\beta^2+\sigma^2)^2}{\beta^{1-\gamma}+\beta^{3-\gamma}}
-        \sum_{k=0}^\infty \frac{(-\mu(2\sigma^2+2\beta^2)^{-1})^k}{(2k-3)(2k-1)k!} d\beta,
-        %\frac{\sum_{k=0}^\infty \frac{(-\mu(2\sigma^2+\beta^2)^{-1})^k}{(2k-3)(2k-1)k!} }{\sum_{k=0}^\infty \frac{(-\mu(2\sigma^2+\beta^2)^{-1})^k}{-(2k-1)k!}}d\beta,
+        \EE|\log\alpha|^2 = \EE\left[\EE[|\log\alpha|^2\,|\,\beta]\right] = K'\int_0^\infty \frac{\beta^2+\sigma^2}{\beta^{1-\gamma}+\beta^{3-\gamma}}
+        %\sum_{k=0}^\infty \frac{(-\mu(2\sigma^2+2\beta^2)^{-1})^k}{(2k-3)(2k-1)k!} 
+        %d\beta,
+        \frac{\sum_{k=0}^\infty \frac{(-\mu(2\sigma^2+\beta^2)^{-1})^k}{(2k-3)(2k-1)k!} }{\sum_{k=0}^\infty \frac{(-\mu(2\sigma^2+\beta^2)^{-1})^k}{-(2k-1)k!}}d\beta,
     \end{equation}
 with $K'>0$ being a normalization constant.
 To conclude, we perform an asymptotic analysis of the integrated function in the above equation as $\beta\to\infty$.
 The power series 
     \begin{equation}
-        \sum_{k=0}^\infty \frac{z^k}{(2k-3)(2k-1)k!} %\quad\text{and}\quad 
-%        \sum_{k=0}^\infty \frac{z^k}{-(2k-1)k!}
+        \sum_{k=0}^\infty \frac{z^k}{(2k-3)(2k-1)k!} \quad\text{and}\quad 
+        \sum_{k=0}^\infty \frac{z^k}{-(2k-1)k!}
     \end{equation}
-has an infinite radius of convergence, so that when $z\to0$, it converges toward $\frac{1}{3}$. %and $1$.
-Also, while $z$ is a negative real number, the power series is positive.
+have infinite radius of convergence, so that when $z\to0$, they converge respectively towards $\frac{1}{3}$ and $1$.
+Also, while $z$ is a negative real number, the power series are positive.
 
-Therefore, the term in the integral of Equation (\ref{eq:app-Elogalpha2-int}) is positive and asymptotically equivalent to $\beta^{1+\gamma}$ as $\beta\to\infty$. We deduce that for any $\gamma\geq0$,
+Therefore, the term in the integral of \cref{eq:app-Elogalpha2-int} is positive and asymptotically equivalent to $\beta^{-1+\gamma}$ as $\beta\to\infty$. We deduce that for any $\gamma\geq0$,
     \begin{equation}
         \EE[|\log\alpha|^2]=\infty.
     \end{equation}
