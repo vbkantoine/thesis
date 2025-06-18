@@ -111,9 +111,10 @@
 \chapter{Reminder of useful mathematical notions}
 
  
-\printbibliography 
-\addcontentsline{toc}{chapter}{Bibliography}
+\bookmarksetup{startatroot}% this is it
+%\addtocontents{toc}{\bigskip}
 
+\printbibliography[heading=chapter,title=Bibliography]
 
 
 \end{document}

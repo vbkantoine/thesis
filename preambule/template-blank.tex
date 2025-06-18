@@ -193,3 +193,74 @@ frametitlebelowskip=0pt
       {\multicitedelim}
       {\usebibmacro{postnote}}
     \makeatother
+
+
+    \DeclareFieldFormat{date}{\printlabeldateextra}%
+%  \mkbibdatestring{\thefield{year}}}
+\AtEveryBibitem{%
+\iffieldundef{doi}{
+    %\clearfield{url}%
+    \clearfield{urlyear}%
+    \clearfield{eprint}
+}{
+   \clearfield{url}
+   \clearfield{urlyear}
+   \clearfield{eprint}
+}
+\ifentrytype{article}{
+   \clearfield{issn}
+   \clearfield{note}
+}{}
+}
+
+
+\DeclareFieldFormat[misc]{title}{``#1''}
+
+\DeclareBibliographyDriver{misc}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{number}
+  \newunit\newblock
+  \printfield{howpublished}%
+  \newunit\newblock
+  \printfield{type}%
+  \newunit
+  \printfield{version}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{organization+location+date}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
+
+\defbibheading{chapter}{%
+\chapter*{\hypertarget{BIBLIO}{#1}} %\hypertarget{BIBLIO}{} %{BILBIO}
+\addcontentsline{toc}{chapter}{Bibliography}
+\fancyhead[EL]{\color{niceBlue}%\hyperlink{chap::\thechapter}{\color{niceBlue}\chaptertitlename\ \thechapter.}\color{niceBlue}\ 
+\hyperlink{BIBLIO}{\emph{Bibliography}}}
+\fancyhead[OR]{}
+}
+
+
+% \DeclareBibliographyDriver{article}{%
+%    \printfield{}
