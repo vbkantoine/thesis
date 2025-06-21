@@ -20,7 +20,7 @@ Our methodology emphasizes the central role of Jeffreys prior decay rates in thi
 
 
 The reference prior theory represents a widely elected theory for constructing priors that are qualified as ``objective''.
-The theory has been thoroughly introduced in the \cref{chap:intro-ref}. %It defines priors that maximize the impact of the observed data over themselves in the posterior definition.
+The theory has been thoroughly introduced in \cref{chap:intro-ref}. %It defines priors that maximize the impact of the observed data over themselves in the posterior definition.
 The theory provides a formal mechanism to incorporate prior information in a way that maximizes the information gained from the data within the issued \emph{a posteriori} quantities.
 In opposition with a plethora of existing  methods for building a prior (see e.g. \cite{mikkola_prior_2023}), 
 this process is tuned to prevent the incorporation of subjective beliefs in the workflow.
@@ -63,7 +63,7 @@ Then, the  practical aspect of our work is studied by the application of our met
     %\subsection{}
 
 In this work we consider a statistic model characterized by a collection of probability distributions $(\PP_{Y|\theta})_{\theta\in\Theta}$ on  a measurable set $(\cY,\sY)$. 
-We consider the same construction of the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}): considering any prior $\varPi$ (that is a $\sigma$-finite measure on $\Theta$) we denote $\mbf Y_k$ a random vector of $k$ observations whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y^k|\theta}=\PP_{Y|\theta}^{\otimes k}$, where $T$ is a r.v. whose distribution is the prior $\varPi$ (see \cref{sec:intro-ref:novelframework}).
+We consider the same construction of the Bayesian framework as in \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}): considering any prior $\varPi$ (that is a $\sigma$-finite measure on $\Theta$) we denote $\mbf Y_k$ a random vector of $k$ observations whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y^k|\theta}=\PP_{Y|\theta}^{\otimes k}$, where $T$ is a r.v. whose distribution is the prior $\varPi$ (see \cref{sec:intro-ref:novelframework}).
 
 The modeling is supposed to be regular: we assume $\Theta\subset\RR^d$ with $\nu$ being the Lebesgue measure on $\RR^d$ and every prior $\varPi$ is supposed to admit a density $\pi$ w.r.t. $\nu$ (i.e. $\varPi\in\sM^\nu$).
 We also assume that the model admits a likelihood, denoted by $\ell$ with for any $\theta\in\Theta$ and $\mbf y\in\cY^k$, $\ell_k(\mbf y|\theta):= \prod_{i=1}^k\ell(\mbf y|\theta)$. We suppose that it verifies \cref{assu:intro-ref:jeffreysexist} in \cref{chap:intro-ref}, making the Fisher information matrix (denoted $\cI$) and the Jeffreys prior (whose density is denoted $J$) being well-defined.
@@ -71,7 +71,7 @@ The marginal distribution (resp. density)  is denoted by $\PP_{\mbf Y_k}$ (resp.
 
 
 
-Given these notations, we recall the expression of the generalized mutual information, defined in the \cref{chap:ref-generalized} when $\varPi$ is proper:
+Given these notations, we recall the expression of the generalized mutual information, defined in \cref{chap:ref-generalized} when $\varPi$ is proper:
 \begin{equation}
     \sI_D^k(\varPi) := \EE_{T\sim\varPi}[D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} )],
 \end{equation}
@@ -81,7 +81,7 @@ In this chapter, we mostly focus on such generalized mutual information when $D$
         D_\delta(P||Q) = \int_\cX f_\delta\left( \frac{p(x)}{q(x)}  \right) q(x) d\omega(x)\quad \text{with}\quad f_\delta(x) = \frac{x^\delta-\delta x-(1-\delta)}{\delta(1-\delta)},
     \end{equation}
 where $p,q$ respectively are densities of $P$ and $Q$ w.r.t. a common measure $\omega$ on $\cX$.
-When evoking reference priors in a general way, we will refer to generalized reference priors, as proposed in the \cref{chap:ref-generalized}.
+When evoking reference priors in a general way, we will refer to generalized reference priors, as proposed in \cref{chap:ref-generalized}.
 We remind below their definition:
 \begin{defi}[Generalized reference prior]\label{def:BA:genref}
     Let $D$ be a dissimilarity measure and $\cP$ a set of priors on $\Theta$. A prior $\varPi\in\cP$ is called a $D$-reference prior over $\cP$ with rate $\varphi(k)$ if there exists an openly increasing  sequence of compact subsets $(\Theta_i)_{i\in\NN}$
@@ -395,7 +395,7 @@ Indeed, although improper tails concentrate an infinite mass that constitutes al
 
 Finally, regarding \cref{thm:Jthetaa}, although the result is limited to parameter power distribution tails, it is observed that, in practice, these include a wide range of improper Jeffreys priors.
 For example, this includes Jeffreys priors derived from various Gaussian models, such as those introduced by \citet{neyman_consistent_1948}; Jeffreys priors related to specific parameters within Gaussian process models \citep{gu_parallel_2016}; and those arising in more specialized contexts, like the one %
-that we develop in the \cref{part:spra} of this manuscript.
+that we develop in \cref{part:spra} of this manuscript.
 %in \cite{VanBiesbroeck2023}.
 %
 %
@@ -928,7 +928,7 @@ Specifically, we have provided some solutions for practitioners seeking non-subj
 Moreover, our results show that one cannot completely dispense with a consideration of the asymptotic properties of Jeffreys prior. This emphasizes the importance of studying this prior for a complete construction of objective priors.
 Indeed, although one of our results  offers a way to define in a simpler way the reference prior when it has improper decay rates, Jeffreys' rate still have to be elucidated. Our other result requires to derive the whole Jeffreys prior.
 
-The approximation of the latter thus becomes a problem of a prior importance. Of course, one can thoroughly focus its explicit expression, yet it can be cumbersome to derive. In the \cref{chap:varp} we propose a numerical solution for the approximation of the Jeffreys prior.
+The approximation of the latter thus becomes a problem of a prior importance. Of course, one can thoroughly focus its explicit expression, yet it can be cumbersome to derive. In \cref{chap:varp} we propose a numerical solution for the approximation of the Jeffreys prior.
 
 
 

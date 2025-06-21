@@ -33,23 +33,25 @@ In practice, a fragility curve, denoted $P_f$, therefore expresses the probabili
     \begin{equation}
         P_f(a) = \PP(\text{``failure''}|\text{IM}=a).
     \end{equation}
-Within the SPRA framework, the fragility curve expression is expected to be combined with the seismic hazard frequency to compute the damage frequency of the component $C_f$:
-    \begin{equation}
-        C_f =  \int_0^\infty P_f(a)dH(a).
+Within the SPRA framework, the fragility curve expression is expected to be combined with the seismic hazard frequency to compute the  annual damage frequency of the component $C_f$:
+    \begin{equation}\label{eq:intro-frags:damagefrequency}
+        C_f =  \int_0^\infty P_f(a)\left|dH(a)\right|.
     \end{equation}
-If $H$ is the mean annual  distribution of the IM, $C_f$ represents the annual damage frequency of the component.
+Here, $|dH(a)|=|\frac{d}{da}\PP(\text{IM}>a)|da$ is defined from the mean annual  frequency of exceedance of a ground motion of level $a$. %,then $C_f$ represents the annual damage frequency of the component. 
+To derive the damage frequency $C_f$, seismologists determine $|dH|$ using not only records of seismic signals but also historical data, geological information, and geotechnical analysis.
+%  beyond accelerogram records (e.g., ).
 It should be noted that the sufficiency assumption was introduced to reduce estimation costs since it assumes that the fragility curve of a given structure is identical regardless of the seismic scenario.
 Actually, this assumption embeds some uncertainty in the problem since, as shown in \citeauthor{radu_earthquake-source-based_2018}, \citeyearlink{radu_earthquake-source-based_2018,grigoriu_are_2021}, %\cite{radu_earthquake-source-based_2018,grigoriu_are_2021}, 
 different seismic scenarios can lead to identical distributions of some IMs, despite having significantly different frequency contents.
-The uncertainty rooted in the fragility curve by this assertion can be classified as an \emph{aleatoric} (irreducible) kind of uncertainty
- (we refer to the \cref{chap:intro-english} for the definition of the uncertainty quantification framework).
+The uncertainty rooted in the fragility curve by this assertion could be classified as an \emph{aleatoric} (irreducible) kind of uncertainty
+ (we refer to \cref{chap:intro-english} for the definition of the uncertainty quantification framework).
 % belong to the category of
 %The evaluation of the fragility curve defined in eq  implies the consideration of this
 % Focusing the definition of the fragility curve <
 
 
 In this second part of the manuscript, we focus on the estimation of seismic fragility curves. 
-Thus, we do not address the determination of the hazard distribution $H$, which is the responsibility of seismologists, 
+Thus, we do not address the determination of the seismic hazard $H$, which is the responsibility of seismologists, 
 %question the determination of the seismic hazard distribution $H$, 
 nor the derivation of the damage frequency of the component $C_f$.
 Nevertheless, estimating the fragility curve itself %for given mechanical equipment 
@@ -171,7 +173,7 @@ $\int_{t_1}^{t_2}W(\tau)d\tau\sim\cN(0,(t_2-t_1)\sigma^2)$, and $\EE\int_{t_1}^{
 
 % $\EE W(t_1)=0$, $\EE W(t_1)^2=\infty$, and $\EE W(t_1)W(t_2)=0$.
 
-The integral in the \cref{eq:intro-frags:sgenertor} corresponds to the filtering of $w$, $h_f(t,\boldsymbol{\lambda})$ being the impulse response function (IRF) of the linear filter and $\sigma_f^2$ being its variance: $\sigma_f^2(t)=\int_{-\infty}^th^2(t-\tau,\boldsymbol{\lambda}(\tau))d\tau$. The IRF is defined by
+The integral in \cref{eq:intro-frags:sgenertor} corresponds to the filtering of $w$, $h_f(t,\boldsymbol{\lambda})$ being the impulse response function (IRF) of the linear filter and $\sigma_f^2$ being its variance: $\sigma_f^2(t)=\int_{-\infty}^th^2(t-\tau,\boldsymbol{\lambda}(\tau))d\tau$. The IRF is defined by
     \begin{equation}
         h_f(t-\tau,\boldsymbol{\lambda}) = \frac{\omega_f(\tau)}{\sqrt{1-\zeta^2_f}}\exp[-\zeta_f\omega_f(\tau)(t-\tau)]\sin\left(\omega_f(\tau)\sqrt{1-\zeta^2_f}(t-\tau)\right)\indic_{t\geq\tau},
     \end{equation}
@@ -260,6 +262,12 @@ Below we propose a non-exhaustive list of common IMs, a more complete one can be
 For  conducting the numerical experiments of this thesis, $10^5$ seismic signals have been computed using this generator.
 In \cref{fig:intro-frags:IM-density}, we draw the distribution of the PGA and the PSA (at frequency $5$~Hz and damping ratio $1\%$) given by this generator. It is compared with the kernel density approximation of the PGA and PSA values of the $97$ real seismic signals that have been used for fitting the generator. %, and with a lognormal distribution with same median and same log deviation. 
 These comparisons show that the synthetic signals have realistic features.
+It is important to note, that the distribution of the IM produced by this generator may differ in practice from the distribution used to derive the damage frequency evoked in \cref{eq:intro-frags:damagefrequency}. The latter is typically based on a more comprehensive characterization of the IM, incorporating not only recorded signals but also additional sources such as historical data, geological information, and geotechnical analyses.
+
+
+% We precise here that the distribution of the IM given by this generator may differ in practice from the one used to derive the damage frequency evoked in \cref{eq:intro-frags:damagefrequency}. Indeed, the latter is derived using a distribution of the IM that is determined by richer sources on top of signal records. % a more rich analysi
+%hazard 
+
 
 \begin{figure}[h]
     \centering
@@ -478,7 +486,7 @@ It is praised for its capacity to solve the irregularity issues encountered when
 However, a challenge remains when %The difficulty that remains when 
 implementing the Bayesian framework, and 
 lies in the selection of the prior.
-As a matter of fact, as announced since the \cref{chap:intro-english}, selecting a prior is a critical step in Bayesian analysis, %especially in a context where (i) the datasets of interest are light, and (ii) the methodology must be auditable.
+As a matter of fact, as announced since \cref{chap:intro-english}, selecting a prior is a critical step in Bayesian analysis, %especially in a context where (i) the datasets of interest are light, and (ii) the methodology must be auditable.
 and when exploring the literature, a wide range of different consideration can be found regarding its construction. % prior
 %
 
@@ -679,7 +687,7 @@ suggesting a Bayesian estimation of seismic fragility curves that we reviewed: t
 
 %when reviewing the literature, we observed that 
 
-All in all, this chapter and that last thought introduce the essential interplay that exists between the \cref{part:ref-theory} and the \cref{part:spra} of this manuscript.
+All in all, this chapter and that last thought introduce the essential interplay that exists between \cref{part:ref-theory} and \cref{part:spra} of this manuscript.
 Since our work is sought to be applied on case studies taken from the nuclear industry, we aim at providing a reliable and auditable methodology when we estimate seismic fragility curves.
 The expected  auditability also concerns the choice of the prior, which hence must be constructed in a way that ensures its objectivity.
 

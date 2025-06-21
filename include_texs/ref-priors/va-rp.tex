@@ -22,7 +22,7 @@
 The reference prior theory %defines priors that are used in various statistical 
 has been used in various statistical models, and the reference priors are recognized for their objective nature in several practical studies.
 However,
-while the theoretical expression of the reference priors is known in most cases (see the \cref{chap:intro-ref} for a comprehensive review of the reference prior theory), they suffer from their low computational feasibility.
+while the theoretical expression of the reference priors is known in most cases (see \cref{chap:intro-ref} for a comprehensive review of the reference prior theory), they suffer from their low computational feasibility.
 Indeed, they generally take the form of a Jeffreys prior or hierarchical Jeffreys priors, whose expression necessitate a heavy numerical cost to be derived, and that becomes even more cumbersome as the dimensionality of the problem increases.
 The developments done in \cref{chap:ref-generalized,chap:constrained-prior} make the tackling of this problem essential since the expression of the generalized reference prior suggested lead (with or without constrained) to a prior that is derived from Jeffreys'.
 % C'est un freain marqué à l'applicabilité
@@ -56,8 +56,8 @@ In this work,
 %As in \cite{nalisnick_learning_2017}, 
 the {reference priors} are approximated from a parametric family of probability distributions implicitly defined by the push-forward probability distribution through a nonlinear function that takes the form of a neural network. %(see e.g. \cite{marzouk_sampling_2016}). We will focus on push-forward probability measures through neural networks. 
 % They are computed by max
-The algorithm is thought to handle the maximization of mutual information that is defined using $f$-divergence (as suggested in the \cref{chap:ref-generalized}), instead of the traditional Kullback-Leibler divergence.
-Additionally, building on the developments conducted in the \cref{chap:constrained-prior}, we extend the framework to allow the integration of constraints on the prior. That last feature permits handling situations where the Jeffreys prior is improper. Improper priors represent a particular challenge in this work because they cannot be sampled from, yet the prior constructed from our methodology is not known explicitly and can only be used for sampling. % sampled from. 
+The algorithm is thought to handle the maximization of mutual information that is defined using $f$-divergence (as suggested in \cref{chap:ref-generalized}), instead of the traditional Kullback-Leibler divergence.
+Additionally, building on the developments conducted in \cref{chap:constrained-prior}, we extend the framework to allow the integration of constraints on the prior. That last feature permits handling situations where the Jeffreys prior is improper. Improper priors represent a particular challenge in this work because they cannot be sampled from, yet the prior constructed from our methodology is not known explicitly and can only be used for sampling. % sampled from. 
 In comparison with the previous works, we benchmark extensively our algorithm on statistical models of different complexity and nature to ensure its robustness.
 
 %Our algorithm incorporates these constraints, providing a principled way to address improper priors and ensuring that the resulting posterior distributions are well-defined and suitable for practical use.
@@ -82,12 +82,12 @@ A conclusion terminates the chapter in \cref{sec:VARP:conclusion}.
 
 % The reference prior theory consider
 In this study, we consider classical and regular statistic models defined by a collection of probability distributions $(\PP_{Y|\theta})_{\theta\in\Theta}$ on a measure set $\cY$, which admit likelihoods $(\ell(\cdot|\theta))_{\theta\in\Theta}$ w.r.t. a common measure $\mu$ on $\cY$.
-Given a prior $\varPi$ on $\Theta$, one can construct the Bayesian framework as in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}) to define the $D_f$-mutual information when $k$ data are observed:
+Given a prior $\varPi$ on $\Theta$, one can construct the Bayesian framework as in \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}) to define the $D_f$-mutual information when $k$ data are observed:
     \begin{equation}\label{eq:VARP:IMalltheta}
         \sI_{D_f}^k(\varPi) = \EE_{T\sim\varPi}[D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} ) ];
     \end{equation}
 where $\PP_{\mbf Y_k|\theta}:= \PP_{Y|\theta}^{\otimes k} $, $\PP_{\mbf Y_k}$ being the marginal distribution and $D_f$ denoting an $f$-divergence.
-This definition of the mutual information using $f$-divergence is an extension of the original definition that uses a Kullback-Leibler divergence instead, we refer to the \cref{chap:ref-generalized} where this extension is proposed and developed.
+This definition of the mutual information using $f$-divergence is an extension of the original definition that uses a Kullback-Leibler divergence instead, we refer to \cref{chap:ref-generalized} where this extension is proposed and developed.
 In this chapter, the regularity of the model will not be questioned and always be assumed sufficient for our mathematical derivations to stand. In particular the Fisher information matrix (denoted by $\cI$) exists as well as the Jeffreys prior (whose density is denoted $J$).
 
 
@@ -113,7 +113,7 @@ Also, we expect that if $k$ is large enough, the solution of the optimization pr
 
 
 Furthermore, as mentioned in the introduction, %improper priors can also compromise the validity of {a posteriori} estimates in some cases. 
-this work aims also at approximating ``properly constrained reference priors'', i.e. priors that are maximizer of the mutual information under some constraints. The idea is to leverage the development conducted in the \cref{chap:constrained-prior} to make reference priors being proper. We process by 
+this work aims also at approximating ``properly constrained reference priors'', i.e. priors that are maximizer of the mutual information under some constraints. The idea is to leverage the development conducted in \cref{chap:constrained-prior} to make reference priors being proper. We process by 
 addressing the resolution of the following optimization problem:
     \begin{equation}\label{eq:VARP:optimproblemintroconstrained}
         \text{find}\quad \tilde\varPi^\ast\in\argmax_{\substack{\varPi\in\cP_N\\ \text{s.t.\ }C(\varPi)<\infty}} \sI^k_{D_f}(\varPi),
@@ -122,7 +122,7 @@ where $C(\varPi)$ defines a constraint of the form $\int_\Theta a(\theta)d\varPi
 \begin{equation}\label{eq:condtitions_a}
     \int_\Theta J(\theta)a(\theta)^{1/\delta}d\theta<\infty\quad \text{and}\quad \int_\Theta J(\theta)a(\theta)^{1+1/\delta}d\theta<\infty,
 \end{equation}
-the developments done in the \cref{chap:constrained-prior} state that the constrained
+the developments done in \cref{chap:constrained-prior} state that the constrained
 {solution} $\tilde\varPi^\ast$ %---if it corresponds to the actual reference prior over the one satisfying that constraint--- 
 admits a density $\tilde\pi^\ast$ that asymptotically takes the form:
 \begin{equation}
@@ -462,8 +462,8 @@ We recall that the probability density function $p_{\text{Dir}_d(\zeta)}$ of a D
 \end{equation}
 
 
-In the \cref{chap:intro-ref}, we mentioned that
-although the Jeffreys prior is the prior that maximizes the mutual information, \citet{berger_ordered_1992,berger_overall_2015} argue that other priors for the multinomial model are more suited in terms of non-informativeness as the dimension of $\theta$ increases. {According to them, an appropriate reference prior should result from a sequential construction}, referred to as the $r$-group reference prior. This prior is derived through hierarchical maximization of the mutual information where the parameter coordinates are grouped into $r$ groups. Their process is explained in the \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}). According to the cited authors, while the Jeffreys prior corresponds to the $r=1$-group reference prior using this construction, the $d$-group one should be favored for this model. 
+In \cref{chap:intro-ref}, we mentioned that
+although the Jeffreys prior is the prior that maximizes the mutual information, \citet{berger_ordered_1992,berger_overall_2015} argue that other priors for the multinomial model are more suited in terms of non-informativeness as the dimension of $\theta$ increases. {According to them, an appropriate reference prior should result from a sequential construction}, referred to as the $r$-group reference prior. This prior is derived through hierarchical maximization of the mutual information where the parameter coordinates are grouped into $r$ groups. Their process is explained in \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}). According to the cited authors, while the Jeffreys prior corresponds to the $r=1$-group reference prior using this construction, the $d$-group one should be favored for this model. 
 Nevertheless, our approach consists in approaching the maximizer of the mutual information, hence, the Jeffreys prior remains our target in this regard.
 
 
@@ -672,10 +672,10 @@ The posterior distributions are compared as well in \cref{fig:VARP:normal-constr
 
 
 
-In this work, we developed an algorithm to perform variational approximation of reference priors using the generalized definition of mutual information based on $f$-divergences that was developed in the \cref{chap:ref-generalized}.
+In this work, we developed an algorithm to perform variational approximation of reference priors using the generalized definition of mutual information based on $f$-divergences that was developed in \cref{chap:ref-generalized}.
 %To enhance computational efficiency, we derived 
 %a lower bound of the generalized mutual information.
-Additionally, because the reference priors of interest are often improper and often yield improper posteriors, we adapted the variational definition of the problem to incorporate constraints that ensure the posteriors are proper, following the development conducted in the \cref{chap:constrained-prior}. 
+Additionally, because the reference priors of interest are often improper and often yield improper posteriors, we adapted the variational definition of the problem to incorporate constraints that ensure the posteriors are proper, following the development conducted in \cref{chap:constrained-prior}. 
 
 
 Numerical experiments have been carried out on two test cases of different complexities in order to validate our approach.
@@ -683,7 +683,7 @@ Numerical experiments have been carried out on two test cases of different compl
 The results demonstrate the usefulness of our approach in estimating both prior and posterior distributions across the considered problems. %\textcolor{Green}{, including problems where the theoretical expression of the target prior is cumbersome to compute.}
 This study thus provides a flexible and robust solution for approximating the theoretical solutions that were proposed in this \cref{part:ref-theory} of the manuscript.
 We argue that the implementation can be adapted to a wide range of statistical models, including the ones where the target prior is not known explicitly.
-In the \cref{part:spra}, an example of such statistical model will be studied.
+In \cref{part:spra}, an example of such statistical model will be studied.
 
 \textcolor{orange}{Challenges remain...}
 

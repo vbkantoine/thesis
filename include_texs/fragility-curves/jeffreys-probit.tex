@@ -16,7 +16,7 @@
     %
     %
     %The posterior distribution is proven to be proper (i.e., it integrates to unity) with the Jeffreys prior but improper with some traditional priors found in the literature. With the Jeffreys prior, the posterior distribution is also shown to vanish at the boundaries of the parameters' domain, which means that sampling the posterior distribution of the parameters does not result in anomalously small or large values.
-    It is also implemented on the three case studies detailed in the \cref{chap:frags-intro}. 
+    It is also implemented on the three case studies detailed in   \cref{chap:frags-intro}. 
     % It is also implemented on three different case studies, including industrial examples. %--- to illustrate the theoretical 
     Our theoretical and practical results show that the Jeffreys prior leads to more robust and efficient fragility curves estimates in comparison with other methods of the literature. 
 %
@@ -33,7 +33,7 @@
 
 Seismic fragility curves are key quantities of interest of the seismic probabilistic risk assessment (SPRA) framework.
 They are defined as the probability of failure of a mechanical system conditionally to a scalar value that is derived from a seismic signal, coined intensity measure (IM).
-A detailed review of those curves and of the methods that exist to estimate them is proposed in the \cref{chap:frags-intro}.
+A detailed review of those curves and of the methods that exist to estimate them is proposed in   \cref{chap:frags-intro}.
 
 Although various data sources can be exploited to evaluate such curves, most of them  suffer from their scarcity,
 complicating the uncertainty quantification in the estimates.
@@ -75,14 +75,14 @@ Of course, from a subjectivity perspective, the choice of a parametric model for
 % Most of 
 The results are illustrated with the PGA, yet we recall that our method can be implemented with any other IM of interest, without additional complexity.
 % yet we also question for one of the case study that we consider the influence of the IM ---PGA vs. PSA--- on the convergence of the estimate.
-We also indicate that the influence of the IM ---PGA vs. PSA--- on the convergence of the estimates is investigated in the \cref{app:chap:uncecomp}.
+We also indicate that the influence of the IM ---PGA vs. PSA--- on the convergence of the estimates is investigated in   \cref{app:chap:uncecomp}.
 % We also recall that our method can be implemented with any other IM of interest, without additional complexity.
 
 
 This chapter is organized as follows. In the next section, we recall the definition of the probit-lognormal model, and we express the implementation of reference prior theory framework in this context.
 Then, the Jeffreys prior is derived and completely studied in \cref{sec:PREM:Jeffreys}. The conduction of Bayesian inference for estimating fragility curves using the Jeffreys prior is the proposed approach of this study, it is compared with other approaches taken from the literature that are depicted in \cref{sec:PREM:competing}. %(including a Bayesian framework with another prior taken from the literatur)
 In \cref{sec:PREM:degeneracy}, we discuss the limitation of the different methods implemented, that results from the form of the likelihood of the probit-lognormal model, whose decay rates are derived.
-The comparison of the approaches is done by computing the performance evaluation metrics proposed in \cref{sec:PREM:metrics}, and by evaluating  them on the three case studies depicted in the \cref{chap:frags-intro} in \cref{sec:PREM:numapp}.
+The comparison of the approaches is done by computing the performance evaluation metrics proposed in \cref{sec:PREM:metrics}, and by evaluating  them on the three case studies depicted in   \cref{chap:frags-intro} in \cref{sec:PREM:numapp}.
 Eventually, an appendix precedes the conclusion in \cref{app:SKreview}. It proposes a deeper study of the competing prior considered in this chapter.
 
 
@@ -91,7 +91,7 @@ Eventually, an appendix precedes the conclusion in \cref{app:SKreview}. It propo
 
 \section{Probit-lognormal model and Bayesian framework}\label{sec:PREM:model}
 
-We remind that the probit-lognormal model of the fragility curve has been described in the \cref{chap:frags-intro}.
+We remind that the probit-lognormal model of the fragility curve has been described in   \cref{chap:frags-intro}.
 It defines the fragility curve of the mechanical system of interest as 
 \begin{equation}\label{eq:PREM:probitfrag}
     P_f(a)=\PP(\text{``failure''}|\text{IM}=a) = \Phi\left(\frac{\log a-\log\alpha}{\beta}\right),
@@ -115,14 +115,14 @@ From a prior whose density is $\pi$, and given observations $(\mbf z^k,\mbf a^k)
 
 
 The construction of that prior is done using the reference prior theory.
-We recall that this theory is comprehensively introduced in the \cref{chap:intro-ref}. %It consis
+We recall that this theory is comprehensively introduced in   \cref{chap:intro-ref}. %It consis
 We remind that it consists in choosing the prior that maximizes the mutual information $\sI^k$ as $k\to\infty$. The mutual information for a prior whose density is $\pi$ is defined here as
     \begin{equation}
         \sI^k(\pi) = \int_{\Theta}\int_{\cA^k}\sum_{\mbf z^k\in\{0,1\}^k}f\left(\frac{\int_\Theta\ell_k(\mbf z^k|\mbf a^k,\theta')\pi(\theta')d\theta'  }{\ell_k(\mbf z^k|\mbf a^k,\theta)}\right)\ell_k(\mbf z^k|\mbf a^k,\theta)\mbf h(\mbf a^k) \pi(\theta)d\mbf a^kd\theta  ,
     \end{equation}
 where $f=-\log$ classically, or follows the suggestion we made in the  \cref{chap:ref-generalized}; and $\mbf h(\mbf a^k):=\prod_{i=1}^kh(a_i) $, $h$ being the density of $A$.
 
-The solution of this asymptotic optimization problem is the Jeffreys prior (see the \cref{chap:intro-ref,chap:ref-generalized}). The Jeffreys prior is already praised in Bayesian inference for its property to be invariant by re-parametrization of the model. Its density $J$ is defined up to a constant as follows
+The solution of this asymptotic optimization problem is the Jeffreys prior (see   \cref{chap:intro-ref,chap:ref-generalized}). The Jeffreys prior is already praised in Bayesian inference for its property to be invariant by re-parametrization of the model. Its density $J$ is defined up to a constant as follows
     \begin{equation}\label{eq:PREM:JcI}
         J(\theta)\propto \sqrt{|\det\cI(\theta)|}\quad \text{with}\quad \cI(\theta)= -\sum_{z\in\{0,1\}}\int_{\cA} \nabla^2_\theta\log\ell(z|a,\theta)h(a)da.
     \end{equation}
@@ -232,7 +232,7 @@ Finally, the Jeffreys prior density is obtained by taking the square root of the
     The derivation conducted in the previous subsection showed that knowing the probability distribution of the IM is required in order to calculate the Fisher information matrix. %Without compromising on the general applicability of the methodology, let us consider in the following section the PGA as the IM. 
     In this thesis we have derived the Jeffreys prior using both the PGA and the PSA as IM.
     {Still, it is important to emphasize that this choice is purely illustrative and bears no consequence for the proposed methodology.} 
-    The distributions of both IMs are approximated given their values for $10^5$ artificial signals generated using the generator presented in the \cref{chap:frags-intro} (\cref{sec:intro-frags:data}).
+    The distributions of both IMs are approximated given their values for $10^5$ artificial signals generated using the generator presented in   \cref{chap:frags-intro} (\cref{sec:intro-frags:data}).
     The empirical distribution of the PGA and of the PSA of these signals is recalled in \cref{fig:IM}, and is compared with a log-normal distribution with same mean and same log deviation. 
     The density $h$ of their distribution can be identified as that log-normal density. 
     In \cref{fig:IM}, we also show that the Jeffreys prior resembles to that log-normal approximation w.r.t. $\alpha$.
@@ -285,7 +285,7 @@ Finally, the Jeffreys prior density is obtained by taking the square root of the
     \subsection{Thorough study of the prior's decay rates}\label{sec:PREM:subsec:jeffasymp}
 
 
-    Since the Jeffreys prior is known to be often improper, we propose in this section to determine its asymptotic decay rates. In the \cref{sec:PREM:degeneracy}, the decay rates of the likelihood will be computed as well, leading us to elucidate whether the posteriors yielded by Jeffreys prior are propers or not.
+    Since the Jeffreys prior is known to be often improper, we propose in this section to determine its asymptotic decay rates. In   \cref{sec:PREM:degeneracy}, the decay rates of the likelihood will be computed as well, leading us to elucidate whether the posteriors yielded by Jeffreys prior are propers or not.
 
     We focus on the asymptotic behavior of Jeffreys in four bounds of the space $\Theta$, the study is compiled in the following propositions. 
     The statements rely on the assumption below about the distribution of the IM. %This assumption is the most appropriate 
@@ -651,7 +651,7 @@ By comparing the Jeffreys and SK prior asymptotics, it can be observed that:
 
     \subsection{Maximum likelihood estimation with bootstrapping}
 
-The most common non-Bayesian estimator of the seismic fragility curves under the probit-lognormal modeling is the maximum likelihood estimator (MLE). This estimator has been introduced in the \cref{chap:frags-intro} (\cref{sec:intro-frags:models}). It is expressed as follows given a set of $k$ observations $(\mbf z^k,\mbf a^k)$:
+The most common non-Bayesian estimator of the seismic fragility curves under the probit-lognormal modeling is the maximum likelihood estimator (MLE). This estimator has been introduced in   \cref{chap:frags-intro} (\cref{sec:intro-frags:models}). It is expressed as follows given a set of $k$ observations $(\mbf z^k,\mbf a^k)$:
     \begin{equation}
         \theta^{\text{MLE}}(\mbf z^k,\mbf a^k)=\argmax_{\theta\in\Theta}\ell_k(\mbf z^k|\mbf a^k,\theta).
     \end{equation}
@@ -846,7 +846,7 @@ a Bayesian framework that slightly differs from ours. In the appendix~\ref{app:S
 \section{Performance evaluation metrics}\label{sec:PREM:metrics}
 
 In order to assess and compare the performances of the proposed approaches, we propose different quantitative metrics.
-Beforehand, we suppose we have access to a reference fragility curve $P^{\text{ref}}_f$. In two of the case studies that we treat in the following, a large validation dataset is available and can be used to derive such reference using non-parametric Monte-Carlo estimates following the suggestion of \citet{trevlopoulos_parametric_2019}. This method was described in the \cref{chap:frags-intro} (\cref{sec:intro-frags:models}) and implemented in the \cref{chap:frags-intro} onto two case studies for which a large validation dataset was available.
+Beforehand, we suppose we have access to a reference fragility curve $P^{\text{ref}}_f$. In two of the case studies that we treat in the following, a large validation dataset is available and can be used to derive such reference using non-parametric Monte-Carlo estimates following the suggestion of \citet{trevlopoulos_parametric_2019}. This method was described in   \cref{chap:frags-intro} (\cref{sec:intro-frags:models}) and implemented in   \cref{chap:frags-intro} onto two case studies for which a large validation dataset was available.
 %We recall briefly the construction of this reference from the validation dataset denoted $(z_i,a_i)_{i=1}^{}$.
 % It follows the suggestion of \citet{trevlopoulos_parametric_2019}
 
@@ -875,7 +875,7 @@ The $L^2$ norms are approximated using Simpson's interpolation, and the expectat
 
 In this section, we will examine three case studies.
 Two of them leverage the many simulation datasets available that have been previously computed for validation purposes. They will be used in the derivation of a reference fragility curve (as explained in \cref{sec:PREM:metrics}), and allow us to validate the corresponding probit-lognormal models. 
-The three case studies were presented in the \cref{chap:frags-intro}. The first one is a nonlinear oscillator
+The three case studies were presented in   \cref{chap:frags-intro}. The first one is a nonlinear oscillator
 for which $10^5$ nonlinear simulations have been implemented for validation purposes. The second case study deals with a piping system which is part of the secondary cooling system of a French Pressurized Water Reactor. Due to the high computational cost, only $10^4$ simulations have been performed for this case. In both cases, estimations are performed using different testing data sets of a size $k$ chosen as negligible compared to the size of the validation dataset. These testing datasets are taken from the set of available nonlinear dynamical simulation results. {A third case study is eventually presented %as supplementary material 
 in order to showcase how our method could be applied to practical experiments.}
 
@@ -887,7 +887,7 @@ in order to showcase how our method could be applied to practical experiments.}
 % \textcolor{orange}{description}
 
 The first case study is a single-degree-of-freedom elasto-plastic oscillator
-with kinematic hardening. This mechanical system was presented in the \cref{chap:frags-intro} (\cref{sec:intro-frags:elastoplastic}).
+with kinematic hardening. This mechanical system was presented in   \cref{chap:frags-intro} (\cref{sec:intro-frags:elastoplastic}).
 For this case study, $10^5$ nonlinear dynamical simulations have been conducted to constitute a validation dataset.
 In \cref{fig:PREM:oscill}, we recall (i) a scheme of the oscillator, (ii) the validation dataset in the plan (PGA,EDP), (iii) reference fragility curves derived using non-parametric estimation from the validation dataset (see \cref{sec:PREM:metrics}).
 In this study, the failure is defined when the EDP exceeds a threshold $C=0.8$~cm.
@@ -959,8 +959,8 @@ They are plotted in \cref{fig:errors}. Firstly, these diagrams demonstrate the b
 
 % \textcolor{orange}{description}
 
-This second case study deals with a piping system which is part of the secondary cooling system of a French pressurized water reactor. This piping system was presented in details in the \cref{chap:frags-intro} (\cref{sec:intro-frags:piping}).
-% We evoked in the \cref{labellist}
+This second case study deals with a piping system which is part of the secondary cooling system of a French pressurized water reactor. This piping system was presented in details in   \cref{chap:frags-intro} (\cref{sec:intro-frags:piping}).
+% We evoked in   \cref{labellist}
 Nonlinear dynamical simulations of this system's response have been carried out for $8\cdot10^4$ of the seismic signals we dispose.
 The resulting validation dataset in the plan (PGA,EDP) is depicted in \cref{fig:PREM:asg}, along with a picture of the system's mock-up and reference fragility curves derived using non-parametric estimation from the validation set (as explicated in \cref{sec:PREM:metrics}).
 In this study, the failure is defined when the EDP exceeds a threshold $C=3.8^\circ$.
@@ -1056,7 +1056,7 @@ For a more complete overview of their relative performances, the evaluation metr
 
 
 The case study considered hereafter concerns a freestanding stacked structure composed of three pallets intended
-for the storage of packages. A complete description of the system was proposed in the \cref{chap:frags-intro}. In \cref{fig:PREM:EDEN}-left. %, we 
+for the storage of packages. A complete description of the system was proposed in   \cref{chap:frags-intro}. In \cref{fig:PREM:EDEN}-left. %, we 
 % depict a picture of the structure and an example of test results.
 %  and a picture of the structure is depicted in \cref{fig:PREM:EDEN}. 
 %

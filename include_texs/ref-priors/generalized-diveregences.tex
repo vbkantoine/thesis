@@ -14,7 +14,7 @@
 
 \section{Introduction and motivations}
 
-The reference prior theory aims at defining priors that are the most objective possible. A review of the theory can be found in the \cref{chap:intro-ref}. It is built on the maximization of the mutual information, which is designed to measure the information brought by the data in the posterior distribution.
+The reference prior theory aims at defining priors that are the most objective possible. A review of the theory can be found in \cref{chap:intro-ref}. It is built on the maximization of the mutual information, which is designed to measure the information brought by the data in the posterior distribution.
 
 Although there are infinite ways % exist infinitely many ways 
 to compare probability distributions, the mutual information is classically defined as an expected Kullback-Leibler divergence between the prior and the posterior.
@@ -61,7 +61,7 @@ After proving our statements in \cref{sec:PSGSA:proofs}, we conclude this chapte
 
 
 We consider a statistical modeling characterized by a collection of distributions $(\PP_{Y|\theta})_{\theta\in\Theta}$. 
-The Bayesian framework is constructed as described in the \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}). We suppose that $\Theta\subset\RR^d$ and denote by $\nu$ the Lebesgue measure on $\RR^d$. 
+The Bayesian framework is constructed as described in \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}). We suppose that $\Theta\subset\RR^d$ and denote by $\nu$ the Lebesgue measure on $\RR^d$. 
 The priors considered are absolutely continuous distributions w.r.t. $\nu$.
 
 We consider the same notations as in \cref{chap:intro-ref}: $\mbf Y_k$ denote a random vector of $k$ data items whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y_k|\theta}:=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$ (which is not necessarily a probability distribution, see \cref{sec:intro-ref:novelframework}). The density of $\varPi$ is denoted by $\pi$.
@@ -152,7 +152,7 @@ When $\delta=0$, we retrieve the original form (KL form) of the mutual informati
 
 %\subsection{Definitions and general properties}
 
-Reference priors are defined as asymptotic maximizers of the mutual information. Using the same formalism as in their original definition (that is expressed in the \cref{chap:intro-ref}), we suggest the following definition of generalized reference priors using our generalized mutual information.
+Reference priors are defined as asymptotic maximizers of the mutual information. Using the same formalism as in their original definition (that is expressed in \cref{chap:intro-ref}), we suggest the following definition of generalized reference priors using our generalized mutual information.
 
 \begin{defi}[Generalized reference prior]\label{def:genref}
     Let $D$ be a dissimilarity measure and $\cP$ a set of priors on $\Theta$. A prior $\varPi\in\cP$ is called a $D$-reference prior over $\cP$ with rate $\varphi(k)$ if there exists an openly increasing  sequence of compact subsets $(\Theta_i)_{i\in\NN}$
@@ -528,7 +528,7 @@ Regarding the optimal characteristic of the Jeffreys prior, we argue that it act
 For a practical implementation when the dimension is high, 
 some authors would recommend referring
 %one would be invited to refer 
-to hierarchical strategies such as the one proposed by \citet{berger_overall_2015} and evoked in the \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}). 
+to hierarchical strategies such as the one proposed by \citet{berger_overall_2015} and evoked in \cref{chap:intro-ref} (\cref{sec:intro-ref:refpriors}). 
 As these strategies are based on the sequential derivation of reference priors on sequentially conditioned models, they take the form of hierarchically derived low dimensional Jeffreys priors. Consequently, 
 since our result supports the consideration of Jeffreys prior as a universal maximizer of the mutual information, they left that methodology unchanged.
 % our results also support their methodology.
