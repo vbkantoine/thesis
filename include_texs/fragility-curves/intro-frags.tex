@@ -146,8 +146,9 @@ As said in the introduction, this thesis does not seek to question thoroughly th
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=5.625cm]{figures/intro-frags/exseism.pdf}
-    \caption{Example of an accelerogram record of a real seismic signal.} %: the realtive acceleration $s$ of the ground is .}
+    \includegraphics[width=5.625cm]{figures/intro-frags/seism1.pdf}\hspace*{0.5cm}
+    \includegraphics[width=5.625cm]{figures/intro-frags/seism2.pdf}
+    \caption{Example of two accelerogram records of real seismic signals (cyan). For each signal, its envelope $q(t,\boldsymbol{\rho})$ is plotted in red.} %: the realtive acceleration $s$ of the ground is .}
     \label{fig:intro-frags:real-seism}
 \end{figure}
 
@@ -158,19 +159,33 @@ As said in the introduction, this thesis does not seek to question thoroughly th
 
 \subsubsection{Seismic signals generator and IMs}
 
-The seismic excitation generated takes the form of a temporal signal that is the realization $s:t\in[0,T]\mapsto s(t)\in\RR$ of a random process defined on a probability space $(\Omega,\Xi,\PP)$. The generator presented here corresponds to a modulated filtered stochastic white noise with time dependent parameters:
-    \begin{equation}
-        s(t)= s(t;w,\boldsymbol{\rho},\boldsymbol{\lambda}) = q(t,\boldsymbol\rho)\left[\frac{1}{\sigma_f(t)}\int_{-\infty}^t h(t-\tau,\boldsymbol\lambda(\tau))w(\tau)d\tau \right],
-    \end{equation}
-where $w$ is a realization of a Gaussian white noise process $W$. In other terms $W:[0,T]\times\Omega\to\RR$ is such that for all $t_1\ne t_2$, $\EE W(t_1)=0$, $\EE W(t_1)^2=\infty$, and $\EE W(t_1)W(t_2)=\varsigma(t_1-t_2) $.
 
-The integral in the above equation corresponds to the filtering of $w$, $h(t,\boldsymbol{\lambda})$ being to the impulse response function (IRF) of the linear filter and $\sigma_f^2$ being its variance: $\sigma_f^2(t)=\int_{-\infty}^th^2(t-\tau,\boldsymbol{\lambda}(\tau))d\tau$. The IRF is defined by
-    \begin{equation}
-        h(t-\tau,\boldsymbol{\lambda}(\tau)) = \frac{\omega_f(\tau)}{\sqrt{1-\zeta^2_f}}\exp[-\zeta_f\omega_f(\tau)(t-\tau)]\sin\left(\omega_f(\tau)\sqrt{1-\zeta^2_f}(t-\tau)\right)\indic_{t\geq\tau},
+The generator model a seismic excitation as a temporal signal that is the realization
+$s:t\in[0,T]\mapsto s(t)\in\RR$ of a random process defined on a probability space $(\Omega,\Xi,\PP)$. 
+The process presented here corresponds to a filtered stochastic white noise with time dependent parameters:
+    \begin{equation}\label{eq:intro-frags:sgenertor}
+        s(t)= s(t;w,\boldsymbol{\rho},\boldsymbol{\lambda}) = q(t,\boldsymbol\rho)\left[\frac{1}{\sigma_f(t)}\int_{-\infty}^t h_f(t-\tau,\boldsymbol\lambda)w(\tau)d\tau \right],
     \end{equation}
-where $\boldsymbol{\lambda}(\tau)=(\omega_f(\tau),\zeta_f) $ with $\omega_f(\tau):=\omega_0+\frac{\tau}{T}(\omega_n-\omega_0)$ being the natural frequency and $\zeta_f\in[0,1]$ being a constant damping ratio. The quantities $\omega_0$ and $\omega_n$ are parameters of the IRF.
+where $w$ is a realization of a Gaussian white noise process $W$. In other terms $W:[0,T]\times\Omega\to\RR$ is such that for all $t_1<t_2$, $t_3<t_4$, 
+$\int_{t_1}^{t_2}W(\tau)d\tau\sim\cN(0,(t_2-t_1)\sigma^2)$, and $\EE\int_{t_1}^{t_2}W(\tau)d\tau\int_{t_3}^{t_4}W(\tau)d\tau=(\min(t_2,t_4)-\max(t_1,t_3))^+\sigma^2$.
 
- The function $q(t,\boldsymbol\rho)$ is the non-negative modulating function, it is defined by
+% $\EE W(t_1)=0$, $\EE W(t_1)^2=\infty$, and $\EE W(t_1)W(t_2)=0$.
+
+The integral in the \cref{eq:intro-frags:sgenertor} corresponds to the filtering of $w$, $h_f(t,\boldsymbol{\lambda})$ being to the impulse response function (IRF) of the linear filter and $\sigma_f^2$ being its variance: $\sigma_f^2(t)=\int_{-\infty}^th^2(t-\tau,\boldsymbol{\lambda}(\tau))d\tau$. The IRF is defined by
+    \begin{equation}
+        h_f(t-\tau,\boldsymbol{\lambda}) = \frac{\omega_f(\tau)}{\sqrt{1-\zeta^2_f}}\exp[-\zeta_f\omega_f(\tau)(t-\tau)]\sin\left(\omega_f(\tau)\sqrt{1-\zeta^2_f}(t-\tau)\right)\indic_{t\geq\tau},
+    \end{equation}
+with $\omega_f(\tau):=\omega_0+\frac{\tau}{T}(\omega_n-\omega_0)$. 
+The IRF $h_f$ corresponds to the response of a linear oscillator with damping ratio $\zeta_f$ and time-dependent natural frequency $\omega_f(\tau)$. It is parameterized by $\boldsymbol{\lambda}=(\omega_0,\omega_n,\zeta_f)\in(0,\infty)^2\times[0,1]$.
+
+
+
+
+% with $\boldsymbol{\lambda}(\tau)=(\omega_0,\omega_n\zeta_f) $ where $\omega_f(\tau):=\omega_0+\frac{\tau}{T}(\omega_n-\omega_0)$ being the natural frequency and $\zeta_f\in[0,1]$ being a constant damping ratio. 
+% The quantities $\omega_0$ and $\omega_n$ are parameters of the IRF.
+
+ The function $q(t,\boldsymbol\rho)$ is a
+ non-negative modulating function that represents the envelope of the accelerogram, it is defined by
     \begin{equation}
         q(t,\boldsymbol\rho) = \left\lbrace \begin{array}{ll}
             \rho_1t^2/T_1^2 & \text{if\ } 0\leq t< T_1 \\
@@ -179,19 +194,46 @@ where $\boldsymbol{\lambda}(\tau)=(\omega_f(\tau),\zeta_f) $ with $\omega_f(\tau
         \end{array}\right.
     \end{equation}
 where $\boldsymbol\rho=(\rho_1,\rho_2,\rho_3,T_1,T_2)\in(0,\infty)^5$.
-Therefore, the signal $s$ depends on $w$ and 
-$\boldsymbol{\phi}:=(\boldsymbol{\rho},\omega_0,\omega_n,\zeta_f)\in\boldsymbol{\Phi}:=(0,\infty)^7\times[0,1]$.
-The generator consists in deriving realizations of $s(\cdot;W,\boldsymbol\phi)$ where 
-$\boldsymbol{\phi}$
-is stochastic,
-its distribution being identified using real acceleration records.
+
+
+%For each of the seimsic records 
+%As previously announced, 
+%Given an accelerogram record $\tilde s$, 
+A real accelerogram record is associated to parameters $(\boldsymbol{\lambda},\boldsymbol{\rho})$ by conducting signal processing techniques. We refer to \cite{rezaeian_stochastic_2008} for more details.
+In \cref{fig:intro-frags:real-seism}, the envelopes $q(\cdot,\boldsymbol{\rho})$ associated with two real seismic signals are plotted.
 As previously announced,
-the records considered are $N_r=97$ real acceleration records form the European Strong Motion Database for a magnitude $M$ such that $5.5\leq M\leq 6.5$ and a source-to-site distance $R<20$~km.
-Each of the records corresponds to a realization of $s(\cdot;W,\overline{\boldsymbol{\phi}}_i)$ using a tuple $\overline{\boldsymbol\phi}_i$ as parameters. The distribution of $\boldsymbol{\phi}$ is given by the Gaussian kernel density estimation (see \cite{kristan_multivariate_2011}) of the one of the $(\overline{\boldsymbol\phi}_i)_{i=1}^{N_r}$, i.e. its density $p_{\boldsymbol{\phi}}$ is given by
-    \begin{equation}
-        p_{\boldsymbol{\phi}}(x) \propto \sum_{i=1}^{N_r}\exp\left( -\frac{1}{2} (x-\overline{\boldsymbol\phi}_i)^\top\Sigma^{-1}(x-\overline{\boldsymbol\phi}_i) \right)\indic_{x\in\boldsymbol{\Phi}},
-    \end{equation}
+we consider $N_r=97$ real acceleration records form the European Strong Motion Database for a magnitude $M$ such that $5.5\leq M\leq 6.5$ and a source-to-site distance $R<20$~km. They have been associated to parameters $\overline{\boldsymbol{\phi}}_i:=(\overline{\boldsymbol{\lambda}}_i,\overline{\boldsymbol{\rho}}_i)$, $i=1,\dots,N_r$.
+
+
+
+To generate artificial seismic signals, we propose sampling realizations of the process $s(\cdot;W,\boldsymbol{\phi})$, where $\boldsymbol{\phi}\in D:=(0,\infty)^7\times[0,1]$ is stochastic and follows a distribution that corresponds to the empirical distribution of the $(\overline{\boldsymbol{\phi}}_i)_{i=1}^{N_r}$. More precisely, the distribution of $\boldsymbol{\phi}$ is  given by the Gaussian kernel density estimation (see \cite{kristan_multivariate_2011}) of the one of the $(\overline{\boldsymbol\phi}_i)_{i=1}^{N_r}$, i.e., its density $p_{\boldsymbol{\phi}}$ is given by
+\begin{equation}
+    p_{\boldsymbol{\phi}}(x) \propto \sum_{i=1}^{N_r}\exp\left( -\frac{1}{2} (x-\overline{\boldsymbol\phi}_i)^\top\Sigma^{-1}(x-\overline{\boldsymbol\phi}_i) \right)\indic_{x\in\boldsymbol{\Phi}},
+\end{equation}
 where $\Sigma$ is derived from the $(\overline{\boldsymbol{\phi}}_i)_{i=1}^{N_r}$ (see \cite{kristan_multivariate_2011}).
+
+To sample from the generator, a tuple of parameters $\tilde{\boldsymbol{\phi}}$ is sampled given the distribution of $\boldsymbol{\phi}$. Then, the filtered Gaussian noise is approximated by a truncation of the integral in \cref{eq:intro-frags:sgenertor}:
+    \begin{equation}
+        \int_{-\infty}^t h_f(t-\tau,\boldsymbol\lambda)W(\tau)d\tau \approx \sum_{j=0}^{M}h_f(t- \tau(j),\boldsymbol{\lambda} ) \int_{\tau(j)}^{\tau(j+1)}W(\tau)d\tau, %,\quad \tau(j) = -M_2+ \frac{j(t+M_2)}{M_1}, %j(t+M_2)/M_1
+    \end{equation}
+where $\tau(0),\dots,\tau(M)$ is a subdivision of a subset of $(-\infty,t)$.
+The above approximation can be sampled using $\int_{\tau(j)}^{\tau(j+1)}W(\tau)d\tau\sim\cN(0,(\tau(j+1)-\tau(j))\sigma^2)$.
+
+
+
+
+
+% As previously announced,
+% the records considered are $N_r=97$ real acceleration records form the European Strong Motion Database for a magnitude $M$ such that $5.5\leq M\leq 6.5$ and a source-to-site distance $R<20$~km.
+% Therefore, the signal $s$ depends on $w$ and 
+% $\boldsymbol{\phi}:=(\boldsymbol{\rho},\omega_0,\omega_n,\zeta_f)\in\boldsymbol{\Phi}:=(0,\infty)^7\times[0,1]$.
+% The generator consists in deriving realizations of $s(\cdot;W,\boldsymbol\phi)$ where 
+% $\boldsymbol{\phi}$
+% is stochastic,
+% its distribution being identified using real acceleration records.
+% As previously announced,
+% the records considered are $N_r=97$ real acceleration records form the European Strong Motion Database for a magnitude $M$ such that $5.5\leq M\leq 6.5$ and a source-to-site distance $R<20$~km.
+% Each of the records corresponds to a realization of $s(\cdot;W,\overline{\boldsymbol{\phi}}_i)$ using a tuple $\overline{\boldsymbol\phi}_i$ as parameters. The distribution of $\boldsymbol{\phi}$ 
 
 
 From a seismic signal $s$ that is a realization of the process described above, different intensity measure  indicators can be derived.

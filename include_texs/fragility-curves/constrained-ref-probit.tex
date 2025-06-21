@@ -28,9 +28,9 @@ Our results highlight the capacity of the constrained prior to provide accurate 
 
 In the seismic probabilistic risk assessment (SPRA) framework, the estimation of seismic fragility curves is a critical step. 
 We recall that those curves are defined in the \cref{chap:frags-intro}, where we review the methods that are used in the literature to estimate them.
-As a matter of fact, the information provided in the available statistics to estimate the fragility curves is sometimes poor.
+As a matter of fact, the information provided in the available databases to estimate the fragility curves is sometimes poor.
 In our study, we are particularly interested in cases where
-(i) the data are scarce, and (ii) the available knowledge about the mechanical system's response to the seismic excitation is limited to a binary outcome (i.e. failure or non-failure).
+(i) the data are scarce, and (ii) the available knowledge about the mechanical system's response to the seismic excitation is limited to a binary outcome (i.e., failure or non-failure).
 Under those settings, the parameterization of the fragility curve using the probit-lognormal model is a widely recognized approach in earthquake engineering.
 
 
@@ -48,12 +48,15 @@ their prior construction processes.
 Indeed, on the one hand, informative priors may be efficient but need to be 
 avoided in reliability assessment studies because of the subjectivity they embed.
 % in reliability studies since
-On the other hand, the work conducted in the \cref{chap:prem} demonstrates that (i) too poorly informative priors are not guaranteed to issue proper posteriors given the decay rates of the likelihood of the probit-lognormal model, and that (ii)  the reference prior for this model is limited to 
-case studies where the data are not what we call ``degenerate''. %The degeneracy is defined when, in the observed data, the failures and non-failures can be classified 
+On the other hand, the work conducted in the \cref{chap:prem} demonstrates that (i) insufficiently informative priors do not guarantee to produce proper posteriors given the likelihood decay rates of the probit-lognormal model, and that (ii)  
+the reference prior is, most of the time, and in particular for the probit-lognormal model, defined by considering that the data are not what we call ``degenerate''. % (section 8.5).
+%
+%the reference prior for this model is limited to 
+%case studies where the data are not what we call ``degenerate''. %The degeneracy is defined when, in the observed data, the failures and non-failures can be classified 
 % namely which
 % are partitioned into two disjoint subsets when classified according to IM values: the subset for
 % which there is no failure and the other one for which there is failure, 
-That degeneracy phenomenon represents a major curse when estimating seismic fragility curves, and the work done in the \cref{chap:prem} shows that is does not only affect the Bayesian estimates.
+That degeneracy phenomenon represents a major curse when estimating seismic fragility curves, and the work done in the \cref{chap:prem} shows that is does not only affect the Bayesian estimates. Frequentist methods such as MLE when coupled with bootstrap techniques are also very affected.
 Moreover, in the \cref{app:chap:uncecomp}, we illustrate on an example that this degeneracy is likely to occur (i) under small samples, and (ii) when the IM that is considered is more correlated with the structure's response.
 The latter statement paradoxically jeopardizes the estimation of the fragility curve given an input that embeds more information on the output. % more correlated IM to the structure's response ---such as the PSA--- 
 
@@ -79,21 +82,21 @@ The latter statement paradoxically jeopardizes the estimation of the fragility c
 %That praised capability to ``regularize'' the estimates is actually limited. Indeed, in the \cref{chap:prem}, we proved that the decay rates of the probit-lognormal likelihood sometimes does not shrink in some particular direction of the paramters' space under some  when the observed data are empirically 
 
 
-In this chapter, we propose a truly regularizing objective prior based Bayesian methodology, in the sense that the prior we propose is sought to avoid the generation of unrealistic fragility curves ---even in degenerate scenarios--- while conserving an objective characteristic.
+In this chapter, we propose a truly regularizing objective prior based Bayesian methodology, in the sense that the prior we propose is sought to avoid the generation of unrealistic fragility curves ---even in degenerate scenarios--- while conserving an objective characteristic (as much as possible).
 % being preserved from too much subjective thought introduction.
 % For this s
-When looking for objective priors, we recall that the reference prior theory is prominent, since it suggests constructing priors that maximize the mutual information,  which amounts to maximize the information brought by the data to the posterior (we refer to the \cref{chap:intro-ref} for a complete review of the reference prior theory).
+When looking for objective priors, we recall that the reference prior theory is prominent, since it suggests constructing priors that maximize the mutual information,  which amounts maximizing the information brought by the data to the posterior (we refer to the \cref{chap:intro-ref} for a complete review of the reference prior theory).
 In this study, we
 mainly rely on the theoretical work developed in the \cref{chap:constrained-prior}, which suggests incorporating constraints to the reference prior. %(we recall that the reference prior theory was reviewed in the \cref{chap:intro-ref}).
-The incorporated constraints %incorporation suggested
-take the form of linear constraints that slightly regularize the reference prior's decay rate to ensure it issues proper posteriors.
+The constraints %incorporation suggested
+take the form of linear constraints that slightly regularize the reference prior's decay rate to ensure it yields proper posteriors.
 %does not alter too much the prior.
 
 
 %The objective of this work is 
 To implement the constrained reference prior, we compare two methodologies.
 The first one consists in approximating numerically the prior density by interpolating the integrals involved in its theoretical non-explicit formulation. %\emph{A posteriori} samples can be obtained 
-This approach corresponds to the one conducted in the \cref{chap:prem} with the unconstrained reference prior, it has the disadvantage of being computationally expensive.
+This approach corresponds to the one conducted in the \cref{chap:prem} with the unconstrained reference prior. It has the disadvantage of being computationally expensive.
 The second methodology consists in using a variational approximation of the reference prior (VA-RP).
 This method consists in applying the algorithm constructed in the \cref{chap:varp}, which parameterizes the reference prior as the output of a neural network.
 The weights of the neural networks are trained to maximize the mutual information, while ensuring the incorporated constraint on the prior is satisfied.
@@ -121,7 +124,7 @@ Before to conclude, we propose some results in an appendix (\cref{sec:constr-fra
 \section{Reminder of the probit-lognormal model and of the Bayesian framework}\label{sec:constr-frags:model}
 
 
-We remind that the probit-lognormal model consists in a statistical model where the data take the form of realizations of the random vector $Y=(Z,A)$, where $A\in\cA\subset(0,\infty)$ refers to the IM of the seismic signal, and $Z\in\{0,1\}$ refers to the outcome ($Z=1$ in case of a failure, $Z=0$ otherwise). The model consists in considering
+We remind that the probit-lognormal model was defined in the \cref{chap:frags-intro}. It consists in a statistical model where the data take the form of realizations of the random vector $Y=(Z,A)$, where $A\in\cA\subset(0,\infty)$ refers to the IM of the seismic signal, and $Z\in\{0,1\}$ refers to the outcome ($Z=1$ in case of a failure, $Z=0$ otherwise). The model consists in considering
 the following parameterized distribution of $Y$ conditionally to $\theta=(\alpha,\beta)\in\Theta$:
     \begin{equation}
         A\sim A|\theta\sim H,\quad\text{and}\quad Z|A,\theta\sim\cB(P_f(A)),
@@ -228,7 +231,7 @@ The mutual information can be written as a function of the prior $\varPi$:
 \begin{equation}\label{eq:constr-frag:MI}
     \sI^k(\varPi) = \int_{\Theta}\int_{\cA^k}\sum_{\mbf z^k\in\{0,1\}^k}f\left(\frac{\int_\Theta\ell_k(\mbf z^k|\mbf a^k,\theta')d\varPi(\theta')  }{\ell_k(\mbf z^k|\mbf a^k,\theta)}\right)\ell_k(\mbf z^k|\mbf a^k,\theta)dH^{\otimes k}(\mbf a^k)d\varPi(\theta)  ,    
 \end{equation}
-where $f=-\log$ in the original theory, yet in this study we consider the mutual information written with $f=f_\delta:x\mapsto\frac{x^\delta-1}{\delta(\delta-1)}$.
+where $f=-\log$ in the original theory, yet in this study we consider the mutual information written with $f=f_\delta:x\mapsto\frac{x^\delta-1}{\delta(\delta-1)}$, $\delta\in(0,1)$.
 This corresponds to the generalized mutual information 
 based on $\delta$-divergence, introduced in the \cref{chap:ref-generalized}. 
 
@@ -268,14 +271,18 @@ We recall that
 % \end{equation}
 where $D'(\alpha)>0$ is a constant of $\beta$, $E'>0$ is a constant of $\theta$, and $G''(\beta)>0$ is a constant of $\alpha$.
 
-The Jeffreys prior has an improper tail at $\beta\to0$ which does not shrinks when it is multiplied with a degenerate likelihood.
+The Jeffreys prior has an improper tail at $\beta\to0$ which does not shrinks when it is multiplied by a degenerate likelihood.
 % This asymptotic rate at $\beta\to0$ is actually 
 While we do not exactly know the shape of the prior on the whole domain, we assume that we can associate it to (i) an improper marginal distribution w.r.t. $\beta$ whose density follows asymptotically the rates in \cref{eq:constr-frag:decaysJbeta}, and (ii) a proper distribution of $\alpha$ conditionally to $\beta$.
 
 
 
 It is thus possible to construct a constraint that will adjust the decay rate at $\beta\to0$ of the Jeffreys prior in order to make it integrable.
-We chose $a(\theta)=\theta^\kappa$, that satisfies \cref{eq:constr-frag:inta} for $\kappa\in(0,\frac{2\delta}{1+\delta})$. That makes the solution of the optimization problem \cref{eq:constr-frag:optimconstr} being the prior whose density $\pi^\ast$ verifies $\pi^\ast(\theta)\propto J(\theta)\beta^{\kappa/\delta}$. In this work, we denote by $\varPi^\ast_\gamma$ this prior and by $\pi^\ast_\gamma$ its density, where $\gamma:=\kappa/\delta\in(0,\frac{2}{1+\delta})\subset(0,2)$.
+We chose $a(\theta)=\theta^\kappa$, that satisfies \cref{eq:constr-frag:inta} for $\kappa\in(0,\frac{2\delta}{1+\delta})$. 
+The solution of the optimization problem~\eqref{eq:constr-frag:optimconstr} is then the prior whose density $\pi^\ast$ verifies $\pi^\ast(\theta)\propto J(\theta)\beta^{\kappa/\delta}$. In this work, we denote by $\varPi^\ast_\gamma$ this prior and by $\pi^\ast_\gamma$ its density, where $\gamma:=\kappa/\delta\in(0,\frac{2}{1+\delta})\subset(0,2)$:
+    \begin{equation}
+        \pi^\ast_\gamma(\theta) \propto J(\theta)\beta^\gamma.
+    \end{equation}
 
 
 %A little regularization of that decay rates allows to make it integrable.
@@ -323,11 +330,12 @@ $A_{01}$, $A_{02}$, $A_{11}$, $A_{12}$, $A_{21}$, $A_{22}$ as
 for $u\in\{1,2\}$, and where $h$ denotes the p.d.f. of the IM.
 %It is then 
 
-Using the above, it is possible to approximate $J(\theta)$ by conducting Simpson's interpolations of the involved integrals in the Fisher information matrix. The interpolations are conducted on the basis of a large dataset of IM values. We refer to the \cref{chap:frags-intro} where a seismic signal generator providing a large dataset of seismic signals is presented. The empirical distribution of the PGA of the seismic signals in that dataset is recalled in \cref{fig:constr-frags:PGA}. %That generator has been used to construct a dataset of $10^5$ seismic signals for which different IMs have been derived.
+Using the above, it is possible to approximate $J(\theta)$ by conducting Simpson's interpolations of the involved integrals in the Fisher information matrix. The interpolations are performed from a large dataset of IM values. We refer to the \cref{chap:frags-intro} where the seismic signal generator used in this work to provide
+a large dataset of seismic signals is presented. The empirical distribution of the PGA of the seismic signals in that dataset is recalled in \cref{fig:constr-frags:PGA}. %That generator has been used to construct a dataset of $10^5$ seismic signals for which different IMs have been derived.
 The interpolations are done a regular grid of $\cA=[a_{\min},a_{\max}]$, where $a_{\min}$ (resp. $a_{\max}$) is the minimal (reps. the maximal) value of the IM in the dataset.
 The density $h$ is approximated by Gaussian kernel density estimation. 
 
-Due to the computational cost of the numerical interpolations involved when approximating the Jeffreys prior, we conducted the same methodology as in the \cref{chap:prem} by performing  evaluations of it on an experimental design based on a fine-mesh grid $\Theta$ to build an interpolated approximation of the Jeffreys prior density matching the design.
+Due to the computational cost of the numerical interpolations involved when approximating the Jeffreys prior, we conducted the same methodology as in the \cref{chap:prem}. This methodology consists in evaluating it on an experimental design based on a fine-mesh grid $\Theta$. These evaluations allow building an interpolated approximation of the Jeffreys prior density matching the design.
 The density $\pi^\ast_\gamma$ is then obtained by multiplying the interpolated approximated Jeffreys by $\beta^\gamma$.
 
 \begin{figure}[h]
@@ -352,8 +360,10 @@ The density $\pi^\ast_\gamma$ is then obtained by multiplying the interpolated a
 The second approximation of the constrained reference prior that we conduct results form a variational inference methodology.
 We recall that
 variational inference encompasses a range of techniques designed to approximate probability distributions by solving an optimization problem (such as maximizing the evidence lower bound, as in \cite{kingma_auto-encoding_2014}). 
-For more information about variational inference, we refer to the \cref{chap:varp}.
-Given that our objective involves finding the prior that maximizes the mutual information defined in \cref{eq:constr-frag:MI}, variational inference naturally lends itself to the approximation of reference priors.  
+%For more information about variational inference, we refer to the \cref{chap:varp}.
+Since our goal is to find
+%Given that our objective involves finding 
+the prior that maximizes the mutual information defined in \cref{eq:constr-frag:MI}, variational inference naturally lends itself to the approximation of reference priors.  
 
 The approach that we conduct is based on the variational approximation of the reference prior (VA-RP) proposed in the \cref{chap:varp}.
 It consists in limiting the family of priors to a parametric class $\{\varPi_\lambda,\,\lambda\in\Lambda\}$, with $\Lambda\subset\mathbb{R}^L$, thereby reducing the problem to a finite-dimensional setting. Consequently, the optimization tasks in equations \cref{eq:constr-frag:optimnoconstr,eq:constr-frag:optimconstr} %(  {eq:RPdef}) and (  {eq:def_const_RP}) 
@@ -502,8 +512,8 @@ They are consistent with the ones of the Jeffreys prior. % (resp. the $\gamma$-c
 In this section, we compare the approximation of the target prior using the VA-RP approach with the approximation by numerical interpolation of the theoretical expression of the Jeffreys prior density (denoted AJ).
 We consider that the AJ is a more accurate approximation of the target than the VA-RP. For this reason, this section mostly serves the assessment of the VA-RP methodology in the context of the probit-lognormal model.
 
-
-We have implemented the probit-lognormal modeling by setting the p.d.f. $h$ of the IM as
+We implemented the probit-lognormal modeling assuming that the p.d.f. h of the IM is defined by
+%We have implemented the probit-lognormal modeling by setting the p.d.f. $h$ of the IM as
     \begin{equation}\label{eq:constr-frags:ha}
         h(a) = \frac{1}{\sqrt{2\pi}\sigma_a^2 a}\exp\left(-\frac{(\log a-\mu_a)^2}{2\sigma_a^2}\right)
     \end{equation}
@@ -527,7 +537,10 @@ for the training, we take $k=50$ and $p=50$. The training consists in the maximi
 The optimization has been done through a number of $9000$ epochs, with a learning rate of $0.005$.
 
 
-\Cref{fig:unconstr_weights} shows the evolutions of the weights of the neural network that define the marginal distributions of $p_\alpha$ and $p_\beta$ (see \cref{eq:marginaldist}), as a function of the number of epochs. Thus, the bias $b_1$ is constant and equal to $0$, which is consistent with the asymptotic distribution of $\alpha$. $1/w_{2l}$ and $1/w_{2j}$ both tend to 0. As a result, the marginal distribution of $\beta$ tends to $1/\beta$. This is an improper distribution which does not exactly match the expected improper Jeffreys prior (see \cref{eq:constr-frag:decaysJbeta}): it has a heavier tail as $\beta\to\infty$ than the original Jeffreys. However, we will see in the end of this section that the distribution is not limited to its tails, and that this prior actually ascribes huge weights to small values of $\beta$ (see the paragraph ``Posterior evaluation''). Finally, $\|\mbf w_1\|_2$ tends to $+\infty$. This means that the variance of  $\log\alpha$ tends to $+\infty$ as it is expected (see appendix~\ref{sec:constr-frags:app}), even though this does not lead to the target distribution. This last result is nevertheless not surprising. It is the consequence of the chosen architecture of the VA-RP: $p_\alpha$ is a lognormal distribution (\cref{eq:palphabeta}), which is not exactly the case for the Jeffreys prior (\cref{eq:constr-frag:decaysJalpha}). What fundamentally distinguishes these two distributions is that (i) in the first case, that of Jeffreys, the variance of $\log\alpha$ is finite conditionally to $\beta$, and is infinite otherwise because of the heavy tail of the distribution w.r.t. $\beta$ %is infinite because of the heavy tail of the distribution
+\Cref{fig:unconstr_weights} shows the evolutions of the weights of the neural network that define the marginal distributions of $p_\alpha$ and $p_\beta$ (see \cref{eq:marginaldist}), as a function of the number of epochs. Thus, the bias $b_1$ is constant and equal to $0$, which is consistent with the asymptotic distribution of $\alpha$. $1/w_{2l}$ and $1/w_{2j}$ both tend to $0$. As a result, the marginal distribution of $\beta$ tends to $1/\beta$. This is an improper distribution which does not exactly match the expected improper Jeffreys prior (see \cref{eq:constr-frag:decaysJbeta}): it has a heavier tail as $\beta\to\infty$ than the original Jeffreys. 
+However, we will see at the end of this section that the information contained in the distribution is not concentrated in its tails. In reality, low values of $\beta$ have huge weights
+%However, we will see in the end of this section that the distribution is not limited to its tails, and that this prior actually ascribes huge weights to small values of $\beta$ 
+(see the paragraph ``Posterior evaluation''). Finally, $\|\mbf w_1\|_2$ tends to $+\infty$. This means that the variance of  $\log\alpha$ tends to $+\infty$ as it is expected (see appendix~\ref{sec:constr-frags:app}), even though this does not lead to the target distribution. This last result is nevertheless not surprising. It is the consequence of the chosen architecture of the VA-RP: $p_\alpha$ is a lognormal distribution (\cref{eq:palphabeta}), which is not exactly the case for the Jeffreys prior (\cref{eq:constr-frag:decaysJalpha}). What fundamentally distinguishes these two distributions is that (i) in the first case, that of Jeffreys, the variance of $\log\alpha$ is finite conditionally to $\beta$, and is infinite otherwise because of the heavy tail of the distribution w.r.t. $\beta$ %is infinite because of the heavy tail of the distribution
 while (ii) in the second case, the variance becomes infinite to correspond, via the training process, to the target variance of the Jeffreys prior. In doing so, the marginal distribution of $\alpha$ tends towards the improper distribution $1/\alpha$. Although this result is open to criticism, it appears to be an ``acceptable'' compromise insofar as the model's likelihood tends to substantially attenuate the prior's tails with respect to $\alpha$, thereby limiting the influence of the prior's decay rates on the posterior. An alternative approach could involve modifying the neural network architecture to better capture the correlation between $\alpha$ and $\beta$. However, such adjustments would inevitably increase the computational complexity of the training process.
 
 
@@ -560,7 +573,7 @@ The training process of the constrained VA-RP is done during $12000$ epochs with
 
 
 
-\Cref{fig:constr-frags:training-constr}(a) suggests that the constraint seems reasonably verified during the whole optimization as the constraint gap is close to zero and appears to be decreasing. \Cref{fig:constr-frags:training-constr}(b) shows that the inverse weights $1/w_{2l}$ and $1/w_{2j}$ appear to steadily approach their theoretical values, respectively $-\gamma=-0.3$ and $2-\gamma = 1.7$. As in the unconstrained case, we observe that $\|\mbf w_1\|_2$ tends to $+\infty$. This is consistent with the theoretical results of \cref{sec:var_prior_alpha} which suggest, recall, that for all $\gamma\geq0$, $\EE[|\log\alpha|^2]=\infty$. So, we verify that adding constraints therefore allows, as expected, to ``control'' the distribution of $\beta$. Concerning $\alpha$, we find the same trend as in the unconstrained case, which is theoretically expected from the point of view of the variance of the marginal distribution.
+\Cref{fig:constr-frags:training-constr}.(a) suggests that the constraint seems reasonably verified during the whole optimization as the constraint gap is close to zero and appears to be decreasing. \Cref{fig:constr-frags:training-constr}(b) shows that the inverse weights $1/w_{2l}$ and $1/w_{2j}$ appear to steadily approach their theoretical values, respectively $-\gamma=-0.3$ and $2-\gamma = 1.7$. As in the unconstrained case, we observe that $\|\mbf w_1\|_2$ tends to $+\infty$. This is consistent with the theoretical results of \cref{sec:var_prior_alpha} which suggest, recall, that for all $\gamma\geq0$, $\EE[|\log\alpha|^2]=\infty$. So, we verify that adding constraints therefore allows, as expected, to ``control'' the distribution of $\beta$. Concerning $\alpha$, we find the same trend as in the unconstrained case, which is theoretically expected from the point of view of the variance of the marginal distribution.
 
 
 \begin{figure}[h]
@@ -574,9 +587,8 @@ The training process of the constrained VA-RP is done during $12000$ epochs with
 	%\subfloat[Weights of interest of the neural network. \label{fig:constr_weights} ]
     {\includegraphics[width=5.2cm]{figures/constr-frags/weights_constr.pdf}}
     \makebox[5.2cm]{(a)}\makebox[5.2cm]{(b)}
-    \label{fig:constr-frags:training-constr}
     %\end{tabular}
-  \caption{(a) Evolution of the constraint value gap during training. It corresponds to the difference between the target and current values for the constraint (in absolute value). (b) Weights of interest of the neural network during the constrained optimization. The yellow and blue curves represent respectively $\|\mbf w_1 \|_2$ and $b_1$, where $\|\mbf w_1 \|_2^2$ is the variance of the log of the first component, and $b_1$ its mean. The brown and violet curves represent respectively $1/w_{2l}$ and $1/w_{2j}$ that are defined in \cref{sec:constr-frags:architecture}. In same color dashed line are plotted their target value.}
+  \caption{(a) Evolution of the constraint value gap during training. It corresponds to the difference between the target and current values for the constraint (in absolute value). (b) Weights of interest of the neural network during the constrained optimization. The yellow and blue curves represent respectively $\|\mbf w_1 \|_2$ and $b_1$, where $\|\mbf w_1 \|_2^2$ is the variance of the log of the first component, and $b_1$ its mean. The brown and violet curves represent respectively $1/w_{2l}$ and $1/w_{2j}$ that are defined in \cref{sec:constr-frags:architecture}. In same color dashed line are plotted their target value.\label{fig:constr-frags:training-constr}}
 % \label{fig:constr_gap_weights}    
 \end{figure}
 
@@ -584,12 +596,12 @@ The training process of the constrained VA-RP is done during $12000$ epochs with
 %\end{figure}
 
 \paragraph{Posterior evaluation}
-We suggest evaluating the posterior that the VA-RPs derived in this section yield.
+We evaluate the posterior that the VA-RPs derived in this section yield.
 For this purpose, we take as dataset $k=50$ samples $(\mbf z^k,\mbf a^k)$, $\mbf z^k=(z_i)_{i=1}^k$, $\mbf a^k=(a_i)_{i=1}^k$, that are generated given a probit-lognormal model with $\theta_{\text{true}}$ close to $(3.37, 0.43)$. %The distribution of. % considered is still a log-normal with $\mu_a=0$ and $\sigma_a=1$.
 
-\emph{A posteriori} samples are generated for both all approaches by using an adaptive Metropolis-Hasting (H-M).
-In the case of the AJ approach, the H-M is implemented to generate samples using the approximated posterior density.
-In the case of the VA-RP, the H-M is implemented to generate samples using the posterior density $q(\cdot|\mbf z^k,\mbf a^k)$ density of $\eps$:
+\emph{A posteriori} samples are generated for both all approaches by using an adaptive Metropolis-Hasting (M-H).
+In the case of the AJ approach, the M-H is implemented to generate samples using the approximated posterior density.
+In the case of the VA-RP, the M-H is implemented to generate samples using the posterior density $q(\cdot|\mbf z^k,\mbf a^k)$ density of $\eps$:
     \begin{equation}
         q(\eps|\mbf z^k,\mbf a^k) \propto q(\eps)\ell_k(\mbf z^k|\mbf a^k,g(\lambda,\eps)),
     \end{equation}
@@ -626,7 +638,7 @@ we precise that the likelihood is not degenerate.
 
 
 
-\Cref{fig:scatterhist_unconstr,fig:scatterhist_constr} show that the posterior distribution obtained from the VA-RP is more like Jeffreys prior %more closely resembles to the Jeffreys prior 
+\Cref{fig:scatterhist_unconstr,fig:scatterhist_constr} show that the posterior distribution obtained from the VA-RP looks more like Jeffreys prior %more closely resembles to the Jeffreys prior 
 in the constrained case than in the unconstrained one. 
 More specifically, w.r.t. $\alpha$, the VA-RP is similar to the Jeffreys prior in the both cases. That suggests that the limitation of our neural network architecture discussed earlier has little impact on the posterior distribution.
 Regarding $\beta$,
@@ -643,8 +655,9 @@ in the unconstrained case, the VA-RP ascribes predominant weight to smaller valu
 \section{Application of the method on a case study}\label{sec:constr-frags:appasg}
 
 
-In this section, we propose to apply the VA-RP that we have constructed and optimized
-in what precedes on an industrial problem.
+In this section, we propose to apply the VA-RP that we have constructed and optimized above
+% in what precedes 
+on an industrial problem.
 The industrial problem, described in the folowing subsection, consists in a piping system that was introduced in the \cref{chap:frags-intro} (\cref{sec:intro-frags:casstudies}). 
 This application serves as a proof of concept, we intend to show that the constrained VA-RP allows estimating efficiently and accurately seismic fragility curves in practice.
 
@@ -655,7 +668,7 @@ This application serves as a proof of concept, we intend to show that the constr
 
 
 
-\subsection{Case study description}\label{sec:constr-frags:subsec:asgdesc}
+\subsection{Case study description as a reminder}\label{sec:constr-frags:subsec:asgdesc}
 
 
 The studied mechanical system consists in a piping system that comes from the secondary cooling circuit of a French pressurized water reactor.
