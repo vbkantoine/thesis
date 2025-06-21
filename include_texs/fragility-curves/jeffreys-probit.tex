@@ -83,7 +83,8 @@ This chapter is organized as follows. In the next section, we recall the definit
 Then, the Jeffreys prior is derived and completely studied in \cref{sec:PREM:Jeffreys}. The conduction of Bayesian inference for estimating fragility curves using the Jeffreys prior is the proposed approach of this study, it is compared with other approaches taken from the literature that are depicted in \cref{sec:PREM:competing}. %(including a Bayesian framework with another prior taken from the literatur)
 In \cref{sec:PREM:degeneracy}, we discuss the limitation of the different methods implemented, that results from the form of the likelihood of the probit-lognormal model, whose decay rates are derived.
 The comparison of the approaches is done by computing the performance evaluation metrics proposed in \cref{sec:PREM:metrics}, and by evaluating  them on the three case studies depicted in   \cref{chap:frags-intro} in \cref{sec:PREM:numapp}.
-Eventually, an appendix precedes the conclusion in \cref{app:SKreview}. It proposes a deeper study of the competing prior considered in this chapter.
+Eventually, \cref{app:SKreview} precedes the conclusion. %in \cref{app:SKreview}. 
+It proposes a deeper study of the competing prior considered in this chapter.
 
 
 
@@ -630,7 +631,7 @@ For a fair comparison with the approach proposed in this chapter, we decided to 
 \end{figure}
 
 
-An analysis of the posterior obtained from the SK prior is given in \cref{sec:PREM:degeneracy}. It shows that the posterior is always improper, which jeopardizes the validity of any \emph{a posteriori} estimation using MCMC methods. This could however be mitigated by truncating w.r.t. $\beta$ (yet this involves a subjective choice), which we will do in the numerical application conducted in this work. This issue persists in the authors' original framework, which is slightly different from ours. This is confirmed in the appendix~\ref{app:SKreview}.
+An analysis of the posterior obtained from the SK prior is given in \cref{sec:PREM:degeneracy}. It shows that the posterior is always improper, which jeopardizes the validity of any \emph{a posteriori} estimation using MCMC methods. This could however be mitigated by truncating w.r.t. $\beta$ (yet this involves a subjective choice), which we will do in the numerical application conducted in this work. This issue persists in the authors' original framework, which is slightly different from ours. This is confirmed in \cref{app:SKreview}.
 
 
 \paragraph{Asymptotic comparison of the Jeffreys and SK priors} 
@@ -826,7 +827,7 @@ The Jeffreys and SK priors are not proper with respect to $\beta$ (see \cref{sec
  However, one can see that this is not the case for the SK posterior, which is not integrable w.r.t. $\beta$ because of a convergence rate that is too low at $+\infty$. This prevents the validation of the MCMC estimates for this posterior, unless a truncation of the distribution is considered. %This explains the generation of \emph{a posteriori} outliers using the SK prior. 
  Note that this prior was originally designed within
 %   considered this prior within 
-a Bayesian framework that slightly differs from ours. In the appendix~\ref{app:SKreview}, we confirm that the posterior is not proper even when derived in the exact framework of the author's paper. % \cite{Straub2008}.
+a Bayesian framework that slightly differs from ours. In \cref{app:SKreview}, we confirm that the posterior is not proper even when derived in the exact framework of the author's paper. % \cite{Straub2008}.
 
 
 
@@ -1098,13 +1099,13 @@ The small number of data points does not allow comparison with a reference. Ther
 \end{figure}
 
 
-\section{Appendix: a review of the properties of the SK posterior}\label{app:SKreview}
+\section{A review of the properties of the SK posterior}\label{app:SKreview}
 
 
 
 In this chapter, we have compared our approach with the one that results from an adaptation of the prior suggested by \citet{straub_improved_2008}. We proved in \cref{sec:PREM:degeneracy} that within our framework, this prior results in an improper posterior. This puts the validity of the MCMC estimations into question, and could explain the lower performance of the SK prior compared to the Jeffreys prior. 
 In their paper, the authors use the Bayesian methodology the same way we do, yet the consideration of uncertainties over the observed earthquake intensity measures and the equipment capacities leads to a slightly different likelihood.
-In order to verify that the drawbacks of their prior highlighted in this chapter are not due to our statistical choices, we dedicated this appendix to the study of the asymptotic expansions of the posterior in the exact framework presented in \cite{straub_improved_2008}.
+In order to verify that the drawbacks of their prior highlighted in this chapter are not due to our statistical choices, we dedicated this section to the study of the asymptotic expansions of the posterior in the exact framework presented in \cite{straub_improved_2008}.
 We shall first introduce the exact model of their paper for the estimation of seismic fragility curves in \cref{subapp:C1}, using notations consistent with our study. We will then derive the likelihood and its asymptotics in \cref{subapp:C2}. Finally, we will express the convergence rates of the posterior in \cref{subapp:C3}, which will allow us to conclude that the SK posterior is indeed improper.
 
 \subsection{Statistical model and likelihood}
@@ -1170,7 +1171,7 @@ denoting $\mbf z=(\mbf z_j)_{j=1}^J$, $\mbf{\hat a}=(\hat a_j)_{j=1}^J$, and wit
         
 \subsection{Likelihood asymptotics}
 \label{subapp:C2}
-    In this appendix, we will study the asymptotics of the likelihood defined in \cref{eq:SKr:likelihood-theta} when $\beta\to\infty$.
+    In this subsection, we will study the asymptotics of the likelihood defined in \cref{eq:SKr:likelihood-theta} when $\beta\to\infty$.
     Let us first consider the substitution $u=(x-\log\hat a_j)/\sqrt{\sigma_\eps^2+\rho\beta^2}$ to express the likelihood as
     \begin{equation}
         \ell_J(\mbf z | \mbf{\hat a}, \theta) = \prod_{j=1}^J\int_\RR f_{j}^\beta(u)du,

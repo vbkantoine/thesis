@@ -109,7 +109,7 @@ fragility curves. Then, we derive the theoretical expression of a constrained re
 This expression is non-explicit, yet we explain how it can be used to numerically approximate the prior's density.
 In \cref{sec:constr-frags:varp}, we propose a second approach that is based on variational inference to approximate the constrained reference prior.
 The two approaches are then compared in \cref{sec:constr-frags:coparisonpriors}, before being applied on a real case study in \cref{sec:constr-frags:appasg}.
-Before to conclude, we propose some results in an appendix (\cref{sec:constr-frags:app}) to provide more insight about the impact of the neural network's architecture on the variational approximation of the reference prior.
+Before to conclude, we propose some results in \cref{sec:constr-frags:app} to provide more insight about the impact of the neural network's architecture on the variational approximation of the reference prior.
 
 
 
@@ -462,7 +462,7 @@ They are specifically chosen in order to ensure the VA-RP's decay rates match wi
     t_1(x) = x;\quad t_2(x) = \log(1-\Phi(x)),
 \end{equation}
 %where $\Phi$ designates the c.d.f. of a standard Gaussian.
-In appendix~\ref{sec:constr-frags:app}, we prove that under those settings the VA-RP yields marginal distributions $ p_\alpha$, $p_\beta$ w.r.t. $\alpha$, $\beta$, that take the following form:
+In \cref{sec:constr-frags:app}, we prove that under those settings the VA-RP yields marginal distributions $ p_\alpha$, $p_\beta$ w.r.t. $\alpha$, $\beta$, that take the following form:
     \begin{equation}
         \begin{aligned}
         p_\alpha(\alpha) &= \frac{1}{\alpha\sqrt{2\pi}\|\mbf w_1 \|_2}\exp\left(-\frac{(\log\alpha - b_1)^2}{2\|\mbf w_1\|^2_2}\right) \\
@@ -540,7 +540,7 @@ The optimization has been done through a number of $9000$ epochs, with a learnin
 \Cref{fig:unconstr_weights} shows the evolutions of the weights of the neural network that define the marginal distributions of $p_\alpha$ and $p_\beta$ (see \cref{eq:marginaldist}), as a function of the number of epochs. Thus, the bias $b_1$ is constant and equal to $0$, which is consistent with the asymptotic distribution of $\alpha$. $1/w_{2l}$ and $1/w_{2j}$ both tend to $0$. As a result, the marginal distribution of $\beta$ tends to $1/\beta$. This is an improper distribution which does not exactly match the expected improper Jeffreys prior (see \cref{eq:constr-frag:decaysJbeta}): it has a heavier tail as $\beta\to\infty$ than the original Jeffreys. 
 However, we will see at the end of this section that the information contained in the distribution is not concentrated in its tails. In reality, low values of $\beta$ have huge weights
 %However, we will see in the end of this section that the distribution is not limited to its tails, and that this prior actually ascribes huge weights to small values of $\beta$ 
-(see the paragraph ``Posterior evaluation''). Finally, $\|\mbf w_1\|_2$ tends to $+\infty$. This means that the variance of  $\log\alpha$ tends to $+\infty$ as it is expected (see appendix~\ref{sec:constr-frags:app}), even though this does not lead to the target distribution. This last result is nevertheless not surprising. It is the consequence of the chosen architecture of the VA-RP: $p_\alpha$ is a lognormal distribution (\cref{eq:palphabeta}), which is not exactly the case for the Jeffreys prior (\cref{eq:constr-frag:decaysJalpha}). What fundamentally distinguishes these two distributions is that (i) in the first case, that of Jeffreys, the variance of $\log\alpha$ is finite conditionally to $\beta$, and is infinite otherwise because of the heavy tail of the distribution w.r.t. $\beta$ %is infinite because of the heavy tail of the distribution
+(see the paragraph ``Posterior evaluation''). Finally, $\|\mbf w_1\|_2$ tends to $+\infty$. This means that the variance of  $\log\alpha$ tends to $+\infty$ as it is expected (see \cref{sec:constr-frags:app}), even though this does not lead to the target distribution. This last result is nevertheless not surprising. It is the consequence of the chosen architecture of the VA-RP: $p_\alpha$ is a lognormal distribution (\cref{eq:palphabeta}), which is not exactly the case for the Jeffreys prior (\cref{eq:constr-frag:decaysJalpha}). What fundamentally distinguishes these two distributions is that (i) in the first case, that of Jeffreys, the variance of $\log\alpha$ is finite conditionally to $\beta$, and is infinite otherwise because of the heavy tail of the distribution w.r.t. $\beta$ %is infinite because of the heavy tail of the distribution
 while (ii) in the second case, the variance becomes infinite to correspond, via the training process, to the target variance of the Jeffreys prior. In doing so, the marginal distribution of $\alpha$ tends towards the improper distribution $1/\alpha$. Although this result is open to criticism, it appears to be an ``acceptable'' compromise insofar as the model's likelihood tends to substantially attenuate the prior's tails with respect to $\alpha$, thereby limiting the influence of the prior's decay rates on the posterior. An alternative approach could involve modifying the neural network architecture to better capture the correlation between $\alpha$ and $\beta$. However, such adjustments would inevitably increase the computational complexity of the training process.
 
 
@@ -568,7 +568,7 @@ Its asymptotic rates are identical to those of the Jeffreys prior for $\alpha$. 
 \pi^\ast(\theta) \propto \beta^{\gamma - 3} \quad \text{as} \quad  \beta \longrightarrow +\infty.
 \end{cases} 
 \end{equation} 
-In this case, the development done in the appendix~\ref{sec:constr-frags:app} suggests that this prior verifies $\EE_{\theta\sim\pi^\ast}|\log\alpha|^2=\infty$.
+In this case, the development done in \cref{sec:constr-frags:app} suggests that this prior verifies $\EE_{\theta\sim\pi^\ast}|\log\alpha|^2=\infty$.
 The training process of the constrained VA-RP is done during $12000$ epochs with a learning rate of $0.001$. %We take $N=50$, $T=50$ and $p=50$. the parameter $\eta$ in the augmented Lagrangian is updated every $10$ epochs.
 
 
@@ -822,14 +822,14 @@ It is important to emphasize that it is primarily the lower bounds of the credib
 
 
 
-\section{Appendix: impacts of the neural network's architecture on the VA-RP}\label{sec:constr-frags:app}
+\section{Impacts of the neural network's architecture on the VA-RP}\label{sec:constr-frags:app}
 
 
 
 
 \subsection{Decay rates of the VA-RP density}\label{app:decay-rates}
 
-In this appendix we elucidate the form taken by the marginal distribution of the VA-RP w.r.t. $\beta$.
+In this section we elucidate the form taken by the marginal distribution of the VA-RP w.r.t. $\beta$.
 The VA-RP is assumed to be expressed as presented in \cref{sec:constr-frags:architecture} (\cref{eq:neuralnet-architecture}): the random variable $\beta$ is defined as
     \begin{equation}\label{eq:app-expr-beta}
         \beta = \exp\left[\sum_{i,\,w_{2i}\ne0}w_{2i}\log(1-\Phi(\eps_i)) + b_i\right],
@@ -991,7 +991,7 @@ Therefore, the term in the integral of \cref{eq:app-Elogalpha2-int} is positive 
 
 
 In this work, we introduced a novel prior for conducting a Bayesian estimation of seismic fragility curves.
-This prior results from the application of the development of the reference prior theory that we conducted in   \cref{part:ref-theory} of this manuscript.
+This prior results from the application of the development of the reference prior theory that we conducted in the \cref{part:ref-theory} of this manuscript.
 
 First, we defined an appropriate constraint that regularizes the Jeffreys prior decay rates, in order to make it proper. In this way, the prior is ensured to yield proper posteriors, even in cases where the likelihood is degenerate.
 Second, the prior was implemented using two approaches: one that is close to its theoretical expression, but that is computationally expensive to sample from; one that result from a variational approximation, which leads to a parameterized form of the prior that is more computationally efficient.
