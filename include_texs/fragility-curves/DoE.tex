@@ -14,4 +14,176 @@
 
 \section{Introduction}
 
-intro
+We propose a strategy of design of experiments (DoE), to get the most out of the probit-lognormal model, namely the most accurate estimation possible with the minimum of data. Given a large database of synthetic seismic signals ---generated to match the seismic scenario of interest--- the proposed strategy intends to sequentially select the synthetic signals with which to perform 
+%the calculations or 
+the tests, in order to optimally estimate ---by minimizing their number--- the probit-lognormal estimations of fragility curves. The novelty of our work is to propose a strategy inherited from the reference prior theory, i.e., based on the information theory. This strategy aims to maximize the impact that the selected data has on the posterior distribution of the fragility curve. In this framework, this work addresses problems for which a limited amount of binary data is available. In this sense, this paper mainly addresses equipment problems for which only binary results of seismic tests are available (e.g., qualification tests of electrical relay, etc.) or also simulation-based approaches whose results are restricted to binary data. These latter situations are encountered in practice when the amount of available data is limited, because fitting sophisticated statistical models may require a larger amount of data to be relevant. For instance, in \cite{mai_seismic_2017} and \cref{app:chap:ESAIM} the authors showed that the simplest model that assumes a linear correlation between the logarithm of the structural response of interest and the logarithm of the IM should be avoided because of the irreducible model bias that this can entail and which can greatly affect the estimation of the fragility curves. {Finally, note that the strategy proposed in this article echoes the conclusions of the recent reference \cite{zhu_seismic_2023}. In this reference, it is indeed recommended to use adaptive strategies to deal with problems involving high failure thresholds, even with the use of more sophisticated models than the probit-lognormal model. We show here that this conclusion obviously applies to the probit-lognormal model. Our strategy therefore allows us to extend its domain of validity, by exploiting it as best we can whatever the failure threshold of interest.}
+
+
+
+
+
+\section{Probit-lognormal modeling and constrained reference prior}
+
+
+
+
+
+
+\section{Sequential design of experiments% based on a proper objective prior
+}\label{sec:PEmethod}
+
+\subsection{Methodology description}
+
+
+
+The priors defined in Eq.~(\ref{eq:tilde-pi-gamma}) handle the degeneracy of the likelihood to provide robust \emph{a posteriori} estimation of the fragility curve. However, it remains important to reduce the occurrence of this phenomenon because: %even if  astonished
+%they are in any way representative of a lack of information
+    \begin{enumerate}
+        \item[(i)] even if it is partially vanished by the slightly informed priors we suggest, { the possibility of obtaining estimates that tend towards unrealistic fragility curves always exists with very small data sizes;}
+        \item[(ii)] by nature, a likelihood becomes degenerate consequently to a lack of information within the observed data samples. Extinguishing degeneracy should thus lead to a better understanding of the structure's response and its fragility curve.
+    \end{enumerate}
+
+In this paper, we propose to tackle degeneracy with an appropriate experimental design strategy. 
+Different sequential methods exist. Suppose that we have observed the sample $(\mbf z^k,\mbf a^k)$, we need to create a criterion to choose the next input $a_{k+1}$. 
+Given our analysis (statement (ii) above) from an information theory viewpoint, the strategy to build the mentioned criterion is to maximize the impact that the selected observation would have on the posterior distribution. 
+This strategy echoes the one that supports the reference prior definition as a maximal argument of the mutual information, so that we suggest a similar criterion to select $a_{k+1}$:
+      \begin{equation}\label{eq:index}
+        a_{k+1}=\argmax_{a\in\cA}\cI_{k+1}(a);\quad 
+            \cI_{k+1}(a_{k+1}) = \EE_{{z_{k+1}}|\mbf a^{k+1},\mbf z^k}[D_\delta(p(\theta|\mbf z^k,\mbf a^k)||p(\theta|\mbf z^{k+1},\mbf a^{k+1}))].
+    \end{equation}
+The index $\cI_{k+1}$ can be seen as a sensitivity index measuring the sensitivity of the posterior w.r.t. the data \cite{DaVeiga2015}. Its sequential maximization amounts to minimizing the sensitivity of estimates of $\theta$ w.r.t. the observations.
+Our index can be seen as derived from the popular framework of Stepwise Uncertainty Reduction techniques \cite{Bect2018}. 
+Typically,  those methods are formulated with an \emph{a posteriori} variance within the expectation in Eq.~(\ref{eq:index}) instead of the dissimilarity measure suggested here.
+Algorithm \ref{alg:PE} a practical pseudo-code of our methodology. It requires to derive an approximation of the index $\cI_{k+1}$, which we elucidate in the following section.
+
+
+\subsection{Approximation of the index}
+%{!! Il y a des variations de notation : $a_{k+1}$ vs. $a^{k+1}$ !!}
+
+Let us adopt the short notation
+    \begin{equation}
+        \Psi^z_a(\theta)=\Phi\left(\frac{\log a-\log\alpha}{\beta}\right)^z\left(1-\Phi\left(\frac{\log a-\log\alpha}{\beta}\right)\right)^{1-z}.
+    \end{equation}
+The index to maximize has the following form:
+    \begin{align}
+        \cI_{k+1}(a_{k+1})&= (\delta(\delta-1))^{-1}
+            \sum_{z\in\{0,1\}}
+                \PP({z_{k+1}}=z|\mbf a^{k+1},\mbf z^{k})
+                \Delta_{k+1}(\mbf a^{k+1},\mbf z^{k+1})
+    \end{align}
+with :
+    %\begin{align}
+        $\PP({z_{k+1}}=z|\mbf a^{k+1},\mbf z^{k+1}) = \int_{\Theta}\Psi^{z}_{a_{k+1}}(\theta)p(\theta|\mbf z^{k},\mbf a^{k})d\theta,$
+    %\end{align}
+and,
+    \begin{align}
+        \Delta_{k+1}(\mbf a^{k+1},\mbf z^{k+1}) &=
+            \int_{\Theta}\left(\frac{p(\theta|\mbf z^{k},\mbf a^{k})}{p(\theta|\mbf z^{k+1},\mbf a^{k+1})}\right)^{\delta}p(\theta|\mbf z^{k+1},\mbf a^{k+1})d\theta \nonumber\\
+        &=\int_\Theta \left(\frac{\int_\Theta p(\vartheta|\mbf z^k,\mbf a^k)\Psi^{z_{k+1}}_{a_{k+1}}(\vartheta)d\vartheta}{\Psi^{z_{k+1}}_{a_{k+1}}(\theta) } \right)^\delta \frac{\Psi^{z_{k+1}}_{a_{k+1}}(\theta)p(\theta|\mbf z^k,\mbf a^k) }{\int_\Theta p(\vartheta|\mbf z^k,\mbf a^k)\Psi^{z_{k+1}}_{a_{k+1}}(\vartheta)d\vartheta} d\theta\\
+        &= \left(\int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta) p(\theta| \mbf z^k, \mbf a^k) d\theta\right)^{\delta-1}  \int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta)^{1-\delta} p(\theta|\mbf z^k,\mbf a^k)  d\theta.\nonumber
+    \end{align}
+The index can thus be approximated via Monte-Carlo from a sample of $\theta$ distributed according to a preceding posterior distribution $p(\theta|\mbf z^p,\mbf a^p)$, with $p\leq k$; $p$ can equal $0$ in which case the sample is distributed w.r.t. the prior. For this purpose, one can rely on the following formulas:
+    \begin{align}
+        \int_\Theta\Psi^{z_{k+1}}_{a_{k+1}}(\theta)p(\theta|\mbf z^k,\mbf a^k)d\theta &= \int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta)\prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta)p(\theta|\mbf z^p,\mbf a^p)\frac{1}{L_p^k}d\theta ,\\
+        \int_\Theta\Psi^{z_{k+1}}_{a_{k+1}}(\theta)^{1-\delta}p(\theta|\mbf z^k,\mbf a^k)d\theta &= \int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta)^{1-\delta}\prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta)p(\theta|\mbf z^p,\mbf a^p)\frac{1}{L^k_p}d\theta.\nonumber
+    \end{align}
+where $L^k_p = \int_\Theta \prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta)p(\theta|\mbf z^p,\mbf a^p)d\theta$ does not depend on $a_{k+1}$.
+%
+This way, if $\theta_1,\dots,\theta_M$ is an i.i.d. sample distributed according to the posterior distribution $p(\theta|\mbf z^p,\mbf a^p)$, we can define for $\zeta=1$ and $\zeta=1-\delta$:
+    \begin{align}
+        Q_\zeta^0 &= \frac{1}{M}\sum_{i=1}^M\Psi^{0}_{a_{k+1}}(\theta_i)^{\zeta}\prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta_i), \\
+        Q_\zeta^1 &= \frac{1}{M}\sum_{i=1}^M\Psi^{1}_{a_{k+1}}(\theta_i)^{\zeta}\prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta_i),\nonumber
+    \end{align}
+to approximate easily  $\cI_{k+1}(a_{k+1})$ up to the constant $(L^k_p)^{\delta+1}$:
+    %
+% As $p(\theta|\mbf z^k,\mbf a^k) = \frac{\ell_k(\mbf z^k,\mbf a^k|\theta)}{\int_\Theta\ell_k(\mbf z^k,\mbf a^k|\vartheta)\pi(\vartheta)d\vartheta}\pi(\theta)$, a sample of values distributed according to the prior $\pi$ allows to compute the index numerically via Monte-Carlo: let $\theta_1,\dots,\theta_M$ be a sample \emph{a priori} and approximate the following quantities,
+%\begin{enumerate}
+    %\item Approximate $L=\int_\Theta\ell_k(\mbf z^k,\mbf a^k|\theta)\pi(\theta)d\theta\simeq \frac{1}{M}\sum_{i=1}^M\ell_k(\mbf z^k, \mbf a^k|\theta_i) $, $\theta_1,\dots,\theta_M\sim\pi$.
+    %\item Approximate 
+%         \begin{align}
+%             P^0 &= \int_\Theta \Psi^{z_{k+1}=0}_{a_{k+1}}(\theta) p(\theta| \mbf z^k, \mbf a^k) d\theta \simeq \frac{1}{L} Q^0 := \frac{1}{ML} \sum_{i=1}^M \Psi^{0}_{a_{k+1}}(\theta_i)\ell_k(\mbf z^k,\mbf a^k|\theta_i)  \\
+%             P^1 &= \int_\Theta \Psi^{z_{k+1}=1}_{a_{k+1}}(\theta) p(\theta| \mbf z^k, \mbf a^k) d\theta \simeq \frac{1}{L} Q^1 := \frac{1}{ML} \sum_{i=1}^M \Psi^{1}_{a_{k+1}}(\theta_i)\ell_k(\mbf z^k,\mbf a^k|\theta_i)\\
+%             \tilde P^0_\alpha &= \int_\Theta \Psi^{z_{k+1}=0}_{a_{k+1}}(\theta)^{1-\alpha} p(\theta| \mbf z^k, \mbf a^k) d\theta \simeq \frac{1}{L}\tilde Q^0_\alpha := \frac{1}{ML}\sum_{i=1}^M \Psi^{0}_{a_{k+1}}(\theta_i)^{1-\alpha}\ell_k(\mbf z^k,\mbf a^k|\theta_i)\\
+%             \tilde P^1_\alpha &= \int_\Theta \Psi^{z_{k+1}=1}_{a_{k+1}}(\theta)^{1-\alpha} p(\theta| \mbf z^k, \mbf a^k) d\theta \simeq \frac{1}{L} \tilde Q^1_\alpha := \frac{1}{ML} \sum_{i=1}^M \Psi^{1}_{a_{k+1}}(\theta_i)^{1-\alpha}\ell_k(\mbf z^k,\mbf a^k|\theta_i)
+%         \end{align}
+%     where $L=\int_\Theta\ell_k(\mbf z^k,\mbf a^k|\vartheta)\pi(\vartheta)d\vartheta$.
+% Thus, we can approximate easily $\cI_{k+1}(a_{k+1})$ up to a constant without the need to compute $L$:
+    \begin{align}
+        \cI_{k+1}(a_{k+1})&\simeq (L^k_p)^{-\delta-1}  %\propto\tilde\cI_{k+1}(a_{k+1})\propto \hat\cI(a_{k+1}) := % \underset{\sim}{\propto}
+        (\delta(\delta-1))^{-1} \left((Q^0_1)^{\delta} Q^0_{1-\delta} + (Q^1_1)^{\delta} Q^1_{1-\delta}\right)\\
+        &\propto (\delta(\delta-1))^{-1} \left((Q^0_1)^{\delta} Q^0_{1-\delta} + (Q^1_1)^{\delta} Q^1_{1-\delta}\right).\nonumber
+    \end{align}
+%where $\tilde\cI_{k+1}(a_{k+1})$ is defined as equal to $\cI_{k+1}(a_{k+1})(L^k_p)^{-\delta-1}$.
+Eventually, $a_{k+1}$ is chosen as the maximal argument of the right-hand side term in the above equation.
+
+
+
+
+
+% \newcommand{\algorithmicreinit}{\textbf{Init:}}
+
+\renewcommand{\algorithmicrequire}{\textbf{Notations:}}
+
+ \begin{algorithm*}
+		\caption{Planning of experiments}
+		\begin{algorithmic}
+            % \STATE \textbf{INIT:}
+            \REQUIRE \begin{tabular}[t]{l}
+			Seismic signal : $\cS$\\ Intensity measure of the seismic signal: $\mathrm{IM}(\cS)$\\ Mechanical response to the seismic signal (failure or success): $\mathrm R(\cS)$ 
+			\end{tabular}\renewcommand{\algorithmicrequire}{\textbf{Initialization:}}
+            \REQUIRE \begin{tabular}[t]{l}
+			$k_0>0$ (in practice $k_0=2$), initial seismic signals $\cS_1,\dots,\cS_{k_0}$\\
+            Define the initial data: $\mbf z^{k_0}=(\mathrm{R}(\cS_1),\dots,\mathrm{R}(\cS_{k_0})),\   \mbf a^{k_0}=(\mathrm{IM}(\cS_1),\dots,\mathrm{IM}(\cS_{k_0}))$
+			\end{tabular}
+            \FOR{$k=k_0\dots k_{\text{max}}-1$ }
+	            \STATE Approximate $\cI_{k+1}$ via Monte Carlo sampling
+                \STATE Compute $a_{k+1}=\argmax_a\cI_{k+1}(a)$
+	            \STATE Choose a seismic signal $\cS_{k+1}$ such that $\mathrm{IM}(\cS_{k+1})=a_{k+1}$
+                \STATE {Perform the %numerical calculation or 
+                experiment and} define $z_{k+1}=\mathrm{R}(\cS_{k+1})$
+	        \ENDFOR
+		\end{algorithmic}
+	    \label{alg:PE}
+	\end{algorithm*}
+    
+%\end{enumerate}
+
+
+\subsection{{Stopping} criterion \label{sec:stopping_crit}}
+
+Algorithm~\ref{alg:PE} consists into a loop where $k$ iterates from $k_0$ to $k_{\max}-1$. The upper value $k_{\max}$ represents the total number of experiments at the end of the campaign. 
+In practical studies, that value is limited by the cost of experiments.
+%
+% The conduction of additional experiment can be conditioned to it
+As a matter of fact, additional experiments are expected to provide a quantity of information that enhances the estimates. %that our method quantifies.
+% The conduction of these additional experiments must value 
+% Given 
+Practitioners could judge to cease the campaign if the cost of an experiment overtakes its benefits.
+% That benefit can be 
+
+Such quantity of information provided by data samples is derived through our method in the index $\cI$, that is why we suggest to study its variation to elucidate a {stopping} criterion:
+\begin{equation}
+    \cV\cI_k = \frac{|\cI_{k+1}(a_{k+1})-\cI_k(a_k)|}{|\cI_k(a_k)|}.
+\end{equation}
+When the index $\cV\cI_k$ falls below a certain threshold value, the method has ceased to leverage enough from the observations.
+This index can be appreciated alongside the variation of the estimated fragility curve itself:
+    \begin{equation}
+            \cV\cP_k = \frac{\|m^{|\mbf z^k,\mbf a^k} - m^{|\mbf z^{k+1},\mbf a^{k+1}}\|_{L^2}}{\|m^{|\mbf z^k,\mbf a^k}\|_{L^2}},
+    \end{equation}
+where $m^{|\mbf z^k,\mbf a^k}$ is the median of the fragility curve estimate given the observations $(\mbf z^k,\mbf a^k)$; details concerning the practical definition of the norm $\|\cdot\|_{L^2}$ are given in Section~\ref{sec:metrics}.
+When the index $\cV\cP_k $ falls, the estimated fragility curve given by the method has stopped to distinctly evolve.
+
+The index $\cV\cP_k$ constitutes a criterion which is more perceptible {for practitioners}.
+In the next section where we apply our method to a practical case study ,{ we verify that $\cV\cI_k$ and $\cV\cP_k$ give pragmatic and consistent information.}
+
+%the behaviors of $\cV\cI_k$ and $\cV\cP_k$ are comparable, and we discuss the elucidating of an appropriate {stopping} criterion.
+
+
+
+
+
+\section{Application of the method}\label{sec:application}
+
+{This section is devoted to the application of our methodology to a practical case from the nuclear industry. A comprehensive study of the performance of the method is proposed by considering the two classical IMs that are the PGA and the PSA. This study is further supported by the study of a toy case that is presented in \ref{app:toycases}.}
+
+    \subsection{Case study presentation}

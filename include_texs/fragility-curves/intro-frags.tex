@@ -171,7 +171,7 @@ $\int_{t_1}^{t_2}W(\tau)d\tau\sim\cN(0,(t_2-t_1)\sigma^2)$, and $\EE\int_{t_1}^{
 
 % $\EE W(t_1)=0$, $\EE W(t_1)^2=\infty$, and $\EE W(t_1)W(t_2)=0$.
 
-The integral in the \cref{eq:intro-frags:sgenertor} corresponds to the filtering of $w$, $h_f(t,\boldsymbol{\lambda})$ being to the impulse response function (IRF) of the linear filter and $\sigma_f^2$ being its variance: $\sigma_f^2(t)=\int_{-\infty}^th^2(t-\tau,\boldsymbol{\lambda}(\tau))d\tau$. The IRF is defined by
+The integral in the \cref{eq:intro-frags:sgenertor} corresponds to the filtering of $w$, $h_f(t,\boldsymbol{\lambda})$ being the impulse response function (IRF) of the linear filter and $\sigma_f^2$ being its variance: $\sigma_f^2(t)=\int_{-\infty}^th^2(t-\tau,\boldsymbol{\lambda}(\tau))d\tau$. The IRF is defined by
     \begin{equation}
         h_f(t-\tau,\boldsymbol{\lambda}) = \frac{\omega_f(\tau)}{\sqrt{1-\zeta^2_f}}\exp[-\zeta_f\omega_f(\tau)(t-\tau)]\sin\left(\omega_f(\tau)\sqrt{1-\zeta^2_f}(t-\tau)\right)\indic_{t\geq\tau},
     \end{equation}
@@ -206,7 +206,8 @@ we consider $N_r=97$ real acceleration records form the European Strong Motion D
 
 
 
-To generate artificial seismic signals, we propose sampling realizations of the process $s(\cdot;W,\boldsymbol{\phi})$, where $\boldsymbol{\phi}\in D:=(0,\infty)^7\times[0,1]$ is stochastic and follows a distribution that corresponds to the empirical distribution of the $(\overline{\boldsymbol{\phi}}_i)_{i=1}^{N_r}$. More precisely, the distribution of $\boldsymbol{\phi}$ is  given by the Gaussian kernel density estimation (see \cite{kristan_multivariate_2011}) of the one of the $(\overline{\boldsymbol\phi}_i)_{i=1}^{N_r}$, i.e., its density $p_{\boldsymbol{\phi}}$ is given by
+To generate artificial seismic signals, we propose sampling realizations of the process $s(\cdot;W,\boldsymbol{\phi})$, where $\boldsymbol{\phi}\in D:=(0,\infty)^7\times[0,1]$ is stochastic and follows a distribution that corresponds to the empirical distribution of the $(\overline{\boldsymbol{\phi}}_i)_{i=1}^{N_r}$. More precisely, the distribution of $\boldsymbol{\phi}$ is  given by the Gaussian kernel density estimation %(see \cite{kristan_multivariate_2011}) 
+of the one of the $(\overline{\boldsymbol\phi}_i)_{i=1}^{N_r}$, i.e., its density $p_{\boldsymbol{\phi}}$ is given by
 \begin{equation}
     p_{\boldsymbol{\phi}}(x) \propto \sum_{i=1}^{N_r}\exp\left( -\frac{1}{2} (x-\overline{\boldsymbol\phi}_i)^\top\Sigma^{-1}(x-\overline{\boldsymbol\phi}_i) \right)\indic_{x\in\boldsymbol{\Phi}},
 \end{equation}
