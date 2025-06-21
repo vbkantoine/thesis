@@ -14,9 +14,62 @@
 
 \section{Introduction}
 
-We propose a strategy of design of experiments (DoE), to get the most out of the probit-lognormal model, namely the most accurate estimation possible with the minimum of data. Given a large database of synthetic seismic signals ---generated to match the seismic scenario of interest--- the proposed strategy intends to sequentially select the synthetic signals with which to perform 
+
+In this chapter, we conduct a Bayesian estimation of seismic fragility curves. Seismic fragility curves, which are defined as the probability of failure of a mechanical equipment conditional to an intensity measure (IM) derived from the seismic scenario, are reviewed in \cref{chap:frags-intro}. We still address case studies for which (i) the information about the structure's response is limited to binary outcome (i.e., failure or non-failure) and (ii) the available data are scarce. 
+
+In the Bayesian workflow, two sources of information are combined to issue the posterior distribution, which provides estimates of the quantities of interest. 
+Indeed, the information \emph{a priori} coexists with the information that comes from the observations, and that is incorporated through the statistical model.
+%Regarding seismic fragility curves estimation, we elucidated in \cref{chap:prem} and \cref{chap:constrained-frags} how the first one can be constructed to issue consistent and accurate estimations of the curves.
+
+This thought arises as a cornerstone when it resorts to estimate seismic fragility curves.
+Indeed, the developments done in \cref{chap:prem} and \cref{chap:constrained-frags}
+showed that (i)~the information \emph{a priori} must be carefully defined, since any embedded subjectivity in its design may significantly impact the estimates, and (ii)~the information that comes from the data may take ``degenerate'' forms, jeopardizing efficiency.
+%it embedds
+%Indeed, we elucidated in \cref{chap:prem} and \cref{chap:constrained-frags} how the information \emph{a priori} can be arranged to.
+In these chapters, we proved that the prior can be designed in a way that 
+permit accurate estimations of seismic fragility curves, without being affected by degenerate scenario.
+%proved how t
+% We proved that the first one can be designed 
+Nevertheless, the information that comes from the data still has a prominent influence on the estimates. %The more the data are close to a degeneracy, the %more 
+%less the posterior
+As a matter of fact, two datasets of the same size do not contain the same amount of knowledge, and one will inform more the posterior than the other. 
+Optimizing that information inevitably guide the result away from the prior, enhancing objectivity as well.
+
+
+
+% the posterior distribution resembles to the prior. If the latter is sought to minimize subjectivity, then it must be low
+
+
+
+% When the latter is degenerate, the prior information takes 
+%Two 
+
+
+In this chapter, we propose a strategy of design of experiments (DoE), to get the most out of the probit-lognormal model, namely the most accurate and robust estimation possible with the minimum of data. Given a large database of synthetic seismic signals ---generated to match the seismic scenario of interest--- the proposed strategy intends to sequentially select the synthetic signals with which to perform 
 %the calculations or 
-the tests, in order to optimally estimate ---by minimizing their number--- the probit-lognormal estimations of fragility curves. The novelty of our work is to propose a strategy inherited from the reference prior theory, i.e., based on the information theory. This strategy aims to maximize the impact that the selected data has on the posterior distribution of the fragility curve. In this framework, this work addresses problems for which a limited amount of binary data is available. In this sense, this paper mainly addresses equipment problems for which only binary results of seismic tests are available (e.g., qualification tests of electrical relay, etc.) or also simulation-based approaches whose results are restricted to binary data. These latter situations are encountered in practice when the amount of available data is limited, because fitting sophisticated statistical models may require a larger amount of data to be relevant. For instance, in \cite{mai_seismic_2017} and \cref{app:chap:ESAIM} the authors showed that the simplest model that assumes a linear correlation between the logarithm of the structural response of interest and the logarithm of the IM should be avoided because of the irreducible model bias that this can entail and which can greatly affect the estimation of the fragility curves. {Finally, note that the strategy proposed in this article echoes the conclusions of the recent reference \cite{zhu_seismic_2023}. In this reference, it is indeed recommended to use adaptive strategies to deal with problems involving high failure thresholds, even with the use of more sophisticated models than the probit-lognormal model. We show here that this conclusion obviously applies to the probit-lognormal model. Our strategy therefore allows us to extend its domain of validity, by exploiting it as best we can whatever the failure threshold of interest.}
+the tests, in order to optimally estimate ---by minimizing their number--- the probit-lognormal estimations of fragility curves. 
+Different strategies exist to conduct an experimental design. Generally, they are based on the definition of a criterion, such as the stepwise uncertainty reduction (SUR) one, introduced by \citet{bect_supermartingale_2019}. 
+As for examples of studies in reliability analysis that conduct a criterion-based experimental design, we can cite \cite{azzimonti_adaptive_2021,agrell_sequential_2021,lartaud_sequential_2025}.
+%The most common are based on 
+%In reliability analysis, it is common to refer to techniques that are based 
+%Experimental designs are common in reliability analysis
+Our work proposes a strategy inherited from the reference prior theory, i.e., based on the information theory. We recall that the reference prior theory is introduced in \cref{chap:intro-ref}. This strategy aims to maximize the impact that the selected data has on the posterior distribution of the fragility curve. 
+That paradigm is not only used to construct the prior, ensuring its objectivity, but also to define a criterion from which is based our experimental design.
+
+
+It is still important to note that, 
+as said earlier, the information that comes from the data is embedded in the Bayesian workflow through the implemented statistical model.
+This means  the latter has its own influence on the estimates. In our framework,
+we do not change the probit-lognormal modeling of the fragility curve.
+
+
+
+
+%In this framework, this work addresses problems for which a limited amount of binary data is available. In this sense, this paper mainly addresses equipment problems for which only binary results of seismic tests are available (e.g., qualification tests of electrical relay, etc.) or also simulation-based approaches whose results are restricted to binary data. These latter situations are encountered in practice when the amount of available data is limited, because fitting sophisticated statistical models may require a larger amount of data to be relevant. 
+For instance, in \cite{mai_seismic_2017} and \cref{app:chap:ESAIM} the authors showed that the simplest model that assumes a linear correlation between the logarithm of the structural response of interest and the logarithm of the IM should be avoided because of the irreducible model bias that this can entail and which can greatly affect the estimation of the fragility curves. 
+
+
+{Finally, note that the strategy proposed in this article echoes the conclusions of the recent reference \cite{zhu_seismic_2023}. In this reference, it is indeed recommended to use adaptive strategies to deal with problems involving high failure thresholds, even with the use of more sophisticated models than the probit-lognormal model. We show here that this conclusion obviously applies to the probit-lognormal model. Our strategy therefore allows us to extend its domain of validity, by exploiting it as best we can whatever the failure threshold of interest.}
 
 
 
