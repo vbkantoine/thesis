@@ -208,10 +208,10 @@ we consider $N_r=97$ real acceleration records form the European Strong Motion D
 
 
 
-To generate artificial seismic signals, we propose sampling realizations of the process $s(\cdot;W,\boldsymbol{\phi})$, where $\boldsymbol{\phi}\in D:=(0,\infty)^7\times[0,1]$ is stochastic and follows a distribution that corresponds to the empirical distribution of the $(\overline{\boldsymbol{\phi}}_i)_{i=1}^{N_r}$. More precisely, the distribution of $\boldsymbol{\phi}$ is  given by the Gaussian kernel density estimation %(see \cite{kristan_multivariate_2011}) 
+To generate artificial seismic signals, we propose sampling realizations of the process $s(\cdot;W,\boldsymbol{\phi})$, where $\boldsymbol{\phi}\in\mbf D:=(0,\infty)^7\times[0,1]$ is stochastic and follows a distribution that corresponds to the empirical distribution of the $(\overline{\boldsymbol{\phi}}_i)_{i=1}^{N_r}$. More precisely, the distribution of $\boldsymbol{\phi}$ is  given by the Gaussian kernel density estimation %(see \cite{kristan_multivariate_2011}) 
 of the one of the $(\overline{\boldsymbol\phi}_i)_{i=1}^{N_r}$, i.e., its density $p_{\boldsymbol{\phi}}$ is given by
 \begin{equation}
-    p_{\boldsymbol{\phi}}(x) \propto \sum_{i=1}^{N_r}\exp\left( -\frac{1}{2} (x-\overline{\boldsymbol\phi}_i)^\top\Sigma^{-1}(x-\overline{\boldsymbol\phi}_i) \right)\indic_{x\in\boldsymbol{\Phi}},
+    p_{\boldsymbol{\phi}}(x) \propto \sum_{i=1}^{N_r}\exp\left( -\frac{1}{2} (x-\overline{\boldsymbol\phi}_i)^\top\Sigma^{-1}(x-\overline{\boldsymbol\phi}_i) \right)\indic_{x\in\mbf D},
 \end{equation}
 where $\Sigma$ is derived from the $(\overline{\boldsymbol{\phi}}_i)_{i=1}^{N_r}$ (see \cite{kristan_multivariate_2011}).
 
