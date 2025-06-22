@@ -186,8 +186,19 @@ Heureux sont les coeurs purs, car ils verront Dieu.
 
 \chapter{Reminder of useful mathematical notions}
 
+% \newpage
 
- 
+
+% \renewcommand{\thechapter}{\symbolchapt{chapter}}%
+
+\titleformat{\chapter}[display]{\Huge\raggedleft}{\fontsize{40}{45}\selectfont\color{niceBlue}\lastappsymbol}{0pt}{\vspace*{0.5em}}
+\lastappsymbol
+
+\chapter{Vulgarisation}
+% \renewcommand{\thechapter}{\symbolchapt{chapter}}%
+
+
+\titleformat{\chapter}[display]{\Huge\raggedleft}{\fontsize{40}{45}\selectfont\color{niceBlue}\thechapter}{0pt}{\vspace*{0.5em}}
  
 \bookmarksetup{startatroot}% this is it
 %\addtocontents{toc}{\bigskip}

@@ -42,7 +42,19 @@ frametitlebelowskip=0pt
 \DeclareMathSymbol{\xi}{\mathord}{CMletters}{"18}
 \DeclareMathSymbol{j}{\mathalpha}{CMletters}{"6A}
 
-
+% \DeclareTextSymbol{\trefle}{OMS}{124}
+% \DeclareTextSymbol{\ss}{OT1}{25}
+\usepackage{bbding}
+\newcommand{\lastappsymbol}{\protect\FiveStarConvex}
+\makeatletter
+\newcommand*{\symbolchapt}[1]{%
+  \expandafter\@symbolchapt\csname c@#1\endcsname
+}
+\newcommand*{\@symbolchapt}[1]{%
+  \ifcase#1\or A\or B\or C\or D\or \lastappsymbol\or E\or F\or G\or H\or I\or J%
+    \else\@ctrerr\fi
+}
+\makeatother
 
 \definecolor{niceBlue}{HTML}{023E8A}
 \definecolor{niceBluelight}{HTML}{0077B6}
