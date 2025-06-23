@@ -6,7 +6,15 @@
 \end{abstract}
 
 \begin{abstract}
-    abstract
+    To estimate seismic fragility curves using the Bayesian framework,
+    the observed data constitute the most objective source of information that must be cared about.
+    % information that comes from the data represents 
+    In this chapter, we conduct a Bayesian estimation of seismic fragility curves that aims to optimize the latter. We consider datasets that have the disadvantages of (i) being scarce, and (ii) reducing structural responses to binary outcomes. However, we propose an experimental design that is sought to select seismic scenarios that are expected to maximize the impact of  data on the posterior distribution.
+    Moreover, our approach is supported by the reference prior theory, to ensure the prior itself maximize the influence of  data on the posterior.
+    The reference prior is slightly constrained in this work in order to tackle occurrences of so-called degenerate likelihoods.
+    % that are ubiquitous with small data sets.
+%    This strategy aims to maximize the impact of the  data on the posterior distribution of the fragility curve {and its strength is to extend to any prior of interest, provided it is proper}. Our method is applied to a case study of the nuclear industry. 
+The results demonstrate the ability of the method to efficiently and robustly estimate the fragility curve, and to avoid degeneracy even with a limited number of experiments. Additionally, we demonstrate that the estimates quickly reach the model bias induced by the probit-lognormal modeling that we implement. %{Two criteria are suggested to help the user stop the experiment design algorithm.}
 \end{abstract}
 
 
@@ -101,7 +109,13 @@ is itself inherently biased. However, we aim to demonstrate that this model can 
 
 
 
-The rest of the chapter is organized as follows. In ..
+The rest of the chapter is organized as follows. In the next section we start by briefly recalling the probit-lognormal modeling of fragility curves, and we 
+present the constrained priors that we propose.
+The experimental design is explained and detailed in \cref{sec:doe:PEmethod}, and benchmarking metrics that serve to evaluate the performances of our approach are defined in \cref{sec:doe:metrics}. 
+The method is then implemented on a case study in \cref{sec:doe:application}, where a thorough analysis of our results is conducted.
+In order to provide more insights about the behavior of the DoE, we suggest another implementation of the method on toy case studies in \cref{app:doe:toycases}. Finally, a conclusion terminates this chapter in \cref{sec:doe:conclusion}.
+
+
 
 
 
@@ -118,7 +132,7 @@ Given observations $\mbf z^k=(z_i)_{i=1}^k$, $\mbf a^k=(a_i)_{i=1}^k$, the likel
     \begin{equation}
         \ell_k(\mbf z^k|\mbf a^k,\theta) = \prod_{i=1}^{k}\ell(z_i|a_i,\theta) = \prod_{i=1}^k\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log a_i-\log\alpha}{\beta}\right)\right)^{z_i}.
     \end{equation}
-The decay rates of this likelihood vary significantly as a function of the observations. We remind below the definition of a degenerate likelihood that we introduced in \cref{chap:prem} where the decay rates of the likelihood were comprehensively studied.
+The decay rates of this likelihood vary significantly as a function of the observations. We remind below the definition of a degenerate likelihood that we introduced in \cref{chap:prem}, where the decay rates of the likelihood were comprehensively studied.
 
 \begin{defi}[Likelihood degeneracy]\label{def:doe:degeneracy}
     %If the observed data $(\mbf z^k,\mbf a^k)$ are such that, either,
@@ -167,7 +181,7 @@ That prior, which has a density that we denote $\pi^\ast_\gamma$, is sought to r
         \pi^\ast_\gamma(\theta) \propto\frac{1}{\alpha(\beta^{1-\gamma}+\beta^{3-\gamma})}\exp\left(-\frac{(\log\alpha-\mu_A)^2}{2\sigma_A^2+2\beta^2}\right),
     \end{equation}
     where $\mu_A$ and $\sigma_A$ respectively denote the mean and the standard deviation of the r.v. $\log A$.
-The form of the prior $\pi^\ast_\gamma$ results from the consideration of Jeffreys prior's decay rates. With respect to $\beta$, the decay rates are the same as the ones of the constrained reference prior density in \cref{eq:doe:trueconstrref} (see the study of Jeffreys prior's decays in \cref{chap:prem}). With respect to $\alpha$, the prior density $\pi^\ast_\gamma$ admits slightly different decay rates. That choice results from two considerations: (i)~especially outside degenerate likelihoods of types 1 or 2, this change has a negligible impact on the posterior, and (ii)~in \cref{chap:prem} we elucidated that the reference prior w.r.t. $\alpha$ is close to the distribution of the IM, which is associated to a lognormal distribution.
+The form of the prior density $\pi^\ast_\gamma$ results from the consideration of Jeffreys prior's decay rates. With respect to $\beta$, the decay rates are the same as the ones of the constrained reference prior density in \cref{eq:doe:trueconstrref} (see the study of Jeffreys prior's decays in \cref{chap:prem}). With respect to $\alpha$, the prior density $\pi^\ast_\gamma$ admits slightly different decay rates. That choice results from two considerations: (i)~especially outside degenerate likelihoods of types 1 or 2, this change has a negligible impact on the posterior, and (ii)~in \cref{chap:prem} we elucidated that the reference prior w.r.t. $\alpha$ is close to the distribution of the IM, which is associated to a lognormal distribution.
 We precise that both priors in \cref{eq:doe:trueconstrref,eq:doe:tilde-pi-gamma} have been tested when we conducted our numerical results to ensure they give non-distinguishable results.
 
 % similar to the form the Jefr
@@ -200,7 +214,7 @@ The priors defined in \cref{eq:doe:tilde-pi-gamma} handle the degeneracy of the 
         \item[(ii)] by nature, a likelihood becomes degenerate consequently to a lack of information within the observed data samples. Extinguishing degeneracy should thus lead to a better understanding of the structure's response and its fragility curve.
     \end{enumerate}
 
-In this paper, we propose to tackle degeneracy with an appropriate experimental design strategy. 
+In this chapter, we propose to tackle degeneracy with an appropriate experimental design strategy. 
 Different sequential methods exist. Suppose that we have observed the sample $(\mbf z^k,\mbf a^k)$, we need to create a criterion to choose the next input $a_{k+1}$. 
 Given our analysis (statement (ii) above) from an information theory viewpoint, the strategy to build the mentioned criterion is to maximize the impact that the selected observation would have on the posterior distribution. 
 This strategy echoes the one that supports the reference prior definition as a maximal argument of the mutual information, so that we suggest a similar criterion to select $a_{k+1}$:
@@ -354,7 +368,7 @@ To evaluate our estimates and the performances of our methodology, we propose to
 %the three quantitative metrics described hereafter.
 The latter can be defined as the
 %Given the \emph{a posteriori} r.v. $\theta$, a 
-random process $a\mapsto P_f^{|\mbf z^k,\mbf a^k}(a)$ where  $P_f^{|\mbf z^k,\mbf a^k}(a)=\Phi(\beta^{-1}\log a/\alpha)$. It has a distribution that naturally inherits from the posterior distribution of $\theta$.
+random process $a\mapsto P_f^{|\mbf z^k,\mbf a^k}(a)$ where  $P_f^{|\mbf z^k,\mbf a^k}(a)=\Phi(\beta^{-1}\log a/\alpha)$\vspace*{-4pt}. It has a distribution that naturally inherits from the posterior distribution of $\theta$.
 For each value of $a$, we note $q_r^{|\mbf z^k,\mbf a^k}(a)$ the $r$-quantile of $P_f(a)$, and $m^{|\mbf z^k,\mbf a^k}(a)$ its median.
 These are defined for any $a\in\cA=[0,a_{\text{max}}]$, where $a_{\text{max}}$ corresponds to the highest value of the IM that exists in the dataset of generated seismic signals that we use (see \cref{chap:frags-intro}), i.e.,
 $a_{\text{max}}=12$~m/s$^2$ for the PGA, and  $a_{\text{max}}=60$~m/s$^2$ for the PSA.
@@ -591,7 +605,7 @@ In order to guide the user, we also proposed two indicators that allow learning 
     \subsection{Description of the case studies}
     
 
-    n order to gain more insight on the method, we suggest in this appendix a brief analysis of its behavior on case studies that are free of any bias. 
+    In order to gain more insight on the method, we suggest in this section a brief analysis of its behavior on case studies that are free of any bias. 
     Such case studies are purely theoretical, so that we qualify them as ``toy case studies''. Here, the observed data $(\mbf z^k,\mbf a^k)$ are perfectly generated according to the probit-lognormal statistical model presented in \cref{sec:doe:model}:
     a reference parameter $\theta^\ast=(\alpha^\ast,\beta^\ast)$ is chosen; then, from any input $a$ (that simulates a theoretical IM), an output $z\in\{0,1\}$ is generated that is equal to $1$ with probability $\Phi\left(\beta^{\ast -1}\log\frac{a}{\alpha^{\ast}}\right)$ and $0$ otherwise.
     
@@ -730,7 +744,7 @@ In order to guide the user, we also proposed two indicators that allow learning 
     
     
     
-    For this theoretical study, we assume to be in the settings of the toy case studies defined in this appendix, i.e. $P^{\text{ref}}_f(a)=\Phi\left(\beta^{\ast -1}\log\frac{a}{\alpha^{\ast}}\right)$ for a couple $(\alpha^\ast,\beta^\ast)$.
+    For this theoretical study, we assume to be in the settings of the toy case studies defined in the previous subsection, i.e. $P^{\text{ref}}_f(a)=\Phi\left(\beta^{\ast -1}\log\frac{a}{\alpha^{\ast}}\right)$ for a couple $(\alpha^\ast,\beta^\ast)$.
     We derive
         \begin{align}\nonumber
             &\frac{d}{da}\EE|P^{\text{ref}}_f(a)-P_f(a)|\\ &= \frac{1}{a\sqrt{2\pi}}\int_\Theta \left[\frac{1}{\beta^\ast}\exp\left(-\frac{(\log a-\log\alpha^\ast)^2}{2\beta^{\ast 2}}\right)-\frac{1}{\beta} \exp\left(-\frac{(\log a-\log\alpha)^2}{2\beta^2}\right)\right] p_{\alpha,\beta}(\alpha,\beta)d\alpha d\beta. \label{eq:derive-P-EP}   
@@ -885,25 +899,25 @@ In order to guide the user, we also proposed two indicators that allow learning 
 % \subsection{}
 
 
-\section{Conclusion}
+\section{Conclusion}\label{sec:doe:conclusion}
 
 
 
 
 
-In some sense, this chapter can be seen as an ``ultimate'' application 
+% In some sense, this chapter can be seen as an ``ultimate'' application 
 
 
 
 
 
-Assessing 
-the estimation of probit-lognormal seismic fragility curves in a Bayesian framework
-amounts to 
+% Assessing 
+% the estimation of probit-lognormal seismic fragility curves in a Bayesian framework
+% amounts to 
 
 
-When 
-the information conveyed by any sources ---the prior, the data, the model--- hugely influence the quality of the estimates.
+When we seek to estimate seismic fragility curves with limited data, 
+the information conveyed by any sources ---the prior, the observations, the model--- hugely influence the quality of the estimates.
 
 
 %the seismic fragility of structures and components 
@@ -916,27 +930,17 @@ the information conveyed by any sources ---the prior, the data, the model--- hug
 
 In this work, we considered as in the previous chapters the probit-lognormal model, and had thus to acknowledge its irreducible bias compared with the actual reference fragility curves of the studied component.
 %limited
+
 Regarding \emph{a priori} information, we 
-relied on the reference prior theory in order to define the prior. This framework makes it possible to define a so-called objective prior in the sense that it favors the information brought by the data to estimates. Because the
+relied on the reference prior theory in order to define the prior. This framework makes it possible to define a so-called objective prior in the sense that it favors the information brought by the data to the estimates. Because the
 most objective prior according to the theory does not
 tackle degenerate likelihoods and issues improper posteriors, we derived a slightly modified reference prior, more efficient and more robust.
 However, one has to note that this prior is slightly more informative than the original reference prior.
 
+To optimize data allocation, we have proposed a design of experiments strategy that also inherits from the reference prior theory, i.e., that is based on information theory. Given a large database of synthetic seismic signals, the proposed strategy intends to sequentially select the synthetic signals with which to perform the calculations or the tests, in order to optimally estimate ---by minimizing their number--- the probit-lognormal estimations of fragility curves.
 
-
-
-
-%ensure the posteriors are proper given the 
-%likelihood given by the probit-logn
-
-
-
-
-
-%, namely the probit-lognormal model fed by binary data indicating the state of the structure of interest ---i.e., failure or non-failure--- for given IM values. The authors showed in a previous work that the solution to this problem is the well known Jeffreys prior. Since it is improper and does not allow to regularize the problem of degeneracy of the likelihood, a proper approximation of it has been proposed in this work. This results in a slightly informed prior that also has the advantage of being completely analytical, which facilitates its numerical implementation. 
-
-To optimize data allocation, we have proposed a strategy of design of experiments that also inherits from the reference prior theory, i.e., based on the information theory. Given a large database of synthetic seismic signals, the proposed strategy intends to sequentially select the synthetic signals with which to perform the calculations or the tests, in order to optimally estimate ---by minimizing their number--- the probit-lognormal estimations of fragility curves.
-
+We proved that our method is robust and
+that \emph{a priori} information incorporated through the modified prior is quickly negligible in front of the information brought by the data when they are selected by the experimental design.
 Compared to a standard approach that aims to select seismic signals in their initial distribution, considering the Jeffreys prior, we have shown the superiority of our method. It allows reaching more quickly ---i.e., with a limited number of data--- a small estimation bias with a small credibility interval, while reducing the phenomenon of degeneracy. The proposed methodology therefore makes the most of the log-normal model. Since estimation biases can be expected in practice, it is recommended to use the method with few data (i.e., less than 100). To this end, we propose two stopping criteria that reflect the information provided by any additional data.
 
 % Finally, let us note that the DoE methodology was applied here within the framework of the reference prior theory because the authors believe that the objectivity of the prior is essential for fragility analyses. However, the DoE methodology can be applied with any prior that is proper.
