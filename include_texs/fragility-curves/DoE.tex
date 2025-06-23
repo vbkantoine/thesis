@@ -768,7 +768,7 @@ In order to guide the user, we also proposed two indicators that allow learning 
             a^u_{1,2} = \alpha^\ast\exp\left(\pm\beta^\ast\right).
         \end{equation}
     
-    These values are built on a criterion that has a concrete and practical sense. However they remain purely theoretical as they depend on the exact value of $\theta^\ast$.
+    These values are built on a criterion that has a concrete and practical sense. However, they remain purely theoretical as they depend on the exact value of $\theta^\ast$.
     
     
     
@@ -892,3 +892,53 @@ In order to guide the user, we also proposed two indicators that allow learning 
 
 
 In some sense, this chapter can be seen as an ``ultimate'' application 
+
+
+
+
+
+Assessing 
+the estimation of probit-lognormal seismic fragility curves in a Bayesian framework
+amounts to 
+
+
+When 
+the information conveyed by any sources ---the prior, the data, the model--- hugely influence the quality of the estimates.
+
+
+%the seismic fragility of structures and components 
+%when few binary data are available ---i.e., less than 100--- is a challenging task. To do this, it is often necessary to introduce some simplifying assumptions. 
+%The simplest and most widespread assumption assumes a linear correlation between the logarithm of the structural response of interest and the logarithm of the IM of interest. However, recent studies have shown that this assumption should be avoided because of the unavoidable bias it may introduce, which can greatly affect the estimation. Another preferred solution in the literature, 
+%A standard solution found in the literature
+%is to use a parametric model of the fragility curves such as the probit-lognormal model. This is the choice that was made in this work.
+
+%Several methods can be implemented to estimate the model parameters. Th the use of Bayesian methods which are known to be regularizing. The question of the choice of the prior is then significant because it inevitably impacts all the resulting estimates, especially with small data sizes.
+
+In this work, we considered as in the previous chapters the probit-lognormal model, and had thus to acknowledge its irreducible bias compared with the actual reference fragility curves of the studied component.
+%limited
+Regarding \emph{a priori} information, we 
+relied on the reference prior theory in order to define the prior. This framework makes it possible to define a so-called objective prior in the sense that it favors the information brought by the data to estimates. Because the
+most objective prior according to the theory does not
+tackle degenerate likelihoods and issues improper posteriors, we derived a slightly modified reference prior, more efficient and more robust.
+However, one has to note that this prior is slightly more informative than the original reference prior.
+
+
+
+
+
+%ensure the posteriors are proper given the 
+%likelihood given by the probit-logn
+
+
+
+
+
+%, namely the probit-lognormal model fed by binary data indicating the state of the structure of interest ---i.e., failure or non-failure--- for given IM values. The authors showed in a previous work that the solution to this problem is the well known Jeffreys prior. Since it is improper and does not allow to regularize the problem of degeneracy of the likelihood, a proper approximation of it has been proposed in this work. This results in a slightly informed prior that also has the advantage of being completely analytical, which facilitates its numerical implementation. 
+
+To optimize data allocation, we have proposed a strategy of design of experiments that also inherits from the reference prior theory, i.e., based on the information theory. Given a large database of synthetic seismic signals, the proposed strategy intends to sequentially select the synthetic signals with which to perform the calculations or the tests, in order to optimally estimate ---by minimizing their number--- the probit-lognormal estimations of fragility curves.
+
+Compared to a standard approach that aims to select seismic signals in their initial distribution, considering the Jeffreys prior, we have shown the superiority of our method. It allows reaching more quickly ---i.e., with a limited number of data--- a small estimation bias with a small credibility interval, while reducing the phenomenon of degeneracy. The proposed methodology therefore makes the most of the log-normal model. Since estimation biases can be expected in practice, it is recommended to use the method with few data (i.e., less than 100). To this end, we propose two stopping criteria that reflect the information provided by any additional data.
+
+% Finally, let us note that the DoE methodology was applied here within the framework of the reference prior theory because the authors believe that the objectivity of the prior is essential for fragility analyses. However, the DoE methodology can be applied with any prior that is proper.
+
+
