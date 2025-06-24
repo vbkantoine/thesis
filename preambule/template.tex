@@ -61,7 +61,7 @@ frametitlebelowskip=0pt
 \definecolor{ayellow}{HTML}{D62828}
 \hypersetup{linkcolor=niceBlue, citecolor=niceBlue, urlcolor=niceBlue}
 
-\renewcommand{\beforeminitoc}{\label{chap::\thechapter}\vspace*{-12pt}}%\hypersetup{linkcolor=niceBluelight}}
+\renewcommand{\beforeminitoc}{\label{chap::\arabic{part}.\arabic{chapter}}\vspace*{-12pt}}%\hypersetup{linkcolor=niceBluelight}}
 \renewcommand{\afterminitoc}{\vspace*{-10pt}} %\hypersetup{linkcolor=niceBlue}}
 
 \mtcsetrules{minitoc}{off}
@@ -87,7 +87,7 @@ frametitlebelowskip=0pt
 \renewcommand{\sectionmark}[1]{\markright{#1}}
 
 
-\fancyhead[EL]{\Cref{chap::\thechapter}\color{niceBlue}.\ %\hyperlink{chap::\thechapter}{\color{niceBlue}\chaptertitlename\ \thechapter.}\color{niceBlue}\ 
+\fancyhead[EL]{\Cref{chap::\arabic{part}.\arabic{chapter}}\color{niceBlue}.\ %\hyperlink{chap::\thechapter}{\color{niceBlue}\chaptertitlename\ \thechapter.}\color{niceBlue}\ 
 \emph{\leftmark}}
 \fancyhead[ER]{}
 \fancyhead[OR]{\color{niceBlue}\thesection.\ \emph{\rightmark}}
