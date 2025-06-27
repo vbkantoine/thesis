@@ -4,6 +4,18 @@
     This appendix is a postprint of the accpeted work: \fullcite{van_biesbroeck_design_2025}  % Ce chapitre reprend principalement les travaux publiés dans: 
 \end{abstract}
 
+\begin{abstract}
+    %Seismic fragility curves are key quantities of interest for Seismic Probabilistic Risk Assessment studies. They express the probability of failure of a mechanical structure of interest conditional to a scalar value derived from the ground motion signal coined Intensity Measure. 
+%In the literature, Bayesian approaches have emerged to 
+In this appendix, we propose 
+an efficient modeling for the estimation of seismic fragility curves in the Bayesian context that is not based on the common probit-lognormal model. % of fragility curves.
+%enable their estimation within the difficult context of limited data availability.  Yet, the probit- lognormal modeling over which most of them are based requires the use of computationally expensive {Markov chain Monte Carlo} methods for providing Bayesian estimators.  %
+% In this work, we propose an efficient modeling for the estimation of fragility curves in the Bayesian context, 
+We implement instead a low fidelity model of the structure's response to the ground motion signal and an objective prior. In this work, we do not limit the knowledge about the state of the structure to a  binary outcome.
+The analytical expression of our modeling {allows} fast generation of estimates. Also, the representative bias arisen by the modeling choice is partly handled with a  design of experiments methodology. Finally, our approach is evaluated on a real case study, and the results highlight its ability to overcome the irreducible bias when coupled with the design of experiments we propose.
+\end{abstract}
+
+
 \minitoc
 
 \section{Introduction}
@@ -34,10 +46,10 @@ The design we suggest relies on the maximization of the information brought by t
 %that serves as measure of the information transmission by a new data item.
 
 
-The remainder of this paper is organized as follows:
-the statement of our low-fidelity modeling strategy for the fragility curves estimation in a Bayesian framework is presented in section~\ref{lowdoe:sec:modeling}.
-After a brief review devoted to global sensitivity analysis, we describe in section~\ref{lowdoe:sec:PE} our design for a sequential planning of experiments, taking the global sensitivity indices as a support.
-Section~\ref{lowdoe:sec:application} is dedicated to the implementation of our methodology on a case study from the nuclear industry. Finally, Section~\ref{lowdoe:sec:discussion} which precedes the conclusion offers a discussion on the performance of our method.
+The remainder of this appendix is organized as follows:
+the statement of our low-fidelity modeling strategy for the fragility curves estimation in a Bayesian framework is presented in \cref{lowdoe:sec:modeling}.
+After a brief review devoted to global sensitivity analysis, we describe in \cref{lowdoe:sec:PE} our design for a sequential planning of experiments, taking the global sensitivity indices as a support.
+\Cref{lowdoe:sec:application} is dedicated to the implementation of our methodology on a case study from the nuclear industry. Finally, \cref{lowdoe:sec:discussion} which precedes the conclusion offers a discussion on the performance of our method.
 %a discussion about the performances.
 
 
@@ -88,7 +100,7 @@ This likelihood introduces a challenge due to the lack of clear separation among
         \rho_k = \frac{\Cov_k(\hatmbf y,\hatmbf a)}{\Var_k\hatmbf a}, \quad
         \mbf z = \tilde P_{\mbf a}^{\top}(\hatmbf y - \rho_k\hatmbf a) ,
     \end{equation}
-where $\Cov_k$, $\Var_k$ respectively denote the empirical covariance and variance, and the matrix $\tilde P_{\mbf a}$ is defined in appendix \ref{lowdoe:app:sec:DiagUa}.
+where $\Cov_k$, $\Var_k$ respectively denote the empirical covariance and variance, and the matrix $\tilde P_{\mbf a}$ is defined in \cref{lowdoe:app:sec:DiagUa}.
 %{$\rho_k$ is the natural slope estimator, and $\mbf z$ is the normalized addition of the residuals and the bias.} 
 Their conditional distributions are given by:
     \begin{align}
@@ -101,7 +113,7 @@ where $\mbf a$ is the vector $(a_i)_{i=1}^k$, $\mbf 1$ denotes the vector of $\R
 %     U_{\mbf a} = I - \frac{\hatmbf a(\frac{1}{2}\hatmbf a - \overline{\hatmbf a})^{\top}  }{k\Var_k\hatmbf a} - \frac{(\frac{1}{2}\hatmbf a - \overline{\hatmbf a}) \hatmbf a^{\top}  }{k\Var_k\hatmbf a}\ ;\quad \overline{\hatmbf a} = \frac{1}{k}\sum_{i=1}^k \log a_i.
 % \end{equation}
 
-Let us denote by $(w_i)_{i=1}^k$ the orthogonal columns of the matrix $P_{\mbf a}$ defined in appendix \ref{lowdoe:app:sec:DiagUa}. Noticing $\rho_k = w_k^{\top}\hatmbf y$ and $\mbf z$ is spanned by the $(w_{i})_{i=1}^{k-1}$, we deduce that $\mbf z$ and $\rho_k$ are independent conditionally to $(\mbf a, \theta)$, and that the knowledge of $(\mbf z,\rho_k,\mbf a)$ is equivalent to the one of $(\mbf y,\mbf a)$ or $(\hat{\mbf y},\hat{\mbf a})$.
+Let us denote by $(w_i)_{i=1}^k$ the orthogonal columns of the matrix $P_{\mbf a}$ defined in \cref{lowdoe:app:sec:DiagUa}. Noticing $\rho_k = w_k^{\top}\hatmbf y$ and $\mbf z$ is spanned by the $(w_{i})_{i=1}^{k-1}$, we deduce that $\mbf z$ and $\rho_k$ are independent conditionally to $(\mbf a, \theta)$, and that the knowledge of $(\mbf z,\rho_k,\mbf a)$ is equivalent to the one of $(\mbf y,\mbf a)$ or $(\hat{\mbf y},\hat{\mbf a})$.
 Thus, the likelihood issued from the observation of $(\mbf z, \rho_k, \mbf a)$ is 
 \begin{equation}\label{lowdoe:eq:likelihood}
      \ell_k(\mbf z,\rho_k,\mbf a|\theta) = p(\mbf a)\frac{\|\hatmbf a-\overline{\hatmbf a}\|}{\sqrt{2\pi\hatmbf a^{\top}\hatmbf a}\sigma}\exp\left(-\frac{(z_{k-1}-\mu \sqrt{k})^2}{2\sigma^2\frac{\hatmbf a^{\top}\hatmbf a}{\|\hatmbf a-\overline{\hatmbf a}\|^2}}\right)\exp\left({-\frac{(\rho_k-\rho)^2}{2\sigma^2/(k\Var_k\hatmbf a)}}\right)\prod_{i=1}^{k-2}\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{z_i^2}{2\sigma^2}\right),
@@ -114,7 +126,7 @@ where $\overline{\hatmbf a} = \frac{1}{k}\sum_{i=1}^k \log a_i$.
 
 
 Within a Bayesian context, the parameter of interest $\theta$ is itself a random variable taking values in a space $\Theta\subset\RR^2\times(0,\infty)$ and following a distribution called the prior.
-We take as a support the reference prior theory (see the \cref{part:ref-theory} of this manuscript) to justify the choice of the Jeffreys's prior for $\theta$, derived from the likelihood expressed in equation (\ref{lowdoe:eq:likelihood}).
+We take as a support the reference prior theory (see the \cref{part:ref-theory} of this manuscript) to justify the choice of the Jeffreys's prior for $\theta$, derived from the likelihood expressed in \cref{lowdoe:eq:likelihood}.
 Conditionally to $\mbf a$, that former is a Gaussian density, making the associated Fisher information matrix being:
        \begin{equation}    
         \cI(\theta) = \int_{\cA^k}\left(\begin{array}{ccc}
@@ -128,7 +140,7 @@ The Jeffreys' prior being defined as the one whose density $J$ w.r.t.{ }the Lebe
     J(\theta)\propto \frac{1}{\sigma^3}.
 \end{equation}
 
-Finally, the posterior distribution of $\theta$ is given by its density, which is proportional to the product of the likelihood (from equation (\ref{lowdoe:eq:likelihood})) with the prior:
+Finally, the posterior distribution of $\theta$ is given by its density, which is proportional to the product of the likelihood (from \cref{lowdoe:eq:likelihood}) with the prior:
     \begin{equation}\label{lowdoe:eq:posterior}
         p(\theta|\mbf z, \mbf a,\rho_k) \propto \frac{1}{\sigma^{k+3}} \exp\left({-\frac{\sum_{i=1}^{k-2}z_i^2}{2\sigma^2}}\right) \exp\left({-\frac{k\|\hatmbf a-\overline{\hatmbf a}\|^2}{\hatmbf a^{\top}\hatmbf a}\frac{(z_{k-1}k^{-1/2}-\mu)^2}{2\sigma^2}}\right)
             \exp\left({-\frac{(\rho_k-\rho)^2}{2\sigma^2/k\Var_k\hatmbf a}}\right).
@@ -162,12 +174,11 @@ Since the first indices introduced by \citet{sobol_sensitivity_1993}, GSA's tool
 Global sensitivity indices \citep{da_veiga_global_2015} are quantities whose class regroups a large range of these tools.
 %
 %Several of those measuring tools are regrouped within the class of the global sensitivity indices~\cite{DaVeiga2015}: 
-According to their definition, letting $d$ be a dissimilarity measure between probability distributions, the impact of input $X_i$ onto the output $Y$ can be derived as
+According to their definition, letting $D$ be a dissimilarity measure between probability distributions, the impact of input $X_i$ onto the output $Y$ can be derived as
     \begin{equation}
-        S_i = \EE_{X_i}\left[d(\PP_{Y}||\PP_{Y|X_i})\right] ,
+        S_i = \EE_{X_i}\left[D(\PP_{Y}||\PP_{Y|X_i})\right] ,
     \end{equation}
-where $\PP_Y$ is the distribution of $Y$, $\PP_{Y|X_i}$ is the conditional distribution of $Y$ given $X_i$, and 
-$d$ is a dissimilarity measure. The choice of $d$ can depend on the expected properties. A classical example is to set $d(P||Q)=\|\EE_{X\sim P}[X]-\EE_{X\sim Q}[X]\|^2$ which gives the un-normalized Sobol' index \citep{sobol_sensitivity_1993}.
+where $\PP_Y$ is the distribution of $Y$, $\PP_{Y|X_i}$ is the conditional distribution of $Y$ given $X_i$. The choice of $D$ can depend on the expected properties. A classical example is to set $D(P||Q)=\|\EE_{X\sim P}[X]-\EE_{X\sim Q}[X]\|^2$ which gives the un-normalized Sobol' index \citep{sobol_sensitivity_1993}.
 
 
 
@@ -175,27 +186,27 @@ $d$ is a dissimilarity measure. The choice of $d$ can depend on the expected pro
 
 Following the idea of \citet{da_veiga_global_2015}, a judicious data acquisition strategy would be to minimize the sensitivity that the posterior would get from the observations. This way, the IM $a_{k+1}$ that has to be chosen for the next simulation which would output an EDP $y_{k+1}$, after having observed $(\mbf y, \mbf a)=(y_i,a_i)_{i=1}^k$ is the one such that the following index is maximized:
     \begin{equation}\label{lowdoe:eq:dataacq1}
-        \EE_{y_{k+1}|a_{k+1},\mbf y,\mbf a}[d(\PP_{\theta|\mbf y,\mbf a} || \PP_{\theta|y_{k+1},a_{k+1},\mbf y,\mbf a} )],
+        \EE_{y_{k+1}|a_{k+1},\mbf y,\mbf a}[D(\PP_{\theta|\mbf y,\mbf a} || \PP_{\theta|y_{k+1},a_{k+1},\mbf y,\mbf a} )],
     \end{equation}
 where $\EE_{y_{k+1}|a_{k+1},\mbf y,\mbf a}$ is the expectation with respect to the distribution of $y_{k+1}$ given $a_{k+1},\mbf y,\mbf a$.
 Within the GSA's scope, this makes the next experiment being chosen as the one such that the resulting observation of the structure's response provides the most impact onto the parameter of interest $\theta$. Sequentially, the observations are chosen to maximize the evolution of the posterior distribution. We invite one to notice that this viewpoint joins the reference prior theory one. Indeed, the reference prior is built to be the one such that the posterior distribution is expected to evolve the most from the prior. %~\cite{VanBiesbroeckBA2023}.
 
-If the relation between the logarithm of the EDP and that of the IM is ``very close" to a linear relation, equation~\eqref{lowdoe:eq:dataacq1} is sufficient to improve the learning of the fragility curve. In other words, a strategy based on this equation makes it possible to sufficiently explore the space of the IMs, in order to maximize their empirical variance and thus reduce the \emph{a posteriori} variance of the estimation of the fragility curve, all things being equal (cf. equation~\eqref{lowdoe:eq:apostcf}). Note that there is no mathematical proof of this in this paper, but it has been tested numerically. 
+If the relation between the logarithm of the EDP and that of the IM is ``very close" to a linear relation, \cref{lowdoe:eq:dataacq1} is sufficient to improve the learning of the fragility curve. In other words, a strategy based on this equation makes it possible to sufficiently explore the space of the IMs, in order to maximize their empirical variance and thus reduce the \emph{a posteriori} variance of the estimation of the fragility curve, all things being equal (cf. \cref{lowdoe:eq:apostcf}). Note that there is no mathematical proof of this in this appendix, but it has been tested numerically. 
 
-In practice, since the linear model is expected to be biased, the way to reduce the bias is to localize the learning, even if it is not optimal with respect to the \emph{a posteriori} variance of the estimation of the fragility curve. In our work, the locality of interest corresponds to the values of IMs for which the fragility curve evolves ``significantly" from 0 to 1. For this reason, we propose a refinement of the data acquisition strategy of equation (\ref{lowdoe:eq:dataacq1}) which includes the researched information:
+In practice, since the linear model is expected to be biased, the way to reduce the bias is to localize the learning, even if it is not optimal with respect to the \emph{a posteriori} variance of the estimation of the fragility curve. In our work, the locality of interest corresponds to the values of IMs for which the fragility curve evolves ``significantly" from 0 to 1. For this reason, we propose a refinement of the data acquisition strategy of \cref{lowdoe:eq:dataacq1} which includes the researched information:
     \begin{equation}\label{lowdoe:eq:ALs}
-        \EE_{ s_{k+1}|a_{k+1},\mbf y,\mbf a}[d(\PP_{\theta|\mbf y,\mbf a} || \PP_{\theta|s_{k+1},a_{k+1},\mbf y,\mbf a} )],
+        \EE_{ s_{k+1}|a_{k+1},\mbf y,\mbf a}[D(\PP_{\theta|\mbf y,\mbf a} || \PP_{\theta|s_{k+1},a_{k+1},\mbf y,\mbf a} )],
     \end{equation}
 with $s_{k+1}=\indic_{\hat y_{k+1}>0}$.
 
-%Different dissimilarity measures are suggested and compared in section~\ref{lowdoe:sec:results}.
+%Different dissimilarity measures are suggested and compared in \cref{lowdoe:sec:results}.
 As a dissimilarity measure, we suggest the following, defined as a  Sobol' index of the fragility curve:
     \begin{align}
     \nonumber
-        d(\PP_{\theta|\mbf y,\mbf a} || \PP_{\theta|s_{k+1},a_{k+1},\mbf y,\mbf a} ) &= \left\|\EE[P_f|\mbf y,\mbf a]-\EE[P_f|s_{k+1}, a_{k+1}, \mbf y,\mbf a]\right\|_{L^2}^2\\
+        D(\PP_{\theta|\mbf y,\mbf a} || \PP_{\theta|s_{k+1},a_{k+1},\mbf y,\mbf a} ) &= \left\|\EE[P_f|\mbf y,\mbf a]-\EE[P_f|s_{k+1}, a_{k+1}, \mbf y,\mbf a]\right\|_{L^2}^2\\
         &= \int_\cA\left|\EE[P_f(a)|\mbf y,\mbf a]-\EE[P_f(a)|s_{k+1}, a_{k+1}, \mbf y,\mbf a]\right|^2d a ,\label{lowdoe:eq:index}
     \end{align}
-where for any $a\in\cA$, $P_f(a)=\Phi\left((\rho\log a+\mu)/\sigma\right)$ inherits from the distribution of $\theta$. {Conditionally to $(\mbf y,\mbf a)$, its distribution has been elucidated in section \ref{lowdoe:sec:priorposterior}. %For the computation of $\EE[P_f(a)|s_{k+1},a_{k+1},\mbf y,\mbf a]$, notice that
+where for any $a\in\cA$, $P_f(a)=\Phi\left((\rho\log a+\mu)/\sigma\right)$ inherits from the distribution of $\theta$. {Conditionally to $(\mbf y,\mbf a)$, its distribution has been elucidated in \cref{lowdoe:sec:priorposterior}. %For the computation of $\EE[P_f(a)|s_{k+1},a_{k+1},\mbf y,\mbf a]$, notice that
 Also, 
 \begin{equation}
     p(\theta|s_{k+1}, a_{k+1},\mbf y,\mbf a)  =  \frac{p(s_{k+1}|a_{k+1},\mbf y,\mbf a,\theta)}{\EE[ p(s_{k+1}|a_{k+1},\mbf y,\mbf a,\theta)|\mbf y,\mbf a]}%p(a_{k+1})
@@ -203,19 +214,19 @@ Also,
         p(\theta|\mbf y,\mbf a)
 \end{equation}
 %\cy{il y a $\tilde\theta$ qui se balade au dénominateur}
-with $p(s_{k+1}|a_{k+1},\mbf y,\mbf a,\theta)=P_f(a_{k+1})^{s_{k+1}}(1-P_f(a_{k+1}))^{1-s_{k+1}}$. Thus, samples of $\theta$ conditionally to $(\mbf y,\mbf a)$ allow the approximation of both expectations in equation (\ref{lowdoe:eq:index}) by Monte-Carlo averages. The integrals in $a$ are estimated by Simpson's rule.
-In the following example, a regular subdivision of $\cA=[0,A_{\rm max}]$ is suggested (see section \ref{lowdoe:sec:benchamrk}).
+with $p(s_{k+1}|a_{k+1},\mbf y,\mbf a,\theta)=P_f(a_{k+1})^{s_{k+1}}(1-P_f(a_{k+1}))^{1-s_{k+1}}$. Thus, samples of $\theta$ conditionally to $(\mbf y,\mbf a)$ allow the approximation of both expectations in \cref{lowdoe:eq:index} by Monte-Carlo averages. The integrals in $a$ are estimated by Simpson's rule.
+In the following example, a regular subdivision of $\cA=[0,A_{\rm max}]$ is suggested (see \cref{lowdoe:sec:benchamrk}).
 }
 
 
 {
-The calculation of this index necessitates several initial observations. Actually, the derivations of both the likelihood and the posterior, as outlined in sections \ref{lowdoe:sec:likelihood} and \ref{lowdoe:sec:priorposterior}, require that $k > 2$ and $a_1 \ne a_2$ (refer to appendix \ref{lowdoe:app:sec:DiagUa}). In our experiments, we randomly select $k_0 = 3$ initial seismic signals with distinct IMs from their original distribution. The planning of experiment strategy is then sequentially implemented to select subsequent IM values by maximizing the numerical approximation of the index expressed in equation (\ref{lowdoe:eq:ALs}). The optimization in one dimension is carried out using the BFGS algorithm.
+The calculation of this index necessitates several initial observations. Actually, the derivations of both the likelihood and the posterior, as outlined in \cref{lowdoe:sec:likelihood,lowdoe:sec:priorposterior}, require that $k > 2$ and $a_1 \ne a_2$ (refer to \cref{lowdoe:app:sec:DiagUa}). In our experiments, we randomly select $k_0 = 3$ initial seismic signals with distinct IMs from their original distribution. The planning of experiment strategy is then sequentially implemented to select subsequent IM values by maximizing the numerical approximation of the index expressed in \cref{lowdoe:eq:ALs}. The optimization in one dimension is carried out using the BFGS algorithm.
 }
 
 
 
 
-%For computation purposes, the expectations are estimated by Monte-Carlo averages using the posterior distribution expressed in equation (\ref{lowdoe:eq:posterior}), and the integrals in $a$ are estimated by Simpson's rule.
+%For computation purposes, the expectations are estimated by Monte-Carlo averages using the posterior distribution expressed in equation (\cref{{lowdoe:eq:posterior}), and the integrals in $a$ are estimated by Simpson's rule.
 
 %\section{Consistency of the index?}
 
@@ -225,7 +236,7 @@ The calculation of this index necessitates several initial observations. Actuall
 
 \subsection{Case study presentation}\label{lowdoe:sec:casestudy}
 
-This case study concerns the seismic behavior of a piping system forming part of the secondary line of a French pressurized water reactor. Figure~\ref{lowdoe:fig:ASG} presents a perspective of the mock-up positioned on the Azalee shaking table at the EMSI laboratory of CEA/Saclay. Simultaneously, figure~\ref{lowdoe:fig:ASG}-right depicts the finite element model (FEM), employing beam elements and implemented through the proprietary FE code CAST3M \citep{cea_cast3m_2019}. The validation of the FEM was carried out thanks to an experimental campaign described in \cite{touboul_seismic_1999}.
+This case study concerns the seismic behavior of a piping system forming part of the secondary line of a French pressurized water reactor. \Cref{lowdoe:fig:ASG} presents a perspective of the mock-up positioned on the Azalee shaking table at the EMSI laboratory of CEA/Saclay. Simultaneously, \cref{lowdoe:fig:ASG}-right depicts the finite element model (FEM), employing beam elements and implemented through the proprietary FE code CAST3M \citep{cea_cast3m_2019}. The validation of the FEM was carried out thanks to an experimental campaign described in \cite{touboul_seismic_1999}.
 
 The mock-up comprises a carbon steel TU42C pipe with an outer diameter of 114.3 mm, a thickness of 8.56 mm, and a 0.47 elbow characteristic parameter. This pipe, filled with water without pressure, includes three elbows, with a valve-mimicking mass of 120 kg, constituting over 30\% of the mock-up's total mass. One end of the mock-up is clamped, while the other is guided to restrict displacements in the X and Y directions. Additionally, a rod is positioned atop the specimen to limit mass displacements in the Z direction (refer to Figure 1-right). During testing, excitation was applied exclusively in the X direction.
 
@@ -233,12 +244,12 @@ The numerous simulations carried out for this case study were obtained with arti
 
 As in practice the piping system is located in a building, the artificial signals were filtered using a fictitious 2\% damped linear single-mode building at 5 Hz, which corresponds to the first eigenfrequency of the 1\% damped piping system. The chosen failure criterion is based on the assessment of excessive out-of-plane rotation of the elbow near the clamped end of the mock-up, following the recommendation in \cite{touboul_enhanced_2006}. {The chosen IM is the PSA which is calculated here at 5 Hz for a damping ratio of 1\%.}
 
-In order to evaluate the effectiveness of the proposed method, we considered the nonlinear seismic behavior of the piping system. Regarding the nonlinear constitutive law of the material, a bilinear law exhibiting kinematic hardening was used to reproduce the overall nonlinear behaviour of the mock-up with satisfactory agreement compared to the results of the seismic tests \citep{touboul_seismic_1999}. 
+In order to evaluate the effectiveness of the proposed method, we considered the nonlinear seismic behavior of the piping system. Regarding the nonlinear constitutive law of the material, a bilinear law exhibiting kinematic hardening was used to reproduce the overall nonlinear behavior of the mock-up with satisfactory agreement compared to the results of the seismic tests \citep{touboul_seismic_1999}. 
 
 In this work, the critical rotation threshold is set at $C = 4.1^{\circ}$, representing the 90\%-level quantile derived from a sample of $10^4$ nonlinear numerical simulations.
 
 Finally, the fragility curve that we will call ``reference" in the following was obtained by Monte-Carlo averages on clusters of the IM using the K-means algorithm, following the suggestion of \citet{trevlopoulos_parametric_2019}, from the $10^4$ data that we dispose. 
-The estimation procedure is prensented in \cref{chap:frags-intro}. In this method, the average goes along its confidence intervals; in the computation of the metrics that are suggested in the next section, the average is considered as the reference. %\cy{J'enlèverai la dernière phrase ?}
+The estimation procedure is presented in \cref{chap:frags-intro}. In this method, the average goes along its confidence intervals; in the computation of the metrics that are suggested in the next section, the average is considered as the reference. %\cy{J'enlèverai la dernière phrase ?}
 %In this reference are also presented the results of comparison with the Monte-Carlo method.
 
 \begin{figure*}[!ht]
@@ -247,6 +258,7 @@ The estimation procedure is prensented in \cref{chap:frags-intro}. In this metho
     \hspace{1cm}
     \includegraphics[width=2.3cm]{figures/intro-frags/ASG_FEM.pdf}
     \caption{(left) Overview of the piping system on the Azalee shaking table and (right) Mock-up FEM.}
+    \label{lowdoe:fig:ASG}
 \end{figure*}
 
 
@@ -256,7 +268,7 @@ In order to evaluate the effects that our planning of experiments method has ove
 Considering a sample $(\mbf a, \mbf y)$, we denote
 by $a \mapsto P_f^{|\mbf a, \mbf y}(a)$ the random process defined as the fragility curve conditionally to the sample. $P_f^{|\mbf a,\mbf y}(a)=\Phi((\rho\log a+\mu)/\sigma)$ inherits from the \emph{a posteriori} distribution of $\theta$.  
 For each value $a$ the $r$-quantile of the random variable $P_f^{|\mbf a,\mbf y}(a)$ is denoted by $q_r^{|\mbf a,\mbf y}(a)$, and its median is denoted by $m^{|\mbf a,\mbf y}(a)$.  
-Also, we take into account the reference fragility curve $a\mapsto P_f^{\mathrm{ref}}(a)$, evoked in section~\ref{lowdoe:sec:casestudy}; and we consider a bounded set $\cA=[0,A_{\max}]$ for the IM, the truncation is set to the maximal IM within the database of $10^4$ seismic signals we have at disposal for this work, as disclosed in section~\ref{lowdoe:sec:casestudy}. % generated from the stochastic simulator of~\cite{Rezaeian2010} and implemented in~\cite{Sainct2020}.
+Also, we take into account the reference fragility curve $a\mapsto P_f^{\mathrm{ref}}(a)$, evoked in \cref{lowdoe:sec:casestudy}; and we consider a bounded set $\cA=[0,A_{\max}]$ for the IM, the truncation is set to the maximal IM within the database of $10^4$ seismic signals we have at disposal for this work, as disclosed in \cref{lowdoe:sec:casestudy}. % generated from the stochastic simulator of~\cite{Rezaeian2010} and implemented in~\cite{Sainct2020}.
     We define:
     \begin{itemize}
         \item The square bias to the median: $\displaystyle{\cB^{|\mbf a,\mbf y} = \|m^{|\mbf a,\mbf y}- P_f^{\mathrm{ref}}\|^2_{L^2};\quad \text{where}\quad\|P\|^2_{L^2} = \frac{1}{A_{\max}}\int_{0}^{A_{\max}}P(a)^2 d a.}$
@@ -277,7 +289,7 @@ Also, we take into account the reference fragility curve $a\mapsto P_f^{\mathrm{
             %    \cT^{|\mbf a,\mbf y} = \frac{1}{A_{\max}}\int_0^{A_{\max}}\indic_{P_f^{\mathrm{ref}}(a)\in \left[q_{1-{r/2}}^{|\mbf a,\mbf y}(a), q_{{r/2}}^{|\mbf a,\mbf y}(a) \right] } da.
             %\end{equation}
     \end{itemize}
-For the forthcoming implementation of these metrics, numerous \emph{a posteriori} samples of the process $P_f^{|\mbf a,\mbf y}$ are generated from their known distribution (see equation (\ref{lowdoe:eq:posterior})) and serve the computation of the medians, quantiles and means through Monte-Carlo derivation. The integrals are approximated numerically from Simpsons' interpolation
+For the forthcoming implementation of these metrics, numerous \emph{a posteriori} samples of the process $P_f^{|\mbf a,\mbf y}$ are generated from their known distribution (see \cref{lowdoe:eq:posterior}) and serve the computation of the medians, quantiles and means through Monte-Carlo derivation. The integrals are approximated numerically from Simpsons' interpolation
 {on sub-intervals of regular size  $0=A_0<\dots<A_p=A_{\rm max}$. In our computations, we use  $A_{\rm max}=55\,\mathrm{m/s^2}$, and $p=200$.}
 
 
@@ -285,22 +297,22 @@ For the forthcoming implementation of these metrics, numerous \emph{a posteriori
 \subsection{Numerical results}\label{lowdoe:sec:results}
 
 %
-Figure~\ref{lowdoe:fig:examples} shows examples of fragility curve estimations based on different dataset sizes. 
+\Cref{lowdoe:fig:examples} shows examples of fragility curve estimations based on different dataset sizes. 
 %Both estimations differ only from their observation samples. 
-The results presented in Figure~\ref{lowdoe:fig:examples}-(c) come from our planning-of-experiments (PE) methodology while the results presented in {Figures~\ref{lowdoe:fig:examples}-(a) and~\ref{lowdoe:fig:examples}-(b) come from independent random samples, with IMs that have been drawn w.r.t. their original standard distribution or w.r.t. a uniform distribution}. These qualitative results clearly illustrate the contribution of our methodology.
+The results presented in \cref{lowdoe:fig:examples}-(c) come from our planning-of-experiments (PE) methodology while the results presented in \namecrefs{lowdoe:fig:examples}~\ref{lowdoe:fig:examples}-(a) and~\ref{lowdoe:fig:examples}-(b) come from independent random samples, with IMs that have been drawn w.r.t. their original standard distribution or w.r.t. a uniform distribution. These qualitative results clearly illustrate the contribution of our methodology.
 
 %Indeed, under a standardly drawn sample (understand here that the observed IM are independently sampled  w.r.t.{ }their original distribution), a fast convergence of the estimate is performed when the number of observation rises, with credibility intervals that get thinner accordingly.
 %However, such strong convergence targets an incorrect value, that we suppose being due to the  bias of the linear model.
 
 When samples are randomly drawn from the original IM distribution {or from a uniform distribution}, the results show a rapid convergence of the estimates -- in the sense that the associated credibility intervals decrease rapidly -- towards biased estimations of the fragility curves. Conversely, when the samples come from the PE methodology, the bias decreases but the convergence is slower.
 
-These observations are confirmed on a larger scale by the results presented in Figures~\ref{lowdoe:fig:errors} and~\ref{lowdoe:fig:credibility}. 
-These ones are issued from computations of the metrics $\cB^{|\mbf a,\mbf y}$, $\cE^{|\mbf a,\mbf y}$, $\cW^{|\mbf a,\mbf y}$ and $\cP^{|\mbf a,\mbf y}$ described in section~\ref{lowdoe:sec:benchamrk}, for various observation sets $(\mbf a,\mbf y)$. They compare the performances of our PE methodology with the two methods that are based on independently drawn observations: the one that involves  IM samples drawn from their standard distribution, and the one that involves IM samples drawn from a uniform distribution over the range $[0,A_{\rm max}]$.
+These observations are confirmed on a larger scale by the results presented in \cref{lowdoe:fig:errors,lowdoe:fig:credibility}. 
+These are issued from computations of the metrics $\cB^{|\mbf a,\mbf y}$, $\cE^{|\mbf a,\mbf y}$, $\cW^{|\mbf a,\mbf y}$ and $\cP^{|\mbf a,\mbf y}$ described in \cref{lowdoe:sec:benchamrk}, for various observation sets $(\mbf a,\mbf y)$. They compare the performances of our PE methodology with the two methods that are based on independently drawn observations: the one that involves  IM samples drawn from their standard distribution, and the one that involves IM samples drawn from a uniform distribution over the range $[0,A_{\rm max}]$.
 
-Figure~\ref{lowdoe:fig:errors} shows empirical comparisons of the bias and of the quadratic error between the method involving a design of experiments and without. These two results clearly illustrate that the PE approach outperforms the standard {and the uniform} approaches. Although the quadratic error is strongly related to the variance of the estimates it is significantly offset by the fact that the bias is smaller with the PE approach. Indeed, figure~\ref{lowdoe:fig:credibility}-left illustrates that the $95\%$-square credibility width is smaller with the standard {and uniform} approaches than with the PE-based approach. This good result nevertheless masks a lack of robustness of the standard {or uniform}  approaches since the estimate turns out to be strongly biased, as shown in figure~\ref{lowdoe:fig:credibility}-right. This figure shows indeed the coverage probability for the both methods, as a function of the dataset size. It measures the average inclusion of the reference fragility curves to the \emph{a posteriori} credibility intervals.
+\Cref{lowdoe:fig:errors} shows empirical comparisons of the bias and of the quadratic error between the method involving a design of experiments and without. These two results clearly illustrate that the PE approach outperforms the standard {and the uniform} approaches. Although the quadratic error is strongly related to the variance of the estimates it is significantly offset by the fact that the bias is smaller with the PE approach. Indeed, \cref{lowdoe:fig:credibility}-left illustrates that the $95\%$-square credibility width is smaller with the standard {and uniform} approaches than with the PE-based approach. This good result nevertheless masks a lack of robustness of the standard {or uniform}  approaches since the estimate turns out to be strongly biased, as shown in \cref{lowdoe:fig:credibility}-right. This figure shows indeed the coverage probability for the both methods, as a function of the dataset size. It measures the average inclusion of the reference fragility curves to the \emph{a posteriori} credibility intervals.
 
 %Secondly, that last point is emphasized by what is shown in  Indeed, the standard method is there exposed to provide credibility intervals that get strongly thinner than the ones benefiting from P.E. 
-%Yet, figure~\ref{lowdoe:fig:credibility}-right unveils their lack of robustness under the first method. That last figure plots the coverage probability of both methods as a function of the dataset size. It measures the average belonging of the reference within the \emph{a posteriori} credibility intervals. The P.E. handles to avoid the trap of the model bias within the reliable credibility intervals it issues.
+%Yet, \cref{lowdoe:fig:credibility}-right unveils their lack of robustness under the first method. That last figure plots the coverage probability of both methods as a function of the dataset size. It measures the average belonging of the reference within the \emph{a posteriori} credibility intervals. The P.E. handles to avoid the trap of the model bias within the reliable credibility intervals it issues.
 
 
 
@@ -349,12 +361,12 @@ The results presented in the previous section clearly illustrate the superiority
 
 The strength of the approach proposed in this work is its completely analytical nature, which avoids the use of MCMC methods for the \emph{a posteriori} estimation of fragility curves. To do this, however, it is necessary to assume that the logarithm of the EDP evolves linearly as a function of the logarithm of the IM.
 
-So, to solve this problem, we are faced with a contradiction. In order to satisfy the linearity assumption, it is necessary, on the one hand, that the learning zone is local, that is to say restricted to the vicinity of the IMs for which the fragility curve evolves significantly from 0 to 1. On the other hand, the equation ~\eqref{lowdoe:eq:apostcf} shows that an empirical variance of the IMs that is too small is penalizing from the point of view of the variance of the estimation of the fragility curves. The variance of the latter is in fact inversely proportional to that of the IMs considered for learning.
+So, to solve this problem, we are faced with a contradiction. In order to satisfy the linearity assumption, it is necessary, on the one hand, that the learning zone is local, that is to say restricted to the vicinity of the IMs for which the fragility curve evolves significantly from 0 to 1. On the other hand, \cref{lowdoe:eq:apostcf} shows that an empirical variance of the IMs that is too small is penalizing from the point of view of the variance of the estimation of the fragility curves. The variance of the latter is in fact inversely proportional to that of the IMs considered for learning.
 
 As the numerical results show, the proposed learning method localizes the learning in the area of interest and significantly reduces the model bias. As a result, this is accompanied by a slight reduction in the size of the credibility interval with the number of training data.
 
 This therefore suggests that the proposed method is effective for samples
-with limited size (for instance, given the results presented in section \ref{lowdoe:sec:results}, an appropriate limit could be a sample size smaller than 100 for the case study treated in this paper). Beyond that, given the cost associated with each training data, it seems preferable to move towards less constrained and more sophisticated methods.
+with limited size (for instance, given the results presented in \cref{lowdoe:sec:results}, an appropriate limit could be a sample size smaller than 100 for the case study treated in this appendix). Beyond that, given the cost associated with each training data, it seems preferable to move towards less constrained and more sophisticated methods.
 
 \section{Conclusion}\label{lowdoe:sec:conclusion}
 
@@ -376,7 +388,7 @@ For practitioners, this method therefore constitutes a rapid and robust tool for
 
 % \appendix
 
-\section{Construction of $\mbf z$}\label{lowdoe:app:sec:DiagUa}
+\section{Details regarding the construction of $\mbf z$}\label{lowdoe:app:sec:DiagUa}
 
 %\subsection{Definition}
 %\paragraph{Diagonalization of $U_{\mbf a}$} 
@@ -412,7 +424,7 @@ admitting an infinity of solutions w.r.t.{ }$(\gamma,\delta)$. Equivalently, its
         r = v^{\top}u \pm \|v\|\|u\|.
     \end{equation}
 As $u$ and $v$ are linearly independent, the equation above defines two different eigenvalues $r_+$ and $r_-$, both of rank $1$.
-Let $r$ be one of those, a resolution of the equation system  (\ref{lowdoe:app:eq:systemr}) gives that the eigenspace associated with $r$ is $\Span(v^{\top}vu+(r-v^{\top}u)v)$.\\
+Let $r$ be one of those, a resolution of the equation system~(\ref{lowdoe:app:eq:systemr}) gives that the eigenspace associated with $r$ is $\Span(v^{\top}vu+(r-v^{\top}u)v)$.\\
 
 Coming back to $U_{\mbf a}$, the arguments above show that the eigenvalues of $U_{\mbf a}$ are $1$, $1-r_-$ and $1-r_+$ with respective ranks $k-2$, $1$ and $1$, and with:
 \begin{equation}
@@ -440,7 +452,7 @@ We remind $\mbf 1$ is the vector whose coordinates are ones. Therefore, denoting
     \end{equation}
 
 % {The complete definition of $P_{\mbf a}$ depends on the chosen orthonormal basis $w_1,\dots,w_{k-2}$ of $\hatmbf a^\perp\cap(\frac{1}{2}\hatmbf a^\perp-\overline{\hatmbf a})$.
-% In practice, we proceed as follows to construct them: from $w_{k-1}=(w_{k-1}^{(j)})_{j=1}^k$ and $w_k=(w_k^{(j)})_{j=1}^k$ as defined in equation (\ref{lowdoe:eq:wk-1,wk}), we denote by $\tilde w_i=(\tilde w_i^{(j)})_{j=1}^k$ the vector of $\RR^k$ such that
+% In practice, we proceed as follows to construct them: from $w_{k-1}=(w_{k-1}^{(j)})_{j=1}^k$ and $w_k=(w_k^{(j)})_{j=1}^k$ as defined in equation (\cref{{lowdoe:eq:wk-1,wk}), we denote by $\tilde w_i=(\tilde w_i^{(j)})_{j=1}^k$ the vector of $\RR^k$ such that
 % \begin{align}
 %     (\tilde w^{(0)}_i,\,\tilde w_i^{(i)},\,\tilde w^{(i+1)}_i) &= (w^{(0)}_{k-1},\, w_{k-1}^{(i)},\,w^{(i+1)}_{k-1})\wedge (w^{(0)}_k,\,w_k^{(i)},\,w^{(i+1)}_k)\\ &= (w^{(i)}_{k-1}w^{(i+1)}_{k}-w^{(i)}_{k}w^{(i+1)}_{k-1},\, w^{(i+1)}_{k}w^{(0)}_{k-1}-w^{(i+1)}_{k-1}w^{(0)}_{k},\, w^{(0)}_{k-1}w_{k}^{(i)}-w^{(0)}_{k}w_{k-1}^{(i)}),\nonumber
 % \end{align}
@@ -449,7 +461,7 @@ We remind $\mbf 1$ is the vector whose coordinates are ones. Therefore, denoting
 
 
 {The complete definition of $P_{\mbf a}$ depends on the chosen orthonormal basis $w_1,\dots,w_{k-2}$ of $\hatmbf a^\perp\cap(\frac{1}{2}\hatmbf a-\overline{\hatmbf a})^\perp$.
-In practice, we proceed as follows to construct it, starting from $w_{k-1}=(w_{k-1}^{(j)})_{j=1}^k$ and $w_k=(w_k^{(j)})_{j=1}^k$ as defined in equation (\ref{lowdoe:eq:wk-1,wk}). 
+In practice, we proceed as follows to construct it, starting from $w_{k-1}=(w_{k-1}^{(j)})_{j=1}^k$ and $w_k=(w_k^{(j)})_{j=1}^k$ as defined in \cref{lowdoe:eq:wk-1,wk}. 
 We denote by $e_i$ the canonical vectors of $\RR^k$ (the $j$th coordinate of $e_i$ is equal to $0$ iff $j\ne i$). As the coordinates of $\mbf a$ are not all the sames, there exist $j,p$ such that $w_{k}^{(j)}\ne w_{k}^{(p)}$ (in practice, we select the minimal $j$ and the minimal $p$ such that this property is verified). Thus, we can show that the vectors $w_k,w_{k-1},(e_i)_{i\ne j,p}$ form a basis of $\RR^k$ by computing their determinant:
     \begin{equation}
         \det(w_k,w_{k-1},(e_i)_{i\ne j,p}) = w_k^{(j)}w_{k-1}^{(p)}(-1)^{j+p+1} - w_{k-1}^{(j)}w_k^{(p)}(-1)^{j+p+1}\ne 0,
@@ -463,7 +475,7 @@ Eventually, the family of the $w_i,\,i=1,\dots k$ is the result of the Gram-Schm
 %with $\langle\cdot,\cdot\rangle$ denoting the usual scalar product in $\RR^k$. 
 Note that this process leaves the expressions of $w_k$ and $w_{k-1}$ unchanged. The family $w_1,\dots,w_{k-2}$ thus forms a basis of $\Span(w_k,w_{k-1})^\perp=\hatmbf a^\perp\cap(\frac{1}{2}\hatmbf a-\overline{\hatmbf a})^\perp$.
 
-We invite the reader to notice that in any way, the construction of those $k-2$ first columns of $P_{\mbf a}$ has no influence on the resulting posterior distribution of interest (given by equation (\ref{lowdoe:eq:posterior})). Indeed, that latter only involves the expressions of $z_{k-1}$ and of $\sum_{i=1}^{k-2}z_i^2$. Concerning the first one, it is equal to $w_{k-1}^{\top}(\hatmbf y-\rho_k\hatmbf a)$, and concerning the second one, it is equal to:
+We invite the reader to notice that in any way, the construction of those $k-2$ first columns of $P_{\mbf a}$ has no influence on the resulting posterior distribution of interest (given by \cref{lowdoe:eq:posterior}). Indeed, that latter only involves the expressions of $z_{k-1}$ and of $\sum_{i=1}^{k-2}z_i^2$. Concerning the first one, it is equal to $w_{k-1}^{\top}(\hatmbf y-\rho_k\hatmbf a)$, and concerning the second one, it is equal to:
     \begin{align*}
             \sum_{i=1}^{k-2}z_i^2=\sum_{i=1}^{k-2}|w_i^{\top}(\hatmbf y-\rho_k\hatmbf a)|^2&=\sum_{i=1}^{k}|w_i^{\top}(\hatmbf y-\rho_k\hatmbf a)|^2-|w_{k-1}^{\top}(\hatmbf y-\rho_k\hatmbf a )|^2-|w_k^{\top}(\hatmbf y-\rho_k\hatmbf a )|^2\\
                 &=\|\hatmbf y-\rho_k\hatmbf a\|^2-|w_{k-1}^{\top}(\hatmbf y-\rho_k\hatmbf a )|^2-|w_k^{\top}(\hatmbf y-\rho_k\hatmbf a )|^2.
