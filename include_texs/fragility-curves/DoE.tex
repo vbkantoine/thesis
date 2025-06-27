@@ -49,7 +49,7 @@ Nevertheless, the influence of data on the posterior remains important. %influen
 %less the posterior
 In practice, %two datasets of the same size do not contain the same amount of knowledge, and one will inform more the posterior than the other. 
 %Optimizing that information will inevitably guide the result away from the prior, enhancing objectivity as well.
-two datasets of the same size may differ considerably in the information they convey, with one contributing more effectively to the posterior than the other. Enhancing this contribution will inevitably guide the result away from the prior, which will improve objectivity as well.
+two datasets of the same size may differ considerably in the information they convey, with one contributing more effectively to the posterior than the other. Enhancing this contribution will inevitably guide the result ``aside'' from the prior, which will improve objectivity as well.
 % can improve objectivity and reduce reliance on prior assumptions.
 
 
@@ -81,7 +81,7 @@ It is also important to recognize that the model itself provides information to 
 For instance, 
 we draw attention to the work conducted in \cref{app:chap:ESAIM}, where a simple model that assumes a linear correlation between the logarithm of the structural response and that of the IM is implemented with a similar experimental design. 
 %The results presented in this appendix illustrate the possible limitations of models that lead to estimation biases whose “importance” depends on the assumptions considered.
-The results presented in that appendix illustrate the possible limitations of models that lead to estimation biases whose  highlight the limitations of the model,  entailed by its irreducible bias. 
+The results presented in that appendix illustrate the possible limitations of models that lead to estimation biases whose  highlight the limitations of the model,  entailed by its irreducible bias. % and resulting to biased estimates. 
 In this chapter, we acknowledge that the probit-lognormal model %that we implement in this chapter 
 is itself inherently biased. However, we aim to demonstrate that this model can accurately estimate seismic fragility curves in scenarios with limited data if used as part of an approach built on a full understanding of the model's limitations.
 %
@@ -181,13 +181,13 @@ The prior approached in that work was given by the density:
     \begin{equation}\label{eq:doe:trueconstrref}
         \pi_\gamma(\theta)\propto J(\theta)\beta^\gamma,\quad\text{where}\quad \gamma\in(0,2).
     \end{equation}
-The same approach is conducted here, where we propose a novel prior that is more computationally efficient.
+The same approach is conducted here, where we propose a novel prior that is more computationally efficient. Indeed, since the prior will be evaluated multiple time to provide \emph{a posteriori} estimates using Markov chain Monte Carlo (MCMC) techniques, we aim to suggest a prior that is not expensive to evaluate.
 That prior, which has a density that we denote $\pi^\ast_\gamma$, is sought to resemble to the properly constrained reference prior expressed in \cref{eq:doe:trueconstrref}:
     \begin{equation}\label{eq:doe:tilde-pi-gamma}
         \pi^\ast_\gamma(\theta) \propto\frac{1}{\alpha(\beta^{1-\gamma}+\beta^{3-\gamma})}\exp\left(-\frac{(\log\alpha-\mu_A)^2}{2\sigma_A^2+2\beta^2}\right),
     \end{equation}
     where $\mu_A$ and $\sigma_A$ respectively denote the mean and the standard deviation of the r.v. $\log A$.
-The form of the prior density $\pi^\ast_\gamma$ results partly from the consideration of Jeffreys prior's decay rates. With respect to $\beta$, the decay rates are the same as the ones of the constrained reference prior density in \cref{eq:doe:trueconstrref} (see the study of Jeffreys prior's decays in \cref{chap:prem}). With respect to $\alpha$, the prior density $\pi^\ast_\gamma$ admits slightly different decay rates. That choice results from two considerations: (i)~especially outside degenerate likelihoods of types 1 or 2, this change has a negligible impact on the posterior, and (ii)~in \cref{chap:prem} we elucidated that the reference prior w.r.t. $\alpha$ is close to the distribution of the IM, which is associated to a lognormal distribution.
+The form of the prior density $\pi^\ast_\gamma$ results partly from the consideration of Jeffreys prior's decay rates. With respect to $\beta$, the decay rates are the same as the ones of the constrained reference prior density in \cref{eq:doe:trueconstrref} (see the study of Jeffreys prior's decays in \cref{chap:prem}, \cref{sec:PREM:subsec:jeffasymp}). With respect to $\alpha$, the prior density $\pi^\ast_\gamma$ admits slightly different decay rates (a term equivalent to $|\log\alpha|$ vanished). That choice results from two considerations: (i)~especially outside degenerate likelihoods of types 1 or 2, this change has a negligible impact on the posterior, and (ii)~in \cref{chap:prem} (\cref{sec:PREM:subsec-jeffprectical}) we elucidated that the reference prior w.r.t. $\alpha$ is close to the distribution of the IM, which is associated to a log-normal distribution.
 We precise that both priors in \cref{eq:doe:trueconstrref,eq:doe:tilde-pi-gamma} have been tested when we conducted our numerical results to ensure they give non-distinguishable results.
 
 % similar to the form the Jefr
@@ -546,7 +546,7 @@ As mentioned in \cref{sec:doe:appli:subsec:present}, the PSA is the better of th
         \centering
         % \hspace*{-1cm}%
         \includegraphics[width=5cm]{figures/DoE/errE_PGA.pdf}\ \includegraphics[width=5cm]{figures/DoE/errB_PGA.pdf}\ \includegraphics[width=5cm]{figures/DoE/errW_PGA.pdf}%
-        \caption{As in \cref{fig:doe:errors-psa} but here the IM  is the PSA.}
+        \caption{As in \cref{fig:doe:errors-psa} but here the IM  is the PGA.}
        % {Average error metrics derived from numerous replications of the method, as a function of the size of the observed sample. In dashed blue lines: the average errors using the standard distribution of the IM surrounded by their $95\%$-confidence interval. In dotted lines: the average errors using our DoE strategy with different values of $\gamma$. They are surrounded (in red) by the maximal $95\%$-confidence intervals of theirs. Two extreme values are emphasized: $\gamma=0$ (orange) and $\gamma=1.9$ (purple). On the middle figure, the model square bias is plotted as a gray line. The IM considered is the PGA here.}
         \label{fig:doe:errors-pga}
     \end{figure}
