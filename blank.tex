@@ -38,6 +38,8 @@
 \include{include_texs/intro}
 
 
+
+
 \part{Contribution to the reference prior theory}\label{part:ref-theory}
 % \renewcommand{\chaptername}{Chapter}
 % \renewcommand{\partname}{Part}
@@ -93,7 +95,8 @@
 
 
 \appendix
-\part*{Appendix}\label{part:appendix}
+\part*{Appendices}\label{part:appendix}
+\addtocontents{toc}{\bigskip}
 % \addcontentsline{toc}{part}{Appendix}
 
 %\renewcommand{\thechapter}{\Alph{chapter}}
@@ -103,13 +106,14 @@
 
 \input{include_texs/fragility-curves/influence-IM.tex}
 
-\chapter{Design of experiments on a low fidelity model of seismic fragility curves}\label{app:chap:ESAIM}
+\chapter{Design of experiments for a low fidelity model of seismic fragility curves}\label{app:chap:ESAIM}
 
 \input{include_texs/fragility-curves/low-fidelity-doe}
 
 
 \chapter{Non-asymptotic reference priors, a brief study}
 
+\input{include_texs/ref-priors/non-asympt-refs.tex}
 
 
 \chapter{Reminder of useful mathematical notions}
