@@ -439,7 +439,7 @@ because
 \end{equation}
 
 Now, let us choose $w_1,\dots,w_{k-2}$ an orthonormal basis of $\hatmbf a^\perp\cap(\frac{1}{2}\hatmbf a-\overline{\hatmbf a})^\perp$. Let us define 
-\begin{equation}\label{lowdoe:eq:wk-1,wk}
+\begin{equation}\label{lowdoe:eq:wk-1.wk}
     w_{k-1} = \frac{1}{\sqrt k}\mbf 1 ,\quad w_{k} = \frac{\hatmbf a - \overline{\hatmbf a}}{\|\hatmbf a-\overline{\hatmbf a}\|}.
 \end{equation}
 % \begin{align}
@@ -461,7 +461,7 @@ We remind $\mbf 1$ is the vector whose coordinates are ones. Therefore, denoting
 
 
 {The complete definition of $P_{\mbf a}$ depends on the chosen orthonormal basis $w_1,\dots,w_{k-2}$ of $\hatmbf a^\perp\cap(\frac{1}{2}\hatmbf a-\overline{\hatmbf a})^\perp$.
-In practice, we proceed as follows to construct it, starting from $w_{k-1}=(w_{k-1}^{(j)})_{j=1}^k$ and $w_k=(w_k^{(j)})_{j=1}^k$ as defined in \cref{lowdoe:eq:wk-1,wk}. 
+In practice, we proceed as follows to construct it, starting from $w_{k-1}=(w_{k-1}^{(j)})_{j=1}^k$ and $w_k=(w_k^{(j)})_{j=1}^k$ as defined in \cref{lowdoe:eq:wk-1.wk}. 
 We denote by $e_i$ the canonical vectors of $\RR^k$ (the $j$th coordinate of $e_i$ is equal to $0$ iff $j\ne i$). As the coordinates of $\mbf a$ are not all the sames, there exist $j,p$ such that $w_{k}^{(j)}\ne w_{k}^{(p)}$ (in practice, we select the minimal $j$ and the minimal $p$ such that this property is verified). Thus, we can show that the vectors $w_k,w_{k-1},(e_i)_{i\ne j,p}$ form a basis of $\RR^k$ by computing their determinant:
     \begin{equation}
         \det(w_k,w_{k-1},(e_i)_{i\ne j,p}) = w_k^{(j)}w_{k-1}^{(p)}(-1)^{j+p+1} - w_{k-1}^{(j)}w_k^{(p)}(-1)^{j+p+1}\ne 0,
