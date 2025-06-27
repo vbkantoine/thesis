@@ -91,7 +91,7 @@ The appendix is organized as follows. \Cref{uncIM:sec:pb} presents the statement
          \label{uncIM:eq:defI}
     \end{equation}
     where $p(\mbf z^k,\mbf a^k) = \int_{\Theta} \ell_k(\mbf z^k|\mbf a^k,\theta' ) \prod_{l=1}^kh(a_l) \pi(\theta')d\theta'$ and the reference measure $\lambda$ is the product of the Lebesgue measure over $\cA$ and the discrete measure $\delta_0+\delta_1$ over $\{0,1\}$. %: we have $\int_{ \cA \times \{0,1\}} \psi(a,z)\lambda(da,dz) = \int_{\cal A} \psi(a,0) da+\int_{\cal A} \psi(a,1) da$ for any test function $\psi$.
-The indicator in \cref{uncIM:eq:defI} is based on a divergence between the posterior and the prior densities, which is known to numerically express this idea of the information provided by one distribution to another one.
+The indicator in \cref{uncIM:eq:defI} is based on a divergence $D$ between the posterior and the prior densities, which is known to numerically express this idea of the information provided by one distribution to another one.
     This divergence can be the Kullback-Leibler divergence or a $\delta$-divergence, for instance (see \cref{chap:intro-ref} and \cref{chap:ref-generalized}).
     % \begin{equation}
     %     KL(p||\pi)=\int_{\Theta} p(\theta)\log\frac{p(\theta)}{\pi(\theta)} d \theta.
