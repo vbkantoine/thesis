@@ -5,7 +5,20 @@
 \end{abstract}
 
 \begin{abstract}
-    abstract
+    The work presented in this appendix
+    investigates the effect of the choice of the IM to Bayesian estimations of seismic fragility curves.
+    % complements the one conducted in \cref{chap:prem}.
+    As in the \cref{part:spra} of this manuscript, we study the probit-lognormal model of fragility curves with datasets for which the structural responses are limited to binary outcomes (i.e., failures or non-failures).
+    We implement a Bayesian approach that is based on an objective prior resulting from an approximation of the Jeffreys prior density.
+%
+    Considering two different IMs (PGA vs. PSA), we remark that a more correlated IM to the structural response is more likely to yield degenerate scenarios. 
+    Such degeneracy compromises fragility curves estimations, either with Bayesian or classical frequentist methods.
+    The consequences of this remark on the estimates are thoroughly investigated on a case study, and compared for different approaches including ours.
+    %  e effect of the correlation of the IM with the structural response on degenerate scenario
+    % complicating its consideration.
+    % The comparison between the use of the IMs is done from a thorough study of 
+    % The same approaches are implemented to estimate seimsic fragility curves namely, we conduct a Bayesian estimation of the probit-lognormal model using an objective prior that is based on approximation of the Jeffreys prior density. This approach is compared with another prior of  
+    We precise that the case study considered here is not the same as the piping system presented in \cref{chap:frags-intro} and studied in some other chapters. In this work, a linear behavior of the structure is assumed to increase the correlation between its response and the IM, in order to highlight phenomena of interest.
 \end{abstract}
 
 \minitoc
@@ -22,16 +35,16 @@
 Seismic fragility curves are key quantities of the Seismic Probabilistic Risk Assessment (SPRA) studies carried out on mechanical structures. They were introduced in the 1980s for safety studies of nuclear facilities (see e.g.
 \cite{kennedy_probabilistic_1980,kennedy_seismic_1984,park_survey_1998,kennedy_risk_1999,cornell_hazard_2004}).
 %\cite{Kennedy1980,KENNEDY198447, PARK1998, KENNEDY1999, Cornell2004}). 
-They express the probability of failure of the mechanical structure conditional to a scalar value derived from the seismic ground motions ---called Intensity Measure (IM)--- such as the Peak Ground Acceleration (PGA) or the Pseudo-Spectral Acceleration (PSA) for a fixed frequency and damping. In practice, various data sources can be exploited to estimate fragility curves, namely: expert judgments supported by test data \citep{kennedy_probabilistic_1980,kennedy_seismic_1984,park_survey_1998,zentner_fragility_2017}, experimental data \citep{park_survey_1998,gardoni_probabilistic_2002,choe_closed-form_2007}, results of damage collected on existing structures that have been subjected to an earthquake \citep{shinozuka_statistical_2000,lallemant_statistical_2015,straub_improved_2008}  and analytical results given by more or less refined numerical models using artificial or real seismic excitations (see e.g. \cite{zentner_numerical_2010,wang_influence_2020,mandal_seismic_2016,wang_seismic_2018,wang_bayesian_2018,zhao_seismic_2020}). Parametric fragility curves were historically introduced in the SPRA framework because their estimates require small sample sizes. The log-normal model has since become the most widely used model (see e.g. \cite{shinozuka_statistical_2000,lallemant_statistical_2015,straub_improved_2008,zentner_numerical_2010,wang_influence_2020,mandal_seismic_2016,wang_bayesian_2018,wang_seismic_2018,zhao_seismic_2020,ellingwood_earthquake_2001,kim_development_2004,mai_seismic_2017,trevlopoulos_parametric_2019,katayama_bayesian-estimation-based_2021}).
+They express the probability of failure of the mechanical structure conditional to a scalar value derived from the seismic ground motions ---called Intensity Measure (IM)--- such as the Peak Ground Acceleration (PGA) or the Pseudo-Spectral Acceleration (PSA) for a fixed frequency and damping. In practice, various data sources can be exploited to estimate fragility curves, namely: expert judgments supported by test data \citep{kennedy_probabilistic_1980,kennedy_seismic_1984,park_survey_1998,zentner_fragility_2017}, experimental data \citep{park_survey_1998,gardoni_probabilistic_2002,choe_closed-form_2007}, results of damage collected on existing structures that have been subjected to an earthquake \citep{shinozuka_statistical_2000,lallemant_statistical_2015,straub_improved_2008}  and analytical results given by more or less refined numerical models using artificial or real seismic excitations (see e.g. \cite{zentner_numerical_2010,wang_influence_2020,mandal_seismic_2016,wang_seismic_2018,wang_bayesian_2018,zhao_seismic_2020}). Parametric fragility curves were historically introduced in the SPRA framework because their estimates require small sample sizes. The probit-lognormal model has since become the most widely used model (see e.g. \cite{shinozuka_statistical_2000,lallemant_statistical_2015,straub_improved_2008,zentner_numerical_2010,wang_influence_2020,mandal_seismic_2016,wang_bayesian_2018,wang_seismic_2018,zhao_seismic_2020,ellingwood_earthquake_2001,kim_development_2004,mai_seismic_2017,trevlopoulos_parametric_2019,katayama_bayesian-estimation-based_2021}).
 Several strategies can be implemented to fit the median, $\alpha$, and the log standard deviation, $\beta$, of the model. Some of them are compared in \cite{lallemant_statistical_2015} highlighting advantages and disadvantages.
 When the data is binary ---i.e., when it indicates failure or not--- \citet{lallemant_statistical_2015} recommended maximum likelihood estimation (MLE). When the data are independent, the bootstrap technique can be used to obtain confidence intervals relating to the size of the sample considered (e.g. \cite{shinozuka_statistical_2000,zentner_numerical_2010,wang_influence_2020}). 
 
 Among the various other methods not mentioned in this short introduction, the Bayesian framework has recently become increasingly popular in seismic fragility analysis (see e.g. \cite{gardoni_probabilistic_2002,wang_seismic_2018,katayama_bayesian-estimation-based_2021,koutsourelakis_assessing_2010,damblin_approche_2014,tadinada_structural_2017,kwag_computationally_2018,jeon_parameterized_2019,tabandeh_physics-based_2020}). 
-It actually allows to solve irregularity issues encountered in the estimation of the parametric fragility curves. MLE-based methods can indeed lead to unrealistic or degenerate fragility curves such as unit step functions when the data availability is sparse. Those problems are especially encountered when resorting to complex and detailed modeling due to the calculation burden or when dealing with tests performed on shaking tables, etc. In earthquake engineering, Bayesian inference is often used to update log-normal fragility curves obtained beforehand by various approaches, by assuming independent distributions for the prior values of $\alpha$ and $\beta$ such as log-normal distributions (see e.g. \cite{tadinada_structural_2017,kwag_computationally_2018,wang_seismic_2018,katayama_bayesian-estimation-based_2021,straub_improved_2008}).
+It actually allows to solve irregularity issues encountered in the estimation of the parametric fragility curves. MLE-based methods can indeed lead to unrealistic or degenerate fragility curves such as unit step functions when the data availability is sparse. Those problems are especially encountered when resorting to complex and detailed modeling due to the calculation burden or when dealing with tests performed on shaking tables, etc. In earthquake engineering, Bayesian inference is often used to update probit-lognormal fragility curves obtained beforehand by various approaches, by assuming independent distributions for the prior values of $\alpha$ and $\beta$ such as log-normal distributions (see e.g. \cite{tadinada_structural_2017,kwag_computationally_2018,wang_seismic_2018,katayama_bayesian-estimation-based_2021,straub_improved_2008}).
 
 This work follows the one presented in \cref{chap:prem}, which deals with Bayesian problems in which only few binary data are available. Using the reference prior theory as a support, the authors have proposed an objective approach to choose the prior and to simulate a posteriori fragility curves. This approach led to the Jeffreys prior and the authors have shown the robustness and advantages of the Jeffreys prior in terms of regularization (no degenerate estimations) and stability (no outliers of the parameters) for fragility curves estimation. Since this prior depends only on the characteristics of the ground motion ---the distribution of the IM of interest--- its calculation is then suitable for any equipment of an industrial installation subjected to the same seismic hazard. So, in this work, we are interested in the influence of the choice of the IM ---PGA vs. PSA--- on the convergence of the estimates, for a given magnitude (M) - source-to-site distance (R) scenario and a given mechanical structure.
 
-The paper is organized as follows. \Cref{uncIM:sec:pb} presents the statement of the problem from the Bayesian viewpoint. A review of the objective prior theory is presented in \cref{uncIM:sec:objprior}. The principal achievements of \cref{chap:prem} on which we rely are summarized in \cref{uncIM:sec:construction}. \Cref{uncIM:sec:tools} is dedicated to reviewing estimation tools and benchmarking metrics used to support comparisons with classical approaches of the literature. They are implemented in \cref{uncIM:sec:application} on a case study, a piping system. A conclusion is proposed in \cref{uncIM:sec:conclusion}.
+The appendix is organized as follows. \Cref{uncIM:sec:pb} presents the statement of the problem from the Bayesian viewpoint. A review of the objective prior theory is presented in \cref{uncIM:sec:objprior}. The principal achievements of \cref{chap:prem} on which we rely are summarized in \cref{uncIM:sec:construction}. \Cref{uncIM:sec:tools} is dedicated to reviewing estimation tools and benchmarking metrics used to support comparisons with classical approaches of the literature. They are implemented in \cref{uncIM:sec:application} on a case study, a piping system. A conclusion is proposed in \cref{uncIM:sec:conclusion}.
 
 
 
@@ -40,58 +53,64 @@ The paper is organized as follows. \Cref{uncIM:sec:pb} presents the statement of
    
 \section{Bayesian problem} \label{uncIM:sec:pb}
 
-    A log-linear probit model is often used to approximate fragility curves.
+    A probit-lognormal model is often used to approximate fragility curves.
     In this model the probability of failure given the IM takes the following form:
         \begin{equation} \label{uncIM:eq:Pfa}
             P_f(a)=\PP(\mbox{`failure'}|\text{IM}=a) = \Phi\left(\frac{\log a-\log\alpha}{\beta}\right) ,
         \end{equation}
     where $\alpha, \beta\in (0,+\infty)$ are the two model parameters and $\Phi$ is the cumulative distribution function of a standard Gaussian variable. In the following we denote $\theta=(\alpha,\beta)$. 
-    In the Bayesian point of view  $\theta$ is considered as a random variable. Its probability density function is denoted by $\pi$ and called the prior, it is supposed to be defined on a set $\Theta\subset (0,+\infty)^2$.
+    In the Bayesian point of view  $\theta$ is considered as a random variable. Its probability density function is denoted by $\pi$ and called the prior density, it is supposed to be defined on a set $\Theta\subset (0,+\infty)^2$.
     
-    The statistical model consists in the observations of independent realizations $(a_1,z_1),\dots,$ $(a_k,z_k)\in\cA\times \{0,1\}$, $\cA \subset [0,\infty)$, $k$ being the data-set size. For the $i$th seismic event, $a_i$ is its observed IM and $z_i$ is the observation of a failure ($z_i$ is equal to one if failure has been observed during the $i$th seismic event and it is equal to zero otherwise). % =\indic_{\mbox{\scriptsize  `failure'}}$.
-    The joint distribution of the pair $(a,z)$ conditionally to $\theta$ has the form:
+    The statistical model consists in the observations of independent realizations $(a_1,z_1),\dots,$ $(a_k,z_k)\in\cA\times \{0,1\}$, $\cA \subset (0,\infty)$, $k$ being the dataset size. For the $i$th seismic event, $a_i$ is its observed IM and $z_i$ is the observation of a failure ($z_i$ is equal to one if failure has been observed during the $i$th seismic event and it is equal to zero otherwise). % =\indic_{\mbox{\scriptsize  `failure'}}$.
+    The joint probability density of the pair $(a,z)$ conditionally to $\theta$ has the form:
         \begin{equation}
             p(a,z|\theta) %= p(a|\theta)p(z|a,\theta)=
-            = p(a)p(z|a,\theta) ,
+            = h(a)\ell(z|a,\theta) ,
         \end{equation}
-    where $p(a)$ denotes the distribution of the IM and $p(z|a,\theta)$ is a Bernoulli distribution whose parameter (the probability of failure) depends on $a$ and $\theta$ as expressed by \cref{uncIM:eq:Pfa}.
-    The product of the conditional distributions $p(z_i|a_i,\theta)$ is the likelihood of the model:
+    where $h(a)$ denotes the p.d.f. of the IM and $\ell(z|a,\theta)$ is the density of a Bernoulli distribution whose parameter (the probability of failure) depends on $a$ and $\theta$ as expressed by \cref{uncIM:eq:Pfa}.
+    The product of the conditional distributions $\ell(z_i|a_i,\theta)$ is the likelihood of the model:
         \begin{equation} \label{uncIM:eq:likelihood}
-            \ell_k(\mbf z|\mbf a,\theta) = \prod_{i=1}^k p(z_i|a_i,\theta)= \prod_{i=1}^k \Phi\left(\frac{\log\frac{a_i}{\alpha}}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log\frac{a_i}{\alpha}}{\beta}\right)\right)^{1-z_i}  ,
+            \ell_k(\mbf z^k|\mbf a^k,\theta) = \prod_{i=1}^k \ell(z_i|a_i,\theta)= \prod_{i=1}^k \Phi\left(\frac{\log{a_i}-\log{\alpha}}{\beta}\right)^{z_i}\left(1-\Phi\left(\frac{\log{a_i}-\log{\alpha}}{\beta}\right)\right)^{1-z_i}  ,
         \end{equation}
-    denoting $\mbf a=(a_i)_{i=1}^k$, $\mbf z=(z_i)_{i=1}^k$. The \emph{a posteriori} distribution of $\theta$  can be computed by Bayes theorem. The resulting posterior distribution is: 
+    denoting $\mbf a^k=(a_i)_{i=1}^k$, $\mbf z^k=(z_i)_{i=1}^k$. The posterior density of $\theta$  can be computed by Bayes theorem: %. The resulting posterior distribution is: 
         \begin{equation} \label{uncIM:eq:posterior}
-            p(\theta|\mbf a,\mbf z)=\frac{\ell_k(\mbf z|\mbf a,\theta)\pi(\theta)}{\int_\Theta \ell_k(\mbf z|\mbf a,\theta')\pi(\theta') d\theta'}.
+            p(\theta|\mbf z^k,\mbf a^k)=\frac{\ell_k(\mbf z^k|\mbf a^k,\theta)\pi(\theta)}{\int_\Theta \ell_k(\mbf z^k|\mbf a^k,\theta')\pi(\theta') d\theta'}.
         \end{equation}
+
+    We recall that the likelihood is said to be degenerate in some cases: (i) when only failures or only non-failures are observed, and (ii) when an IM threshold allows separating failures from non-failures among the observations (i.e., $\exists a\in\cA,\, \forall i,\, a_i<a\iff z_i=0$).
+    The degeneracy is defined in \cref{chap:prem} (\cref{sec:PREM:degeneracy}). In those cases, the likelihood decay rates make both priors considered in this study yielding improper posteriors.
+    
+
 
 \section{Reference prior theory} \label{uncIM:sec:objprior}
 
-    To choose a non-subjective prior, we consider as in \cref{chap:prem} the criterion introduced by \citet{bernardo_expected_1979} to define the so-called reference prior. It consists in choosing the prior that maximizes the mutual information indicator $\sI^k(\pi)$ which expresses the information provided by the data to the posterior, relatively to the prior. In other words, this criterion seeks the prior that maximizes the ``learning'' capacity from observations. We refer to the \cref{part:ref-theory} of the manuscript for more details. The mutual information indicator is defined by:
+    To choose a non-subjective prior, we consider as in \cref{chap:prem} a so-called reference prior. It consists in choosing the prior that maximizes the mutual information indicator $\sI^k$ which expresses the information provided by the data to the posterior, relatively to the prior. In other words, this criterion seeks the prior that maximizes the ``learning'' capacity from observations. We refer to the \cref{part:ref-theory} of the manuscript for more details. The mutual information indicator can be expressed as a function of the prior density: %is defined by:
     \begin{equation}
-        I(\pi|k)=\int_{(\cA\times \{0,1\})^k} KL(p(\cdot|\mbf a,\mbf z)||\pi)p(\mbf a,\mbf z)\prod_{l=1}^k \lambda(da_l,dz_l),
+        \sI^k(\pi) =
+        \int_{(\cA\times \{0,1\})^k} D(p(\cdot|\mbf z^k,\mbf a^k)||\pi)p(\mbf z^k,\mbf a^k)d\lambda^{\otimes k}(\mbf a^k,\mbf z^k),
          \label{uncIM:eq:defI}
     \end{equation}
-    where $p(\mbf a,\mbf z) = \int_{\Theta} \ell_k(\mbf z|\mbf a,\theta' ) \prod_{l=1}^kp(a_l) \pi(\theta')d\theta'$ and the reference measure $\lambda(da,dz)$ is the product of the Lebesgue measure over $\cA$ w.r.t. $a$ and the discrete measure $\delta_0+\delta_1$ over $\{0,1\}$ w.r.t. $z$: we have $\int_{ \cA \times \{0,1\}} \psi(a,z)\lambda(da,dz) = \int_{\cal A} \psi(a,0) da+\int_{\cal A} \psi(a,1) da$ for any test function $\psi$.
-The indicator in \cref{uncIM:eq:defI} is based on the Kullback-Leibler divergence between the posterior and the prior, which is known to numerically express this idea of the information provided by one distribution to another one: 
-    
-    \begin{equation}
-        KL(p||\pi)=\int_{\Theta} p(\theta)\log\frac{p(\theta)}{\pi(\theta)} d \theta.
-         \label{uncIM:eq:defKL}
-    \end{equation}
+    where $p(\mbf z^k,\mbf a^k) = \int_{\Theta} \ell_k(\mbf z^k|\mbf a^k,\theta' ) \prod_{l=1}^kh(a_l) \pi(\theta')d\theta'$ and the reference measure $\lambda$ is the product of the Lebesgue measure over $\cA$ and the discrete measure $\delta_0+\delta_1$ over $\{0,1\}$. %: we have $\int_{ \cA \times \{0,1\}} \psi(a,z)\lambda(da,dz) = \int_{\cal A} \psi(a,0) da+\int_{\cal A} \psi(a,1) da$ for any test function $\psi$.
+The indicator in \cref{uncIM:eq:defI} is based on a divergence between the posterior and the prior densities, which is known to numerically express this idea of the information provided by one distribution to another one.
+    This divergence can be the Kullback-Leibler divergence or a $\delta$-divergence, for instance (see \cref{chap:intro-ref} and \cref{chap:ref-generalized}).
+    % \begin{equation}
+    %     KL(p||\pi)=\int_{\Theta} p(\theta)\log\frac{p(\theta)}{\pi(\theta)} d \theta.
+    %      \label{uncIM:eq:defKL}
+    % \end{equation}
 
-    A suitable definition of a reference prior is suggested in the literature as the solution of an asymptotic optimization of this mutual information metric \cite{Berger2009, Clarke1994}.
-    It has been proved that, under some mild assumptions which are satisfied in our framework, the Jeffreys prior defined by  
+    A suitable definition of a reference prior is suggested  as the solution of an asymptotic optimization of this mutual information metric.
+    It has been proved that, under some mild assumptions which are satisfied in our framework, the Jeffreys prior, whose density is defined by  
        \begin{equation}
-        J(\theta)\propto\sqrt{|\det\cI^k(\theta)|} ,
+        J(\theta)\propto\sqrt{|\det\cI(\theta)|} ,
          \label{uncIM:eq:jeff}
     \end{equation}
-    is the reference prior, with $\cI^k$ being the Fisher information matrix:
+    is the reference prior, with $\cI$ being the Fisher information matrix:
     \begin{equation}
-        \cI(\theta)^k_{i,j}
-            = -\int_{(\cA \times \{0,1\})^k} \ell_k(\mbf z|\mbf a,\theta)\frac{\partial^2 \log \ell_k(\mbf z|\mbf a,\theta)}{\partial\theta_i\partial \theta_j}\prod_{l=1}^kp(a_l) \lambda(da_l,dz_l).
+        \cI(\theta)_{i,j}
+            = -\int_{\cA \times \{0,1\}} \ell(z|a,\theta)\partial^2_{\theta_i\theta_j} \log \ell(z|a,\theta)h(a) \lambda(da,dz).
     \end{equation}
-    The property $\cI(\theta)^k=k\cI(\theta)$ (with $\cI(\theta)=\cI(\theta)^1$) makes $J$ independent of $k$, as its definition only stands up to a multiplicative constant.
-    The Jeffreys prior is already well known in Bayesian theory for being invariant by a reparametrization of the statistical model.
+    %The property $\cI(\theta)^k=k\cI(\theta)$ (with $\cI(\theta)=\cI(\theta)^1$) makes $J$ independent of $k$, as its definition only stands up to a multiplicative constant.
+    The Jeffreys prior is already well known in Bayesian theory for being invariant by a re-parametrization of the statistical model.
     This property is essential as it makes the choice of the model parameters $\theta$ without any incidence on the resulting posterior.
     
 \section{Jeffreys prior construction}  \label{uncIM:sec:construction}
@@ -101,12 +120,12 @@ The indicator in \cref{uncIM:eq:defI} is based on the Kullback-Leibler divergenc
          In a first step, we compute the Fisher information matrix $\cI(\theta)$ in our model. 
         Here, $\theta=(\alpha,\beta)\in \Theta$ and 
             \begin{equation}
-                \cI(\theta)_{i,j}= -\int_{\cA \times \{0,1\}} p(z|a,\theta)\frac{\partial^2 \log p(z|a,\theta)}{\partial\theta_i \partial\theta_j} p(a)\lambda(da,dz)
+                \cI(\theta)_{i,j}= -\int_{\cA \times \{0,1\}} \ell(z|a,\theta)\partial^2_{\theta_i\theta_j} \log p(z|a,\theta) h(a)\lambda(da,dz)
             \end{equation}
-        for $i,j\in\{1,2\}$, with $p(z|a,\theta)=\ell_1(z|a,\theta)$ being the likelihood expressed in \cref{uncIM:eq:likelihood}, i.e.,
+        for $i,j\in\{1,2\}$, with $\theta_1=\alpha$, $\theta_2=\beta$, i.e.,
             \begin{align}
 %            \nonumber  &
-                \log p(z|a,\theta) %\\ &
+                \log \ell(z|a,\theta) %\\ &
                 = z\log\Phi\left(\frac{\log a-\log\alpha}{\beta}\right) + (1-z)\log\left(1-\Phi\left(\frac{\log a-\log\alpha}{\beta}\right)\right).
             \end{align}
 	From \cref{chap:prem}, the information matrix $\cI(\theta)$ is given by:
@@ -120,19 +139,21 @@ with
            \begin{equation} \label{uncIM:eq:Aij}
         \begin{aligned}
             %A_{11} &= \int_\cA\Phi'(\gamma)d\PP_A(a) & A_{12} &= \int_\cA\log\frac{a}{\alpha}\Phi'(\gamma)d\PP_A(a) \\
-            A_{01} &= \int_\cA\frac{\Phi'(\gamma(a))^2}{\Phi(\gamma(a))}p(a)da,
-            & A_{02} &= \int_{\cA}\frac{\Phi'(\gamma(a))^2}{\Phi(-\gamma(a))}p(a)da,\\
-            A_{11} &= \int_\cA\log\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(\gamma(a))}p(a)da,
-            & A_{12} &= \int_{\cA}\log\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(-\gamma(a))}p(a)da,\\
-            A_{21} &= \int_\cA\log^2\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(\gamma(a))}p(a)da,
-            & A_{22} &= \int_{\cA}\log^2\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(-\gamma(a))}p(a)da,\\
+            A_{01} &= \int_\cA\frac{\Phi'(\gamma(a))^2}{\Phi(\gamma(a))}h(a)da,
+            & A_{02} &= \int_{\cA}\frac{\Phi'(\gamma(a))^2}{\Phi(-\gamma(a))}h(a)da,\\
+            A_{11} &= \int_\cA\log\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(\gamma(a))}h(a)da,
+            & A_{12} &= \int_{\cA}\log\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(-\gamma(a))}h(a)da,\\
+            A_{21} &= \int_\cA\log^2\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(\gamma(a))}h(a)da,
+            & A_{22} &= \int_{\cA}\log^2\frac{a}{\alpha}\frac{\Phi'(\gamma(a))^2}{\Phi(-\gamma(a))}h(a)da,\\
         \end{aligned}
         \end{equation}
 and $\gamma(a)=\beta^{-1}\log\frac{a}{\alpha}$.
         
-        The Jeffreys prior is known to be improper in numerous common cases (i.e. it cannot be normalized as a probability). In the present case, its asymptotic behavior is computed for different limits of $\theta = (\alpha,\beta)$ in \cref{chap:prem}, which shows that it is indeed improper. This characteristic is not an issue, as our work focuses on the posterior which is proper as proved in \cref{chap:prem}. This property is essential as MCMC algorithms would not make any sense if the posterior were improper.        
+        The Jeffreys prior is known to be improper in numerous common cases (i.e. it cannot be normalized as a probability). In the present case, its asymptotic behavior is computed for different limits of $\theta = (\alpha,\beta)$ in \cref{chap:prem}, which shows that it is indeed improper. 
+        Regarding the posterior, it is improper when the likelihood degenerate, and proper otherwise.
+        %This characteristic is not an issue, as our work focuses on the posterior which is proper as proved in \cref{chap:prem}. This property is essential as MCMC algorithms would not make any sense if the posterior were improper.        
 
-        \subsection{Practical implementation} \label{uncIM:sec:practseism}
+        \subsection{IMs and practical implementation} \label{uncIM:sec:practseism}
         
 In this work we use $10^5$ artificial seismic signals generated using the stochastic generator defined in \cite{rezaeian_stochastic_2010} and implemented in \cite{sainct_efficient_2020} from 97 real accelerograms selected in the European Strong Motion Database for $5.5 \leq \text{M} \leq 6.5$ and $\text{R} < 20$ km. Enrichment is not a necessity in the Bayesian framework ---especially if a sufficient number of real signals is available--- but it allows comparisons with the reference method of Monte-Carlo for simulation-based approaches as well as comparative studies of performance. For instance, \cref{uncIM:fig:IM} shows that the synthetic signals have the same PGA distribution as the real ones as well as the PSA which is here calculated at 5~Hz for 1\% damping ratio (see \cref{uncIM:sec:application} for justification). Moreover, the asymptotic expansions provided in \cref{chap:prem} give complementary and essential insight into the Jeffreys prior. They evince that its behavior in $\alpha$ is similar to that of a log-normal distribution having the same median as that of the IM with a variance which is the sum of the variance of the IM and of a term which depends on $\beta$. \Cref{uncIM:fig:IM} illustrates also this result for the two IMs.
 
@@ -140,11 +161,17 @@ In this work we use $10^5$ artificial seismic signals generated using the stocha
         \centering
         {\includegraphics[width=5cm]{figures/PREM/PGAjeff.pdf}}
         {\includegraphics[width=5cm]{figures/PREM/PSAjeff.pdf}}        
-        \caption{Comparison of a sectional view of the Jeffreys prior w.r.t. $\alpha$ (black) with the approximated distributions of real accelerograms via Gaussian kernel estimation (red), the histograms of the generated signals (blue) and the log-normal approximations (purple) for the PGA (left) and for the PSA (right).}
+        \caption{Comparison of a sectional view of the Jeffreys prior density w.r.t. $\alpha$ (black) with the approximated distributions of real accelerograms via Gaussian kernel estimation (red), the histograms of the generated signals (blue) and the log-normal approximations (purple) for the PGA (left) and for the PSA (right).}
          \label{uncIM:fig:IM}
     \end{figure}
 
-        In practice, due to the use of Markov Chain Monte Carlo (MCMC) methods to sample the \emph{a posteriori} distribution, the prior must be evaluated (up to a multiplicative constant) many times in the calculations. Because of its computational complexity due to the integrals to be computed, we performed evaluations of the prior on an experimental design based on a fine-mesh grid of $\Theta$ (here $(0,+\infty)^2$) and to build an interpolated approximation of the Jeffreys prior from this design. This strategy is more suitable for our numerical applications and very tractable because the domain $\Theta$ is only two-dimensional. \Cref{uncIM:fig:jeff_prior} shows plots of the Jeffreys priors. 
+
+
+  
+
+
+        
+        In practice, due to the use of Markov Chain Monte Carlo (MCMC) methods to sample the \emph{a posteriori} distribution, the prior density must be evaluated (up to a multiplicative constant) many times in the calculations. Because of its computational complexity due to the integrals to be computed, we performed evaluations of the prior on an experimental design based on a fine-mesh grid of $\Theta$ (here $(0,+\infty)^2$) and to build an interpolated approximation of the Jeffreys prior density from this design. This strategy is more suitable for our numerical applications and very tractable because the domain $\Theta$ is only two-dimensional. \Cref{uncIM:fig:jeff_prior} shows plots of the Jeffreys prior densities. 
 %To be precise, $500\times500$ prior values have been computed for $\alpha\in[10^{-5},10]$ and $\beta\in[10^{-3},2]$. A linear interpolation has been processed from these.
         
         \begin{figure}[!ht]
@@ -159,11 +186,11 @@ In this work we use $10^5$ artificial seismic signals generated using the stocha
 
 \section{Estimation tools, competing approaches and benchmarking metrics} \label{uncIM:sec:tools}
 
-    In this section, we first present the Bayesian estimation tools and the Monte-Carlo reference method to which we refer to evaluate the relevance of the log-normal model. Then, to evaluate the performance of the Jeffreys prior, we present two competing approaches that we implement. On the one hand, we apply the MLE method widely used in literature, coupled with a bootstrap technique. On the other hand, we apply a Bayesian technique implemented with the prior introduced by \citet{straub_improved_2008}. Performance evaluation metrics are then defined.
+    In this section, we first present the Bayesian estimation tools and the Monte-Carlo reference method to which we refer to evaluate the relevance of the probit-lognormal model. Then, to evaluate the performance of the Jeffreys prior, we present two competing approaches that we implement. On the one hand, we apply the MLE method widely used in literature, coupled with a bootstrap technique. On the other hand, we apply a Bayesian technique implemented with the prior introduced by \citet{straub_improved_2008}. Performance evaluation metrics are then defined.
 
     \subsection{Fragility curves estimations via Monte-Carlo}
      \label{uncIM:sec:reference}
-        We assume that a validation data-set $(\mbf a^{\mathrm{MC}},$ $\mbf z^{\mathrm{MC}})$ $ =$ $ ( (a_i^{\mathrm{MC}})_{i=1}^{N^{\mathrm{MC}}} $, $(z_i^{\mathrm{MC}})_{i=1}^{N^{\mathrm{MC}}})$ is available. For nonparametric estimations, good candidates are Monte-Carlo (MC) estimators which estimate the expected number of failures locally w.r.t. the IM. We first need to define a subdivision of the IM values and to estimate the failure probability on each of the sub-intervals. Regular subdivisions are not appropriate because the observed IMs are not uniformly distributed. We follow the suggestion by \citet{trevlopoulos_parametric_2019} to take clusters of the IM using K-means. 
+        We assume that a validation dataset $(\mbf a^{\mathrm{MC}},$ $\mbf z^{\mathrm{MC}})$ $ =$ $ ( (a_i^{\mathrm{MC}})_{i=1}^{N^{\mathrm{MC}}} $, $(z_i^{\mathrm{MC}})_{i=1}^{N^{\mathrm{MC}}})$ is available. For nonparametric estimations, good candidates are Monte-Carlo (MC) estimators which estimate the expected number of failures locally w.r.t. the IM. We first need to define a subdivision of the IM values and to estimate the failure probability on each of the sub-intervals. Regular subdivisions are not appropriate because the observed IMs are not uniformly distributed. We follow the suggestion by \citet{trevlopoulos_parametric_2019} to take clusters of the IM using K-means. 
         Given such $N_c$ clusters $(K_j)_{j=1}^{N_c}$, the Monte-Carlo fragility curve estimated at the centroids $(c_j)_{j=1}^{N_c}$ is expressed as
             \begin{equation} \label{uncIM:eq:refMC}
                 P_f^{\mathrm{MC}}(c_j) = \frac{1}{n_j}\sum_{i,\,a_i^{\mathrm{MC}}\in K_j}z_i^{\mathrm{MC}}  , 
@@ -172,7 +199,7 @@ In this work we use $10^5$ artificial seismic signals generated using the stocha
         An asymptotic confidence interval for this estimator can also be derived using its Gaussian approximation. It is accepted that a MC-based fragility curve is a reference curve because it is not based on any assumption.
 
     \subsection{Fragility curves estimations in the Bayesian framework}  \label{uncIM:sec:BayesFram}
-        From \cref{uncIM:eq:posterior} \emph{a posteriori} samples of $\theta$ can be obtained by MCMC methods. We have implemented an adaptive Metropolis-Hastings (M-H) algorithm with Gaussian transition kernel and covariance adaptation \citep{haario_adaptive_2001}. Such an algorithm allows for simulations from a probability density known up a multiplicative constant. The \emph{a posteriori} samples of $\theta$ can be used to define credible intervals for the log-normal estimates of the fragility curves.
+        From \cref{uncIM:eq:posterior} \emph{a posteriori} samples of $\theta$ can be obtained by MCMC methods. We have implemented an adaptive Metropolis-Hastings (M-H) algorithm with Gaussian transition kernel and covariance adaptation \citep{haario_adaptive_2001}. Such an algorithm allows for simulations from a probability density known up a multiplicative constant. The \emph{a posteriori} samples of $\theta$ can be used to define credible intervals for the probit-lognormal estimates of the fragility curves.
 
     \subsection{Competing approaches for performance evaluation} \label{uncIM:sec:Competing}
     
@@ -180,18 +207,18 @@ In this work we use $10^5$ artificial seismic signals generated using the stocha
             {\bf Multiple MLE by bootstrapping.}
             The best known parameter estimation method is the MLE, defined as the maximal argument of the likelihood derived from the observed data:
             \begin{equation} \label{uncIM:eq:MLE}
-                \hat\theta^{\mathrm{MLE}}_k = \argmax_{\theta\in\Theta} \ell_k(\mbf z|\mbf a, \theta).
+                \hat\theta^{\mathrm{MLE}}_k = \argmax_{\theta\in\Theta} \ell_k(\mbf z^k|\mbf a^k, \theta).
             \end{equation}
-            A common method for obtaining a wide range of $\theta$  estimates is to compute multiple MLE by bootstrapping. Denoting the data-set size by $k$, bootstrapping consists in doing $L$ independent draws with replacement of $k$ items within the data-set. Those lead to $L$ different likelihoods from the $k$ initial observations, and so to $L$ values of the estimator which can be averaged. In the context of fragility curves, this method is widespread (see e.g. \cite{shinozuka_statistical_2000,lallemant_statistical_2015,gehl_influence_2015,baker_efficient_2015,wang_influence_2020}). The convergence of the MLE and the relevance of this method is stated in \cite{van_der_vaart_asymptotic_1992}. Nevertheless the bootstrap method is often limited by the irregularity of the results for small values of $k$ (see e.g. \cite{zentner_fragility_2017}). In this context, the $L$ values of $\theta$ are used to define confidence intervals for the log-normal estimates of the fragility curves.
+            A common method for obtaining a wide range of $\theta$  estimates is to compute multiple MLE by bootstrapping. Denoting the dataset size by $k$, bootstrapping consists in doing $L$ independent draws with replacement of $k$ items within the dataset. Those lead to $L$ different likelihoods from the $k$ initial observations, and so to $L$ values of the estimator which can be averaged. In the context of fragility curves, this method is widespread (see e.g. \cite{shinozuka_statistical_2000,lallemant_statistical_2015,gehl_influence_2015,baker_efficient_2015,wang_influence_2020}). The convergence of the MLE and the relevance of this method is stated in \cite{van_der_vaart_asymptotic_1992}. Nevertheless the bootstrap method is often limited by the irregularity of the results for small values of $k$ (see e.g. \cite{zentner_fragility_2017}). In this context, the $L$ values of $\theta$ are used to define confidence intervals for the probit-lognormal estimates of the fragility curves.
  
         
         %\subsubsection{Prior suggested by \citeauthor{Straub2008} \cite{Straub2008}} \label{uncIM:sec:posterioriSimul}
         {\bf Prior suggested by \citet{straub_improved_2008}.}
-        This prior, called SK prior, is defined as the product of a normal distribution for $\ln(\alpha)$ and the improper distribution $1/\beta$ for $\beta$, namely:
+        This prior, called SK prior, is defined as the product of a normal distribution for $\ln(\alpha)$ and the improper distribution $1/\beta$ for $\beta$, namely its density is:
                 \begin{equation} \label{uncIM:eq:Straubprior}
                     \pi_{SK}(\theta)\propto\frac{1}{\alpha\beta} \exp\Big( -\frac{(\log\alpha-\mu)^2}{2\sigma^2}\Big).
                 \end{equation}
-        In \cite{straub_improved_2008} the parameters $\mu$ and $\sigma$ of the log-normal distribution are chosen to generate a non-informative prior. For a fair comparison with the approach proposed in this paper, we decided to choose $\mu$ and $\sigma$ being equal to the mean and the standard deviation of the logarithm of the IM, whether the PGA or the PSA. This choice is consistent with the fact that the Jeffreys prior is similar to a log-normal distribution with these parameters (see \cref{uncIM:fig:IM}). The prior $\pi_{SK}(\theta)$ is plotted in \cref{uncIM:fig:Straubprior} for the two IMs.
+        In \cite{straub_improved_2008} the parameters $\mu$ and $\sigma$ of the log-normal distribution are chosen to generate a non-informative prior. For a fair comparison with the approach proposed in this appendix, we decided to choose $\mu$ and $\sigma$ being equal to the mean and the standard deviation of the logarithm of the IM, whether the PGA or the PSA. This choice is consistent with the fact that the Jeffreys prior is similar to a log-normal distribution with these parameters (see \cref{uncIM:fig:IM}). The prior density $\pi_{SK}(\theta)$ is plotted in \cref{uncIM:fig:Straubprior} for the two IMs.
 
             \begin{figure}[!ht]
                 \centering
@@ -199,48 +226,47 @@ In this work we use $10^5$ artificial seismic signals generated using the stocha
                 {\includegraphics[width=5cm]{figures/PREM/SK_prior_PSA.pdf}}                
                 % [PGA]{\includegraphics[width=6cm]{figures/uncIM/SK.pdf}}
                 % [PSA]{\includegraphics[width=6cm]{figures/uncIM/SK_prior_SA.pdf}}                
-                \caption{Prior suggested by \citet{straub_improved_2008} scaled on log-normal estimations of the PGA (left) and of the PSA (right) distributions.}
+                \caption{Density of the prior suggested by \citet{straub_improved_2008} scaled on log-normal estimations of the PGA (left) and of the PSA (right) distributions.}
                  \label{uncIM:fig:Straubprior}
             \end{figure}
 
-            An analysis of the posterior which results from SK prior is given in \cref{chap:prem}. It shows that the posterior is improper. This statement jeopardizes the validity of \emph{a posteriori} simulations using MCMC methods if we consider the whole domain $\Theta=(0,+\infty)^2$. This issue is nevertheless manageable with the consideration of a truncation w.r.t. $\beta$.
+            An analysis of the posterior which results from SK prior is given in \cref{chap:prem}. It shows that the posterior is always improper. This statement jeopardizes the validity of \emph{a posteriori} simulations using MCMC methods if we consider the whole domain $\Theta=(0,+\infty)^2$. This issue is nevertheless manageable with the consideration of a truncation w.r.t. $\beta$.
             
             
     \subsection{Benchmarking metrics} \label{uncIM:sec:metrics}
     
         In order to evaluate the performance of the proposed approach, we consider two quantitative metrics which can be calculated for each of the methods described in \cref{uncIM:sec:Competing}.
-    We consider the sample $(\mbf a, \mbf z) $. We denote by $a \mapsto P_f^{|\mbf a,\mbf z}(a)$ the random process defined as the fragility curve conditional to the sample (the probability distribution of $P_f^{|\mbf a,\mbf z}(a)$ is inherited from the \emph{a posteriori} distribution of $\theta$). For each value $a$ the $r$-quantile of the random variable $P_f^{|\mbf a,\mbf z}(a)$ is denoted by $q_r^{|\mbf a,\mbf z}(a)$.  
+    We consider the sample $(\mbf z^k,\mbf a^k) $. We denote by $a \mapsto P_f^{|\mbf z^k,\mbf a^k}(a)$\vspace*{-4pt} the random process defined as the fragility curve conditional to the sample (the probability distribution of $P_f^{|\mbf z^k,\mbf a^k}(a)$\vspace*{-4pt} is inherited from the \emph{a posteriori} distribution of $\theta$). For each value $a$ the $r$-quantile of the random variable $P_f^{|\mbf z^k,\mbf a^k}(a)$ is denoted by $q_r^{|\mbf z^k,\mbf a^k}(a)$.  
     We define:
     \begin{itemize}
-            \item The conditional quadratic error: %{\bf METTRE A JOUR AVEC $\frac{1}{A_{\rm max}}$}
+            \item The quadratic error: %{\bf METTRE A JOUR AVEC $\frac{1}{A_{\rm max}}$}
                 \begin{equation} \label{uncIM:eq:quaderror}
-                \hspace*{-0.3in}
-                    \cE^{Q|\mbf a,\mbf z} = \EE\big[\| P_{f}^{|\mbf a,\mbf z} - P_f^{\mathrm{MLE}} \|_{L^2}^2|\mbf a,\mbf z \big] ,\qquad \| P\|_{L^2}^2 = \frac{1}{A_{\rm max}} \int_{0}^{A_{\rm max}} P(a)^2 da .
+                    \cE^{|\mbf z^k,\mbf a^k} = \EE\big[\| P_{f}^{|\mbf z^k,\mbf a^k} - P_f^{\mathrm{ref}} \|_{L^2}^2|\mbf z^k,\mbf a^k \big] ,\qquad \| P\|_{L^2}^2 = \frac{1}{A_{\rm max}} \int_{0}^{A_{\rm max}} P(a)^2 da .
                 \end{equation}
 %                \begin{equation} \label{uncIM:eq:quaderror}
 %                \hspace*{-0.3in}
-%                    \cE^{Q|\mbf a,\mbf z} = \EE\big[\| P_{f}^{|\mbf a,\mbf z} - P_f^{\mathrm{MLE}} \|_{L^2}^2|\mbf a,\mbf z \big] = \int_{0}^{A_{\rm max}} \EE\big[ (P_{f}^{|\mbf a,\mbf z}(a) - P_f^{\mathrm{MLE}} (a))^2 |\mbf a,\mbf z \big] \frac{da}{A_{\rm max}}.
+%                    \cE^{Q|\mbf z^k,\mbf a^k} = \EE\big[\| P_{f}^{|\mbf z^k,\mbf a^k} - P_f^{\mathrm{MLE}} \|_{L^2}^2|\mbf z^k,\mbf a^k \big] = \int_{0}^{A_{\rm max}} \EE\big[ (P_{f}^{|\mbf z^k,\mbf a^k}(a) - P_f^{\mathrm{MLE}} (a))^2 |\mbf z^k,\mbf a^k \big] \frac{da}{A_{\rm max}}.
 %                \end{equation}
-       $P_f^{\mathrm{MLE}}$ stands for the log-normal estimate of the fragility curve obtained by MLE with all the database available. We further check that this estimate is close to the reference curve obtained by MC.             
-            \item  The conditional width of the $1-r$ credible zone for the fragility curve:
+    $P_f^{\mathrm{ref}}$ stands for non-parametric estimate of the fragility curve $P^{\text{MC}}_f$ derived using the method described in \cref{uncIM:sec:reference} from a validation dataset.  %the log-normal estimate of the fragility curve obtained by MLE with all the database available. We further check that this estimate is close to the reference curve obtained by MC.             
+            \item  The $1-r$ square credibility width: % conditional width of the $1-r$ credible zone for the fragility curve:
             %; or the conditional width of the $1-r$ confidence interval for maximum likelihood estimators
                 \begin{equation} \label{uncIM:eq:scaleerror}
-                    \cS^{r|\mbf a,\mbf z} = \|q_{1-{r/2}}^{|\mbf a,\mbf z} - q_{{r/2}}^{|\mbf a,\mbf z}\|_{L^2}^2  .
-                    %= \int_{0}^{A_{\rm max}} ( q_{1-{r/2}}^{|\mbf a,\mbf z} (a) - q_{{r/2}}^{|\mbf a,\mbf z}(a))^2 \frac{da}{A_{\rm max}}  .
+                    \cW^{|\mbf z^k,\mbf a^k} = \|q_{1-{r/2}}^{|\mbf z^k,\mbf a^k} - q_{{r/2}}^{|\mbf z^k,\mbf a^k}\|_{L^2}^2  .
+                    %= \int_{0}^{A_{\rm max}} ( q_{1-{r/2}}^{|\mbf z^k,\mbf a^k} (a) - q_{{r/2}}^{|\mbf z^k,\mbf a^k}(a))^2 \frac{da}{A_{\rm max}}  .
                 \end{equation}
         \end{itemize}
 
     To estimate such variables, we simulate a set of $L$ %=5000$ 
-    fragility curves $( P_f^{\theta_i|\mbf a,\mbf z})_{i=1}^L$ where $(\theta_i)_{i=1}^L$ is a sample of the \emph{a posteriori} distribution of the model parameters obtained by MCMC. The   empirical quantiles $\hat q_r^{\theta_{i=1}^L|\mbf a,\mbf z}(a)$  of $( P_f^{\theta_i|\mbf a,\mbf z}(a))_{i=1}^L$  are approximations of the quantiles $q_r^{|\mbf a,\mbf z}(a)$ of the random variable $P_f^{|\mbf a,\mbf z}(a)$.
-    We derive:
+    fragility curves $( P_f^{\theta_i|\mbf z^k,\mbf a^k})_{i=1}^L\vspace*{-4pt}$ where $(\theta_i)_{i=1}^L$ is a sample of the \emph{a posteriori} distribution of the model parameters obtained by MCMC. The   empirical quantiles $\hat q_r^{\theta_{i=1}^L|\mbf z^k,\mbf a^k}(a)$  of $( P_f^{\theta_i|\mbf z^k,\mbf a^k}(a))_{i=1}^L$  are approximations of the quantiles $q_r^{|\mbf z^k,\mbf a^k}(a)$ of the random variable $P_f^{|\mbf z^k,\mbf a^k}(a)$.
+    We derive\vspace*{-4pt}:
         \begin{itemize}
-            \item The approximated conditional quadratic error:
+            \item The approximated quadratic error:
                 \begin{equation} \label{uncIM:eq:quaderrorapprox}
-                    \hat\cE_{L}^{Q|\mbf a,\mbf z} =\frac{1}{ L}\sum_{i=1}^L\| P_{f}^{\theta_i|\mbf a,\mbf z} - P_f^{\mathrm{MLE}} \|_{L^2}^2.
+                    \cE^{|\mbf z^k,\mbf a^k} \approx\frac{1}{ L}\sum_{i=1}^L\| P_{f}^{\theta_i|\mbf z^k,\mbf a^k} - P_f^{\mathrm{MLE}} \|_{L^2}^2.
                 \end{equation}
-            \item The approximated conditional width of the $1-r$ credible zone for the fragility curve:
+            \item The approximated $1-r$ square credibility width: % conditional width of the $1-r$ credible zone for the fragility curve:
                 \begin{equation} \label{uncIM:eq:scaleerrorapprox}
-                    \hat\cS_L^{r|\mbf a,\mbf z} = \|\hat q_{1-{r/2}}^{\theta_{i=1}^L|\mbf a,\mbf z} - \hat q_{{r/2}}^{\theta_{i=1}^L|\mbf a,\mbf z} \|_{L^2}^2.
+                    \cW^{|\mbf z^k,\mbf a^k} \approx \|\hat q_{1-{r/2}}^{\theta_{i=1}^L|\mbf z^k,\mbf a^k} - \hat q_{{r/2}}^{\theta_{i=1}^L|\mbf z^k,\mbf a^k} \|_{L^2}^2.
                 \end{equation}
         \end{itemize}
         The normalized $L^2$ norms are normalized integrals over $a\in [0,A_{\rm max}]$ which are approximated numerically using Simpson's interpolation on a regular subdivision $0=A_0<\dots<A_p=A_{\rm max}$. In the forthcoming section we use   $A_0=0$, $A_{\rm max}=24\,\mathrm{m/s^2}$ for the PGA and $A_{\rm max}=50\,\mathrm{m/s^2}$ for the PSA with $p=200$.
@@ -250,9 +276,9 @@ In this work we use $10^5$ artificial seismic signals generated using the stocha
 
 \section{Numerical application} \label{uncIM:sec:application}
 
-\subsection{Presentation of the piping system}
+\subsection{Presentation of the piping system and its correlation with the IMs}
 
-This case study concerns a piping system that is a part of a secondary line of a French Pressurized Water Reactor. This piping system was studied, experimentally and numerically, as part of the ASG program \citep{touboul_seismic_1999}.  \Cref{uncIM:fig:ASG} shows a view of the mock-up mounted on the shaking table Azalee of the EMSI laboratory of CEA/Saclay whereas the Finite Element Model (FEM) ---based on beam elements--- is shown in \cref{uncIM:fig:ASG}-right. The latter has been implemented with the homemade FE code CAST3M~\citep{cea_cast3m_2019} and has been validated via  an experimental campaign.%seismic tests.
+This case study concerns a piping system that is a part of a secondary line of a French Pressurized Water Reactor. This piping system was studied, experimentally and numerically, as part of the ASG program \citep{touboul_seismic_1999}.  \Cref{uncIM:fig:ASG} shows a view of the mock-up mounted on the shaking table Azalee of the EMSI laboratory of CEA Saclay whereas the Finite Element Model (FEM) ---based on beam elements--- is shown in \cref{uncIM:fig:ASG}-right. The latter has been implemented with the homemade FE code CAST3M~\citep{cea_cast3m_2019} and has been validated via  an experimental campaign.%seismic tests.
 
 	\begin{figure*}[!ht]
 		\centering		
@@ -263,7 +289,33 @@ This case study concerns a piping system that is a part of a secondary line of a
 		 \label{uncIM:fig:ASG}
 	\end{figure*}
 
-One end of the mock-up is clamped whereas the other is supported by a guide in order to prevent the displacements in the X and Y directions. Additionally, a rod is  placed on the top of the specimen to limit the mass displacements in the Z direction (see \cref{uncIM:fig:ASG}-right). In the tests, the excitation is only imposed in the X direction. For this study, the artificial signals are filtered by a fictitious $2\%$ damped linear single-mode building at $5$ Hz, the first eigenfrequency of the $1\%$ damped piping system. As failure criterion, we consider excessive out-of-plane rotation of the elbow located near the clamped end of the mock-up, as recommended in \cite{touboul_enhanced_2006}. The critical rotation considered here is equal to $1.6^{\circ}$. This is the level quantile $90\%$ of a sample of size $10^5$ of numerical simulations carried out assuming a linear behavior of the piping system. A linear behavior is considered to simply highlight the influence of the choice of IM. Indeed we use on the one hand the PGA and on the other hand the PSA of the initial set of synthetic signals (i.e not filtered signals), calculated at 5 Hz and 1\% damping ratio. \Cref{uncIM:fig:scatterplots_PSA_PGA} shows that the PSA is clearly better correlated with the response of the structure than the PGA. 
+One end of the mock-up is clamped whereas the other is supported by a guide in order to prevent the displacements in the X and Y directions. Additionally, a rod is  placed on the top of the specimen to limit the mass displacements in the Z direction (see \cref{uncIM:fig:ASG}-right). In the tests, the excitation is only imposed in the X direction. For this study, the artificial signals are filtered by a fictitious $2\%$ damped linear single-mode building at $5$ Hz, the first eigenfrequency of the $1\%$ damped piping system. As failure criterion, we consider excessive out-of-plane rotation of the elbow located near the clamped end of the mock-up, as recommended in \cite{touboul_enhanced_2006}. The critical rotation considered here is equal to $1.6^{\circ}$. This is the level quantile $90\%$ of a sample of size $10^5$ of numerical simulations carried out assuming a linear behavior of the piping system. A linear behavior is considered to simply highlight the influence of the choice of IM. Indeed we use on the one hand the PGA and on the other hand the PSA of the initial set of synthetic signals (i.e not filtered signals), calculated at 5 Hz and 1\% damping ratio. 
+
+For the two IMs, \cref{uncIM:fig:ref-ASG} shows the comparisons between the reference MC-based fragility curves $P_f^{\mathrm{MC}}$ and their probit-lognormal estimates $P_f^{\mathrm{MLE}}$, both estimated from a validation database of $10^5$ simulations results. In both cases, the probit-lognormal fragility curves are good approximations of the reference ones.
+
+\begin{figure}[!h]
+    \centering
+     {\includegraphics[width=5cm]{figures/uncIM/ref_ASG_PGA.pdf}}
+     {\includegraphics[width=5cm]{figures/uncIM/ref_ASG_PSA.pdf}}
+    \caption{Reference fragility curves $P_f^{\mathrm{MC}}$ compared with $P_f^{\mathrm{MLE}}$ computed using the full dataset generated ($10^5$ items) for the PGA (left) and for the PSA (right). The red crosses represent the observations.}
+     \label{uncIM:fig:ref-ASG}
+\end{figure}
+
+
+
+
+\paragraph{Correlation of the structure's response with the IMs}
+\Cref{uncIM:fig:scatterplots_PSA_PGA} shows that the PSA is clearly better correlated with the response of the structure than the PGA. 
+This correlation is remarkable in \cref{uncIM:fig:ref-ASG} as well, where the reference fragility curves $P_f^{\text{MC}}$ (see \cref{uncIM:sec:reference}) are plotted. Indeed,  when the IM is the PSA, its knowledge discriminates more the knowledge of the state of the structure, this results in a fragility curve that is more flat in the case of the PGA than in the case of the PSA.
+Therefore, the distribution of the PSA (see \cref{uncIM:fig:IM}) gives high probability to IM values where the probability that the structure fails is either close to $1$ either close to $0$.
+As a consequence, random samples of PSAs are more likely to yield degenerate likelihoods, as shown in \cref{uncIM:fig:degeneracy-prob}.
+
+
+
+% when the IM is the PSA, given the distribution of that IM (see \cref{uncIM:fig:IM}), 
+
+% there is a large probability that sampled IM 
+
 
     \begin{figure}[!ht]
         \centering
@@ -272,28 +324,26 @@ One end of the mock-up is clamped whereas the other is supported by a guide in o
         \caption{Scatter plots of the out-of-plane elbow rotation as a function of (left) PGA and (right) PSA for a linear seismic behavior of the piping system.}
          \label{uncIM:fig:scatterplots_PSA_PGA}
     \end{figure}
-    
-    For the two IMs, \cref{uncIM:fig:ref-ASG} shows the comparisons between the reference MC-based fragility curves $P_f^{\mathrm{MC}}$ and their log-normal estimates $P_f^{\mathrm{MLE}}$, both estimated via $10^5$ simulations results. In both cases, the log-normal fragility curves are good approximations of the reference ones.
 
-    \begin{figure}[!ht]
+    \begin{figure}[!h]
         \centering
-         {\includegraphics[width=5cm]{figures/uncIM/ref_ASG_PGA.pdf}}
-         {\includegraphics[width=5cm]{figures/uncIM/ref_ASG_PSA.pdf}}
-        \caption{Reference fragility curves $P_f^{\mathrm{MC}}$ compared with $P_f^{\mathrm{MLE}}$ computed using the full data-set generated ($10^5$ items) for the PGA (left) and for the PSA (right). The red crosses represent the observations.}
-         \label{uncIM:fig:ref-ASG}
+        \includegraphics[width=5.2cm]{figures/uncIM/degeneracy_proba.pdf}
+        \caption{Proportion of degeneracy yielded when drawing randomly a data sample in the database, as a function of the size $k$ of the drawn sample.}\label{uncIM:fig:degeneracy-prob}
     \end{figure}
+    
+  
     
 \subsection{Results and discussion}    
     
-   \Cref{uncIM:fig:ASG-curves-PGA,uncIM:fig:ASG-curves-SA} present the results for the PGA and the PSA as IM respectively. \nameCrefs{uncIM:fig:ASG-curves-PGA}~\ref{uncIM:fig:ASG-curves-PGA}-(a) and (b) (resp. \namecrefs{uncIM:fig:ASG-curves-SA}~\ref{uncIM:fig:ASG-curves-SA}-(a) and (b)) show the metrics  $\hat\cE_{L,R}^{Q|\mbf a^{(j)},\mbf z^{(j)}}$, $\hat\cS_{L,R}^{r|\mbf a^{(j)},\mbf z^{(j)}}$, $j\in\{1,\dots,m\}$, $R\in\{$`MLE', `SK', `Jeffreys$\}$, $L=5000$, $1-r=95\%$ for any $k$ varying from $15$ to $100$ and $m=200$. \nameCrefs{uncIM:fig:ASG-curves-PGA}~\ref{uncIM:fig:ASG-curves-PGA}-(c) and \ref{uncIM:fig:ASG-curves-SA}-(c) present examples of fragility curves credibility (or confidence for the MLE) intervals for the three methods introduced in \cref{uncIM:sec:Competing} for $k = 30$, in comparison with $P_f^{\mathrm{MLE}}$. 
+   \Cref{uncIM:fig:ASG-curves-PGA,uncIM:fig:ASG-curves-SA} present the results for the PGA and the PSA as IM respectively. \nameCrefs{uncIM:fig:ASG-curves-PGA}~\ref{uncIM:fig:ASG-curves-PGA}-(a) and (b) (resp. \namecrefs{uncIM:fig:ASG-curves-SA}~\ref{uncIM:fig:ASG-curves-SA}-(a) and (b)) show the metrics  $\cE^{|\mbf z^{k},\mbf a^{k}}$, $\cW^{|\mbf z^{k},\mbf a^{k}}$ for each of the three methods, for $1-r=95\%$, and for $k$ varying from $5$ to $100$. Their averages and confidence intervals are derived from $200$ draws of the datesets. \nameCrefs{uncIM:fig:ASG-curves-PGA}~\ref{uncIM:fig:ASG-curves-PGA}-(c) and \ref{uncIM:fig:ASG-curves-SA}-(c) present examples of fragility curves credibility (or confidence for the MLE) intervals for the three methods introduced in \cref{uncIM:sec:Competing} for $k = 30$, in comparison with $P_f^{\mathrm{MC}}$. 
    Those are computed from generated pairs $(\alpha,\beta)$ whose scatter plots are presented in \namecrefs{uncIM:fig:ASG-curves-PGA}~\ref{uncIM:fig:ASG-curves-PGA}-(d) and \ref{uncIM:fig:ASG-curves-SA}-(d).
    %Finally, figures~\cref{uncIM:fig:ASG-curves-PGA}-(d) and \cref{uncIM:fig:ASG-curves-SA}-(d) present examples of scatter plots of the pair $(\alpha , \beta)$ generated with the three methods.
    
    In addition, to get a better overview on the results, we also show in \cref{uncIM:fig:ASG_CoV} the coefficients of variation of the two parameters $(\alpha , \beta)$ as a function of both IM and $k$.
    
-   Generally speaking, these results show, as expected, that when the IM is more correlated to structural response, the differences between the methods are less marked, although in detail there may be some small differences depending on the sample size. {\Cref{uncIM:fig:ASG_CoV} clearly shows that an IM more correlated to the response of the structure induces a lower variability of the estimate of the median of the log-normal model. This is not the case for the log standard deviation whose estimate is affected by samples which are more degenerate with this kind of IM, namely which are partitioned into two disjoint subsets when classified according to IM values: the subset for which there is no failure and the other one for which there is failure, these two subsets possibly being present in the same sample or separately. Such degeneracy affects all methods to varying degrees but in all cases, the Jeffreys prior outperforms SK prior and MLE.}
+   Generally speaking, these results show, as expected, that when the IM is more correlated to structural response, the differences between the methods are less marked, although in detail there may be some small differences depending on the sample size. {\Cref{uncIM:fig:ASG_CoV} clearly shows that an IM more correlated to the response of the structure induces a lower variability of the estimate of the median of the probit-lognormal model. This is not the case for the log standard deviation whose estimate is affected by samples which are more degenerate with this kind of IM, namely which are partitioned into two disjoint subsets when classified according to IM values: the subset for which there is no failure and the other one for which there is failure, these two subsets possibly being present in the same sample or separately. Such degeneracy affects all methods to varying degrees but in all cases, the Jeffreys prior outperforms SK prior and MLE.}
    
-  Whereas the SK prior is calibrated to look like the Jeffreys prior, \namecrefs{uncIM:fig:ASG-curves-PGA}~\ref{uncIM:fig:ASG-curves-PGA}-(d) and \ref{uncIM:fig:ASG-curves-SA}-(d) show that many outliers ---i.e., large values of the pair ($\alpha,\beta$)--- are simulated with the SK prior. These values explain that the credible intervals of the fragility curves and the metrics $\hat\cE_{L,R}^{Q|\mbf a^{(j)},\mbf z^{(j)}}$ and $\hat\cS_{L,R}^{r|\mbf a^{(j)},\mbf z^{(j)}}$ are larger with the SK prior. This observation is both supported by \cref{uncIM:fig:ASG_CoV} and by the calculations provided in \cref{chap:prem} regarding $\beta$. Indeed, in \cref{chap:prem} is shown a better convergence of the Jeffreys prior toward $0$ when $\beta\to\infty$. This better  asymptotic behavior results in posteriors which happen to give a lower probability to outlier points  ---phenomenon particularly noticeable when the data-set is small--- as well as to the weight of the likelihood within the posterior.
+  Whereas the SK prior is calibrated to look like the Jeffreys prior, \namecrefs{uncIM:fig:ASG-curves-PGA}~\ref{uncIM:fig:ASG-curves-PGA}-(d) and \ref{uncIM:fig:ASG-curves-SA}-(d) show that many outliers ---i.e., large values of the pair ($\alpha,\beta$)--- are simulated with the SK prior. These values explain that the credible intervals of the fragility curves and the metrics $\cE^{|\mbf z^{k},\mbf a^{k}}$ and $\cW^{|\mbf z^{k},\mbf a^{k}}$ are larger with the SK prior. This observation is both supported by \cref{uncIM:fig:ASG_CoV} and by the calculations provided in \cref{chap:prem} regarding $\beta$. Indeed, in \cref{chap:prem} is shown a better convergence of the Jeffreys prior toward $0$ when $\beta\to\infty$. This better  asymptotic behavior results in posteriors which happen to give a lower probability to outlier points  ---phenomenon particularly noticeable when the dataset is small--- as well as to the weight of the likelihood within the posterior.
   
   Although the intervals compared ---that of the Bayesian framework and that of the MLE--- are not of the same nature ---credible interval for the first \emph{versus} confidence interval for the second--- these results clearly illustrate the advantage of the Bayesian framework over the MLE for small samples. Indeed, irregularities appear in the MLE method that are characterized by null estimates of $\beta$, which result (i) in important coefficient of variation of $\beta$  (\cref{uncIM:fig:ASG_CoV}) and (ii) in ``vertical'' confidence intervals on fragility curves estimations (\namecrefs{uncIM:fig:ASG-curves-PGA}~\ref{uncIM:fig:ASG-curves-PGA}-(c) and \ref{uncIM:fig:ASG-curves-SA}-(c)). {When few failures are observed, some samples ---both initial and bootstrapped samples--- are degenerate, as explained earlier.} As no prior is considered in MLE, the likelihood can then be easily maximized with $\beta=0$. In \cref{chap:prem}, it is proven that such scenarios result in degenerate likelihood. This last statement is perceived better through \namecrefs{uncIM:fig:ASG-curves-PGA}~\ref{uncIM:fig:ASG-curves-PGA}-(d) and \ref{uncIM:fig:ASG-curves-SA}-(d). The zero-degenerate $\beta$ values that result from the MLE appear clearly. This leads to a confidence interval generally larger than the credible intervals, except for very small values of $k$ ($k \simeq 20$) when the IM is well correlated with the response of the structure, i.e. with the PSA. Indeed, with a perfect IM - which only exists if we know the structural response itself - the fragility curve is degenerate and has the form of a unit step function. The associated confidence interval is of null size, since in this case it does not require any sample to estimate the fragility curve. So, although apparently better, such confidence intervals are meaningless since they are based on degenerate estimates.
   
@@ -301,7 +351,7 @@ One end of the mock-up is clamped whereas the other is supported by a guide in o
   
 %\newpage 
           
-    \begin{figure}[h]
+    \begin{figure}[!h]
         \centering
         {\includegraphics[width=5cm]{figures/uncIM/err_quadra_ASG_PGA.pdf}}\ %
         {\includegraphics[width=5cm]{figures/uncIM/err_cred_ASG_PGA.pdf}} \\
@@ -309,8 +359,8 @@ One end of the mock-up is clamped whereas the other is supported by a guide in o
         {\includegraphics[width=5cm]{figures/uncIM/curves_ASG_PGA.pdf}}\ %           
         {\includegraphics[width=5cm]{figures/uncIM/scatter_ASG_PGA.pdf}}\\
         \makebox[5cm]{(c)}\ \makebox[5cm]{(d)}
-         \caption{(a) the dashed lines plot the quadratic errors as a function of the number of data $k$ and the shaded areas show their confidence intervals; (b) the dashed lines plot the widths of the $95\%$ credible intervals (for Bayesian estimation) or confidence intervals (for MLE) and the shaded areas show their confidence intervals; (c) %the dashed lines plot the fragility curve estimates and 
-         the shaded areas show the $95\%$ credible (for Bayesian estimation) or confidence (for MLE) intervals resulting from a total of $5000$ simulations of $\theta$ using the three methods considered for $k = 30$; (d) scatter plots of the generated $\theta$ to estimate the fragility curves for the three methods ($500$ points from the $5000$ $\theta=(\alpha,\beta)$ generated are plotted); the green cross in (d) plot $\theta^{\mathrm{MLE}}$ which is used for the computation of $P_f^{\mathrm{MLE}}$, plotted as a green dashed line in (c). Here the PGA is used as IM.}
+         \caption{(a) average values of $\cE^{|\mbf z^k,\mbf a^k}$ (dashed lines) surrounded by their $95\%$-confidence intervals; (b) average values of $\cW^{|\mbf z^k,\mbf a^k}$ (dashed lines) surrounded by their $95\%$-confidence intervals; (c) %the dashed lines plot the fragility curve estimates and 
+         the shaded areas show the $95\%$ credible (for Bayesian estimation) or confidence (for MLE) intervals resulting from a total of $5000$ simulations of $\theta$ using the three methods considered for $k = 30$; (d) scatter plots of the generated $\theta$ to estimate the fragility curves for the three methods ($1000$ points from the $5000$ $\theta=(\alpha,\beta)$ generated are plotted); the green cross in (d) plots $\theta^{\mathrm{MLE}}$ which is derived from the validation dataset; the green line in (c) refers to $P^\text{MC}_f$, plottd along with its $95\%$ intervals (dashed lines). Here the PGA is used as IM.}
            \label{uncIM:fig:ASG-curves-PGA}
     \end{figure}
 
@@ -323,7 +373,7 @@ One end of the mock-up is clamped whereas the other is supported by a guide in o
         \makebox[5cm]{(a)}\ \makebox[5cm]{(b)}\\
         {\includegraphics[width=5cm]{figures/uncIM/curves_ASG_PSA.pdf}}\ %           
          {\includegraphics[width=5cm]{figures/uncIM/scatter_ASG_PSA.pdf}}\\
-         \makebox[5cm]{(c)}\ \makebox[5cm]{(d)}\\
+         \makebox[5cm]{(c)}\ \makebox[5cm]{(d)}\\[-8pt]
          \caption{Same as in \cref{uncIM:fig:ASG-curves-PGA}, but here the PSA is used as IM.}
            \label{uncIM:fig:ASG-curves-SA}
     \end{figure}
@@ -335,27 +385,29 @@ One end of the mock-up is clamped whereas the other is supported by a guide in o
 
 %\newpage 
 
-    \begin{figure}[!ht]
+    \begin{figure}[!h]
         \centering
         {\includegraphics[width=5cm]{figures/uncIM/coeff_alpha_PGA.pdf}}\ %
         {\includegraphics[width=5cm]{figures/uncIM/coeff_alpha_PSA.pdf}} \\
         \makebox[5cm]{(a)}\ \makebox[5cm]{(b)}\\
         {\includegraphics[width=5cm]{figures/uncIM/coeff_beta_PGA.pdf}}\ %           
          {\includegraphics[width=5cm]{figures/uncIM/coeff_beta_PSA.pdf}}\\
-         \makebox[5cm]{(c)}\ \makebox[5cm]{(d)}\\
+         \makebox[5cm]{(c)}\ \makebox[5cm]{(d)}\\[-8pt]
          \caption{Average coefficient of variation of $\alpha$ (a-b) and of $\beta$ (c-d) for the PGA and the PSA. For each value of $k$, $200$ samples of size $k$ have been used to compute the average values of the resulting $200$ coefficients of variation from $5000$ estimates of $\theta$ each.}
            \label{uncIM:fig:ASG_CoV}
     \end{figure}
 
 % \clearpage
 
+% \newpage
+
 \section{Conclusion}  \label{uncIM:sec:conclusion}
 
 Assessing the seismic fragility of Structures and Components when little data is available is a daunting task. The Bayesian framework is known to be efficient for this kind of problems. Nevertheless, the choice of the prior remains tricky because it has a non-negligible influence on the  \emph{a posteriori} distribution and therefore on the estimation of any quantity of interest linked to the fragility curves.
 
-Using the reference prior theory to define an objective prior, we have derived the Jeffreys prior for the log-normal model with binary data which indicate the state of the structure (e.g. failure or non-failure). In doing so, this prior is completely defined, it does not depend on an additional subjective choice.
+Using the reference prior theory to define an objective prior, we have derived the Jeffreys prior for the probit-lognormal model with binary data which indicate the state of the structure (e.g. failure or non-failure). In doing so, this prior is completely defined, it does not depend on an additional subjective choice.
 
 Since this prior depends only on the characteristics of the ground motion ---the distribution of the IM of interest--- its calculation is then suitable for any equipment of an industrial installation subjected to the same seismic hazard. So, in this work, we were interested in the influence of the choice of the IM ---PGA vs. PSA--- on the convergence of the estimates, for a given (M,R) seismic scenario and a given mechanical structure, namely a piping system.
 
-The results show, as expected, that when the IM is more correlated with the structural response, the differences between methods are less marked, although in detail there may be some small differences depending on sample size, due to possible degenerate samples. {These results testify to the fact that an IM more correlated to the response of the structure essentially induces a lower variability of the estimate of the median of the log-normal model. This is not the case for the log standard deviation whose estimate is affected by samples which are more degenerate with this kind of IM. Such degeneracy affects all methods,} however, in all cases, the Jeffreys prior outperforms the classical approaches of the literature both in terms of regularization (absence of
+The results show, as expected, that when the IM is more correlated with the structural response, the differences between methods are less marked, although in detail there may be some small differences depending on sample size, due to possible degenerate samples. {These results testify to the fact that an IM more correlated to the response of the structure essentially induces a lower variability of the estimate of the median of the probit-lognormal model. This is not the case for the log standard deviation whose estimate is affected by samples which are more degenerate with this kind of IM. Such degeneracy affects all methods,} however, in all cases, the Jeffreys prior outperforms the classical approaches of the literature both in terms of regularization (absence of
 degenerate estimation) and stability (absence of outliers when sampling the \emph{a posteriori} distribution of the parameters).

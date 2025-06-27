@@ -7,14 +7,14 @@
 
 \begin{abstract}
     To estimate seismic fragility curves using the Bayesian framework,
-    the observed data constitute the most objective source of information that must be cared about.
+    the observed data constitute the most objective source of information to consider.
     % information that comes from the data represents 
-    In this chapter, we conduct a Bayesian estimation of seismic fragility curves that aims to optimize the latter. We consider datasets that have the disadvantages of (i) being scarce, and (ii) reducing structural responses to binary outcomes. However, we propose an experimental design that is sought to select seismic scenarios that are expected to maximize the impact of  data on the posterior distribution.
-    Moreover, our approach is supported by the reference prior theory, to ensure the prior itself maximize the influence of  data on the posterior.
+    In this chapter, we conduct a Bayesian estimation of seismic fragility curves that aims to optimize that information. We consider datasets that have the disadvantages of (i) being scarce, and (ii) reducing structural responses to binary outcomes. However, we propose an experimental design that is sought to select seismic signals that are expected to maximize the impact of  data on the posterior distribution.
+    Moreover, our approach is supported by the reference prior theory, to ensure the prior itself maximizes the influence of  data on the posterior.
     The reference prior is slightly constrained in this work in order to tackle occurrences of so-called degenerate likelihoods.
     % that are ubiquitous with small data sets.
 %    This strategy aims to maximize the impact of the  data on the posterior distribution of the fragility curve {and its strength is to extend to any prior of interest, provided it is proper}. Our method is applied to a case study of the nuclear industry. 
-The results demonstrate the ability of the method to efficiently and robustly estimate the fragility curve, and to avoid degeneracy even with a limited number of experiments. Additionally, we demonstrate that the estimates quickly reach the model bias induced by the probit-lognormal modeling that we implement. %{Two criteria are suggested to help the user stop the experiment design algorithm.}
+The results demonstrate the ability of the method to efficiently and robustly estimate fragility curves, and to avoid degeneracy even with limited data. Additionally, we demonstrate that the estimates quickly reach the model bias induced by the probit-lognormal modeling. % that we implement. %{Two criteria are suggested to help the user stop the experiment design algorithm.}
 \end{abstract}
 
 
@@ -35,10 +35,14 @@ Indeed, the developments done in \cref{chap:prem} and \cref{chap:constrained-fra
 have shown that (i)~the \emph{a priori} information  must be carefully defined, since any  subjectivity embedded into its design may significantly impact the estimates, and (ii)~the information that comes from the data can take ``degenerate'' forms, jeopardizing efficiency.
 %it embedds
 %Indeed, we elucidated in \cref{chap:prem} and \cref{chap:constrained-frags} how the information \emph{a priori} can be arranged to.
-In these chapters, we proved that appropriate prior designs can yield accurate estimates of seismic fragility curves  
+In these chapters, we proved that appropriate prior designs can yield accurate estimates of seismic fragility curves
+%  Those being unaffected by degenerate scenarios if a relevant constraints
 % the prior can be designed in a way that 
 % permits accurate estimations of seismic fragility curves, 
-without being affected by degenerate scenarios.
+without being affected by degenerate scenarios. These appropriate priors 
+correspond to constrained reference priors, where the constraints are sought to regularize the decay rates of the objective Jeffreys prior in order to ensure it yields proper posteriors.
+% take the form of reference priors to which
+% correspond to reference priors that are 
 %proved how t
 % We proved that the first one can be designed 
 Nevertheless, the influence of data on the posterior remains important. %influence on the estimates. %The more the data are close to a degeneracy, the %more 
@@ -75,7 +79,9 @@ but also to define a criterion from which is based our experimental design.
 
 It is also important to recognize that the model itself provides information to the Bayesian workflow and influences the posterior.
 For instance, 
-we draw attention to the work conducted in \cref{app:chap:ESAIM}, where a simple model that assumes a linear correlation between the logarithm of the structural response and that of the IM is implemented with a similar experimental design. The results we present in this appendix highlight the limitations of the model,  entailed by its irreducible bias. 
+we draw attention to the work conducted in \cref{app:chap:ESAIM}, where a simple model that assumes a linear correlation between the logarithm of the structural response and that of the IM is implemented with a similar experimental design. 
+%The results presented in this appendix illustrate the possible limitations of models that lead to estimation biases whose “importance” depends on the assumptions considered.
+The results presented in that appendix illustrate the possible limitations of models that lead to estimation biases whose  highlight the limitations of the model,  entailed by its irreducible bias. 
 In this chapter, we acknowledge that the probit-lognormal model %that we implement in this chapter 
 is itself inherently biased. However, we aim to demonstrate that this model can accurately estimate seismic fragility curves in scenarios with limited data if used as part of an approach built on a full understanding of the model's limitations.
 %
@@ -122,7 +128,7 @@ In order to provide more insights about the behavior of the DoE, we suggest anot
 
 \section{Probit-lognormal modeling and constrained reference prior}\label{sec:doe:model}
 
-We recall briefly the porbit-lognormal model that was introduced in \cref{chap:frags-intro}. We suppose to observe realizations of the random vector $(Z,A)$, where $A\in\cA\subset(0,\infty)$ represents the IM value, and $Z\in\{0,1\}$ represents the binary outcome ($Z=1$ if the equipment fails and $Z=0$ otherwise).
+We recall briefly the probit-lognormal model that was introduced in \cref{chap:frags-intro}. We suppose to observe realizations of the random vector $(Z,A)$, where $A\in\cA\subset(0,\infty)$ represents the IM value, and $Z\in\{0,1\}$ represents the binary outcome ($Z=1$ if the equipment fails and $Z=0$ otherwise).
 The probit-lognormal model consist in assuming the following parameterized distribution of $(Z,A)$ conditionally to the parameter $\theta=(\alpha,\beta)=\Theta=(0,\infty)^2$:
     \begin{equation}
         A\sim A|\theta\sim H,\quad\text{and}\quad Z|A,\theta\sim\cB(P_f(A))\quad\text{with}\quad P_f(a)=\Phi\left(\frac{\log a-\log\alpha}{\beta}\right),
@@ -151,10 +157,10 @@ The decay rates of this likelihood vary significantly as a function of the obser
 
 
 
-To conduct a Bayesian estimation of probit-lognormal fragility curves, one should select a prior carefully to ensure it issues a proper posterior even in degenerate scenarios. We define bellow adequate requirements for a robust \emph{a posteriori} estimation, i.e., an estimation that results from a proper posterior
+To conduct a Bayesian estimation of probit-lognormal fragility curves, one should select a prior carefully to ensure it issues a proper posterior even in degenerate scenarios. We define bellow adequate requirements for a robust \emph{a posteriori} estimation, i.e., an estimation that results from a proper posterior.
 
 \begin{defi}[Robust \emph{a posteriori} estimation]\label{def:doe:robust-estimation}
-    The \emph{a posteriori} estimation is called robust if the posterior is proper. For  seismic fragility curves it is the case if 
+    The \emph{a posteriori} estimation is called robust if the posterior is proper. For  seismic fragility curves it is the case if:
     \begin{itemize}
         \item the likelihood is not degenerate and the prior verifies
             \begin{align*}
@@ -181,13 +187,13 @@ That prior, which has a density that we denote $\pi^\ast_\gamma$, is sought to r
         \pi^\ast_\gamma(\theta) \propto\frac{1}{\alpha(\beta^{1-\gamma}+\beta^{3-\gamma})}\exp\left(-\frac{(\log\alpha-\mu_A)^2}{2\sigma_A^2+2\beta^2}\right),
     \end{equation}
     where $\mu_A$ and $\sigma_A$ respectively denote the mean and the standard deviation of the r.v. $\log A$.
-The form of the prior density $\pi^\ast_\gamma$ results from the consideration of Jeffreys prior's decay rates. With respect to $\beta$, the decay rates are the same as the ones of the constrained reference prior density in \cref{eq:doe:trueconstrref} (see the study of Jeffreys prior's decays in \cref{chap:prem}). With respect to $\alpha$, the prior density $\pi^\ast_\gamma$ admits slightly different decay rates. That choice results from two considerations: (i)~especially outside degenerate likelihoods of types 1 or 2, this change has a negligible impact on the posterior, and (ii)~in \cref{chap:prem} we elucidated that the reference prior w.r.t. $\alpha$ is close to the distribution of the IM, which is associated to a lognormal distribution.
+The form of the prior density $\pi^\ast_\gamma$ results partly from the consideration of Jeffreys prior's decay rates. With respect to $\beta$, the decay rates are the same as the ones of the constrained reference prior density in \cref{eq:doe:trueconstrref} (see the study of Jeffreys prior's decays in \cref{chap:prem}). With respect to $\alpha$, the prior density $\pi^\ast_\gamma$ admits slightly different decay rates. That choice results from two considerations: (i)~especially outside degenerate likelihoods of types 1 or 2, this change has a negligible impact on the posterior, and (ii)~in \cref{chap:prem} we elucidated that the reference prior w.r.t. $\alpha$ is close to the distribution of the IM, which is associated to a lognormal distribution.
 We precise that both priors in \cref{eq:doe:trueconstrref,eq:doe:tilde-pi-gamma} have been tested when we conducted our numerical results to ensure they give non-distinguishable results.
 
 % similar to the form the Jefr
 
 
-While $0<\gamma<2$, the prior satisfies both criteria required for a robust \emph{a posteriori} estimation (\cref{def:doe:robust-estimation}). The case $\gamma=0$ corresponds to the critical case where $\pi^\ast_\gamma$ corresponds to the Jeffreys prior density and thus provides a robust \emph{a posteriori} estimation if and only if the likelihood is not degenerate. The limit case $\gamma=2$ never provides a robust \emph{a posteriori} estimation. We precise that the methodology presented in the next section requires that the prior tackles degenerate-likelihood cases. The tuning of this hyper-parameter must be thought as the research for a balance between objectivity ($\gamma$ closer to $0$) and suitability for inference. The influence of $\gamma$ is studied in the practical application of our method in \cref{sec:doe:application}.
+While $0<\gamma<2$, the prior satisfies both criteria required for a robust \emph{a posteriori} estimation (\cref{def:doe:robust-estimation}). The case $\gamma=0$ corresponds to the critical case where $\pi^\ast_\gamma$ is similar to the Jeffreys prior density and thus provides a robust \emph{a posteriori} estimation if and only if the likelihood is not degenerate. The limit case $\gamma=2$ never provides a robust \emph{a posteriori} estimation. We precise that the methodology presented in the next section requires that the prior tackles degenerate-likelihood cases. The tuning of this hyper-parameter must be thought as the research for a balance between objectivity ($\gamma$ closer to $0$) and suitability for inference. The influence of $\gamma$ is studied in the practical application of our method in \cref{sec:doe:application}.
 
 
 
@@ -216,7 +222,7 @@ The priors defined in \cref{eq:doe:tilde-pi-gamma} handle the degeneracy of the 
 
 In this chapter, we propose to tackle degeneracy with an appropriate experimental design strategy. 
 Different sequential methods exist. Suppose that we have observed the sample $(\mbf z^k,\mbf a^k)$, we need to create a criterion to choose the next input $a_{k+1}$. 
-Given our analysis (statement (ii) above) from an information theory viewpoint, the strategy to build the mentioned criterion is to maximize the impact that the selected observation would have on the posterior distribution. 
+Given our analysis (statement (ii) above) from an information theory viewpoint, the strategy to build this criterion is to maximize the impact that the selected observation would have on the posterior distribution. 
 This strategy echoes the one that supports the reference prior definition as a maximal argument of the mutual information, so that we suggest a similar criterion to select $a_{k+1}$:
       \begin{equation}\label{eq:doe:index}
         a_{k+1}=\argmax_{a\in\cA}\cI_{k+1}(a);\quad 
@@ -226,6 +232,35 @@ The index $\cI_{k+1}$ can be seen as a sensitivity index measuring the sensitivi
 Our index can be seen as derived from the popular framework of Stepwise Uncertainty Reduction techniques \citep{bect_supermartingale_2019}. 
 Typically,  those methods are formulated with an \emph{a posteriori} variance within the expectation in \cref{eq:doe:index} instead of the dissimilarity measure suggested here.
 \Cref{alg:doe:PE} proposes a practical pseudo-code of our methodology. It requires to derive an approximation of the index $\cI_{k+1}$, which we elucidate in the following section.
+
+
+
+
+% \newcommand{\algorithmicreinit}{\textbf{Init:}}
+
+\renewcommand{\algorithmicrequire}{\textbf{Notations:}}
+
+ \begin{algorithm*}
+		\caption{Planning of experiments}
+		\begin{algorithmic}
+            % \STATE \textbf{INIT:}
+            \REQUIRE \begin{tabular}[t]{l}
+			Seismic signal : $\cS$\\ Intensity measure of the seismic signal: $\mathrm{IM}(\cS)$\\ Mechanical response to the seismic signal (failure or success): $\mathrm R(\cS)$ 
+			\end{tabular}\renewcommand{\algorithmicrequire}{\textbf{Initialization:}}
+            \REQUIRE \begin{tabular}[t]{l}
+			$k_0>0$ (in practice $k_0=2$), initial seismic signals $\cS_1,\dots,\cS_{k_0}$\\
+            Define the initial data: $\mbf z^{k_0}=(\mathrm{R}(\cS_1),\dots,\mathrm{R}(\cS_{k_0})),\   \mbf a^{k_0}=(\mathrm{IM}(\cS_1),\dots,\mathrm{IM}(\cS_{k_0}))$
+			\end{tabular}
+            \FOR{$k=k_0\dots k_{\text{max}}-1$ }
+	            \STATE Approximate $\cI_{k+1}$ via Monte Carlo sampling
+                \STATE Compute $a_{k+1}=\argmax_a\cI_{k+1}(a)$
+	            \STATE Choose a seismic signal $\cS_{k+1}$ such that $\mathrm{IM}(\cS_{k+1})=a_{k+1}$
+                \STATE {Perform the %numerical calculation or 
+                experiment and} define $z_{k+1}=\mathrm{R}(\cS_{k+1})$
+	        \ENDFOR
+		\end{algorithmic}
+	    \label{alg:doe:PE}
+	\end{algorithm*}
 
 
 \subsection{Approximation of the index}
@@ -291,31 +326,6 @@ Eventually, $a_{k+1}$ is chosen as the maximal argument of the right-hand side t
 
 
 
-% \newcommand{\algorithmicreinit}{\textbf{Init:}}
-
-\renewcommand{\algorithmicrequire}{\textbf{Notations:}}
-
- \begin{algorithm*}
-		\caption{Planning of experiments}
-		\begin{algorithmic}
-            % \STATE \textbf{INIT:}
-            \REQUIRE \begin{tabular}[t]{l}
-			Seismic signal : $\cS$\\ Intensity measure of the seismic signal: $\mathrm{IM}(\cS)$\\ Mechanical response to the seismic signal (failure or success): $\mathrm R(\cS)$ 
-			\end{tabular}\renewcommand{\algorithmicrequire}{\textbf{Initialization:}}
-            \REQUIRE \begin{tabular}[t]{l}
-			$k_0>0$ (in practice $k_0=2$), initial seismic signals $\cS_1,\dots,\cS_{k_0}$\\
-            Define the initial data: $\mbf z^{k_0}=(\mathrm{R}(\cS_1),\dots,\mathrm{R}(\cS_{k_0})),\   \mbf a^{k_0}=(\mathrm{IM}(\cS_1),\dots,\mathrm{IM}(\cS_{k_0}))$
-			\end{tabular}
-            \FOR{$k=k_0\dots k_{\text{max}}-1$ }
-	            \STATE Approximate $\cI_{k+1}$ via Monte Carlo sampling
-                \STATE Compute $a_{k+1}=\argmax_a\cI_{k+1}(a)$
-	            \STATE Choose a seismic signal $\cS_{k+1}$ such that $\mathrm{IM}(\cS_{k+1})=a_{k+1}$
-                \STATE {Perform the %numerical calculation or 
-                experiment and} define $z_{k+1}=\mathrm{R}(\cS_{k+1})$
-	        \ENDFOR
-		\end{algorithmic}
-	    \label{alg:doe:PE}
-	\end{algorithm*}
     
 %\end{enumerate}
 
@@ -345,7 +355,7 @@ where $m^{|\mbf z^k,\mbf a^k}$ is the median of the fragility curve estimate giv
 When the index $\cV\cP_k $ falls, the estimated fragility curve given by the method has stopped to distinctly evolve.
 
 The index $\cV\cP_k$ constitutes a criterion which is more perceptible {for practitioners}.
-In the next section where we apply our method to a practical case study ,{ we verify that $\cV\cI_k$ and $\cV\cP_k$ give pragmatic and consistent information.}
+In the next section where we apply our method to a practical case study,{ we verify that $\cV\cI_k$ and $\cV\cP_k$ give pragmatic and consistent information.}
 
 %the behaviors of $\cV\cI_k$ and $\cV\cP_k$ are comparable, and we discuss the elucidating of an appropriate {stopping} criterion.
 
@@ -390,7 +400,7 @@ For a consistent quantification of the above errors no matter the selected IM, $
 we fix $0<q_1<q_2<1$ and choose $\tilde a_{\min}$ and $\tilde a_{\max}$ such that $q_1=P^{\text{ref}}_f(\tilde a_{\min})$ and $q_2=P^{\text{ref}}_f(\tilde a_{\max})$. In our work, the quantities defined in this section are derived considering the PGA and the PSA as IMs.
 In the context of the piping system that is studied in the next section, 
 the domain of the reference fragility curve available is more limited in the case of the PGA (see \cref{fig:doe:reference-frags}): in this case the reference probability of failure lives between around $10^{-3} $ and $0.9$.
-Thus, we fixed the values of $q_1$ and $q_2$ to match these in any case. The implementation of these metrics is done through Monte-Carlo derivation and numerical approximation of the integrals from Simpsons' interpolation on a sub-division of $[\tilde a_{\min},\tilde a_{\text{max}}]$.
+Thus, we fixed the values of $q_1$ and $q_2$ to match these in any case. The implementation of these metrics is done through Monte-Carlo derivation and numerical approximations of the integrals from Simpsons' interpolation on a sub-division of $[\tilde a_{\min},\tilde a_{\text{max}}]$.
 
 {The model bias $\cM\cB$ corresponds to the deviations between $P_f^{\text{ref}}$ and $P_f^{\text{MLE}}$ which can be visualized in \cref{fig:doe:reference-frags}. By construction, it is influenced by the distribution of the IM since $P_f^{\text{MLE}}$ is estimated by considering all the available samples. We cannot therefore speculate whether this is the absolute minimum bias and its value is only presented for information purposes. We will return to this point in the section devoted to the interpretation of the results.}
 
@@ -467,7 +477,7 @@ In this study, the considered failure criterion was $C=3.8^\circ$.
 
 
 
-\Cref{fig:doe:errors-psa,fig:doe:errors-pga,fig:doe:variaI,fig:doe:variaP} present 
+\Cref{fig:doe:errors-degen,fig:doe:errors-psa,fig:doe:errors-pga,fig:doe:variaI,fig:doe:variaP} present 
 quantitative results that go beyond a single example.
 Within those, 12 methods are compared:
     the standard method and the DoE methods for any $\gamma\in\{0,$ $0.1,$ $0.3,\dots,1.9\}$.
@@ -544,9 +554,9 @@ As mentioned in \cref{sec:doe:appli:subsec:present}, the PSA is the better of th
 
 
 
-    \paragraph{{Stopping criterion}} {To the extent that an irreducible estimation bias can be expected in practice, an indication that such a bias has been reached would constitute a suitable stopping criterion for the DoE method. Since such a criterion would imply knowing, in some way, the bias itself and this is not possible with small data sizes, we suggest to study (i) the index $\cV\cI_k$ that measures the variation of the  quantity ~(\ref{eq:doe:index}) that is used to select the seismic signals in the DoE method and (ii) the index $\cV\cP_k$ that measures the average evolution of the median of the fragility curve. These two quantities are defined in \cref{sec:doe:stopping_crit}. They reflect the information provided by adding a $k$-th data point. 
+    \paragraph{{Stopping criterion}} {To the extent that an irreducible estimation bias can be expected in practice, an indication that such a bias has been reached would constitute a suitable stopping criterion for the DoE method. Since such a criterion would imply knowing, in some way, the bias itself and this is not possible with small data sizes, we suggest to study (i) the index $\cV\cI_k$ that measures the variation of the  quantity defined by \cref{eq:doe:index} that is used to select the seismic signals in the DoE method and (ii) the index $\cV\cP_k$ that measures the average evolution of the median of the fragility curve. These two quantities are defined in \cref{sec:doe:stopping_crit}. They reflect the information provided by adding a $k$-th data point. 
 
-     \cref{fig:doe:variaI} shows the evolutions of the average values of $\cV\cI_k$ for respectively the PSA and the PGA as IM, whereas  \cref{fig:doe:variaP} is devoted to the evolutions of $\cV\cP_k$. These two figures, once again, show that learning with the DoE method is more effective than with the standard method. $\cV\cI_k$ and $\cV\cP_k$ are slightly influenced by the change in IM. Up to values of $k$ close to $k=50$, they even indicate that with PGA, the DoE method reaches more quickly a state in which the information brought by a new data point has less impact. This result is consistent with the one mentioned in the previous paragraph, namely that with the first $40$ data, the bias value obtained with the PGA is smaller than with the PSA, with the DoE method.
+     \Cref{fig:doe:variaI} shows the evolutions of the average values of $\cV\cI_k$ for respectively the PSA and the PGA as IM, whereas  \cref{fig:doe:variaP} is devoted to the evolutions of $\cV\cP_k$. These two figures, once again, show that learning with the DoE method is more effective than with the standard method. $\cV\cI_k$ and $\cV\cP_k$ are slightly influenced by the change in IM. Up to values of $k$ close to $k=50$, they even indicate that with PGA, the DoE method reaches more quickly a state in which the information brought by a new data point has less impact. This result is consistent with the one mentioned in the previous paragraph, namely that with the first $40$ data, the bias value obtained with the PGA is smaller than with the PSA, with the DoE method.
     
     The practitioner can therefore use these indicators to define a stopping criterion depending on a threshold value. For instance, in our case, a threshold value set at $\cV\cI_k = 10^{-3}$ gives approximately $k_{\max} = 60$ for the PSA and $k_{\max} = 40$ for the PGA. Concerning $\cV\cP_k$, the threshold value can be set at $5 \% $. For both the PSA and the PGA, this ensures furthermore that the likelihood degeneracy probability is zero (see  \cref{fig:doe:errors-degen}). 
     Remark that, even though the number of data required to reach a given stopping criterion is smaller with the PGA than with the PSA, this does not imply that the estimate is less accurate. Indeed, for small data sizes, the degeneracy phenomenon is more likely with the PSA than with the PGA (see  \cref{fig:doe:errors-degen}). Consequently, the widths of the credibility intervals remain large for large $k$ with the PSA (see \cref{fig:doe:errors-psa,fig:doe:errors-pga}). Our approach addresses this phenomenon by reducing the degeneracy even for a few observations. In practice, however, this number remains dependent on the IM of interest (see the paragraph ``Degeneracy disappearance'').
@@ -631,7 +641,7 @@ In order to guide the user, we also proposed two indicators that allow learning 
         \item $q=0.9$.
         \item $q=0.8$.
     \end{itemize}
-    The reference fragility curve of each of these toy case studies are plotted on  \cref{fig:histograms_toy} (green solid lines) for each of the values of $q$ aforementioned, and for $\theta^\ast=(3,0.3)$. 
+    The reference fragility curve of each of these toy case studies are plotted in  \cref{fig:histograms_toy} (green solid lines) for each of the values of $q$ aforementioned, and for $\theta^\ast=(3,0.3)$. 
     %On  \cref{fig:ex_est_toys} are presented examples of credibility interval estimation.
     
     
@@ -669,7 +679,7 @@ In order to guide the user, we also proposed two indicators that allow learning 
     
     Regarding the other metrics exposed in  \cref{fig:metrics-toy}, namely the indices $\cV\cI_k$ and $\cV\cP_k$, it is interesting to notice that their behaviors are comparable with the ones of the real case study. In particular, $\cV\cI_k$ reaches the threshold $10^{-3}$ for a similar number of observations (around $50$) in any of the case studies implemented in this work (real ones as well as toy ones).
     As a matter of fact, the index sequentially measures the quantity of information brought by the next seismic signal selected by the DoE. Thus, the stability of that quantity between case studies supports the robustness of our approach in selecting IMs to inform the estimate and enhance the learning.
-    However, the indices $\cV\cP_k$ are smaller for toy case studies. Without any model bias, the estimates reach more quickly the reference (see the average bias on  \cref{fig:metrics-toy}-left), so that they evolve less.
+    However, the indices $\cV\cP_k$ are smaller for toy case studies. Without any model bias, the estimates reach more quickly the reference (see the average bias in  \cref{fig:metrics-toy}-left), so that they evolve less.
     
     %{
     %Finally, this section helps to clarify the limit of a comparison between the results obtained with two different IMs in \cref{sec:quantitative-study}. 
@@ -863,7 +873,7 @@ In order to guide the user, we also proposed two indicators that allow learning 
             \end{equation}
         The solutions of the above equation when $\zeta =\log\alpha^\ast$ are $a=\alpha^\ast\exp\left(\pm\beta^\ast\right).$
         They correspond to the limit case when the distribution $p_{\alpha,\beta}$ becomes informed and unbiased. 
-        If the model is appropriately specified, that should be the fate of the posterior distribution: the posterior tends to match a normal distribution with mean $\theta^\ast$ and variance $\frac{1}{k}\cI^{-1}(\theta^\ast)$ \citep{van_der_vaart_asymptotic_1992}.
+        If the model is appropriately specified, that should be the fate of the posterior distribution: the posterior tends to match a normal distribution with mean $\theta^\ast$ and variance $\frac{1}{k}\cF^{-1}(\theta^\ast)$ where $\cF$ refers to the Fisher information matrix \citep{van_der_vaart_asymptotic_1992}.
     
         
     
