@@ -1,7 +1,7 @@
 
 
 \begin{abstract}[\hspace*{-10pt}]
-    This appendix is a postprint of the accpeted work: \fullcite{van_biesbroeck_design_2025}  % Ce chapitre reprend principalement les travaux publiés dans: 
+    This appendix is a postprint of the accepted work: \fullcite{van_biesbroeck_design_2025}  % Ce chapitre reprend principalement les travaux publiés dans: 
 \end{abstract}
 
 \begin{abstract}
@@ -80,13 +80,13 @@ Here $\rho$ is supposed unknown, as well as $\mu$ and $\sigma$.
     
     \subsection{Likelihood}\label{lowdoe:sec:likelihood}
 
-We have at our disposal a data-set composed by the tuples $(a_i,y_i)_{i=1}^k$, $a_i\in\cA\subset(0,\infty)$ denoting the measured IM from {the $i$-th seismic ground motion} signal and $y_i\in\cY\subset(0,\infty)$ denoting the structure's EDP. Conditionally to the parameter $\theta=(\rho,\mu,\sigma)$, we suppose the observations to be independent and identically distributed. As $a_i$ follows a distribution assumed to admit a density $a\mapsto p(a)$ w.r.t.{ }the Lebesgue measure and to be independent of $\theta$, the distribution of the $y_i$ is known conditionally to $(a_i,\theta)$:
+We have at our disposal a data-set composed by the tuples $(a_i,y_i)_{i=1}^k$, $a_i\in\cA\subset(0,\infty)$ denoting the measured IM from {the $i$-th seismic ground motion} signal and $y_i\in\cY\subset(0,\infty)$ denoting the structure's EDP. Conditionally to the parameter $\theta=(\rho,\mu,\sigma)$, we suppose the observations to be independent and identically distributed. As $a_i$ follows a distribution assumed to admit a density $a\mapsto h(a)$ w.r.t.{ }the Lebesgue measure and to be independent of $\theta$, the distribution of the $y_i$ is known conditionally to $(a_i,\theta)$:
     \begin{equation}
         \log y_i|a_i,\theta \sim \cN(\rho\log a_i+\mu,\sigma^2)    .
     \end{equation}
 The likelihood for the parameter $\theta$ is therefore:
     \begin{equation}
-        \ell_k^0(\hatmbf y,\hatmbf a|\theta) = \prod_{i=1}^k \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left( -\frac{(\hat y_i-\rho\hat a_i-\mu)^2}{2\sigma^2} \right)p(\hat a_i),
+        \ell_k^0(\hatmbf y,\hatmbf a|\theta) = \prod_{i=1}^k \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left( -\frac{(\hat y_i-\rho\hat a_i-\mu)^2}{2\sigma^2} \right)h(a_i),
     \end{equation}
 where $\hat y_i$ (resp. $\hat a_i$) denotes $\log y_i$ (resp. $\log a_i$) and $\hatmbf y$ (resp. $\hatmbf a$) denotes the vector $(\log y_i)_{i=1}^k$ (resp. $(\log a_i)_{i=1}^k$).
 
@@ -114,11 +114,11 @@ where $\mbf a$ is the vector $(a_i)_{i=1}^k$, $\mbf 1$ denotes the vector of $\R
 % \end{equation}
 
 Let us denote by $(w_i)_{i=1}^k$ the orthogonal columns of the matrix $P_{\mbf a}$ defined in \cref{lowdoe:app:sec:DiagUa}. Noticing $\rho_k = w_k^{\top}\hatmbf y$ and $\mbf z$ is spanned by the $(w_{i})_{i=1}^{k-1}$, we deduce that $\mbf z$ and $\rho_k$ are independent conditionally to $(\mbf a, \theta)$, and that the knowledge of $(\mbf z,\rho_k,\mbf a)$ is equivalent to the one of $(\mbf y,\mbf a)$ or $(\hat{\mbf y},\hat{\mbf a})$.
-Thus, the likelihood issued from the observation of $(\mbf z, \rho_k, \mbf a)$ is 
+Thus, the likelihood issued from the observations of $(\mbf z, \rho_k, \mbf a)$ is 
 \begin{equation}\label{lowdoe:eq:likelihood}
-     \ell_k(\mbf z,\rho_k,\mbf a|\theta) = p(\mbf a)\frac{\|\hatmbf a-\overline{\hatmbf a}\|}{\sqrt{2\pi\hatmbf a^{\top}\hatmbf a}\sigma}\exp\left(-\frac{(z_{k-1}-\mu \sqrt{k})^2}{2\sigma^2\frac{\hatmbf a^{\top}\hatmbf a}{\|\hatmbf a-\overline{\hatmbf a}\|^2}}\right)\exp\left({-\frac{(\rho_k-\rho)^2}{2\sigma^2/(k\Var_k\hatmbf a)}}\right)\prod_{i=1}^{k-2}\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{z_i^2}{2\sigma^2}\right),
+     \ell_k(\mbf z,\rho_k,\mbf a|\theta) = h(\mbf a)\frac{\|\hatmbf a-\overline{\hatmbf a}\|}{\sqrt{2\pi\hatmbf a^{\top}\hatmbf a}\sigma}\exp\left(-\frac{(z_{k-1}-\mu \sqrt{k})^2}{2\sigma^2\frac{\hatmbf a^{\top}\hatmbf a}{\|\hatmbf a-\overline{\hatmbf a}\|^2}}\right)\exp\left({-\frac{(\rho_k-\rho)^2}{2\sigma^2/(k\Var_k\hatmbf a)}}\right)\prod_{i=1}^{k-2}\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{z_i^2}{2\sigma^2}\right),
 \end{equation}
-where $\overline{\hatmbf a} = \frac{1}{k}\sum_{i=1}^k \log a_i$.
+where $\overline{\hatmbf a} = \frac{1}{k}\sum_{i=1}^k \log a_i$, and $h(\mbf a)=\prod_{i=1}^kh(a_i)$.
 
 
     \subsection{Prior and posterior}\label{lowdoe:sec:priorposterior}
@@ -126,14 +126,14 @@ where $\overline{\hatmbf a} = \frac{1}{k}\sum_{i=1}^k \log a_i$.
 
 
 Within a Bayesian context, the parameter of interest $\theta$ is itself a random variable taking values in a space $\Theta\subset\RR^2\times(0,\infty)$ and following a distribution called the prior.
-We take as a support the reference prior theory (see the \cref{part:ref-theory} of this manuscript) to justify the choice of the Jeffreys's prior for $\theta$, derived from the likelihood expressed in \cref{lowdoe:eq:likelihood}.
+We take as a support the reference prior theory (see the \cref{part:ref-theory} of this manuscript) to justify the choice of the Jeffreys prior for $\theta$, derived from the likelihood expressed in \cref{lowdoe:eq:likelihood}.
 Conditionally to $\mbf a$, that former is a Gaussian density, making the associated Fisher information matrix being:
        \begin{equation}    
         \cI(\theta) = \int_{\cA^k}\left(\begin{array}{ccc}
              k\frac{\|\hatmbf a - \overline{\hatmbf a}\|^2}{\sigma^2\hatmbf a^{\top}\hatmbf a}&  0&0\\
              0&k\frac{2}{\sigma^2}&0 \\
              0&0& \frac{k\Var_k\hatmbf a}{\sigma^2}
-        \end{array}\right) \prod_{i=1}^kp(a_i)d a_i.
+        \end{array}\right) \prod_{i=1}^kh(a_i)d a_i.
     \end{equation}
 The Jeffreys' prior being defined as the one whose density $J$ w.r.t.{ }the Lebesgue measure is proportional to $\sqrt{|\cI(\theta)|}$, we obtain
 \begin{equation}
@@ -143,7 +143,7 @@ The Jeffreys' prior being defined as the one whose density $J$ w.r.t.{ }the Lebe
 Finally, the posterior distribution of $\theta$ is given by its density, which is proportional to the product of the likelihood (from \cref{lowdoe:eq:likelihood}) with the prior:
     \begin{equation}\label{lowdoe:eq:posterior}
         p(\theta|\mbf z, \mbf a,\rho_k) \propto \frac{1}{\sigma^{k+3}} \exp\left({-\frac{\sum_{i=1}^{k-2}z_i^2}{2\sigma^2}}\right) \exp\left({-\frac{k\|\hatmbf a-\overline{\hatmbf a}\|^2}{\hatmbf a^{\top}\hatmbf a}\frac{(z_{k-1}k^{-1/2}-\mu)^2}{2\sigma^2}}\right)
-            \exp\left({-\frac{(\rho_k-\rho)^2}{2\sigma^2/k\Var_k\hatmbf a}}\right).
+            \exp\left({-\frac{(\rho_k-\rho)^2}{2\sigma^2/(k\Var_k\hatmbf a)}}\right).
     \end{equation}
 We recognize the above as a product of square inverse gamma distributions. More precisely, $\sigma^{-2}$ follows a gamma distribution, and $\mu$ and $\rho$ follow independent Gaussian distributions conditionally to $\sigma$.
 
@@ -193,7 +193,7 @@ Within the GSA's scope, this makes the next experiment being chosen as the one s
 
 If the relation between the logarithm of the EDP and that of the IM is ``very close" to a linear relation, \cref{lowdoe:eq:dataacq1} is sufficient to improve the learning of the fragility curve. In other words, a strategy based on this equation makes it possible to sufficiently explore the space of the IMs, in order to maximize their empirical variance and thus reduce the \emph{a posteriori} variance of the estimation of the fragility curve, all things being equal (cf. \cref{lowdoe:eq:apostcf}). Note that there is no mathematical proof of this in this appendix, but it has been tested numerically. 
 
-In practice, since the linear model is expected to be biased, the way to reduce the bias is to localize the learning, even if it is not optimal with respect to the \emph{a posteriori} variance of the estimation of the fragility curve. In our work, the locality of interest corresponds to the values of IMs for which the fragility curve evolves ``significantly" from 0 to 1. For this reason, we propose a refinement of the data acquisition strategy of \cref{lowdoe:eq:dataacq1} which includes the researched information:
+In practice, since the linear model is expected to be biased, the way to reduce the bias is to localize the learning, even if it is not optimal with respect to the \emph{a posteriori} variance of the estimation of the fragility curve. In our work, the locality of interest corresponds to the values of IMs for which the fragility curve evolves ``significantly" from 0 to 1. For this reason, we propose a refinement of the data acquisition strategy of \cref{lowdoe:eq:dataacq1} which includes the researched information (failure or non-failure for a given $a_{k+1}$):
     \begin{equation}\label{lowdoe:eq:ALs}
         \EE_{ s_{k+1}|a_{k+1},\mbf y,\mbf a}[D(\PP_{\theta|\mbf y,\mbf a} || \PP_{\theta|s_{k+1},a_{k+1},\mbf y,\mbf a} )],
     \end{equation}
@@ -220,7 +220,7 @@ In the following example, a regular subdivision of $\cA=[0,A_{\rm max}]$ is sugg
 
 
 {
-The calculation of this index necessitates several initial observations. Actually, the derivations of both the likelihood and the posterior, as outlined in \cref{lowdoe:sec:likelihood,lowdoe:sec:priorposterior}, require that $k > 2$ and $a_1 \ne a_2$ (refer to \cref{lowdoe:app:sec:DiagUa}). In our experiments, we randomly select $k_0 = 3$ initial seismic signals with distinct IMs from their original distribution. The planning of experiment strategy is then sequentially implemented to select subsequent IM values by maximizing the numerical approximation of the index expressed in \cref{lowdoe:eq:ALs}. The optimization in one dimension is carried out using the BFGS algorithm.
+The calculation of this index necessitates several initial observations. Actually, the derivations of both the likelihood and the posterior, as outlined in \cref{lowdoe:sec:likelihood,lowdoe:sec:priorposterior}, require that $k > 2$ and $a_1 \ne a_2$ (refer to \cref{lowdoe:app:sec:DiagUa}). In our experiments, we randomly select $k_0 = 3$ initial seismic signals with distinct IMs from their original distribution. The planning of experiments strategy is then sequentially implemented to select subsequent IM values by maximizing the numerical approximation of the index expressed in \cref{lowdoe:eq:ALs}. The optimization in one dimension is carried out using the BFGS algorithm.
 }
 
 
@@ -289,7 +289,7 @@ Also, we take into account the reference fragility curve $a\mapsto P_f^{\mathrm{
             %    \cT^{|\mbf a,\mbf y} = \frac{1}{A_{\max}}\int_0^{A_{\max}}\indic_{P_f^{\mathrm{ref}}(a)\in \left[q_{1-{r/2}}^{|\mbf a,\mbf y}(a), q_{{r/2}}^{|\mbf a,\mbf y}(a) \right] } da.
             %\end{equation}
     \end{itemize}
-For the forthcoming implementation of these metrics, numerous \emph{a posteriori} samples of the process $P_f^{|\mbf a,\mbf y}$ are generated from their known distribution (see \cref{lowdoe:eq:posterior}) and serve the computation of the medians, quantiles and means through Monte-Carlo derivation. The integrals are approximated numerically from Simpsons' interpolation
+For the forthcoming implementation of these metrics, numerous \emph{a posteriori} samples of the process $P_f^{|\mbf a,\mbf y}$ are generated from their known distribution (see \cref{lowdoe:eq:posterior}) and serve the computation of the medians, quantiles and means through Monte-Carlo derivations. The integrals are approximated numerically from Simpsons' interpolation
 {on sub-intervals of regular size  $0=A_0<\dots<A_p=A_{\rm max}$. In our computations, we use  $A_{\rm max}=55\,\mathrm{m/s^2}$, and $p=200$.}
 
 
@@ -309,7 +309,9 @@ When samples are randomly drawn from the original IM distribution {or from a uni
 These observations are confirmed on a larger scale by the results presented in \cref{lowdoe:fig:errors,lowdoe:fig:credibility}. 
 These are issued from computations of the metrics $\cB^{|\mbf a,\mbf y}$, $\cE^{|\mbf a,\mbf y}$, $\cW^{|\mbf a,\mbf y}$ and $\cP^{|\mbf a,\mbf y}$ described in \cref{lowdoe:sec:benchamrk}, for various observation sets $(\mbf a,\mbf y)$. They compare the performances of our PE methodology with the two methods that are based on independently drawn observations: the one that involves  IM samples drawn from their standard distribution, and the one that involves IM samples drawn from a uniform distribution over the range $[0,A_{\rm max}]$.
 
-\Cref{lowdoe:fig:errors} shows empirical comparisons of the bias and of the quadratic error between the method involving a design of experiments and without. These two results clearly illustrate that the PE approach outperforms the standard {and the uniform} approaches. Although the quadratic error is strongly related to the variance of the estimates it is significantly offset by the fact that the bias is smaller with the PE approach. Indeed, \cref{lowdoe:fig:credibility}-left illustrates that the $95\%$-square credibility width is smaller with the standard {and uniform} approaches than with the PE-based approach. This good result nevertheless masks a lack of robustness of the standard {or uniform}  approaches since the estimate turns out to be strongly biased, as shown in \cref{lowdoe:fig:credibility}-right. This figure shows indeed the coverage probability for the both methods, as a function of the dataset size. It measures the average inclusion of the reference fragility curves to the \emph{a posteriori} credibility intervals.
+\Cref{lowdoe:fig:errors} shows empirical comparisons of the bias and of the quadratic error between the method involving a design of experiments and without. These two results clearly illustrate that the PE approach outperforms the standard {and the uniform} approaches. Although the quadratic error is strongly related to the variance of the estimates it is significantly offset by the fact that the bias is smaller with the PE approach. Indeed, \cref{lowdoe:fig:credibility}-left illustrates that the $95\%$-square credibility width is smaller with the standard {and uniform} approaches than with the PE-based approach. This good result nevertheless masks a lack of robustness of the standard {or uniform}  approaches since the estimate turns out to be strongly biased, as shown in \cref{lowdoe:fig:credibility}-right. This figure shows indeed the coverage probability for the both methods, as a function of the dataset size. %It measures the average inclusion of the reference fragility curves to the \emph{a posteriori} credibility intervals.
+It measures the average inclusion of reference fragility curves in posterior credibility intervals
+
 
 %Secondly, that last point is emphasized by what is shown in  Indeed, the standard method is there exposed to provide credibility intervals that get strongly thinner than the ones benefiting from P.E. 
 %Yet, \cref{lowdoe:fig:credibility}-right unveils their lack of robustness under the first method. That last figure plots the coverage probability of both methods as a function of the dataset size. It measures the average belonging of the reference within the \emph{a posteriori} credibility intervals. The P.E. handles to avoid the trap of the model bias within the reliable credibility intervals it issues.
