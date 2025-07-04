@@ -73,7 +73,7 @@
 % %Ici, nous conduisons l'analyse a posteriori, au regard des résultats ui font suite au deux parties qui précèdent.
 
 
-% % Pour la construction de l'a priori à ce contenu, nous avons conduit au chapitre 1 une analyse de la problématique, et une reflexion sur les approches qu'elle semblait inviter à mener.
+% % Pour la construction de l'a priori à ce contenu, nous avons conduit au chapitre 1 une analyse de la problématique, et une  sur les approches qu'elle semblait inviter à mener.
 % % De cette sorte, on rappelle que cette analyse donnait lieu à l'expression de 6 questions ouverts, que nous récapitulons ci-dessous.
 
 
@@ -108,18 +108,19 @@ motivations and preliminary considerations that were outlined in \cref{chap:intr
 To structure this investigation, we recall that we identified six guiding questions that shaped the architecture of the thesis. These are recapitulated below:\\[-5pt]
 
 
-\ques{i}{: How can one define and support the objectivity of a prior?}
+
+\ques{i}{How can one define and support the objectivity of a prior?}
 
 
-\ques{ii}{: What are the limits of the implementation of such non-informative priors, and how to reconcile their use with practical needs?}
+\ques{ii}{What are the limitations of implementing such non-informative priors, and how can their use be reconciled  with practical needs?}
 
-\ques{iii}{: How to build and derive such priors in practice?}
+\ques{iii}{How can such priors be constructed and derived in practice?}
 
-\ques{iv}{: in the context of SPRA, what are the forms of these objective priors within a model for seismic fragility estimation}
+\ques{iv}{In the context of SPRA, what forms do these objective priors take within a seismic fragility curve model?}
 
-\ques{v}{: What are the consequences entailed by the lack of information in this model and how to solve them?}
+\ques{v}{What are the implications of information scarcity in such models, and how can they be addressed?}
 
-\ques{vi}{: How to finally leverage the most the different sources of information in the whole Bayesian workflow of the studied model?}
+\ques{vi}{How can the different sources of information be best integrated across the full Bayesian workflow of the model under study?}
 
 These six questions naturally span two domains that may appear distinct at first glance: the reference prior theory and the study of seismic fragility curves. Accordingly, the initial formulation of the research questions and the analysis of the core problem were complemented by an in-depth review of the state of the art in both fields.
 
@@ -280,19 +281,70 @@ the proposed methodology tackles many of the central issues identified throughou
 \section{General outlook}\label{sec:concl:general}
 
 
-Finalement, plus que contribuer d'une part la théorie des priors de référence et d'autre part à l'estimation de courbes de fragilité sismique, nous avons dans cette thèse mis en lumière le lien entre ces deux mondes. Au final, les recherches sur chacuns de ces deux axes ce sont alimantées l'un l'autre.
+% Finalement, plus que contribuer d'une part à la théorie des priors de référence et d'autre part à l'estimation de courbes de fragilité sismique, nous avons dans cette thèse mis en lumière le lien entre ces deux mondes. Au final, les recherches sur chacuns de ces deux axes ce sont alimentées l'une et l'autre.
+% Cette  est essentielle puisqu'elle démontre %à la fois l'intérêt d'avancer dans une voie  
+% un intérêt à la motivation technique pour une  théorique, ainsi qu'un intérêt à l'attrait abstrait pour la conduction d'une étude pratique.
+% % Les travaux ercutant dans leur individualité sont loins d'être isolé et s'inscrivent dans un tout motivé, réel et startégique
+% % En ce sens,
 
 
-Cette reflexion est essentielle puisqu'elle démontre à la fois l'intérêt d'avancer dans une voie  % Les travaux ercutant dans leur individualité sont loins d'être isolé et s'inscrivent dans un tout motivé, réel et startégique
+% Dans notre cas, l'application des priors de références à l'estimation de courbes de fragilité sismiques est un problème qui n'a pas d'antécédent dans la litérature. Il en est de même du problème du développement de la théorie des priors de référence motivé par les modèles de courbes de fragilité. 
+% Il s'agit des deux problèmes qui caractérisent les liens entre les chapitres de cette thèse, et qui ont été traités en parallèles.
+% %
+% Explicitement, 
+% l'étude de l'application des priors de référence au cadre des courbes de fragilité a commencé avec le calcul du prior de Jeffreys pour le modèle probit-lognormal, tel que développé au chapitre 8. En effet, le prior de Jeffreys était déjà admis dans la littérature comme la solution au problème définissant les priors de référence en général. 
+% Avec l'idée de s'assurer de l'objectivité de ce prior au delà du cadre historique de la théorie, nous avons motivé l'étude de la généralisation de ce dernier, ce qui nous a mené au travail développé au chapitre 4.
+% Aussi, les calculs conduit au chapitre 8 pour l'application du prior de Jeffreys au modèle probit-lognormal ont mis en evidence certaines de ses limitations qui limitait alors son usage. Ces limitations, qui relèvent de la propreté a posteriori et de la complexité numérique, ont motivé le questionnement de la théorie sur des méthodes qui éviteraient aux priors de référence de tomber dans ces travers. C'est ainsi que les travaux du chapitre 7, qui sont directement appliqués au chapitre 9, sont nés et solutionnent pleinement ces limitations.
+% Le chapitre 10 représente une combinaison alors ``ultime'' de ces éléments, combinés aussi à l'optimization de l'information issue des données en plus de celle a priori, donnant lieu à une estimation très bonne des courbes de fragilité sous le modèle probit-lognormal.
+% Enfin, le chapitre 6 présente un attribut plus ouvert, en proposant une méthode d'approximation du prior qui se veut plus efficace encore mais qui reste imparfaite en terme de fiabilité. C'est pourquoi au delà démonstration de ses capacités faite au chapitre 9, elle n'a pas été employée pour l'étude ``finale'' menée au chapitre 10.
+
+
+% \section{t}
+
+
+% Finally, t
+This thesis contributes not only to the theory of reference priors on one hand, and to the estimation of seismic fragility curves on the other, but more importantly, it highlights the connection between these two domains. The research carried out along each axis has fed into and enriched the other. This reflection is essential, as it underscores the value of technical motivations in guiding theoretical development, and conversely, the practical relevance of abstract considerations. % for conducting practictheoretical insights.
+
+In our case, the application of reference priors to the estimation of seismic fragility curves is a problem with no precedent in the existing literature. Similarly, the development of reference prior theory driven by the specific context of fragility curve models is equally novel. These two parallel problems define the core linkages between the chapters of this thesis, and have been addressed in tandem throughout the work.
+
+Specifically, the study of reference prior application began with the derivation of the Jeffreys prior for the probit-lognormal model, as presented in \cref{chap:prem}. Indeed, Jeffreys prior was already recognized in the literature as the solution to reference prior problem under general settings. With the idea to support even more
+%  Seeking to ensure the 
+ objectivity of this prior beyond the historical framework of the theory, we led ourselves to revisit and generalize the foundational reference prior problem. This motivated the work carried out in \cref{chap:ref-generalized}, which validates the use of Jeffreys prior for conducting an objective Bayesian study. %objective aspect of .  %Since we found out that the Jeffreys prior is robust 
+
+Furthermore, the derivations performed in \cref{chap:prem} revealed the limitations of Jeffreys prior when applied to the probit-lognormal model. These limitations being related to posterior improper aspect and computational complexity. 
+These issues prompted a theoretical inquiry into how the reference prior framework might be adapted to avoid such drawbacks. This led to the development of the methods introduced in \cref{chap:constrained-prior}, which were directly applied in \cref{chap:constrained-frags} to address and resolve those limitations.
+
+
+\Cref{chap:varp} offers a more open-ended contribution by proposing an approximation method for reference priors aimed at improving computational efficiency. While this method shows promise, it remains imperfect in terms of reliability. Therefore, although its potential was demonstrated in \cref{chap:constrained-frags}, it was not used in the ``final'' practical study conducted in \cref{chap:doe}.
+
+
+Finally, \cref{chap:doe} represents a sort of ``ultimate'' synthesis, combining all these elements, and including the optimization of data-based information in addition to prior information. This work resulted in a highly effective estimation methodology for fragility curves under the probit-lognormal model.
 
 
 
-Ici, les problèmes observés lors de
+% In summary, the interplay between theoretical development and practical application has been a driving force throughout this thesis, reinforcing the depth and relevance of the contributions made in both fields.
 
 
-En vue d'un estimation objective des courbes de fragilité sismiques, le travail prime alors comme un tout.
-Et nous dirions que nous avons proposé un cadre général pour à la fois construire des priors objectifs, à la fois les rendre 
-Le tout
+
+
+
+
+% Ce sont ainsi deux problèmes qui ressortent des travaux mené dans cette thèse et 
+
+
+% Pour y parv
+
+
+% était un problème
+
+
+
+% Ici, les problèmes observés lors de
+
+
+% En vue d'un estimation objective des courbes de fragilité sismiques, le travail prime alors comme un tout.
+% Et nous dirions que nous avons proposé un cadre général pour à la fois construire des priors objectifs, à la fois les rendre 
+% Le tout
 
 
 
@@ -302,24 +354,169 @@ Le tout
 
 \section{Perspectives and connections with other fields}\label{sec:concl:perspectives}
 
-De nombreuses perspectives se voient ouvertes pas les travaux menés dans cette thèese et les résultats obtenus.
-
-D'une part sur l'approfondisssmeent théorique des priors de réféerences en analyse Bayésienne objective. 
-Nous dirions que son cadre saurait encore être enrichi
+% De nombreuses perspectives se voient ouvertes pas les travaux menés dans cette thèse et les résultats obtenus.
+% % On rappelle 
 
 
+% \paragraph{Sur le dévelopement de la théorie des priors de référence}
+% D'une part il est possible d'approfondir la théorie des priors de références en analyse Bayésienne objective. 
+% % Nous dirions que son cadre saurait encore être enrichi. notamment, on pourrait chercher à résoudre le problème définissant le prior de référence lorsuqe la mesure de dissimilarité qui déféinit l'information mutuelle ne se limite pas à des $f$-divergences. Aussi, bien que le cadre bayésien en lui même a étét quelque peu requestionné dans la partie I de cette thèse, quelques limites restent
+% Les priors de référence ne sont en général pas uniques, qui plus est lorsque ceux-ci peuvent être définit conditionellement à des contraintes comme nous le proposons dans la partie I de ce manuscrit.
+% %Nous avancerions que sa principale limite est qu'elle manque d'outil permettant la comparaison et l'évaluation de différents priors
+% Alors, la théorie reste limitée par son manque d'outil permettant la comparaison et l'évaluation de différents priors.
+% %
+% On se demande plus précisement si (i) est-it possible de définir une mesure comparant la nature objective de priors au sens de la théorie des priors de référence ? (ii) could such measure be extended to the common cases where the prior
+% --—and sometimes even the posterior—-- is improper? (iii)
+% Could we define ``the most'' appropriate way to
+% constrain a prior regarding specific practical needs?
 
-Aussi, notre intrinsection conduite entre priors de réfférence et courbes de fragilté dans des cas concrêt a démontré comment cette théorie et ses méthodes sait constituer un point d'enchrage à l'explicabilité d'estimation dans un modèle. 
+% An answer to the first question necessitates further developments of the mutual information
+% expression. It might be possible, for instance,
+% to push
+% further the current asymptotic form that it takes   to determine and
+%  recover a ``quantity of objectivity'' that it measures. %Additionally, leveraging the connection
+% % we unveiled in \cref{chap:ref-generalized} between this criterion and the field of Global Sensitivity Analysis (GSA), other
+% % extensions of the mutual information expression can be invented, such as by considering dis-
+% % similarity measures based on RKHS. This path would allow us to benefit from implementation
+% % techniques developed for GSA.
+
+% The second question could be approached with a further investigation of an appropriate framework that formalizes the use of improper priors in Bayesian modeling. 
+% This point was already questioned in the part I of this manuscript with a construction that is compatible with the one of \citet{bioche_approximation_2015}, for instance. Yet topological considerations and implications on the reference prior theory have been poorly addressed in this thesis.
+
+% %the topology that the author suggests makes the proper priors too ``close'' from the improper ones in our sense. As an example, it does 
+
+
+% % is not fully compatible with the reference prior theory tools.
+% The third question, finally, has a very open nature. It can be seen as an application of the eventual answers of the last two questions.
+
+%. An aim would be to enrich open paths of the literature
+% with the help of the developments of the two previous questions
 
 
 
-Enfin, concernant l'estimation de courbe de fragilité sismique, peu d'appronfissement du modèle probit-lognormal sont envisagé. Cependant, l'estimation selon d'autres cadres, d'autres datasets et/ou d'autres modèles reste ouverte et reste un cadre dans lequel une étude objective peut-être conduite. On peut citer...
+
+
+% \paragraph{Sur l'explicabilité des incertitutdes des modèles numériques}
+
+
+% Aussi, notre intrinsection conduite entre priors de référence et courbes de fragilté dans des cas concrêts a démontré comment cette théorie et ses méthodes sait constituer un point d'encrage à l'explicabilité d'estimations dans un modèle numérique. 
+
+
+% Indeed, ``black-box'’ models —--such as ML or numerical simulations
+% algorithms--— embed both uncertainty that comes from the data (aleatoric), and uncertainty that
+% comes from the model (epistemic), see \cite{hullermeier_aleatoric_2019}, or \cref{chap:intro-english}.
+% In the same way as for the probit-lognormal model of seismic fragility curves, the explainability of the `pipeline' necessitates quantifying those, and especially handling the second. 
+% Some works in the literature address the explainability of the uncertainties embedded in these models within a frequentist paradigm. We can cite \cite{il_idrissi_quantile-constrained_2024,wimmer_quantifying_2023}, which rely on sensitivity analysis tools to tackle the problem.
+
+% It is also possible to treat the problem under the Bayesian paradigm.
+% This may be done by defining an appropriate prior on the model or its parameters and measuring the sensitivity a posteriori of the quantities of interest to the model itself. 
+% This path would raise the following questions that would  leverage the definition of objective priors, as priors that are designed to let the data guide the posterior distribution:
+% (i) what would be the appropriate
+% prior to define in such context and how to approximate it efficiently? (ii) is the result sensitive in
+% the prior? (iii) how to define and derive the aforementioned a posteriori sensitivity?
+
+% Naturally,
+%   research on these questions would also
+% leverage works on the perspectives mentioned earlier on the development of the reference prior theory. % suggested  in sections 1 and
+% % 2 of this document, as it raises several fundamental questions: 
 
 
 
 
 
 
+
+
+% \paragraph{Sur l'estimation de courbes de fragilité sismique}
+
+% Enfin, concernant l'estimation de courbe de fragilité sismique, peu d'appronfissement du modèle probit-lognormal sont envisagé. Cependant, l'estimation selon d'autres cadres, d'autres datasets et/ou d'autres modèles reste ouverte et reste un cadre dans lequel une étude objective peut-être conduite. %Il semblerait que notre étude démontre l'aspect limitant de la considération de données seulement binaires de la réponse de la structure.
+% %Dans notre étude
+% Au sujet des dataset, une première voie ouverte est la considération d'IM multiples en entrée du modèle, donnant lieu à plus d'information sur le signal auquel la structure est soumise. Une seconde voie est la considération de sorties non binaires, telles que des EDPs lorsque'elles sont disponibles comme information sur la réponse de la strucutre.
+% Différents travaux ont déjà étudié ces perspectives, en usant de nombreux modèles. A notre conaissance, aucun n'abordent le sujet selon une approche d'allocation ``optimale'' de l'information en analyse bayésienne (i.e., en couplant planification d'expérience et prior spécifiquement construit).
+
+% Finalement, différents modèles apporteront chacun un niveau de fidélité différents au véritable comportement de la structure.
+% A ce titre nous mentionnons l'usage d'un modèle différent du modèle probit-lognormal en annexe B, considéré comme de plus basse fidélité. L'emploi de différentes analyses, de différentes fidélités a priori pourrait enrichir l'information donnant lieu à l'estimation finale de la courbe de fragilité.
+
+
+
+
+
+% % Dans le cadre de la considération de données seulement binaires de la réponses de la structure, il est envisageable d'acquérir de l'information supplémentaire en considérant 
+
+
+
+% % On peut citer...
+
+
+
+
+
+
+
+% \section{t}
+
+
+
+
+
+
+The work conducted in this thesis opens several avenues for future research and application. Three possible directions are proposed in what follows %These perspectives span three main directions: advancing the theory of reference priors, improving the explainability of numerical models, and enhancing the estimation of seismic fragility curves.
+
+
+
+\paragraph{Further development of the reference prior theory}
+
+First, it is possible to deepen the reference prior theory for objective Bayesian analysis. Reference priors are generally not unique, and this non-uniqueness becomes even more prominent when these priors are authorized to be defined conditionally on some constraints as proposed in the \cref{part:ref-theory} of this manuscript. In our opinion, the current theory remains limited by the lack of tools to compare and evaluate different priors systematically. This leads to several open questions:
+(i) Can we define a measure to compare the objectivity of priors in the context of reference prior theory? (ii)
+Could such a measure be extended to settings where the prior —--and possibly even the posterior—-- is improper? (iii) Can we define the ``most appropriate'' way to constrain a prior, tailored to specific practical needs?
+
+An answer to the first question necessitates further developments of the mutual information expression.
+It might be possible, for instance, to push further the current asymptotic form that it takes to determine and
+recover a ``quantity of objectivity'' that it measures.
+
+The second question calls for a robust theoretical framework to formalize the use of improper priors in Bayesian modeling. This issue was partially addressed in the \cref{part:ref-theory} of this manuscript with a construction that aligns with that of \citet{bioche_approximation_2015}, for instance. However, a deeper treatment of the topological implications and their effect on reference prior theory remains to be explored.
+
+The third question is broader in scope and can be seen as a natural application of answers to the first two. %It opens the door to a theory of constrained objective priors that remains flexible while retaining interpretability.
+
+
+
+\paragraph{Application to the explainability of uncertainty in numerical models}
+
+Second, our coupling of reference priors with the estimation of seismic fragility curves in real-world scenarios has shown how this theoretical framework can anchor the explainability of outputs from numerical models. Indeed, ``black-box'' models —--such as machine learning algorithms or numerical simulations—-- embed both aleatoric (data-related) and epistemic (model-related) uncertainties, as discussed in \cite{hullermeier_aleatoric_2019} and in Chapter 1.
+As in the case of the probit-lognormal model used for seismic fragility curves estimation, explaining the behavior of the ``pipeline'' requires quantifying those, and especially handling the second. %with particular attention to epistemic sources. 
+Some works in the literature address the explainability of the uncertainties embedded in these
+models within a frequentist paradigm. We can cite
+\cite{il_idrissi_quantile-constrained_2024,wimmer_quantifying_2023}, which rely on
+sensitivity analysis tools to tackle the problem.
+
+It is also possible to treat the problem under the Bayesian paradigm.
+This Bayesian path would involve defining appropriate priors over the model or its parameters and evaluating the posterior sensitivity of key quantities of interest to those prior assumptions. This path would raise the following questions that would leverage the definition
+of objective priors, as priors that are designed to let the data guide the posterior distribution:
+(i) What would
+be the appropriate prior to define in such context and how to approximate it efficiently? (ii) Would the result be 
+sensitive in the prior? (iii) How to define and derive the aforementioned \emph{a posteriori} sensitivity?
+
+Naturally, research on these questions would also benefit from works on the perspectives mentioned earlier
+on the development of the reference prior theory.
+
+
+
+\paragraph{Towards better estimations of seismic fragility curves}
+
+
+Regarding the estimation of seismic fragility curves, the probit-lognormal model has been the main focus of this thesis,
+% , and few refinements of the probit-lognormal model are envisaged.
+and its further refinement it not envisages.
+However, the estimation according to
+of other frameworks, datasets and/or models remains open and remains a framework in which an objective study can be conducted.
+% However, estimations under 
+% However, applying the methodology to different modeling frameworks, datasets, and structural behaviors remains a rich area for objective Bayesian analysis.
+
+First, one potential direction is to consider multiple IMs as inputs to the statistical model, allowing for a more comprehensive information on the seismic excitation on a structure. Second, instead of binary outcomes, continuous structural responses --—such as EDPs—-- could be incorporated when available, since they embed richer information describing the impact of the input onto the structure. These directions have been explored using various models in existing literature. However, to our knowledge, none of these studies adopt a Bayesian approach that ``optimally'' allocates the information within the workflow (e.g., through the combination of an experimental design with a specifically tailored prior).
+%both prior and data-driven information—i.e., one that couples **experimental design** with a **tailored reference prior**.
+
+Lastly, we conclude by observing that different models naturally offer different fidelity levels in approximating the real fragility of the studied structural. As an example, we mention that we discuss in \cref{app:chap:ESAIM} the use of 
+a lower-fidelity model compared to the probit-lognormal model for fragility curves estimation. Combining multi-fidelity analyses, each bringing complementary information, could enhance the robustness and informativeness of the final fragility curve estimation.
 
 
 
@@ -331,20 +528,29 @@ Enfin, concernant l'estimation de courbe de fragilité sismique, peu d'appronfis
 \section{Final words}\label{sec:concl:final}
 
 
-Nous n'avons pas dans cette thèse contruit le prior objecctif par essence, ni même estimé la corube de fragilité exacte de fait.
-Cependant, en s'adressant à la fois séparément mais aussi très poreuseent à ces deux questions nous nous sommes approché au plus près possible de ces deux idéaux.
-%Nous croyons que ce raprochement s'est fait en contribuant à la fois indépendament au domaine des courbes de fragilité 
-% Nous croyons que
-Nous concluons en appuyant que les méthodologies nouvelles apportées par cette thèse, ainsi que les résultats théoriques, formels, et expérimentaux qui les accompagnent démontre de leur capacité à intelligement balancer les raprochements aux deux idéaux de sorte à répondre pour le mieux à la problématique définie par le sujet de thèse.
-% Ceci étant d'autant plus appuyé par le fait qu'une part substantielle de ces résultats a été publiée après peer reviewing.
+% Nous n'avons pas dans cette thèse contruit le prior objecctif par essence, ni même estimé la courbe de fragilité la plus exacte des structures mécaniques étudiées.
+% Cependant, en s'adressant à la fois séparément mais aussi très poreuseent à ces deux questions nous nous sommes approché au plus près possible de ces deux idéaux.
+% %Nous croyons que ce raprochement s'est fait en contribuant à la fois indépendament au domaine des courbes de fragilité 
+% % Nous croyons que
+% Nous concluons en appuyant que les méthodologies nouvelles apportées par cette thèse, ainsi que les résultats théoriques, formels, et expérimentaux qui les accompagnent démontre de leur capacité à intelligement balancer les raprochements aux deux idéaux de sorte à répondre pour le mieux à la problématique définie par le sujet de thèse.
+% % Ceci étant d'autant plus appuyé par le fait qu'une part substantielle de ces résultats a été publiée après peer reviewing.
 
-% Nous insistons que tous nos résultats ont été longuement analysés et relus, et tous 
-%De cette manière, ces résultats, dont la portée dans leur domaine a déjà ou est en cours d'être jugée par le peer-reviewing, ont une portée qui va au delà.Chacun de ces résultats
-Pour chacun des résultats qui fait parti de ceux qui articulent cette conclusion, nous insistons sur la rigueur apporté à notre approche, de sorte à appuyer au mieux la percutance du travail à la problématique.
-Chacune des contributions individuelle a été soumise, et est dans certain cas déjà validées, à la communauté.
-Le sérieux de notre démarche et de ces derniers mots est ainsi supporté.
+% % Nous insistons que tous nos résultats ont été longuement analysés et relus, et tous 
+% %De cette manière, ces résultats, dont la portée dans leur domaine a déjà ou est en cours d'être jugée par le peer-reviewing, ont une portée qui va au delà.Chacun de ces résultats
+% Pour chacun des résultats qui fait parti de ceux qui articulent cette conclusion, nous insistons sur la rigueur apporté à notre approche, de sorte à appuyer au mieux la percutance du travail à la problématique générale.
+% Chacune des contributions individuelle a été soumise (et est dans certain cas déjà validées) à la communauté scientifique.
+% Le sérieux de notre démarche et de ces derniers mots est ainsi supporté.
 
 
+% \section{t}
+
+
+
+In this thesis, we did not construct the definitive objective prior, nor did we estimate the most exact fragility curve for the mechanical structures studied. However, by addressing both of these questions individually and in close interaction, we have moved as close as possible to these two ideals.
+
+We conclude by emphasizing that the new methodologies introduced in this work, along with their accompanying theoretical, formal, and experimental results, demonstrate a thoughtful balance between these two objectives. This balance has been key in providing the most effective response to answer the problem defined by this thesis.
+
+For each result that forms the foundation of this conclusion, we insist that we have maintained a high level of rigor in our approach, in order to support the impact of the work to the problem context. Each individual contribution has been submitted (and in some cases already published) within the scientific community. These final words are thus backed by the seriousness and integrity with which this research has been conducted.
 
 
 
@@ -357,5 +563,5 @@ Le sérieux de notre démarche et de ces derniers mots est ainsi supporté.
 
 % \adjusmptc
 
-\newpage
+\newpage\thispagestyle{plain}
 
