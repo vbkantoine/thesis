@@ -681,11 +681,29 @@ Additionally, because the reference priors of interest are often improper and of
 Numerical experiments have been carried out on two test cases of different complexities in order to validate our approach.
 %These test cases range from purely toy models to more real-world problems, namely the estimation of seismic fragility curve parameters using a probit statistical model. 
 The results demonstrate the usefulness of our approach in estimating both prior and posterior distributions across the considered problems. %\textcolor{Green}{, including problems where the theoretical expression of the target prior is cumbersome to compute.}
-This study thus provides a flexible and robust solution for approximating the theoretical solutions that were proposed in this \cref{part:ref-theory} of the manuscript.
+This study thus provides a flexible  solution for approximating the theoretical solutions that were proposed in this \cref{part:ref-theory} of the manuscript.
 We argue that the implementation can be adapted to a wide range of statistical models, including the ones where the target prior is not known explicitly.
 In \cref{part:spra}, an example of such statistical model will be studied.
 
-\textcolor{orange}{Challenges remain...}
+% We acknowledge that some challenges remain and could be the focus of potential future works.
+% First, 
+
+To go further, future work could address the implementation of the method using deeper neural networks, %Complexing in this such the architecture would 
+allowing the VA-RP to cover a wider set of priors. However, we have observed that more complex neural network architectures
+tend to cause a  significant rise of the
+computational cost, complicating the training process.
+The same applies when augmenting of the dimension of the parameter $\theta$.
+
+
+
+% Some challenging 
+
+We conclude that, beyond these challenges, this works proposes an approach that becomes especially relevant in cases where the target reference prior ---or constrained reference prior--- has a theoretical expression that is too complicated or too costly to derive.
+
+
+
+
+% \textcolor{orange}{Challenges remain...}
 \newpage
 
 %Looking forward, the approximation of the tails of the reference priors could be improved. That is a complex problem in the field of variational approximation, as well as the stability of the algorithm when using deeper networks\textcolor{Green}{, or different architectures}. An extension of this work to the approximation of Maximal Data Information (MDI) priors is also appealing, thanks to the fact MDI are proper under certain assumptions precised in \cite{Bousquet2008}.   
