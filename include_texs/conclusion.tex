@@ -12,8 +12,8 @@
 %\decrementmtc
 
 
-\begin{abstract}[Foreword]
-    In this part, we provide a general conclusion to this thesis and this manuscript. Following the structure below, we express the conclusive thoughts that terminate this work.
+\begin{abstract}[\hspace*{-10pt}]
+    In this part, we provide a general conclusion to this thesis. Following the structure below, we express the conclusive thoughts that terminate this manuscript.
 \end{abstract}
 
 
@@ -120,7 +120,7 @@ To structure this investigation, we recall that we identified six guiding questi
 
 \ques{v}{What are the implications of information scarcity in such models, and how can they be addressed?}
 
-\ques{vi}{How can the different sources of information be best integrated across the full Bayesian workflow of the model under study?}
+\ques{vi}{How can the different sources of information (\emph{a priori} information and data-based information) be best integrated across the full Bayesian workflow of the model under study?}\\[1pt]
 
 These six questions naturally span two domains that may appear distinct at first glance: the reference prior theory and the study of seismic fragility curves. Accordingly, the initial formulation of the research questions and the analysis of the core problem were complemented by an in-depth review of the state of the art in both fields.
 
@@ -172,17 +172,30 @@ These works are various and given the wide range of issues they engage with, sev
 Objectivism in the Bayesian workflow refers to the quest for an elusive ideal. % within the Bayesian workflow. 
 In general, the literature agrees that objectivity is best approached when data and the information they provide are prioritized over any subjective incorporation. It is difficult to assert definitively whether reference priors are truly objective priors; nevertheless, their construction is explicitly designed to minimize the influence of subjective thoughts.
 
-Thus, one can view an objective prior as an ideal, and the framework of reference priors offers a clue on a quantification about how closely a given prior approaches that ideal. In \cref{chap:ref-generalized}, we sought to extend the scope of this measure by proposing a generalization of its fundamental definition. %the foundational problem that defines reference priors. 
-Our results demonstrated that the solution to this generalized problem remains robust. In most cases, under minimal assumptions, the reference prior remains equivalent to Jeffreys prior. This investigation provided our answer to \textbf{question i}.
+Thus, one can view an objective prior as an ideal, and the framework of reference priors offers
+a clue to quantify how close a given prior comes to that ideal, by means of the mutual information defined between the prior and the posterior
+%a clue on a quantification about how closely a given prior approaches that ideal. 
+In \cref{chap:ref-generalized}, we extended the scope of this measure by proposing a generalization of its fundamental definition. %the foundational problem that defines reference priors. 
+Our results demonstrated that the solution to this generalized problem remains robust. In most cases, under minimal assumptions, the reference prior remains the Jeffreys prior. 
+In other words, this result strengthens the objectivity of  the Jeffreys prior since it is the solution of the reference prior problem for a wider class of dissimilarity measures that define the mutual information. %namely the delta-divergence.
+This investigation provided our answer to \textbf{question i}.
 
 Actually, to address the many known limitations of Jeffreys prior, it is necessary to question the amount of objectivity that is truly expected for the problem of interest. %revisit the notion of objectivity itself. 
-In practice, it is often found that the ``most objective'' priors are not always the most desirable. They may be too complex, impractical to implement, or insufficiently informative leading, for example, to improper posteriors. When these issues become limiting, objectivism must be revisited and conditioned by the practical goals of the analysis. This is the conclusion we arrived at in \cref{chap:constrained-prior}, which responds to \textbf{question ii}.
+In practice, it is often found that the ``most objective'' priors are not always the most desirable. They may be too complex, impractical to implement, or insufficiently informative leading, for example, to improper posteriors. 
+When these issues become limiting, objectivism must be revisited and adapted to address them. This is not about abandoning the objectivity of the approach. It is about attempting to provide a practical solution that ``minimizes'' the loss of objectivity.
+%
+%When these issues become limiting, objectivism must be revisited and conditioned by the practical goals of the analysis. 
+%
+This is the conclusion we arrived at in \cref{chap:constrained-prior}, which responds to \textbf{question ii}.
 In that chapter, we propose incorporating constraints into the reference prior framework. These constraints are carefully designed to preserve objectivity as much as possible, while improving practical usability. They represent novel theoretical contributions that enrich the definition of priors built upon the foundation of reference priors, but tailored for real-world applicability.
 
 Finally, in response to \textbf{question iii}, we address the challenge of computational cost associated with reference prior implementation. In this contribution, developed in \cref{chap:varp}, we propose a method for approximating reference priors. As for the preceding chapter, this method introduces a new cost to the objectivity, namely (i) it imposes the implicit parameterization of the prior through a neural network, and (ii) it does not guarantee that this parameterization will perfectly approximate the optimal (i.e., ``most objective'') prior. %—it offers a promising practical advancement.
 This approach, novel in both form and scope, represents a significant step toward enabling objective (or near-objective) Bayesian inference in practice. It also serves as the last link that connects the answers to the preceding questions within a tractable framework.
 
-We therefore conclude that objectivity and usability are often in tension: quest for objectivity comes at a cost to practical application, and vice versa. However, we emphasize the capacity of the work presented in the \cref{part:ref-theory} of this manuscript to reconcile these two ideals as much as possible —--generally by aiming for minimal practicality with the least possible sacrifice of objectivity.
+We therefore conclude that objectivity and usability are often in tension: quest for objectivity comes at a cost to practical application, and vice versa. However, we emphasize the capacity of the work presented in the \cref{part:ref-theory} of this manuscript to reconcile these two ideals as much as possible —--generally by %aiming 
+aiming to achieve the maximum possible practicality 
+%for minimal practicality 
+with the least possible sacrifice of objectivity.
 
 
 
@@ -236,20 +249,34 @@ We therefore conclude that objectivity and usability are often in tension: quest
 % \section{3 2}
 
 
-The estimation of seismic fragility curves is a widely studied topic due to its concrete and impactful applications, making it both relevant and critically important. In this thesis, we focused on the well-established probit-lognormal model, commonly used when observed data about structural responses are binary. The study of this model %is a problem that is sufficiently rich for the conduction of wor
-is a sufficiently rich topic to lead to significant contributions to our problem
+The estimation of seismic fragility curves is a widely studied topic due to its concrete and impactful applications, making it both relevant and of crucial importance.
+% critically important. 
+In this thesis, we focused on the well-established probit-lognormal model, commonly used when observed data about structural responses are binary. The study of this model %is a problem that is sufficiently rich for the conduction of wor
+is a sufficiently rich topic to lead to significant contributions to our problem.
 
 % to serve as a meaningful case study, and our investigations within its scope have led to significant contributions.
 
-First, the construction of comprehensively tailored priors for Bayesian estimation under this model had remained largely unexplored. We chose to address this gap through the scope of reference prior theory. Specifically, we derived, computed, and thoroughly analyzed the Jeffreys prior for the probit-lognormal model. This work, developed in \cref{chap:prem} does not only answer \textbf{quesion iv}, but it also demonstrated that this prior performs significantly better in terms of both efficiency and accuracy compared to two serious competing approaches from the literature.
+First, the construction of objective priors tailored
+% comprehensively tailored priors 
+for Bayesian estimation under this model had remained largely unexplored. We chose to address this gap through the scope of reference prior theory. Specifically, we derived, computed, and thoroughly analyzed the Jeffreys prior for the probit-lognormal model. This work, developed in \cref{chap:prem} does not only answer \textbf{quesion iv}, but it also demonstrated that this prior performs significantly better in terms of both efficiency and accuracy compared to two serious competing approaches from the literature.
 
-In parallel, we conducted a detailed study of the likelihood function of the model. Notably, the asymptotic behavior of this likelihood had not been analyzed in this form before. This analysis led us to identify and formalize the phenomenon of degeneracy, a critical issue that arises when the data provide insufficient information to inform the model. 
+In parallel, we conducted a detailed study of the likelihood function of the model. Notably, the asymptotic behavior of this likelihood had not been analyzed in this form before. This analysis led us to identify and formalize the phenomenon of degeneracy, a critical issue that arises when the data provide insufficient information to  the model. 
 Degeneracy is frequently observed in estimates from many methods and
 undermines the reliability of objective priors, among others. In response, we proposed a new construction of the prior, still supported by reference prior theory, and based on some of the theoretical contributions made in the \cref{part:ref-theory} of this manuscript. The limitation introduced by degeneracy is directly related to the concerns raised in \textbf{question ii}. The application of this new methodology to the probit-lognormal model is developed in \cref{chap:constrained-frags}, thereby providing a concrete response to \textbf{question v}.
 
-Finally, we concluded our study by aiming to optimally integrate all sources of information available for estimating fragility curves within the probit-lognormal framework. This way, in \cref{chap:doe}, we augmented prior information with an optimization of data-based information through a formal experimental design strategy. This methodology can be seen as a kind of “ultimate” approach to fragility curve estimation. Moreover, since it is used alongside a reference prior, it guarantees a level of auditability that is valued in the SPRA. This work provides an answer that extends beyond \textbf{question vi}. % not only addresses **Question vi**, but extends beyond it.
+Finally, we concluded our study by aiming to optimally integrate all sources of information available (a priori information and data-based information)
+ for estimating fragility curves within the probit-lognormal framework. This way, in \cref{chap:doe}, we augmented prior information with an optimization of data-based information through a formal experimental design strategy. This methodology can be seen as a kind of ``ultimate'' approach to fragility curve estimation. 
+ Moreover, when used in conjunction with reference prior theory, it provides a valuable level of auditability in SPRA analyses.
+ %
+ %Moreover, since it is used alongside a reference prior, it guarantees a level of auditability that is valued in the SPRA. 
+ This work provides an answer that extends beyond \textbf{question vi}. % not only addresses **Question vi**, but extends beyond it.
 Indeed,
-the proposed methodology tackles many of the central issues identified throughout this research: (i) degeneracy and the resulting unreliable estimates are quickly resolved; (ii) robustness is achieved early in the inference process; (iii) the prior information becomes negligible in front of  the data-based one; and (iv) the bias inherent to the probit-lognormal model is characterized and rapidly quantified. We believe this method offers the most effective approach to fragility curve estimation under conditions of limited data when using this model. Furthermore, we provide a practical threshold beyond which it becomes advisable to consider an alternative model.
+the proposed methodology tackles many of the central issues identified throughout this research: (i) degeneracy and the resulting unreliable estimates are quickly mitigated; (ii) robustness is achieved early in the inference process; (iii) the prior information becomes negligible in front of  the data-based one; and (iv) the bias inherent to the probit-lognormal model is characterized and rapidly quantified. We believe this method offers the most effective approach to fragility curve estimation under conditions of limited data when using this model. Furthermore, 
+we provide a practical criterion and a threshold on the data size from which it becomes judicious to consider an alternative (typically non-parametric) model to conduct the inference.
+
+%we provide
+%a practical threshold on the data size beyond which it becomes advisable to consider an alternative  model.
+%a practical threshold beyond which it becomes advisable to consider an alternative model.
 
 
 
@@ -305,14 +332,17 @@ the proposed methodology tackles many of the central issues identified throughou
 % Finally, t
 This thesis contributes not only to the theory of reference priors on one hand, and to the estimation of seismic fragility curves on the other, but more importantly, it highlights the connection between these two domains. The research carried out along each axis has fed into and enriched the other. This reflection is essential, as it underscores the value of technical motivations in guiding theoretical development, and conversely, the practical relevance of abstract considerations. % for conducting practictheoretical insights.
 
-In our case, the application of reference priors to the estimation of seismic fragility curves is a problem with no precedent in the existing literature. Similarly, the development of reference prior theory driven by the specific context of fragility curve models is equally novel. These two parallel problems define the core linkages between the chapters of this thesis, and have been addressed in tandem throughout the work.
+In our case, the application of reference priors to the estimation of seismic fragility curves is a problem with no precedent in the existing literature. Similarly, the development of reference prior theory driven by the specific context of fragility curve models is equally novel. These two parallel problems define the fundamental links  between the chapters of this thesis, and have been addressed in tandem throughout the work.
 
 Specifically, the study of reference prior application began with the derivation of the Jeffreys prior for the probit-lognormal model, as presented in \cref{chap:prem}. Indeed, Jeffreys prior was already recognized in the literature as the solution to reference prior problem under general settings. With the idea to support even more
 %  Seeking to ensure the 
  objectivity of this prior beyond the historical framework of the theory, we led ourselves to revisit and generalize the foundational reference prior problem. This motivated the work carried out in \cref{chap:ref-generalized}, which validates the use of Jeffreys prior for conducting an objective Bayesian study. %objective aspect of .  %Since we found out that the Jeffreys prior is robust 
 
-Furthermore, the derivations performed in \cref{chap:prem} revealed the limitations of Jeffreys prior when applied to the probit-lognormal model. These limitations being related to posterior improper aspect and computational complexity. 
-These issues prompted a theoretical inquiry into how the reference prior framework might be adapted to avoid such drawbacks. This led to the development of the methods introduced in \cref{chap:constrained-prior}, which were directly applied in \cref{chap:constrained-frags} to address and resolve those limitations.
+Furthermore, the derivations performed in \cref{chap:prem} revealed the limitations of Jeffreys prior when applied to the probit-lognormal model. 
+These limitations concern the computational complexity and, more importantly, the improper nature of the  posterior which can emerge when few data are available.
+%
+%These limitations being related to posterior improper aspect and computational complexity. 
+The latter prompted a theoretical inquiry into how the reference prior framework might be adapted to avoid such drawbacks. This led to the development of the methods introduced in \cref{chap:constrained-prior}, which were directly applied in \cref{chap:constrained-frags} to address and resolve those limitations.
 
 
 \Cref{chap:varp} offers a more open-ended contribution by proposing an approximation method for reference priors aimed at improving computational efficiency. While this method shows promise, it remains imperfect in terms of reliability. Therefore, although its potential was demonstrated in \cref{chap:constrained-frags}, it was not used in the ``final'' practical study conducted in \cref{chap:doe}.
@@ -460,7 +490,7 @@ Finally, \cref{chap:doe} represents a sort of ``ultimate'' synthesis, combining 
 
 
 
-The work conducted in this thesis opens several avenues for future research and application. Three possible directions are proposed in what follows %These perspectives span three main directions: advancing the theory of reference priors, improving the explainability of numerical models, and enhancing the estimation of seismic fragility curves.
+The work conducted in this thesis opens several ways for future research and application. Three possible directions are proposed in what follows. %These perspectives span three main directions: advancing the theory of reference priors, improving the explainability of numerical models, and enhancing the estimation of seismic fragility curves.
 
 
 
@@ -476,7 +506,9 @@ recover a ``quantity of objectivity'' that it measures.
 
 The second question calls for a robust theoretical framework to formalize the use of improper priors in Bayesian modeling. This issue was partially addressed in the \cref{part:ref-theory} of this manuscript with a construction that aligns with that of \citet{bioche_approximation_2015}, for instance. However, a deeper treatment of the topological implications and their effect on reference prior theory remains to be explored.
 
-The third question is broader in scope and can be seen as a natural application of answers to the first two. %It opens the door to a theory of constrained objective priors that remains flexible while retaining interpretability.
+The third question has a broader scope
+% is broader in scope 
+and can be seen as a natural application of answers to the first two. %It opens the door to a theory of constrained objective priors that remains flexible while retaining interpretability.
 
 
 
@@ -492,9 +524,14 @@ sensitivity analysis tools to tackle the problem.
 It is also possible to treat the problem under the Bayesian paradigm.
 This Bayesian path would involve defining appropriate priors over the model or its parameters and evaluating the posterior sensitivity of key quantities of interest to those prior assumptions. This path would raise the following questions that would leverage the definition
 of objective priors, as priors that are designed to let the data guide the posterior distribution:
-(i) What would
-be the appropriate prior to define in such context and how to approximate it efficiently? (ii) Would the result be 
-sensitive in the prior? (iii) How to define and derive the aforementioned \emph{a posteriori} sensitivity?
+(i) What would be the appropriate prior to use in such context
+%What would
+%be the appropriate prior to define in such context 
+and how to approximate it efficiently? (ii) 
+Would the result be sensitive to the prior?
+% Would the result be 
+% sensitive in the prior? 
+(iii) How to define and derive the aforementioned \emph{a posteriori} sensitivity?
 
 Naturally, research on these questions would also benefit from works on the perspectives mentioned earlier
 on the development of the reference prior theory.
@@ -506,16 +543,16 @@ on the development of the reference prior theory.
 
 Regarding the estimation of seismic fragility curves, the probit-lognormal model has been the main focus of this thesis,
 % , and few refinements of the probit-lognormal model are envisaged.
-and its further refinement it not envisages.
-However, the estimation according to
-of other frameworks, datasets and/or models remains open and remains a framework in which an objective study can be conducted.
+and its further refinement is not envisaged.
+However, their estimation using
+other frameworks, datasets and/or models remains open and remains a framework in which an objective study can be conducted.
 % However, estimations under 
 % However, applying the methodology to different modeling frameworks, datasets, and structural behaviors remains a rich area for objective Bayesian analysis.
 
 First, one potential direction is to consider multiple IMs as inputs to the statistical model, allowing for a more comprehensive information on the seismic excitation on a structure. Second, instead of binary outcomes, continuous structural responses --—such as EDPs—-- could be incorporated when available, since they embed richer information describing the impact of the input onto the structure. These directions have been explored using various models in existing literature. However, to our knowledge, none of these studies adopt a Bayesian approach that ``optimally'' allocates the information within the workflow (e.g., through the combination of an experimental design with a specifically tailored prior).
 %both prior and data-driven information—i.e., one that couples **experimental design** with a **tailored reference prior**.
 
-Lastly, we conclude by observing that different models naturally offer different fidelity levels in approximating the real fragility of the studied structural. As an example, we mention that we discuss in \cref{app:chap:ESAIM} the use of 
+Lastly, we conclude by observing that different models naturally offer different fidelity levels in approximating the real fragility of the studied structure. As an example, we mention that we discuss in \cref{app:chap:ESAIM} the use of 
 a lower-fidelity model compared to the probit-lognormal model for fragility curves estimation. Combining multi-fidelity analyses, each bringing complementary information, could enhance the robustness and informativeness of the final fragility curve estimation.
 
 
