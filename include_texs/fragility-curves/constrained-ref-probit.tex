@@ -124,16 +124,16 @@ Before to conclude, we propose some results in \cref{sec:constr-frags:app} to pr
 \section{Reminder of the probit-lognormal model and of the Bayesian framework}\label{sec:constr-frags:model}
 
 
-We remind that the probit-lognormal model was defined in   \cref{chap:frags-intro}. It consists in a statistical model where the data take the form of realizations of the random vector $Y=(Z,A)$, where $A\in\cA\subset(0,\infty)$ refers to the IM of the seismic signal, and $Z\in\{0,1\}$ refers to the outcome ($Z=1$ in case of a failure, $Z=0$ otherwise). The model consists in considering
+We remind that the probit-lognormal model was defined in   \cref{chap:frags-intro} (\cref{sec:intro-frags:models}). We recall that it consists in a statistical model where the data take the form of realizations of the random vector $Y=(Z,A)$, where $A\in\cA\subset(0,\infty)$ refers to the IM of the seismic signal, and $Z\in\{0,1\}$ refers to the outcome ($Z=1$ in case of a failure, $Z=0$ otherwise). The model consists in considering
 the following parameterized distribution of $Y$ conditionally to $\theta=(\alpha,\beta)\in\Theta$:
     \begin{equation}
         A\sim A|\theta\sim H,\quad\text{and}\quad Z|A,\theta\sim\cB(P_f(A)),
     \end{equation}
-where $H$ is the distribution of the IM, $\cB(p)$ denotes the Bernoulli distribution of parameter $p$, and $P_f$ refers to the probit-lognormal fragility curve:
+where $H$ is the distribution of the IM, its density is denoted $h$; $\cB(p)$ denotes the Bernoulli distribution of parameter $p$; and $P_f$ refers to the probit-lognormal fragility curve:
 \begin{equation}
     P_f(a) = \PP(Z=1|\text{IM}=a,\,\theta) = \Phi\left(\frac{\log a-\log\alpha}{\beta}\right),
 \end{equation}
-with $\Phi$ being the c.d.f. of a standard Gaussian distribution. This model is parameterized by the two parameters $\alpha\in(0,\infty)$ and $\beta\in(0,\infty)$, namely the median and the log standard deviation. 
+with $\Phi$ being the c.d.f. of a standard Gaussian distribution. This model is parameterized by the two parameters $\alpha\in(0,\infty)$ and $\beta\in(0,\infty)$. %, namely the median and the log standard deviation. 
 
 %The model admits the following likelihood:
 Given $k$ realizations $(\mbf z^k,\mbf a^k)$ of $Y$ ($\mbf z^k=(z_i)_{i=1}^k$ and $\mbf a^k=(a_i)_{i=1}^k$), the likelihood of this model is
@@ -178,10 +178,10 @@ where $\mbf N=(z_i\indic_{a_i<\alpha}+(1-z_i)\indic_{a_i>\alpha})_{i=1}^k$, $\lo
 % Several points must be considered 
 %
 These formulas indicate that the likelihood asymptotic behavior may drastically change given different data samples $(\mbf z^k,\mbf a^k)$.
-This remark leads to the definition of degeneracy of the likelihood, expressed below.
+This remark led to the definition of degeneracy of the likelihood, recalled below.
 
 
-\begin{defi}[Likelihood degeneracy]\label{def:constr-frag:degeneracy}
+\begin{defistarred}[Likelihood degeneracy; reminder of \cref{def:degeneracy}] %\label{def:constr-frag:degeneracy}
     %If the observed data $(\mbf z^k,\mbf a^k)$ are such that, either,
     If the observed samples $(\mbf z^k,\mbf a^k)$ belong to one of the following three types:
     \begin{itemize}
@@ -190,22 +190,22 @@ This remark leads to the definition of degeneracy of the likelihood, expressed b
         \item type 2 : only failures are observed: $z_i=1$ for any $i$;
         \item type 3 : the failures and non-failures are partitioned into two disjoint subsets when classified according to their IM values:
         %the failures and successes are discriminated according to their IM: 
-        there exists $a\in\cA$ such that for any $i,j$, $a_i<a<a_j\Longleftrightarrow z_i\ne z_j$ (see the illustration in \cref{fig:constr-frags:degenerate-frag});
+        there exists $a\in\cA$ such that for any $i,j$, $a_i<a<a_j\Longleftrightarrow z_i\ne z_j$; %(see the illustration in \cref{fig:constr-frags:degenerate-frag});
     \end{itemize}
     then the likelihood is degenerate.
-\end{defi}
+\end{defistarred}
 
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=4.6cm]{figures/PREM/likelihood_degen.pdf}\qquad
-    \includegraphics[width=4.44cm]{figures/PREM/degeneracy.pdf}
-    \caption{{Example of a type 3 data sample $(\mbf z^k,\mbf a^k)$ which gives a degenerate likelihood. Graphs of (left) the likelihood given the degenerate data sample as a function of the tuple $(\alpha,\beta)$ and (right) the fragility curve (blue curve) according to which the points (red crosses) are sampled : each red cross is a tuple $(z,a)$, where its X-axis equals $a$ and its Y-axis equals $z$.}
-    In both figures, $a_1$ is the maximal observed IM value among ``non-failures'', and $a_2$ is minimal one among ``failures''.
-    The interval $(a_1,a_2)$ (in cyan in the right figure) separates the failures and the non-failure observed.
-    }
-    \label{fig:constr-frags:degenerate-frag}
-\end{figure}
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=4.6cm]{figures/PREM/likelihood_degen.pdf}\qquad
+%     \includegraphics[width=4.44cm]{figures/PREM/degeneracy.pdf}
+%     \caption{{Example of a type 3 data sample $(\mbf z^k,\mbf a^k)$ which gives a degenerate likelihood. Graphs of (left) the likelihood given the degenerate data sample as a function of the tuple $(\alpha,\beta)$ and (right) the fragility curve (blue curve) according to which the points (red crosses) are sampled : each red cross is a tuple $(z,a)$, where its X-axis equals $a$ and its Y-axis equals $z$.}
+%     In both figures, $a_1$ is the maximal observed IM value among ``non-failures'', and $a_2$ is minimal one among ``failures''.
+%     The interval $(a_1,a_2)$ (in cyan in the right figure) separates the failures and the non-failure observed.
+%     }
+%     \label{fig:constr-frags:degenerate-frag}
+% \end{figure}
 
 
 
@@ -214,9 +214,12 @@ As a consequence, the posterior will be proper only if the prior is proper w.r.t
 Moreover, in case of degeneracy of type 1 or 2, the likelihood does not shrink at either $\alpha\to\infty$ or $\alpha\to0$. In such a scenario, it becomes also essential to consider a prior that is proper  w.r.t. $\alpha$.
 
 %Type 3
-In practice, cases of degeneracy of type 1 and type 2 capture little attention. 
-Indeed, it makes sense that when we work with binary data, an observation set containing only failure outcomes, or containing only non-failure outcomes does not allow estimating appropriately a fragility curve.
-However, cases of degeneracy of type 3 are critical since they are likely to appear, especially when (i) the data are scarce, and (ii) the IM is more correlated with the system's response (see   \cref{app:chap:uncecomp}).
+% In practice, cases of degeneracy of type 1 and type 2
+% are more likely to appear if the equipment's failure criterion is  
+% can appear if the structure failure criterion is 
+% capture less attention. 
+% Indeed, it makes sense that when we work with binary data, an observation set containing only failure outcomes, or containing only non-failure outcomes does not allow estimating appropriately a fragility curve.
+In practice, cases of degeneracy of type 3 are the most critical ones since they are more likely to appear, especially when (i) the data are scarce, and (ii) the IM is more correlated with the system's response (see   \cref{app:chap:uncecomp}).
 
 
 \section{Constrained reference prior for probit-lognormal fragility curves}\label{sec:constr-frags:constrained}
@@ -250,12 +253,12 @@ As expressed in the introduction, we aim at applying the work done in   \cref{ch
 \begin{equation}\label{eq:constr-frag:optimconstr}
     \varPi^\ast\in\argmax_{\varPi\in\cP;\,k\rightarrow\infty}\sI^k(\varPi),\quad\text{subject to\ }\cC(\varPi)<\infty,
 \end{equation}
-where $\cC(\varPi)= \int a(\theta)d\varPi(\theta)$ for some function $a(\cdot)$.
+where $\cC(\varPi)= \int a_c(\theta)d\varPi(\theta)$ for some function $a_c(\cdot)$.
 That function is sought to regularize the Jeffreys prior decay rates. If it verifies
     \begin{equation}\label{eq:constr-frag:inta}
-        \int_\Theta J(\theta)a(\theta)^{1+1/\delta}d\theta <\infty, \quad\text{and} \quad \int_\Theta J(\theta)a(\theta)^{1/\delta}<\infty 
+        \int_\Theta J(\theta)a_c(\theta)^{1+1/\delta}d\theta <\infty, \quad\text{and} \quad \int_\Theta J(\theta)a_c(\theta)^{1/\delta}<\infty 
     \end{equation}
-then the prior whose density is proportional to $\theta\mapsto J(\theta)\cdot a^{1/\delta}(\theta)$ is the solution of problem~\eqref{eq:constr-frag:optimconstr}, and is a proper prior.
+then the prior whose density is proportional to $\theta\mapsto J(\theta)\cdot a_c^{1/\delta}(\theta)$ is the solution of problem~\eqref{eq:constr-frag:optimconstr}, and is a proper prior.
 
 
 \subsection{Application to the probit-lognormal reference prior}\label{sec:constr-frags:subsec-constr-in-probit}
@@ -278,7 +281,7 @@ While we do not exactly know the shape of the prior on the whole domain, we assu
 
 
 It is thus possible to construct a constraint that will adjust the decay rate at $\beta\to0$ of the Jeffreys prior in order to make it integrable.
-We chose $a(\theta)=\theta^\kappa$, that satisfies \cref{eq:constr-frag:inta} for $\kappa\in(0,\frac{2\delta}{1+\delta})$. 
+We chose $a_c(\theta)=\theta^\kappa$, that satisfies \cref{eq:constr-frag:inta} for $\kappa\in(0,\frac{2\delta}{1+\delta})$. 
 The solution of the optimization problem~\eqref{eq:constr-frag:optimconstr} is then the prior whose density $\pi^\ast$ verifies $\pi^\ast(\theta)\propto J(\theta)\beta^{\kappa/\delta}$. In this work, we denote by $\varPi^\ast_\gamma$ this prior and by $\pi^\ast_\gamma$ its density, where $\gamma:=\kappa/\delta\in(0,\frac{2}{1+\delta})\subset(0,2)$:
     \begin{equation}
         \pi^\ast_\gamma(\theta) \propto J(\theta)\beta^\gamma.
@@ -652,60 +655,60 @@ in the unconstrained case, the VA-RP ascribes predominant weight to smaller valu
 
 
 
-\section{Application of the method on a case study}\label{sec:constr-frags:appasg}
+\section{Application of the method on the piping system case study}\label{sec:constr-frags:appasg}
 
 
 In this section, we propose to apply the VA-RP that we have constructed and optimized above
 % in what precedes 
 to an industrial problem.
-The industrial problem, described in the following subsection, consists in a piping system that was introduced in   \cref{chap:frags-intro} (\cref{sec:intro-frags:casstudies}). 
+The industrial problem,  consists in the piping system that was introduced in   \cref{chap:frags-intro} (\cref{sec:intro-frags:casstudies}). 
 This application serves as a proof of concept, we intend to show that the constrained VA-RP allows estimating efficiently and accurately seismic fragility curves in practice.
 
+We recall that a validation dataset made of $8\cdot 10^4$ samples is available for this case study and permit constructing a reference fragility curves $P_f^{\text{ref}}$ following the non-paramteric method described in \cref{chap:frags-intro} (\cref{sec:intro-frags:models}).
+In this study, we consider the PGA as IM.
+
+
+
+
+
+% \subsection{Case study description as a reminder}\label{sec:constr-frags:subsec:asgdesc}
+
+
+% The studied mechanical system consists in a piping system that comes from the secondary cooling circuit of a French pressurized water reactor.
+% The piping was presented in details in   \cref{chap:frags-intro} (\cref{sec:intro-frags:piping}) and is illustrated in \cref{fig:constr-frag:asg}.
+% The mock-up has submitted to artificial seismic signals on a shaking table that permits to validate a finite element model, which simulates the structure's response under seismic excitations.
+% A total of $8\cdot 10^4$ nonlinear dynamical simulations have been carried out given seismic signals that were taken from the dataset of $10^5$ signals that we dispose. These results serve as a validation dataset. 
+% The engineering demand parameter (EDP) for this structure corresponds to the out-of-plane rotation of its first elbow (see the details in   \cref{chap:frags-intro}), the results of the simulations are plotted in the plan (PGA,EDP) in \cref{fig:constr-frag:asg}-middle.
+% In \cref{fig:constr-frag:asg}-right, reference fragility curves given different rotation threshold are derived for this structure. They are computed using the non-paramteric method proposed by \citet{trevlopoulos_parametric_2019} and detailed in   \cref{chap:frags-intro} (\cref{sec:intro-frags:subsec-nonparametric}).
 
 
 
 
 
 
-
-\subsection{Case study description as a reminder}\label{sec:constr-frags:subsec:asgdesc}
-
-
-The studied mechanical system consists in a piping system that comes from the secondary cooling circuit of a French pressurized water reactor.
-The piping was presented in details in   \cref{chap:frags-intro} (\cref{sec:intro-frags:piping}) and is illustrated in \cref{fig:constr-frag:asg}.
-The mock-up has submitted to artificial seismic signals on a shaking table that permits to validate a finite element model, which simulates the structure's response under seismic excitations.
-A total of $8\cdot 10^4$ nonlinear dynamical simulations have been carried out given seismic signals that were taken from the dataset of $10^5$ signals that we dispose. These results serve as a validation dataset. 
-The engineering demand parameter (EDP) for this structure corresponds to the out-of-plane rotation of its first elbow (see the details in   \cref{chap:frags-intro}), the results of the simulations are plotted in the plan (PGA,EDP) in \cref{fig:constr-frag:asg}-middle.
-In \cref{fig:constr-frag:asg}-right, reference fragility curves given different rotation threshold are derived for this structure. They are computed using the non-paramteric method proposed by \citet{trevlopoulos_parametric_2019} and detailed in   \cref{chap:frags-intro} (\cref{sec:intro-frags:subsec-nonparametric}).
-
-
-
-
-
-
-\begin{figure}[h]
-    \centering
-    \parbox[b][3.8cm][c]{4.5cm}{%
-    \includegraphics[height=3.2cm]{figures/intro-frags/ASG.jpg}\vspace*{1em}%
-    }
-    \includegraphics[height=3.8cm]{figures/intro-frags/asg/cloud_PGA_light.pdf}\ \ 
-    \includegraphics[height=3.8cm]{figures/intro-frags/asg/refs_PGA.pdf}
-    \caption{Illustration of the case study. Left: picture of the mock-up on the Azalee shaking table of CEA. Middle: results of $8\cdot10^4$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $10^5$. Different threshold $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
-    \label{fig:constr-frag:asg}
-\end{figure}
+% \begin{figure}[h]
+%     \centering
+%     \parbox[b][3.8cm][c]{4.5cm}{%
+%     \includegraphics[height=3.2cm]{figures/intro-frags/ASG.jpg}\vspace*{1em}%
+%     }
+%     \includegraphics[height=3.8cm]{figures/intro-frags/asg/cloud_PGA_light.pdf}\ \ 
+%     \includegraphics[height=3.8cm]{figures/intro-frags/asg/refs_PGA.pdf}
+%     \caption{Illustration of the case study. Left: picture of the mock-up on the Azalee shaking table of CEA. Middle: results of $8\cdot10^4$ non-linear dynamical simulations. Right: reference non-parametric fragility curves (dashed lines) surrounded by their $95\%$-confidence intervals, compared with the probit-lognormal fragility curves derived by MLE from the validation dataset of size $10^5$. Different threshold $C$ are considered, each yields different proportions of failures in the validation dataset: resp. $95\%$ (red), $90\%$ (purple) and $85\%$ (blue).}
+%     \label{fig:constr-frag:asg}
+% \end{figure}
 
 
 
 \subsection{Benchmarking metrics}\label{sec:constr-frags:subsec:benchmarking}
 
 
-In this chapter, we evaluate our estimates by comparing them to a reference fragility curve $P^{\text{ref}}_f$. As explained in the previous subsection, the reference is computed using a non-paramteric method implemented from the available validation dataset of $8\cdot 10^4$ samples.
-
-In \cref{fig:constr-frag:asg},
-different fragility curves, derived considering different excessive rotation threshold for defining the equipment's failure are elucidated. 
-In this study, the failure of the system was defined when the EDP exceeded $C=3.8^\circ$.
+In this chapter, we evaluate our estimates by comparing them to the reference fragility curve $P^{\text{ref}}_f$ that is derived using a validation dataset. %As %explained in the previous subsection, the reference is computed using a non-paramteric method implemented from the available validation dataset of $8\cdot 10^4$ samples.
+We recall that the reference was compared in \cref{chap:frags-intro} to a probit-lognormal curve $P^{\text{MLE}}_f$ whose parameters are estimated by maximum likelihood estimation using the same validation dataset.
+%In \cref{fig:constr-frag:asg},
+% different fragility curves, derived considering different excessive rotation threshold for defining the equipment's failure are elucidated. 
+% In this study, the failure of the system was defined when the EDP exceeded $C=3.8^\circ$.
 %in Figure~  {fig:refs}.
-The reference $P^{\text{ref}}_f$ is compared to a probit-lognormal curve $P^{\text{MLE}}_f$ whose parameters are estimated by maximum likelihood estimation using the same validation dataset.
+% The reference $P^{\text{ref}}_f$ is compared to a probit-lognormal curve $P^{\text{MLE}}_f$ whose parameters are estimated by maximum likelihood estimation using the same validation dataset.
 %Each are compared with a probit-lognormal curve $P^{\text{MLE}}_f$, derived implementing a maximum likelihood estimate of the probit-lognormal fragility curve using the full batch of the $8\cdot 10^4$ results depicted in Figure~  {fig:cloud_data}. 
 That comparison demonstrates the adequacy of such modeling of the fragility curve. However, it also emphasizes an existing bias that the model has compared with the non-parametric estimate. In the following, we refer to this difference between $P_f^{\text{MLE}}$ and $P_f^{\text{ref}}$ as the square model bias, denoted by $\cM\cB$:
 \begin{equation}
@@ -994,15 +997,33 @@ In this work, we introduced a novel prior for conducting a Bayesian estimation o
 This prior results from the application of the development of the reference prior theory that we conducted in the \cref{part:ref-theory} of this manuscript.
 
 First, we defined an appropriate constraint that regularizes the Jeffreys prior decay rates, in order to make it proper. In this way, the prior is ensured to yield proper posteriors, even in cases where the likelihood is degenerate.
-Second, the prior was implemented using two approaches: one that is close to its theoretical expression, but that is computationally expensive to sample from; one that result from a variational approximation, which leads to a parameterized form of the prior that is more computationally efficient.
+
+Second, the prior was implemented using two approaches: one that is close to its theoretical expression, but that is computationally expensive to sample from; one that result from a variational approximation. %, which leads to a parameterized form of the prior that is more computationally efficient.
+The latter requires a complex training of a neural network, which, once accomplished, gives a parameterized form of the prior that can be sampled from more efficiently.
+This implementation should still be regarded as a proof of concept. 
+Indeed, the form of the VA-RP remains dependent of the chosen architecture. Also, while we proved that the chosen architecture  provided a satisfying approximation of the target prior in our modeling, the first approach (i.e., the numerical derivation of the prior density based on integral interpolations)  seemed to remain more reliable.
+
+%  prior
+%  approximates  is 
+
+%Indeed, in this modeling, the numerical derivation of the reference prior density can be implemented at a cost that remains reasonable. Since it is a more fidel expression of the 
+
+
+%  is a proof of concept
+
+
 Third, the two approaches were compared and applied on a real case study. 
 We believe that our results demonstrate that (i) the incorporated constraint provides an accurate and non-altered estimation of the fragility curves, and (ii) the VA-RP has been capable of accurately capturing the asymptotic behavior of the target prior, so that it provides competing estimates to the latter.
 
 % and efficient me
 
-Looking forward, %the VA-RP
+Looking forward, 
+complexing the VA-RP architecture should allow to include a wider range of priors among the reachable priors by the method, including more accurate approximations of the target. %in terms of closeness to the targe.
+However, such a prospect would increase the training cost of the neural network.
+%  approximate a wider range of priors, 
+%the VA-RP
 % the architecture 
-the impact that the chosen constraint has on the estimates requires further investigation. 
+Furthermore, The impact that the chosen constraint has on the estimates requires further investigation. 
 Such an investigation will be conducted in the following chapter, where the constrained reference prior that is suggested in this chapter will be implemented. %i%n 
 
 
