@@ -1,14 +1,14 @@
 
-
+%\vspace*{-4pt}
 
 \begin{abstract}[\hspace*{-10pt}]
     This chapter draws mainly on the published work: \fullcite{baillie_bayesian_2025}  % Ce chapitre reprend principalement les travaux publiés dans: 
-\end{abstract}
+\end{abstract}%\vspace*{-9pt}
 
 \begin{abstract}
 Estimating seismic fragility curves under conditions of limited data and binary structural responses remains a challenge that is commonly addressed using Bayesian inference to update a probit-lognormal modeling of fragility curves.
 % Building on the reference prior theory to ensure 
-Since the prior selection remains a critical step in such a context, we aim at constructing in this chapter a prior that (i) minimizes the subjectivity it embeds, and (ii) is robust in terms of generation of irregular estimates (such as unit-step functions).
+Since the prior selection remains a critical step in this context, we aim at constructing in this chapter a prior that (i) minimizes the subjectivity it embeds, and (ii) is robust in terms of generation of irregular estimates (such as unit-step functions).
 To do so, we introduce 
 a constrained reference prior that is designed to regularize the posterior distribution while conserving an objective characteristic.
 Two implementation strategies are explored: a numerical approximation of the constrained prior density and a variational approximation using a neural network that implicitly parameterizes the prior. %trained to maximize mutual information. 
@@ -18,8 +18,12 @@ Our results highlight the capacity of the constrained prior to provide accurate 
 %, highlighting the trade-offs between computational cost and estimation quality. An appendix further examines the impact of neural network architecture on the variational method’s performance.
 %
 \end{abstract}
-
-\minitoc
+% \vspace*{-4pt}
+\begin{minipage}[c][8cm][t]{\textwidth}
+    \vspace*{-4pt}
+    \minitoc
+\end{minipage}
+% \minitoc
 
 
 \section{Introduction}
