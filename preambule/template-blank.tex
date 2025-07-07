@@ -147,10 +147,15 @@ frametitlebelowskip=0pt
 \newtheoremstyle{mydefstyle}{0pt}{2pt}{\upshape}{}{\bfseries}{.}{0.5em}{}
 \theoremstyle{mydefstyle}
 \newtheorem{fdefi}{Definition}[chapter]
+\newtheorem*{fdefi*}{Definition}
 \crefname{fdefi}{definition}{definitions}
 \newenvironment{defi}[1][]%
    {\begin{mdframed}[linecolor=niceBluelight]\begin{fdefi}[#1]}
    {\end{fdefi}\end{mdframed}}
+
+\newenvironment{defistarred}[1][]%
+   {\begin{mdframed}[linecolor=niceBluelight]\begin{fdefi*}[#1]}
+   {\end{fdefi*}\end{mdframed}}
 
 \theoremstyle{definition}
 \newtheorem{assu}{Assumption}[chapter]

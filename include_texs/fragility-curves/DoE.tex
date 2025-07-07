@@ -64,8 +64,8 @@ two datasets of the same size may differ considerably in the information they co
 In this chapter, we propose a strategy of design of experiments (DoE), to get the most out of the probit-lognormal model, namely the most accurate and robust estimation possible with the minimum of data. Given a large database of synthetic seismic signals ---generated to match the seismic scenario of interest--- the proposed strategy intends to sequentially select the synthetic signals with which to perform 
 %the calculations or 
 the tests, in order to optimally estimate ---by minimizing their number--- the probit-lognormal estimations of fragility curves. 
-Different strategies exist to conduct an experimental design. Generally, they are based on the definition of a criterion, such as the stepwise uncertainty reduction (SUR) one, introduced by \citet{bect_supermartingale_2019}. 
-As for examples of studies in reliability analysis that conduct a criterion-based experimental design, we can cite \cite{azzimonti_adaptive_2021,agrell_sequential_2021,lartaud_sequential_2025}.
+Different strategies exist to conduct an experimental design. Generally, they are based on the definition of a criterion, such as the stepwise uncertainty reduction (SUR) one, introduced by \citet{villemonteix_informational_2009}. 
+As for examples of studies in reliability analysis that conduct a criterion-based experimental design, we can cite \cite{bect_supermartingale_2019,azzimonti_adaptive_2021,agrell_sequential_2021,lartaud_sequential_2025}.
 %The most common are based on 
 %In reliability analysis, it is common to refer to techniques that are based 
 %Experimental designs are common in reliability analysis
@@ -140,7 +140,7 @@ Given observations $\mbf z^k=(z_i)_{i=1}^k$, $\mbf a^k=(a_i)_{i=1}^k$, the likel
     \end{equation}
 The decay rates of this likelihood vary significantly as a function of the observations. We remind below the definition of a degenerate likelihood that we introduced in \cref{chap:prem}, where the decay rates of the likelihood were comprehensively studied.
 
-\begin{defi}[Likelihood degeneracy]\label{def:doe:degeneracy}
+\begin{defistarred}[Likelihood degeneracy; reminder of \cref{def:degeneracy}] %\label{def:doe:degeneracy}
     %If the observed data $(\mbf z^k,\mbf a^k)$ are such that, either,
     If the observed samples $(\mbf z^k,\mbf a^k)$ belong to one of the following three types:
     \begin{itemize}
@@ -152,7 +152,7 @@ The decay rates of this likelihood vary significantly as a function of the obser
         there exists $a\in\cA$ such that for any $i,j$, $a_i<a<a_j\Longleftrightarrow z_i\ne z_j$; % (see the illustration in \cref{fig:constr-frags:degenerate-frag});
     \end{itemize}
     then the likelihood is degenerate.
-\end{defi}
+\end{defistarred}
 
 
 
@@ -228,8 +228,8 @@ This strategy echoes the one that supports the reference prior definition as a m
         a_{k+1}=\argmax_{a\in\cA}\cI_{k+1}(a);\quad 
             \cI_{k+1}(a_{k+1}) = \EE_{{z_{k+1}}|\mbf a^{k+1},\mbf z^k}[D_\delta(p(\theta|\mbf z^k,\mbf a^k)||p(\theta|\mbf z^{k+1},\mbf a^{k+1}))].
     \end{equation}
-The index $\cI_{k+1}$ can be seen as a sensitivity index measuring the sensitivity of the posterior w.r.t. the data \citep{da_veiga_global_2015}. Its sequential maximization amounts to minimizing the sensitivity of estimates of $\theta$ w.r.t. the observations.
-Our index can be seen as derived from the popular framework of Stepwise Uncertainty Reduction techniques \citep{bect_supermartingale_2019}. 
+The index $\cI_{k+1}$ can be seen as a sensitivity index measuring the sensitivity of the posterior w.r.t. the data \citep{da_veiga_global_2015}. Its sequential maximization amounts to maximize the impact of the data to the posterior. %the sensitivity of estimates of $\theta$ w.r.t. the observations.
+Our index can be seen as derived from the popular framework of Stepwise Uncertainty Reduction techniques \citep{villemonteix_informational_2009}. %\citep{bect_supermartingale_2019}. 
 Typically,  those methods are formulated with an \emph{a posteriori} variance within the expectation in \cref{eq:doe:index} instead of the dissimilarity measure suggested here.
 \Cref{alg:doe:PE} proposes a practical pseudo-code of our methodology. It requires to derive an approximation of the index $\cI_{k+1}$, which we elucidate in the following section.
 
@@ -288,19 +288,19 @@ and,
         &=\int_\Theta \left(\frac{\int_\Theta p(\vartheta|\mbf z^k,\mbf a^k)\Psi^{z_{k+1}}_{a_{k+1}}(\vartheta)d\vartheta}{\Psi^{z_{k+1}}_{a_{k+1}}(\theta) } \right)^\delta \frac{\Psi^{z_{k+1}}_{a_{k+1}}(\theta)p(\theta|\mbf z^k,\mbf a^k) }{\int_\Theta p(\vartheta|\mbf z^k,\mbf a^k)\Psi^{z_{k+1}}_{a_{k+1}}(\vartheta)d\vartheta} d\theta\\
         &= \left(\int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta) p(\theta| \mbf z^k, \mbf a^k) d\theta\right)^{\delta-1}  \int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta)^{1-\delta} p(\theta|\mbf z^k,\mbf a^k)  d\theta.\nonumber
     \end{align}
-The index can thus be approximated via Monte-Carlo from a sample of $\theta$ distributed according to a preceding posterior distribution $p(\theta|\mbf z^p,\mbf a^p)$, with $p\leq k$; $p$ can equal $0$ in which case the sample is distributed w.r.t. the prior. For this purpose, one can rely on the following formulas:
+The index can thus be approximated via Monte-Carlo from a sample of $\theta$ distributed according to a preceding posterior distribution $p(\theta|\mbf z^q,\mbf a^q)$, with $q\leq k$; $q$ can equal $0$ in which case the sample is distributed w.r.t. the prior. For this purpose, one can rely on the following formulas:
     \begin{align}
-        \int_\Theta\Psi^{z_{k+1}}_{a_{k+1}}(\theta)p(\theta|\mbf z^k,\mbf a^k)d\theta &= \int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta)\prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta)p(\theta|\mbf z^p,\mbf a^p)\frac{1}{L_p^k}d\theta ,\\
-        \int_\Theta\Psi^{z_{k+1}}_{a_{k+1}}(\theta)^{1-\delta}p(\theta|\mbf z^k,\mbf a^k)d\theta &= \int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta)^{1-\delta}\prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta)p(\theta|\mbf z^p,\mbf a^p)\frac{1}{L^k_p}d\theta.\nonumber
+        \int_\Theta\Psi^{z_{k+1}}_{a_{k+1}}(\theta)p(\theta|\mbf z^k,\mbf a^k)d\theta &= \int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta)\prod_{j=q+1}^k\Psi^{z_{j}}_{a_{j}}(\theta)p(\theta|\mbf z^q,\mbf a^q)\frac{1}{L_q^k}d\theta ,\\
+        \int_\Theta\Psi^{z_{k+1}}_{a_{k+1}}(\theta)^{1-\delta}p(\theta|\mbf z^k,\mbf a^k)d\theta &= \int_\Theta \Psi^{z_{k+1}}_{a_{k+1}}(\theta)^{1-\delta}\prod_{j=q+1}^k\Psi^{z_{j}}_{a_{j}}(\theta)p(\theta|\mbf z^q,\mbf a^q)\frac{1}{L^k_q}d\theta.\nonumber
     \end{align}
-where $L^k_p = \int_\Theta \prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta)p(\theta|\mbf z^p,\mbf a^p)d\theta$ does not depend on $a_{k+1}$.
+where $L^k_q = \int_\Theta \prod_{j=q+1}^k\Psi^{z_{j}}_{a_{j}}(\theta)p(\theta|\mbf z^q,\mbf a^q)d\theta$ does not depend on $a_{k+1}$.
 %
-This way, if $\theta_1,\dots,\theta_M$ is an i.i.d. sample distributed according to the posterior distribution $p(\theta|\mbf z^p,\mbf a^p)$, we can define for $\zeta=1$ and $\zeta=1-\delta$:
+This way, if $\theta_1,\dots,\theta_M$ is an i.i.d. sample distributed according to the posterior distribution $p(\theta|\mbf z^q,\mbf a^q)$, we can define for $\zeta=1$ and $\zeta=1-\delta$:
     \begin{align}
-        Q_\zeta^0 &= \frac{1}{M}\sum_{i=1}^M\Psi^{0}_{a_{k+1}}(\theta_i)^{\zeta}\prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta_i), \\
-        Q_\zeta^1 &= \frac{1}{M}\sum_{i=1}^M\Psi^{1}_{a_{k+1}}(\theta_i)^{\zeta}\prod_{q=p+1}^k\Psi^{z_{q}}_{a_{q}}(\theta_i),\nonumber
+        Q_\zeta^0 &= \frac{1}{M}\sum_{i=1}^M\Psi^{0}_{a_{k+1}}(\theta_i)^{\zeta}\prod_{j=q+1}^k\Psi^{z_{j}}_{a_{j}}(\theta_i), \\
+        Q_\zeta^1 &= \frac{1}{M}\sum_{i=1}^M\Psi^{1}_{a_{k+1}}(\theta_i)^{\zeta}\prod_{j=q+1}^k\Psi^{z_{j}}_{a_{j}}(\theta_i),\nonumber
     \end{align}
-to approximate easily  $\cI_{k+1}(a_{k+1})$ up to the constant $(L^k_p)^{\delta+1}$:
+to approximate easily  $\cI_{k+1}(a_{k+1})$ up to the constant $(L^k_q)^{\delta+1}$:
     %
 % As $p(\theta|\mbf z^k,\mbf a^k) = \frac{\ell_k(\mbf z^k,\mbf a^k|\theta)}{\int_\Theta\ell_k(\mbf z^k,\mbf a^k|\vartheta)\pi(\vartheta)d\vartheta}\pi(\theta)$, a sample of values distributed according to the prior $\pi$ allows to compute the index numerically via Monte-Carlo: let $\theta_1,\dots,\theta_M$ be a sample \emph{a priori} and approximate the following quantities,
 %\begin{enumerate}
@@ -315,7 +315,7 @@ to approximate easily  $\cI_{k+1}(a_{k+1})$ up to the constant $(L^k_p)^{\delta+
 %     where $L=\int_\Theta\ell_k(\mbf z^k,\mbf a^k|\vartheta)\pi(\vartheta)d\vartheta$.
 % Thus, we can approximate easily $\cI_{k+1}(a_{k+1})$ up to a constant without the need to compute $L$:
     \begin{align}
-        \cI_{k+1}(a_{k+1})&\simeq (L^k_p)^{-\delta-1}  %\propto\tilde\cI_{k+1}(a_{k+1})\propto \hat\cI(a_{k+1}) := % \underset{\sim}{\propto}
+        \cI_{k+1}(a_{k+1})&\simeq (L^k_q)^{-\delta-1}  %\propto\tilde\cI_{k+1}(a_{k+1})\propto \hat\cI(a_{k+1}) := % \underset{\sim}{\propto}
         (\delta(\delta-1))^{-1} \left((Q^0_1)^{\delta} Q^0_{1-\delta} + (Q^1_1)^{\delta} Q^1_{1-\delta}\right)\\
         &\propto (\delta(\delta-1))^{-1} \left((Q^0_1)^{\delta} Q^0_{1-\delta} + (Q^1_1)^{\delta} Q^1_{1-\delta}\right).\nonumber
     \end{align}
@@ -382,7 +382,7 @@ random process $a\mapsto P_f^{|\mbf z^k,\mbf a^k}(a)$ where  $P_f^{|\mbf z^k,\mb
 For each value of $a$, we note $q_r^{|\mbf z^k,\mbf a^k}(a)$ the $r$-quantile of $P_f(a)$, and $m^{|\mbf z^k,\mbf a^k}(a)$ its median.
 These are defined for any $a\in\cA=[0,a_{\text{max}}]$, where $a_{\text{max}}$ corresponds to the highest value of the IM that exists in the dataset of generated seismic signals that we use (see \cref{chap:frags-intro}), i.e.,
 $a_{\text{max}}=12$~m/s$^2$ for the PGA, and  $a_{\text{max}}=60$~m/s$^2$ for the PSA.
-We suppose that a validation dataset allows to define a reference fragility curve $P_f^{\text{ref}}$. We define:
+We suppose that a validation dataset allows to define a reference fragility curve $P_f^{\text{ref}}$ (see \cref{chap:frags-intro}, \cref{sec:intro-frags:models} for more details about the construction of $P_f^{\text{ref}}$ given a validation dataset). We define:
 \begin{itemize}
     \item The square bias to the median: $\cB^{|\mbf z^k,\mbf a^k} = \|m^{|\mbf z^k,\mbf a^k}- P_f^{\mathrm{ref}}\|^2_{L^2}$. % where %$\|P\|^2_{L^2} = \frac{1}{\tilde \tilde a_{\max}-\tilde a_{\text{min}}}\int_{a_{\min}}^{a_{\max}}P(a)^2 da$
     %is defined hereafter, and 
@@ -418,7 +418,7 @@ Thus, we fixed the values of $q_1$ and $q_2$ to match these in any case. The imp
 The case study that is considered in this work is the piping system that was presented in \cref{chap:frags-intro}.
 This case study has been studied in \cref{chap:prem} and \cref{chap:constrained-frags}. As a difference with the two preceeding chapters, we propose here to study the equipment's fragility curves given two different IMs: the PGA and the PSA at $5$~Hz for a damping ration of $1\%$ (in accordance with the equipment's characteristics). 
 We recall that we have access for this case study to a validation dataset of $8\cdot 10^4$ samples.
-In \cref{fig:doe:scattersIMs}, we recall the validation datasets (IM, EDP) for both of the IMs. In \cref{fig:doe:reference-frags}, we remind the reference fragility curves for this case study given different thresholds, and we compare them with the probit-lognormal fragility curves $P_f^{\text{MLE}}$ that were derived  using the whole validation dataset.
+In \cref{fig:doe:scattersIMs}, we recall the validation datasets (IM, EDP) for both of the IMs. In \cref{fig:doe:reference-frags}, we remind the reference fragility curves $P^{\text{ref}}_f$ for this case study given different thresholds, and we compare them with the probit-lognormal fragility curves $P_f^{\text{MLE}}$ that were derived  using the whole validation dataset.
 It should be noted that, with the PGA as IM, it is not possible to completely describe the fragility curve. For the maximum PGA values observed, the failure probabilities stagnate between 0.5 and 0.8 depending on the failure criterion considered. Therefore, the PGA is not the most suitable IM of the two.
 In this study, the considered failure criterion was $C=3.8^\circ$.
 
@@ -655,9 +655,9 @@ In order to guide the user, we also proposed two indicators that allow learning 
     
     \subsection{Results}
     
-    The design of experiments method has been run a hundred times for each case study. Each time, we have stopped the algorithm after it reached a number of $250$ observed samples.
-    The last $100$ of these generated IMs have been kept for each run. As we have carried out $100$ runs, they constitute a sample of $10^4$ values of IMs selected by the experimental design.
-    %To focus on the distribution of the selected IMs by the method, we kept for each run the 100 last ones. Thus, we have at our disposal a sample of $10^4$ values of IMs selected by the planning of experiments algorithm at least 150 steps after its initialization, for each case study. 
+    The design of experiments method has been replicated a hundred times for each case study. Each time, we have stopped the algorithm after it reached a number of $250$ observed samples.
+    The last $100$ of these generated IMs have been kept for each replication. As we have carried out $100$ replications, they constitute a sample of $10^4$ values of IMs selected by the experimental design.
+    %To focus on the distribution of the selected IMs by the method, we kept for each  the 100 last ones. Thus, we have at our disposal a sample of $10^4$ values of IMs selected by the planning of experiments algorithm at least 150 steps after its initialization, for each case study. 
     The three empirical distributions of these samples resulting from the three values of $q$ are compared in  \cref{fig:histograms_toy}.
     
     % As one c
