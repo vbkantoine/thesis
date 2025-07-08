@@ -191,7 +191,7 @@ Aussi, il participe conjointement à des actions de recherche relatives au parc 
 Une partie de la recherche et l'expertise sur les conséquences de l'aléa sismique % études simqiques de sûreté au CEA 
 se fait au CEA au laboratoire EMSI, qui dispose d'une plateforme expérimentale (Tamaris) qui permet de procéder à divers tests mécaniques sur des équipements sous séismes. 
 %Le laboratoire d'etudes mécaniques et sismiques (EMSI) s'inscrit pleinenemnt dans cette ambivalence. Propriétaire de la plateforme d'expérimentation sismique Tamaris, le labortoire se place souvent au centre des études de fiabilité sismique et du dialogue entre EDF et les experts de l'ASNR.
-L'approfondissement des méthodes des études sismiques probabilistes de sûreté est un enjeu du CEA qui s'inscrit dans les missions de ce laboratoire. Le CEA étant responsable devant les autorités de sûreté de ses installations, %il cherche %alors 
+L'approfondissement des méthodes des études sismiques probabilistes de sûreté est un enjeu pour le CEA qui s'inscrit dans les missions de ce laboratoire. Le CEA étant responsable devant les autorités de sûreté de ses installations, %il cherche %alors 
 %à développer des méthodes toujours rigoureuses devant leur vieillissement. %de ces installations et de leurs équipements.
 il cherche à développer des méthodes toujours rigoureuses pour justifier de leur tenue sismique.
 
@@ -212,7 +212,7 @@ il cherche à développer des méthodes toujours rigoureuses pour justifier de l
 % Au CEA, la recherche sur les études sismiques probabilistes de sûerté est portée par le laboratoire EMSI, qui dispose d'une plateforme experimentale (Tamaris) qui permet de procéeder à divers tests mécaniques sur des équipements sous séismes. 
 
 Cette thèse s'inscrit dans la démarche d'évolution du SPRA et de démonstration de sûreté. Financée par le CEA dans le cadre d'un contrat de formation par la recherche, elle a pour objectif d'étoffer l'état de l'art en terme d'estimation de fragilité sismique des équipements et des installations.
-L'objectif est de développer des méthodes qui doivent le plus possible être (i) efficaces devant la complexité des objets étudiés et de l'anticipation de l'aléa, (ii) être robustes dans le temps et devant une potentielle réévaluation des critères de sûreté, et (iii) être transparentes et auditables par les autorités de sûreté.
+L'objectif est de développer des méthodes qui doivent le plus possible être (i) efficaces devant la complexité des objets étudiés et de l'aléa, (ii) être robustes dans le temps et devant une potentielle réévaluation des critères de sûreté, et (iii) être transparentes et auditables par les autorités de sûreté.
 
 %lieu à des méthodes qui savent être efficace devant la complexité technique représentée efficaces devant la c
 
@@ -306,7 +306,7 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
             D_{f_\delta}(P||Q) = \text{KL}(P||Q)\ \text{si\ }\delta=1,\quad D_{f_\delta}(P||Q) = \text{KL}(Q||P)\ \text{si\ }\delta=0.
         \end{equation}
 
-    Bien sûr, il existe aussi de nombreuses mesures de dissimilarité qui ne sont pas des $f$-divergences, à ce titre, les indices de Sobol' du premier ordre évoqués plus haut font offices d'exemple. Un autre exemple notable présenté ici est celui des normes maximales de discrépances (MMD). Soient $P$, $Q$ deux mesures de probabilité définies sur un ensemble $\cX$, et soit $\cH$ un espace de Hilbert à noyau reproduisant (RKHS~; un rappel sur cette notion et ses définitions est proposé en annexe) sur $\cX$,  dont le noyau reproduisant est noté $k:\cX\times\cX\to\CC$. %On peut définir les imbrications moyennes  \cite{gretton_kernel_2012}
+    Bien sûr, il existe aussi de nombreuses mesures de dissimilarité qui ne sont pas des $f$-divergences, à ce titre, les indices de Sobol' du premier ordre évoqués plus haut font office d'exemple. Un autre exemple notable présenté ici est celui des normes maximales de discrépances (MMD). Soient $P$, $Q$ deux mesures de probabilité définies sur un ensemble $\cX$, et soit $\cH$ un espace de Hilbert à noyau reproduisant (RKHS~; un rappel sur cette notion et ses définitions est proposé en annexe) sur $\cX$,  dont le noyau reproduisant est noté $k:\cX\times\cX\to\CC$. %On peut définir les imbrications moyennes  \cite{gretton_kernel_2012}
     On définit la MMD (\cite{gretton_kernel_2012}) par
         \begin{equation}
             \text{MMD}(\cH;\,P||Q) = \sup_{\substack{f\in\cH\\ \|f\|_\cH\leq1}} |\EE_{X\sim P}f(X) - \EE_{X\sim Q}f(X)|,
@@ -321,7 +321,7 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
     La propagation d'incertitudes au travers de ce canevas se quantifie en calculant l'\emph{a posteriori}, à partir d'observations statistiques $(\mbf x_1,y_1),\dots,(\mbf x_k, y_k)$.
     La définition de l'\emph{a priori} est critique, elle prend place dans l'étape d'identification des incertitudes, et se révèle impactante sur l'\emph{a posteriori}, et donc, dans un contexte d'étude probabiliste de sûreté, sur le risque.
     
-    Puisque ce dernier outil, qui est en fait un paradigme à lui tout seul, est au centre de cette thèse, la section qui suit lui est pleinement dévouée.
+    Puisque ce dernier outil, qui est en fait un paradigme à lui tout seul, est au centre de cette thèse, la section qui suit lui est pleinement consacrée.
 \end{itemize}
 
 
@@ -540,7 +540,7 @@ Une conclusion générale viendra clore le manuscrit dans une \textbf{\cref{part
 
 \subsection{Liste des contributions}
 
-La recherche conduite au cours de cette thèse a donné lieu à plusieurs contributions dans la littérature scientifique. Ci-après sont listés les travaux publiés pendant celle-ci.
+La recherche conduite au cours de cette thèse a donné lieu à plusieurs contributions dans la littérature scientifique. Ci-après sont listés les travaux publiés et soumis pendant celle-ci.
 
 \nocite{van_biesbroeck_design_2025,van_biesbroeck_generalized_2024,van_biesbroeck_influence_2023,van_biesbroeck_properly_2024,van_biesbroeck_reference_2024,baillie_variational_2025,baillie_bayesian_2025,van_biesbroeck_design_2025-1}
 
@@ -569,10 +569,10 @@ La recherche conduite au cours de cette thèse a donné lieu à plusieurs contri
 \end{itemize}
 
 
-Chacune de ces publcations, qu'elle prenne la forme d'un article de journal ou de conférence propose une contribution originale et liée à cette thèse. Naturelement, les contributions présentées dans des articles de revues sont considérées comme plus percutantes.
+Chacune de ces publications, qu'elle prenne la forme d'un article de journal ou de conférence propose une contribution originale et liée à cette thèse. Naturellement, les contributions présentées dans des articles de revues sont considérées comme plus percutantes.
 
-Mis à part 2 exceptions, chacune de ces contributions se voit au centre d'un chapitre ou d'une annexe de ce manuscrit.
-La première exception est l'article de conférence publié aux JdS de 2023. En effet ce travail a constitué en un résultat introductif à l'étude qui a donné lieu plus tard à l'article de revue intitulé ``Generalized mutual information and their reference priors under Csizar f-divergence''. Dans cette thèse, l'article de conférence est donc incorporé au chapitre lié à ce dernier papier de revue (\cref{chap:ref-generalized}).
+Mis à part deux exceptions, chacune de ces contributions se voit au centre d'un chapitre ou d'une annexe de ce manuscrit.
+La première exception est l'article de conférence publié aux JdS de 2023. En effet ce travail a constitué une introduction à l'étude qui a donné lieu plus tard à l'article de revue intitulé ``Generalized mutual information and their reference priors under Csizar f-divergence''. Dans cette thèse, l'article de conférence est donc incorporé au chapitre lié à ce dernier papier de revue (\cref{chap:ref-generalized}).
 La seconde exception est l'article de conférence publié à SMiRT en 2025. La méthodologie originale proposée dans cet article reste conceptuelle et s'est heurtée au calendrier de fin de thèse. %Un approfondissement qui pourrait lui être apporté dans le futur saurait 
 Elle manque alors d'un approfondissment qui pourrait lui être apporté dans le futur.
 
