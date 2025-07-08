@@ -13,7 +13,78 @@
 
 \minitoc
 
-\section{Introduction}
+\section{Motivations and context}
+
+Reference prior theory has been built on the idea to construct  priors whose influence onto the prior would be minimized, in order to let the latter being informed by the data in priority.
+This aim of that idea is to qualify the resulting prior as ``objective''.
+
+To achieve that goal, 
+instead of seeking to maximize the expected divergence between the prior and the posterior (i.e., the mutual information), 
+the authors who developed the theory \citep{bernardo_reference_1979,bernardo_bayesian_1994} suggested maximizing the asymptotic value of that quantity as the number of observation tends to infinity (see \cref{chap:intro-ref} for a complete review of the theory).
+Indeed, it is seen as an issue that the mutual information ---and its maximal argument--- depends on the number of observations $k$, since the ``objective'' prior should, by nature, be adequate for any data samples, no matter their size.
+According to the \citet{bernardo_bayesian_1994}, when the number of observations $k$ is fixed, the distribution of the vector of the data is not fully described. They advance that, denoting $\sI^k$ the mutual information when $k$ data items are observed, the limit $\sI^\infty$ (if it exists) measures the knowledge missing from the prior.
+
+
+
+%the theory seeks to maximize the mutual information, that is defined as an expected divergence between the prior and the posterior.
+
+However, there exist few elements that support formally this asymptotic definition of the reference prior in the literature.
+While there is consensus on the definition of \citet{bernardo_reference_1979} that consists in asymptotically maximizing the mutual information, we are interested in the expression of the prior that maximizes it non-asymptotically.
+This study is motivated by the two following thoughts: (i)~in a case where the number of observations represents a fundamental element of the problem, a prior that takes it into account could be valorized; (ii)~expressing the non-asymptotic reference prior can help to understand or to express the asymptotic reference priors.
+
+We suggest in this short appendix a main result that expresses implicitly the non-asymptotic reference priors. First, we recall the framework of the reference prior theory in the next section, then our results is developed in ??.
+In ?? we suggest a discussion of our result and elucidate its link with classical asymptotic reference priors.
+
+
+
+
+\section{Non-asymptotic reference priors}
+
+We remind that the original framework of the reference prior theory is comprehensively detailed in \cref{chap:intro-ref}. We consider a Bayesian framework: observations $\mbf Y_k\in\cY^k$ follows conditionally to $T=\theta\in\Theta$ the distribution $\PP_{\mbf Y_k|\theta}=\PP_{Y|\theta}^{\otimes k}$. The marginal distribution is denoted  $\PP_{\mbf Y_k}$ and the prior distribution $\varPi$.
+We suppose that the model admits a likelihood denoted $\ell_k$, and that all the distributions admits densities. The marginal, posterior, and prior densities are respectively denoted $p_{\mbf Y_k}$, $p$, and $\pi$.
+
+Under those settings, the mutual information given $k$ observations is defined as
+    \begin{equation}
+        \sI^k(\varPi) =
+    \end{equation}
+
+In this appendix, we define a non-asympotic reference prior as a maximal argument of the mutual information.
+\begin{defi}[Non-asymptotic reference prior]
+    p
+\end{defi}
+
+
+The result below gives an implicit expression of the non-asymptotic reference priors among a non-restrictive set of priors
+
+\begin{thm}
+    f
+\end{thm}
+
+
+Following the idea provided in \cref{chap:constrained-prior}, we suggest also the study of non-asymptotic reference prior under constraints. The result below considers constraints that take the form of linear constraints. 
+
+
+\begin{thm}
+    g
+\end{thm}
+
+
+
+
+
+
+
+\section{Link with asymptotic reference priors}
+
+
+
+
+% \section{Proofs}
+
+
+
+\section{Discussion}
+
 
 
 
