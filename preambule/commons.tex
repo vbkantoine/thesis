@@ -144,7 +144,11 @@
 % }
 
 
-
+\newcommand{\PhDTitle}{%
+	Reference priors: %theory 
+	objective and practical inference, %
+	applied for auditable estimations of seismic fragility curves%
+}
 
 \newcommand{\logoEd}{EDMH}																		%% Logo de l'école doctorale. Indiquer le sigle (EDIPP, EDMH) / Doctoral school logo. Indicate the acronym : EDMH, EDIPP
 \newcommand{\PhDTitleFR}{Priors de référence: inférence objective et pratique, appliqués pour des estimateurs auditable de courbes de fragilité sismique}													%% Titre de la thèse en français / Thesis title in french
@@ -156,25 +160,33 @@
 \newcommand{\abstractEN}{%
 Reference prior theory provides a principled framework for objective Bayesian inference, aiming to minimize subjective input and allow data-based information to drive the estimates distribution. %This is particularly valuable in high-stakes applications, where transparency, auditability, and robustness are essential. 
 % This theory becomes particularly relevant for
-For this reason, the application of this theory to the estimation of seismic fragility curves becomes particularly relevent.
-Indeed, seismic fragility curves are essential elements of seismic probabilistic risk assemssment studies, they define the probability of failure of a mechanical structure as a function of seismic scenarios. Since they inform critcal decisions in infrastrucure safety, a complete auditability of the pipeline leading to estimates of thess curves is required.
+For this reason, the application of this theory to the estimation of seismic fragility curves becomes particularly relevant.
+Indeed, these curves are essential elements of seismic probabilistic risk assessment studies; they define the probability of failure of a mechanical structure as a function of seismic scenarios. Since they inform critical decisions in infrastructure safety, a complete auditability of the pipeline that leads to the estimates of these curves is required.
 % they require a total auditability and robustness of the pipeline that produce estimates of them.
 
 %One such application is the estimation of seismic fragility curves—probabilistic tools that characterize structural failure likelihood as a function of earthquake intensity. These curves play a central role in seismic probabilistic risk assessment, where they inform critical decisions in infrastructure safety and resilience.
 
-This thesis investigates the interplay between reference prior theory and seismic fragility estimation, yielding original contributions in three directions. First, we advance the theoretical foundations of reference priors by developing novel constructions of them. 
-Our goal is to support their objectivity, while improving their practical appicability. Our results take the form of three theoretical contributions in this domain that propose (i)~an extension of the thoery that supports the objectivity of the Jeffreys prior, (ii)~constraints that can be incorporated to the prior to enhance.
+This thesis investigates the interplay between reference prior theory and seismic fragility curve estimation, yielding original contributions in these two domains. First, we complement the theoretical foundations of reference priors by developing novel constructions of them. 
+Our goal is to support their objectivity while improving their practical applicability. Our results take the form of
+theoretical contributions in this domain that are based on a generalized definition of the mutual information.
+Our approaches tackle the principal issues of reference priors, namely their improper characteristic or that of their posterior, and their complex formulation for practical use.
+
+%  definition of reference priors
+% We tackle the pincipal issues encountered by using the referebce prios in practice by proposing methods that address 
+% We provide adaptations of the reference priors definiton
+% three theoretical contributions in this domain that propose (i)~an extension of the thoery that supports the objectivity of the Jeffreys prior, (ii)~constraints that can be incorporated to the prior to enhance.
 %Our goal is to question the balance between obejctivity
 %under constraints, improving their practical applicability, and proposing ways to evaluate and compare their objectivity. 
-Second, we revisit the estimation of seismic fragility curves under the prominent probit-lognormal model, in a context where the data are particularly sparse.
-Our goal is to conduct a Bayesian estimation of seimsic fragility curves that leverage the optimmization of every sorts of information, including the \emph{a priori} one, in order to provides estimates that are robust and auditable
-Our resutls highlight the limitations and irregularities of the model and propose methods that provide accurate and efficient estimates of the curves. The evaluation of our approaches are carried out on different case studies taken from the nuclear industry.
+Second, we revisit the estimation of seismic fragility curves under the prominent probit-lognormal model in a context where the data are particularly sparse.
+Our goal is to conduct a Bayesian estimation of seismic fragility curves that leverages the optimization of every sort of information, including the \emph{a priori} one, in order to provide estimates that are robust and auditable.
+Our results highlight the limitations and irregularities of the model and propose methods that provide accurate and efficient estimates of the curves. The evaluations of our approaches are carried out on different case studies taken from the nuclear industry.
 
 %a common yet delicate setting due to data sparsity and binary observations. We formally compute the Jeffreys prior for this model, highlight its limitations, and introduce alternative priors that address issues of degeneracy and inefficiency. We also incorporate optimal experimental design to improve estimation quality.
 
 This thesis finally builds a strong link between these two domains.
-The application to seismic fragility curves not only motivates theoretical developments but also benefits directly from them, yielding estimation pipelines that are more robust, interpretable, and auditable. Through this bi-directional dialogue, we demonstrate how abstract statistical theory can be meaningfully applied to real-world engineering problems.
-We illustrate how reference prior theory can be extended and applied to meet the needs of modern reliability analysis.}
+The application to seismic fragility curves not only motivates theoretical developments but also benefits directly from them, yielding estimation pipelines that are more robust, interpretable, and auditable. %Through this bi-directional dialogue, %, we demonstrate how abstract statistical theory can be meaningfully applied to real-world engineering problems.
+%we illustrate how reference prior theory can be extended and applied to meet the needs of modern reliability analysis.
+}
 
 \renewcommand{\abstractFR}{\abstractEN}
 
