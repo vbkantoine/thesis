@@ -17,7 +17,10 @@
 
 
 \begin{abstract}
-abstract
+    In this chapter, we introduce and motivate the research work carried out through this thesis. The work is motivated
+    mainly by the need to evolve seismic probabilistic risk assessment study methods, but also by the lack of response provided by the state of the art to the question of the choice of prior in Bayesian inference.
+       These issues are detailed, and
+    the work is then introduced from their analyses, resulting in a consistent organization of the manuscript.
 \end{abstract}
 
 \minitoc
@@ -33,8 +36,116 @@ abstract
 \subsection{Probabilistic risk assessment studies}
 
 
+\subsubsection{History}
+
+
+Probabilistic risk assessment (PRA) studies refer to a set of technical analysis methods that allow for the quantification of the risks faced by a facility when exposed to a particular event. This event may be of natural or artificial origin (technological, human, etc.), and may stem from internal or external sources. It can take the form of an earthquake, a flood, a series of internal failures, among others.
+
+Following the early recommendations of F. R. Farmer (a safety expert at the UK Atomic Energy Authority) in the 1960s concerning the reliability of nuclear facilities, these methods share a common feature: the incorporation of the notion of uncertainty into the characterization of the event, its phenomena, and its attributes (thus referred to as the ``hazard''). Their framework and concepts were quickly adopted and further developed in the United States (see the report by the Nuclear Regulatory Commission, \cite{nrc_pra_1983}). Notably, many studies began integrating seismic reliability analyses since 1968 \citep{cornell_engineering_1968}, thereby laying the groundwork for seismic probabilistic risk assessment (SPRA) studies.
+
+
+
+Earthquakes indeed represent a significant risk factor in safety assessments. Firstly, although commonly characterized by their magnitude and distance from the source, seismic signals are far more complex than a simple bivariate function. Two earthquakes with the same magnitude and source can exhibit significantly different characteristics (and consequences). Secondly, because an earthquake can simultaneously affect all elements —--both external and internal—-- to a facility, it has the potential to cause severe damage to equipment and structures. The potential cost of the consequences of a seismic hazard can thus be high and critical in the nuclear context, making it an event of major and decisive importance, even in geographical areas where such events are rare.
+
+
+Nowadays, accounting for seismic hazard within the framework of probabilistic risk assessments is an international recommendation in the context of the nuclear industry. In France, its application within that industry is defined by the nuclear safety and radiation protection authority (ASNR in French\footnote{Foremerly ASN: the nucelar safety authority (ASN) was unifed with the radioprotectection and nuclear safety institute (IRSN) in January 1, 2025.} ), as outlined in the fundamental safety rule \citep{asn_regle_2002}.
+
+
+
+\subsubsection{The evolution of PRA in France, at the CEA, and in This Thesis}
+
+The evolution of methods and knowledge related to the safety of nuclear installations progresses in parallel with changes in the regulations and standards imposed upon them. Concerning seismic hazard, the relationship between evolving rules and methods (and thus of PRA studies) brings into play differing perspectives, primarily between the main operator (EDF) and the experts of the safety authority (formerly the IRSN, now unified with the nuclear safety authority under the ASNR).
+For the operator, the robustness of the installation should not be fundamentally questioned by advancements in knowledge or methodology, as uncertainties are already accounted for through safety margins incorporated during the equipment’s design. The authority’s experts, on the other hand, argue that robustness must be continuously reassessed, and that safety margins are not intended to be gradually consumed as knowledge advances \citep{roger_seisme_2020}. %improves 
+In this dialogue, the ASNR acts as a kind of referee. Among other responsibilities, it defines the ``augmented safety earthquake'' (a conservative amplification of the ``maximum historically credible earthquake''), which serves as the reference margin in demonstrating an equipment's seismic robustness.
+
+
+
+This arbitration is thus both sensitive and critical.
+The incident that occurred in 2011 at the Fukushima-Daiichi nuclear power plant illustrates this clearly. The seismic hazard (which triggered the tsunami) had been underestimated by the consensus of Japanese experts, and it is ultimately this underestimation that led to the accident (see the report by the international atomic energy agency, \cite{iaea_fukushima_2015}). In the wake of this event,
+ the ASNR decided to amplify the ``augmented safety earthquake'' by a factor of 1.5 in France, requiring operators to provide an amplified demonstration of the robustness of their installations.
+
+Within this context, the role of the CEA is ambivalent in the French nuclear landscape. On one hand, it operates research nuclear facilities and is therefore responsible for demonstrating the seismic robustness of its own equipment. On the other hand, it is also involved in collaborative research related to the civil nuclear fleet operated by EDF. A part of the research and expertise on the consequences of seismic hazards is carried out at the CEA’s EMSI laboratory, which is equipped with an experimental platform (called Tamaris). This facility enables mechanical testing of equipment under simulated seismic conditions.
+Advancing methods for the SPRA framework is a focus area for the CEA that falls within the mission of this laboratory. As the CEA is accountable to safety authorities for its installations, it seeks to develop increasingly rigorous methods to justify their seismic performance.
+
+This thesis fits into that process of evolving SPRA methodologies and reinforce safety demonstrations. Funded by the CEA as part of a research training grant, its aim is to enrich the state of the art in seismic fragility assessment for equipment and installations. The goal is to develop methods that are:
+(i)~effective in the face of the complexity of both the studied systems and the hazard itself,
+(ii)~robust over time and resilient to potential reevaluations of safety criteria, and
+(iii)~transparent and auditable by safety authorities.
+
 
 \subsection{Uncertainty quantification in probabilistic risk assessment studies}
+
+% \subsubsection{}
+\subsubsection{Principles and steps of uncertainty quantification}
+
+Probabilistic risk assessment studies rely on the identification and quantification of uncertainties that arise during the evaluation of risk within a physical system. Uncertainty quantification is, in fact, a systematic process that aims at modeling and analyzing uncertainty, its sources, and how it propagates through the modeling of the studied physical system. This process lies at the intersection of physics, engineering, and applied mathematics, and has even emerged as a unique discipline  within the field of statistics.
+
+It focuses on three key elements that describe the interaction between the physical system and the hazard: input parameters $\mbf X$, the physical response of the system $Y$, and a modeling of the latter: $Y = \cM(\mbf X)$.
+This functional $\cM$ represents the (often complex) modeling of the system and its physical properties. This model may involve solving physical equations, running numerical simulations, or even analyzing the result of a mechanical experiment.
+The general approach to uncertainty quantification typically consists into several key steps (see, for example, 
+\cite{sudret_uncertainty_2007,iooss_contributions_2009}) that we detail below:
+\begin{enumerate}
+    \item Identification of uncertainty sources:
+    It is common to classify uncertainties into two main categories. On one hand, irreducible uncertainties, which arise from the inherent and ``natural'' randomness embedded in the hazard and the physical system itself. On the other hand, epistemic uncertainties, which result from a lack of information and are therefore considered reducible, in contrast to the former \citep{hullermeier_aleatoric_2019}. This step leads to a probabilistic modeling of the input $\mbf X$.
+    \item Uncertainty propagation: This step involves approximating the distribution of the model output $\cM(\mbf X)$, and evaluating a quantity of interest that depends on it, such as a variance, a failure probability, etc. More generally, this means evaluating a quantity of the form $\mathbb{E}\phi(Y)$.
+    \item Sensitivity analysis: This step aims to provide insight into how uncertainties propagate through the system, by identifying the influence of one or more of the input parameters on the output $Y$ \citep{iooss_review_2015}.
+\end{enumerate}
+
+\subsubsection{Mathematical tools in uncertainty quantification}
+
+Numerous mathematical tools support the aforementioned steps of uncertainty quantification. While this manuscript does not aim to provide an exhaustive overview of them, the following highlights several examples that are directly relevant to the work presented in this thesis:
+
+\begin{itemize}
+    \item Surrogate modeling helps to address the complexity involved in evaluating the model $\cM$, by constructing a surrogate model $\tilde{M}$, trained on a dataset of observations $(\mbf x_1, y_1), \ldots, (\mbf x_k, y_k)$. The surrogate model is, by design, simpler to evaluate than the original model. Its definition is not limited and its form can range from a simple parametric function to the output of a ``black-box'' neural network. Among the most commonly used approaches we can cite Gaussian processes (or kriging) and polynomial chaos expansions.
+    \item Global sensitivity indices are a core component of the sensitivity analysis step. Since the early work of \citet{sobol_sensitivity_1993}, they have become essential tools for statistically measuring how the system output $Y$ is influenced by one or several of the input variables $X_i$ (where $\mbf X = (X_1, \ldots, X_p)$). In this context, the impact of input $X_i$ on $Y$, denoted $S_i$, is expressed as the expected divergence between the distribution $P_Y$ of $Y$ and its conditional distribution given $X_i$, $P_{Y|X_i}$ (Da Veiga, 2015):
+\begin{equation}
+    S_i = \mathbb{E}_{X_i}[D(P_Y \,||\, P_{Y|X_i})],
+\end{equation}
+    where $D$ is a dissimilarity measure between two probability distributions. The choice of $D$ is crucial in defining $S_i$. For instance, choosing $D(P||Q) = \| \mathbb{E}_{X \sim P}[X] - \mathbb{E}_{X \sim Q}[X] \|^2$ corresponds to a first-order Sobol’ index. The choice of $D$ can be driven by various considerations, such as the desire to detect independence between $X_i$ and $Y$. The next item explores a range of potential choices for $D$.
+    \item  Information theory lies at the heart of comparing probability measures, and thus, of uncertainty quantification. By nature, the ways in which two distributions spread information over a space are numerous. In the definition of $S_i$ above, the selection of $D$ (and therefore the form of $S_i$) is inherently tied to information-theoretic principles.
+    
+      A widely used class of divergences, perceived as an extension of Shannon entropy, is the $f$-divergences class, introduced by \citet{csiszar_information-type_1967}. These divergences are used across many fields beyond sensitivity analysis, such as in variational inference \citep{minka_divergence_2005,bach_sum--squares_2023}, surrogate model design \citep{nguyen_surrogate_2009}, and PAC-Bayesian learning \citep{picard-weibel_change_2022}. When $f$ is convex and satisfies $f(1) = 0$, the $f$-divergence is defined as:
+      \begin{equation}\label{eq:intro-english:Df}
+      D_f(P||Q) = \int_\cX f\left(\frac{p(x)}{q(x)}\right) q(x) \, d\omega(x),
+      \end{equation}
+      where $p$ and $q$ are densities of $P$ and $Q$ with respect to a common base measure $\omega$ on their domain $\mathcal{X}$. Thus, $f$-divergences reduce the choice of $D$ to a choice of the function $f$. A commonly used subclass is the $\delta$-divergences class \citep{zhu_information_1995}, defined fixing $f=f_\delta$ where:
+      \begin{equation}
+        f_\delta(x) = \left\lbrace\begin{array}{l l} \frac{x^\delta-\delta x-(1-\delta)}{\delta(\delta-1)} & \text{if\ }\delta\not\in\{0,1\},\\ 
+            x\log x-x+1  & \text{if\ }\delta=1, \\
+            -\log x +x -1 & \text{if\ }\delta=0.
+        \end{array}\right. 
+    \end{equation} 
+      Notably, the well-known Kullback-Leibler divergence (denoted KL) can be viewed as a special case of $\delta$-divergences. We recall that:
+        \begin{equation}
+            \text{KL}(Q||P) = \int \log\left(\frac{q(x)}{p(x)}\right) q(x) \, d\omega(x)
+        \end{equation}
+        (with the same notations as in \cref{eq:intro-english:Df}), so that:
+        \begin{equation}
+            D_{f_\delta}(P||Q) = \text{KL}(P||Q) \text{ if } \delta = 1, \quad D_{f_\delta}(P||Q) = \text{KL}(Q||P) \text{ if } \delta = 0.      
+        \end{equation}
+      Of course, many dissimilarity measures are not $f$-divergences. First-order Sobol’ indices, mentioned above, are one such example. Another notable example is the Maximum Mean Discrepancy (MMD). Let $P, Q$ be probability measures over a set $\mathcal{X}$, and let $\mathcal{H}$ be a reproducing kernel hilbert space (RKHS) over $\mathcal{X}$ with reproducing kernel $k : \mathcal{X} \times \mathcal{X} \to \mathbb{C}$. The MMD \citep{gretton_kernel_2012} is defined as:
+        \begin{equation}
+            \text{MMD}(\mathcal{H};\, P||Q) = \sup_{\substack{f \in \mathcal{H}\\ \|f\|_{\mathcal{H}} \leq 1}} |\mathbb{E}_{X \sim P}f(X) - \mathbb{E}_{X \sim Q}f(X)|,
+        \end{equation}
+      or more simply:
+      \begin{equation}
+        \text{MMD}^2(\mathcal{H};\, P||Q) = \mathbb{E}_{X, X' \sim P \otimes P}[k(X, X')] + \mathbb{E}_{Y, Y' \sim Q \otimes Q}[k(Y, Y')] - 2 \mathbb{E}_{X,Y \sim P\otimes Q}[k(X, Y)].
+      \end{equation}
+    
+    \item  Bayesian analysis is a fundamental tool in uncertainty quantification, 
+    as it fundamentally introduces a form of uncertainty
+    % as it introduces a formal representation of uncertainty 
+    in one or more parameters of the studied model. The uncertainty encoded in the Bayesian framework typically appears in the form of a prior distribution. Propagation of uncertainties within this framework is achieved by computing the posterior distribution, based on statistical observations $(\mbf x_1, y_1), \ldots, (\mbf x_k, y_k)$.
+      The choice of the prior is critical: it belongs to the step of uncertainty identification and significantly influences the posterior. As such, in the context of probabilistic risk assessments, it directly affects safety evaluations.
+
+      Since Bayesian analysis —--which is a paradigm in its own—-- is central to this thesis, the next section is fully dedicated to it.
+\end{itemize}
+
+
+
+
+
+
 
 
 
