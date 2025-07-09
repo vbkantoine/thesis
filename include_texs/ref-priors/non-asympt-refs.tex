@@ -7,7 +7,14 @@
 
 
 \begin{abstract}
-    abstract
+    This short appendix complements \cref{chap:intro-ref} as it provides a further study of the original definition of the mutual information.
+    In this work, we are interested about the maximization of the mutual information when the number of observations is fixed. Our results take 
+    the form of implicit formulations of  what we call ``non-asympotic reference priors''. 
+    %Our formulations express the refere
+    Two case studies are considered for deriving those, 
+    one involving the least possible assumption about the prior, and the other incorporating linear constraints to the framework.
+    %one that involve the minimal assumption possible on the prior, and one that incorporates linear constraints to it.
+    This study provides further insights on the expression of the reference priors as well as the optimal characteristic of the Jeffreys prior in the thoery.
 \end{abstract}
 
 
@@ -15,8 +22,8 @@
 
 \section{Motivations and context}
 
-Reference prior theory has been built on the idea to construct  priors whose influence onto the prior would be minimized, in order to let the latter being informed by the data in priority.
-This aim of that idea is to qualify the resulting prior as ``objective''.
+Reference prior theory has been built on the idea of constructing  priors whose influence onto the posterior would be minimized, in order to let the latter being informed by the data in priority.
+The aim of that idea is to qualify the resulting prior as ``objective''.
 
 To achieve that goal, 
 instead of seeking to maximize the expected divergence between the prior and the posterior (i.e., the mutual information), 
@@ -29,52 +36,233 @@ According to the \citet{bernardo_bayesian_1994}, when the number of observations
 %the theory seeks to maximize the mutual information, that is defined as an expected divergence between the prior and the posterior.
 
 However, there exist few elements that support formally this asymptotic definition of the reference prior in the literature.
-While there is consensus on the definition of \citet{bernardo_reference_1979} that consists in asymptotically maximizing the mutual information, we are interested in the expression of the prior that maximizes it non-asymptotically.
-This study is motivated by the two following thoughts: (i)~in a case where the number of observations represents a fundamental element of the problem, a prior that takes it into account could be valorized; (ii)~expressing the non-asymptotic reference prior can help to understand or to express the asymptotic reference priors.
+While there is consensus on the definition of the reference prior proposed by \citet{bernardo_reference_1979} that consists in asymptotically maximizing the mutual information, we are interested in the expression of the prior that maximizes it non-asymptotically.
+This study is motivated by the two following thoughts: (i)~in a case where the number of observations represents a fundamental element of the problem, a prior that takes it into account could be valorized; (ii)~expressing the non-asymptotic reference prior can help to understand or to express the asymptotic reference priors (i.e., the reference priors as they are originally defined).
 
-We suggest in this short appendix a main result that expresses implicitly the non-asymptotic reference priors. First, we recall the framework of the reference prior theory in the next section, then our results is developed in ??.
-In ?? we suggest a discussion of our result and elucidate its link with classical asymptotic reference priors.
-
-
+We suggest in this short appendix two main results that express implicitly the non-asymptotic reference priors. First, we recall briefly the framework of the reference prior theory in the next section, then our results are developed in \cref{nonasympt:sec:nonasymptref}.
+Finally, we discuss our results in \cref{nonasympt:sec:discussion}, and we elucidate their link with classical asymptotic reference priors.
 
 
-\section{Non-asymptotic reference priors}
 
-We remind that the original framework of the reference prior theory is comprehensively detailed in \cref{chap:intro-ref}. We consider a Bayesian framework: observations $\mbf Y_k\in\cY^k$ follows conditionally to $T=\theta\in\Theta$ the distribution $\PP_{\mbf Y_k|\theta}=\PP_{Y|\theta}^{\otimes k}$. The marginal distribution is denoted  $\PP_{\mbf Y_k}$ and the prior distribution $\varPi$.
-We suppose that the model admits a likelihood denoted $\ell_k$, and that all the distributions admits densities. The marginal, posterior, and prior densities are respectively denoted $p_{\mbf Y_k}$, $p$, and $\pi$.
 
-Under those settings, the mutual information given $k$ observations is defined as
+\section{Bayesian framework and mutual information}\label{nonasympt:sec:framework}
+
+We remind that the original framework of the reference prior theory is comprehensively detailed in \cref{chap:intro-ref}. We consider a Bayesian framework: observations $\mbf Y_k\in\cY^k$ follow conditionally to $T=\theta\in\Theta$ the distribution $\PP_{\mbf Y_k|\theta}=\PP_{Y|\theta}^{\otimes k}$. The marginal distribution is denoted  $\PP_{\mbf Y_k}$,  the prior distribution $\varPi$. %, and the posterior distribution $\PP_{T|\mbf }$.
+We suppose that the model admits a likelihood denoted $\ell_k$ w.r.t. a measure $\mu$ on $\cY$.
+We also suppose that the prior admits a density $\pi$ w.r.t. a measure $\nu$ on $\Theta$.
+%, and that all the distributions admits densities. 
+The marginal density is denoted $p_{\mbf Y_k}$. Finally, given a sample of observations $\mbf y,\in\cY^k$, the posterior distribution (resp. density) is denoted $\PP_{T|\mbf y}$ (resp. $p(\cdot|\mbf y)$).
+
+Under those settings, if $\varPi$ is proper, the mutual information given $k$ observations is defined   as
     \begin{equation}
-        \sI^k(\varPi) =
+        \sI^k(\varPi) = \EE_{\mbf Y_k\sim\PP_{\mbf Y_k}}[\text{KL}(\PP_{T|\mbf Y_k}||\varPi)], \quad\text{with} \quad \text{KL}(\PP_{T|\mbf Y_k}||\varPi) = \int_\Theta\log\left(\frac{p(\theta|\mbf Y_k)}{\pi(\theta)}\right)p(\theta|\mbf Y_k)d\nu(\theta).
     \end{equation}
 
-In this appendix, we define a non-asympotic reference prior as a maximal argument of the mutual information.
+
+\section{Non-asymptotic reference priors}\label{nonasympt:sec:nonasymptref}
+
+In this appendix, we define a non-asympotic reference prior as a maximal argument of the mutual information, as expressed in the definition below.
 \begin{defi}[Non-asymptotic reference prior]
-    p
+    Let $\cP\subset\sM^\nu$ be a set of proper priors. A prior $\varPi\in\cP$ is called a non-asymptotic reference priors over $\cP$ if 
+        \begin{equation}
+            \varPi\in\argmax_{P\in\cP}\sI(\overline{P})
+        \end{equation}
+    where $\overline{P}$ denotes $P(\cdot|\Theta)$, i.e., the renormalized probability distribution associated to $P$.\\
+    $\varPi$ is said to be unique if for any other non-asymptotic reference prior $\varPi'$ over $\cP$, $\varPi\simeq\varPi'$.
 \end{defi}
+As a comparison with the original definition of reference priors (which we refer as asymptotic reference priors in this appendix), a non-asymptotic reference prior must be proper.
+Indeed, the proper characteristic of $\varPi$ is essential for the mutual information to be well-defined.
 
 
-The result below gives an implicit expression of the non-asymptotic reference priors among a non-restrictive set of priors
 
-\begin{thm}
-    f
+
+The result below gives an implicit expression of the non-asymptotic reference prior among a non-restrictive set of priors
+
+\begin{thm}\label{nonasympt:thm:refnoconstr}
+    We assume that $\Theta$ is a compact subset of $\RR^d$, and that there exist $0<l_1<l_2$ such that $\ell_k(\mbf y|\theta)\in[l_1,l_2]$ for any $\mbf y\in\cY^k$, $\theta\in\Theta$. Let $\cP=\{\varPi\in\sM^\nu_\cC,\,\varPi>0,\,\varPi(\Theta)<\infty\}$ the set of continuous and positive proper priors. Then there exists a unique non-asymptotic reference prior over $\cP$. Its density $\pi$ verifies
+        \begin{equation}
+            \pi\propto f_\pi\quad\text{with}\quad f_\pi(\theta) = \exp\left(\int_{\cY^k}\ell_k(\mbf y|\theta)\log\frac{\ell_k(\mbf y|\theta)\pi(\theta)}{\int_{\Theta}\ell_k(\mbf y|\theta')\pi(\theta')d\nu(\theta')}d\mu^{\otimes k}(\mbf y)\right).
+        \end{equation}
 \end{thm}
 
 
 Following the idea provided in \cref{chap:constrained-prior}, we suggest also the study of non-asymptotic reference prior under constraints. The result below considers constraints that take the form of linear constraints. 
 
 
-\begin{thm}
-    g
+\begin{thm}\label{nonasympt:thm:constr}
+    Under the assumptions of \cref{nonasympt:thm:refnoconstr}, consider $(g_j)_{j=1}^q$ a family of functions in $\sR_{\cC^b}$ that is such that $g_0,\dots,g_q$ are linearly independent, where $g_0:=\theta\mapsto 1$. Let $c_1,\dots,c_q\in\RR$, and define $\cP'=\{\varPi\in\cP,\,\forall j,\, \int_\Theta g_jd\varPi=c_j\}$. Then there exists a unique non-asymptotic reference prior over $\cP'$. Its density $\tilde\pi$ verifies 
+        \begin{equation}
+            \tilde\pi\propto f_{\tilde\pi}\cdot\exp\left(\sum_{j=1}^q\lambda_jg_j\right),
+        \end{equation}
+    for some $\lambda_1,\dots,\lambda_q\in\RR$.
 \end{thm}
 
 
 
+\begin{proof}[Proof of \cref{nonasympt:thm:refnoconstr}]
+    
+    Let $P\in\cP$, we denote $p$ its renormalized density, i.e., $P(B|\Theta)=\int_Bp(\theta)d\nu(\theta)$. 
+    The quantity $\sI^k(\overline{P})$ can be written as a function of $p$:
+        \begin{equation}
+        \sI^k(\overline{P}) = \hat I(p) := \int_{\cY^k}\int_\Theta \ell_k(\mbf y|\theta)p(\theta)\log\frac{\ell_k(\mbf y|\theta)}{\int_\Theta \ell_k(\mbf y|\theta') p(\theta')d\nu(\theta')}d\nu(\theta)d\mu^{\otimes k}(\mbf y)
+    \end{equation}
+Therefore maximizing $P\mapsto\sI^k(\overline{P})$ over $\cP$ is equivalent to maximize $\hat I$ over $\sR_{\cC^b}^\ast\cap\{p,\,\int_\Theta pd\nu=1\}$, where $\sR^\ast_{\cC^b}=\{p\in\sR_{\cC^b},\,p>0\}$. In addition, $\hat I$ can be expressed as $\hat I = \hat I_1 + \hat I_2$ where 
+    \begin{align*}
+        \hat I_1(p) &= \int_{\cY^k}\int_\Theta \ell_k(\mbf y|\theta)p(\theta)\log \ell_k(\mbf y|\theta)d\nu(\theta)d\mu^{\otimes k}(\mbf y)\\
+        \hat I_2(p) &= \int_{\cY^k}\psi\left(\int_\Theta \ell_k(\mbf y|\theta)p(\theta)d\nu(\theta)\right)d\mu^{\otimes k}(\mbf y)
+    \end{align*}
+with $\psi:x\mapsto-x\log(x)$, which is a strictly concave function. Reminding that $\sR_{\cC^b}^\ast$ is convex and considering $p\ne q\in\sR_{\cC^b}^\ast$, $\lambda\in]0,1[$, we have:
+    \begin{align}\nonumber
+        \hat I_2(\lambda p + (1-\lambda)q) &= \int_{\cY^k}\psi\left(\lambda\int_\Theta \ell_k(\mbf y|\theta)p(\theta)d\nu(\theta) + (1-\lambda)\int_\Theta \ell_k(\mbf y|\theta)q(\theta)d\nu(\theta)\right)d\mu^{\otimes k}(\mbf y)\\
+            &>  \int_{\cY^k}\left[\lambda\psi\left(\int_\Theta \ell_k(\mbf y|\theta)p(\theta)d\nu(\theta)\right) + (1-\lambda)\psi\left(\int_\Theta \ell_k(\mbf y|\theta)q(\theta)d\nu(\theta)\right)\right]d\mu^{\otimes k}(\mbf y)\\
+            &> \lambda\hat I_2(p)+(1-\lambda)\hat I_2(q), \nonumber                
+    \end{align}
+hence  $\hat I_2$ is strictly concave. Since $\hat I_1$ is a linear function, we deduce that $\hat I$ is strictly concave on $\sR_{\cC^b}^\ast$.
+
+We call $E$ the set of $\nu$-a.e. continuous  and locally bounded functions.
+Note that $E$ provided with the supremum  norm $\|f\|=\sup_\Theta|f|$ is a Banach set whose $U=\sR_{\cC^b}^\ast\cap\{p,\,\int_\Theta pdnu\in]1-\xi,1+\xi[\}\,\xi\in]0,1[$ is an open and convex subset as $\Theta$ is supposed compact. Next part of the proof will be dedicated to show that $\hat I$ is differentiable on $U$.%, this way its strict concavity will imply the existence of an unique maximum reached in  $\pi$ such that $d\hat I(\pi)=0$. 
+
+As a consequence of the assumption on $\ell_k$, $|\log \ell_k(\cdot|\cdot)|$ is uniformly bounded on $\cY^k\times\Theta$. Then for any $p\in U$ we have:
+    \begin{align}\label{eq:I1differ}
+        |\hat I_1(p)| &\leq \int_{\cY^k}\int_\Theta \ell_k(\mbf y|\theta)d\nu(\theta)d\mu^{\otimes k}(\mbf y) \sup_{\mbf y,\theta}|\log \ell_k(\mbf y|\theta)|\|p\|\\
+            &\leq \nu(\Theta)\sup_{t,\theta}|\log \ell_k(\mbf y|\theta)|\|p\| \nonumber,
+    \end{align}
+which implies that $\hat I_1$ is a differentiable linear form. Its differentiate in $p$ is $d\hat I_1(p)=\hat I_1$.
+
+We consider $0<\tilde l_1<(1-\xi)l_1\nu(\Theta)$ and $\tilde l_2>(1+\xi)l_2\nu(\Theta)$ and write $\hat I_2(p) = \Phi_1(p\times G(p))$, with $G := C - \varphi\circ\Phi_2$, and where $\Phi_1$, $\Phi_2$, $\varphi$ and $C$ are defined as folows:
+    \begin{equation}
+        \begin{aligned}
+            \text{1.}\quad& \Phi_2\left\{\begin{array}{rcl}
+                U&\longrightarrow&\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde  l_2[) \\
+                p&\longmapsto&\left[(t,\theta)\mapsto\int_\Theta \ell_k(\mbf y|\tilde\theta)p(\tilde\theta)d\nu(\tilde\theta)\right]
+            \end{array}\right.
+            \quad\text{where ${\cC}(A,B)=\{f:A\mapsto B,\,$continuous$\}$;}\\ %denotes the set of continuous functions from $A$ to $B$;}\\
+            \text{2.}\quad& \varphi\left\{\begin{array}{rcl}
+                \overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde  l_2[)&\longrightarrow&\overset{\circ}{\cC}({\cY^k}\times\Theta,]\log\tilde l_1,\log\tilde  l_2[)\\
+                q&\longmapsto& \log\circ\, q
+            \end{array}\right. ;\\
+            \text{3.}\quad& C\text{\ is the constant of  $\overset{\circ}{\cC}({\cY^k}\times\Theta,]\log\tilde l_1,\log\tilde  l_2[)$ that equals $\varphi(\ell_k)$ };\\
+            \text{4.}\quad& \Phi_1\left\{\begin{array}{rcl}
+                \overset{\circ}{\cC}({\cY^k}\times\Theta,]\hat l_1,\hat l_2[)&\longrightarrow&\RR\\
+                r&\longmapsto& \int_{\cY^k}\int_\Theta r(t,\theta)\ell_k(\mbf y|\theta)d\nu(\theta)d\mu^{\otimes k}(\mbf y)
+            \end{array}\right.
+        \end{aligned}
+    \end{equation}
+    % \begin{align*}
+    %     &\Phi_2\left\{\appli{U}{\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde  l_2[)}{p}{\left[(t,\theta)\mapsto\int_\Theta \ell_k(\mbf y|\tilde\theta)p(\tilde\theta)d\nu(\tilde\theta)\right]}\right. & 
+    %     \varphi:q\mapsto\log\comp\,q\\ %  \left\{\appli{\cC({\cY^k}\times\Theta,]\tilde\alpha,\tilde\beta[)}{\cC({\cY^k}\times\Theta,]\hat\alpha,\hat\beta[)}{q}{\log\comp q}\right.\\
+    %     &\Phi_1\left\{\appli{\overset{\circ}{\cC}({\cY^k}\times\Theta,]\hat l_1,\hat l_2[)}{\RR}{r}{\int_{\cY^k}\int_\Theta r(t,\theta)\ell_k(\mbf y|\theta)d\nu(\theta)d\mu^{\otimes k}(\mbf y)}\right.& C = (t,\theta)\mapsto\log \ell_k(\mbf y|\theta)
+    % % \end{align*}
+    where $0<\hat l_1<\min(\log\tilde l_1,l_1)$ and $\hat l_2>\max(\log\tilde l_2,l_2)$. %$\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde l_2[)$ denotes the set of interior points of $\cC({\cY^k}\times\Theta,]\tilde\alpha,\tilde\beta[)$. 
+    We justify hereafter the correct definition of $\Phi_2$. Let $p$ be in $\sR_{\cC^b}^\ast$. As $\ell_k$ is continuous and uniformly bounded, $p$ is bounded, and $\nu(\Theta)<\infty$ we obtain that $\Phi_2(p)$ is continuous, moreover, we have 
+    \begin{equation}
+        (1-\xi)l_1\nu(\Theta)<\Phi_2(p)<(1+\xi)l_2\nu(\Theta)
+    \end{equation}
+    this way $\Phi_2(p)\in\cC({\cY^k}\times\Theta,](1-\xi)l_1\nu(\Theta),(1+\xi)l_2\nu(\Theta)[)$ which is included in $\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde l_2[)$.
+    
+    Now we will show that all these functions are differentiable. $\Phi_2$ is linear, and for any $p\in U$,
+        $\|\Phi_2(p)\| \leq\|p\| l_1\nu(\Theta)$
+    thus it is continuous and differentiable. $\Phi_1$ is also linear and for any $r\in\overset{\circ}{\cC}({\cY^k}\times\Theta,]\hat l_1,\hat l_2[)$, $\|\Phi_1(r)\|\leq \|r\|\nu(\Theta)$, which states its differentiability. As   the application $(q,p)\mapsto qp$ is a continuous and differentiable bi-linear application, last task we have to do is to demonstrate the differentiability of $\varphi$.\\
+    %Let $p$ be in $\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde\alpha,\tilde\beta[)$ and $h$ such
+    We consider $q\in\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde l_2[)$. Let $\eps>0$, there exists $\eta>0$ such that for any $x\in]-\eta,\eta[$, 
+        $$|\log(1+x)-x| \leq \eps|x|\inf_{{\cY^k}\times\Theta}|p|$$
+    Therefore if we consider $\tau$ such that $\cB(q,\tau)\subset\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde l_2[)$ and $\tau/\inf_{{\cY^k}\times\Theta}|q|<\eta$ it comes for any $\mbf y,\theta$ and $h\in\cB(q,\tau)$,
+        \begin{align*}
+            \left|\varphi(q+h)-\varphi(q)-\frac{h}{q}\right|(\mbf y,\theta) &= \left|\log\Big(1+\frac{h(\mbf y,\theta)}{q(\mbf y,\theta)}\Big)-\frac{h(\mbf y,\theta)}{q(\mbf y,\theta)}\right|\leq \eps |h(\mbf y,\theta)|\\
+            \mbox{Thus }\left\|\varphi(q+h)-\varphi(q)-\frac{h}{q}\right\| &\leq\eps\|h\|
+        \end{align*}
+    which shows that $\varphi$ is differentiable with $d\varphi(q)h=h/q$.
+    
+    Finally, $\hat I_2$ is differentiable.
+    Going back to $\hat I$, we have shown that is it differentiable.
+    Moreover, as $q\mapsto d\varphi(q)$ is continuous on $\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde l_2[)$, we deduce that $\hat I$ continuously differentiable on $U$. 
+    We compute bellow its differentiate:
+    \begin{align}\label{eq:differI}
+        d\hat I(p)h &= \Phi_1(hG(p)-pd\varphi(\Phi_2 (p))\Phi_2(h))\\
+                &= \int_{\cY^k}\int_\Theta  \ell_k(\mbf y|\theta)\left( h(\theta) \log\frac{\ell_k(\mbf y|\theta)}{\int_\Theta \ell_k(\mbf y|\tilde\theta)p(\tilde\theta)d\nu(\tilde\theta)} - p(\theta)\frac{\int_\Theta \ell_k(\mbf y|\tilde\theta)h(\tilde\theta)d\nu(\tilde\theta)}{\int_\Theta \ell_k(\mbf y|\tilde\theta)p(\tilde\theta)d\nu(\tilde\theta)} \right)d\nu(\theta)d\mu^{\otimes k}(\mbf y) \nonumber
+    \end{align}
+    
+    The maximal argument point we are looking for is the $\argmax$ of $\hat I$ on $U$ under the constraint $p\in F =g^{-1}(\{0\})$, $g(p):=\int_\Theta pd\nu-1$. $g$ is continuous and then $\cC^1$ on $U$ with $dg(p)=h\mapsto\int_\Theta hd\nu$ that is a surjective function for any $p\in F$. $F$ is convex and $\hat I$ is strictly concave on $F$ and bounded from above. This way, $\hat I$ admits a unique maximal argument $\pi$ over $F$. According to the Lagrange multipliers theorem, there exists $\lambda\in\RR$ such that $\pi$ is a critical point of the function $\cL = \hat I - \lambda g$ i.e.        
+        \begin{equation}\label{eq:lagran}
+            d\cL(\pi) = d\hat I(\pi) - \lambda dg(\pi) =  0  
+        \end{equation}
+    
+    This implies that, for any $h\in E$, the expression derived in \cref{eq:differI} is equal to $\lambda\int_\Theta h(\theta)d\nu(\theta) $. Thus,  for any $\theta\in\Theta$,
+        \begin{align}
+            \lambda = \int_{\cY^k} \ell_k(\mbf y|\theta)\left(\log\frac{\ell_k(\mbf y|\theta)}{\int_\Theta \ell_k(\mbf y|\tilde\theta)\pi(\tilde\theta)d\nu(\tilde\theta)} - \frac{\int_\Theta \ell_k(\mbf y|\tilde\theta)\pi(\tilde\theta)d\nu(\tilde\theta)}{\int_\Theta \ell_k(\mbf y|\tilde\theta)\pi(\tilde\theta)d\nu(\tilde\theta)}\right)d\mu^{\otimes k}(\mbf y)
+        \end{align}
+    expressing the exponential of last equation and multiplying by $\pi(\theta)$ leads to what follows.
+        \begin{align}\label{eq:passedtoexp}
+            \pi(\theta) e^{\lambda+1} &= \exp\left[\int_{\cY^k} \ell_k(\mbf y|\theta)\log\frac{\ell_k(\mbf y|\theta)}{\int_\Theta \ell_k(\mbf y|\tilde\theta)\pi(\tilde\theta)d\nu(\tilde\theta)}d\mu^{\otimes k}(\mbf y) + \log \pi(\theta)\right] \\
+               &= \exp\left[\int_{\cY^k} \ell_k(\mbf y|\theta)\log\frac{\ell_k(\mbf y|\theta)}{\int_\Theta \ell_k(\mbf y|\tilde\theta)\pi(\tilde\theta)d\nu(\tilde\theta)}d\mu^{\otimes k}(\mbf y) + \int_{\cY^k} \ell_k(\mbf y|\theta)\log \pi(\theta)d\mu^{\otimes k}(\mbf y)\right] \nonumber
+        \end{align}
+    by using the fact that $\int_{\cY^k} \ell_k(\mbf y|\theta)d\mu^{\otimes k}(\mbf y)=1$. Finally, we obtain,
+        \begin{align}\label{eq:finalpprop}
+            \pi(\theta)e^{\lambda+1} &= \exp\left[ \int_{\cY^k} \ell_k(\mbf y|\theta)\log\frac{ \ell_k(\mbf y|\theta)\pi(\theta)}{\int_\Theta \ell_k(\mbf y|\tilde\theta)\pi(\tilde\theta)d\nu(\tilde\theta)}d\mu^{\otimes k}(\mbf y)\right].
+        \end{align}
+
+
+
+\end{proof}
 
 
 
 
-\section{Link with asymptotic reference priors}
+
+\begin{proof}[Proof of \cref{nonasympt:thm:constr}]
+    %This proof follows the proof of theorem \ref{thm:ImaxC0} that one can find above. 
+    Using the notations introduced in the preceding proof, 
+    we are looking for a maximizer $\tilde\pi\in U$ of $\hat I$ that satisfies the equality constraints $\int_\Theta g_j(\theta)\tilde\pi(\theta)d\nu(\theta)=c_j$ for any $j\in\{0,\dots,q\}$. These constraints are linear and continuous letting the strict concavity of $\hat I$ ensuring the existence of a unique solution $\tilde\pi$. Since we remain  under the assumptions of the Lagrange multipliers theorem, we obtain that there exist $\lambda,\,\lambda_1,\dots,\lambda_q\in\RR$ such that
+    \begin{equation}
+        d\hat I(\tilde\pi)h -\lambda\int_\Theta hd\nu +\sum_{j=1}^q\lambda_j\int_\Theta g_jhd\nu=0
+    \end{equation}
+        for any $h\in E$. Thus, for any $\theta\in\Theta$,
+            \begin{align}
+                \lambda -\sum_{j=1}^q\lambda_jg_j(\theta)= \int_{\cY^k} \ell_k(\mbf y|\theta)\log\frac{\ell_k(\mbf y|\theta)}{\int_\Theta \ell_k(\mbf y|\tilde\theta)\tilde\pi(\tilde\theta)d\nu(\tilde\theta)}d\mu^{\otimes k}(\mbf y) - 1.
+            \end{align}
+        % and so, similarly than in (\ref{eq:passedtoexp}), 
+        Applying exponential function to the above and multiplying by $\tilde\pi$ leads to the result as:
+            \begin{align}
+                \tilde\pi(\theta)e^{\lambda+1} e^{-\sum_{j=1}^q\lambda_jg_j(\theta)} &=  \exp\left[ \int_{\cY^k} \ell_k(\mbf y|\theta)\log\frac{ \ell_k(\mbf y|\theta)\tilde\pi(\theta)}{\int_\Theta \ell_k(\mbf y|\tilde\theta)\tilde\pi(\tilde\theta)d\nu(\tilde\theta)}d\mu^{\otimes k}(\mbf y)\right].
+            \end{align}
+    
+\end{proof}
+
+
+\section{Discussion and link with asymptotic reference priors}
+\label{nonasympt:sec:discussion}
+
+The results provided by \cref{nonasympt:thm:refnoconstr,nonasympt:thm:constr} provide implicit expressions of non-asymptotic reference priors.
+% Indeed, in both expressions, the 
+The resolution of these equations to issue an explicit formulation of the priors remains complex.
+However, further work could study the approximation of the priors, as the solutions of fixed-point problems.
+
+Furthermore, one should notice that the implicit formulations actually express the priors as a function of their posterior. This remark motivates their asymptotic study since, as $k\rightarrow\infty$, the dependence of the posterior in the prior should vanish.
+This heuristic takes the Bernstein-von Mises theorem as a support, which, under appropriate assumptions, states that the posterior density is asymptotically close to a Gaussian density whose mean is a frequentist asymptotically sufficient and consistent estimator, $\hat\theta_k$, and whose variance is $\frac{1}{\sqrt{k}}\cI(\theta)^{-1/2}$, where $\cI(\theta)$ denotes the Fisher information matrix.
+Considering this statement, we write
+    \begin{equation}
+        \log p(\theta|\mbf y) \simeq \log \frac{k}{2\pi} - \frac{k}{2}\|\cI(\theta)^{1/2}(\theta-\hat\theta_k)\|^2 +\frac{1}{2}\log|\det\cI(\theta)|.
+    \end{equation}
+Using that, under minimal assumptions, $\EE_{\mbf Y_k\sim\PP_{\mbf Y_k|\theta}}k\|\cI(\theta)^{1/2}(\theta-\hat\theta) \|^2$ tends toward $0$ as $k\rightarrow\infty$, we obtain that
+    \begin{equation}
+        f_\pi(\theta)\simeq \frac{k}{2\pi}\exp\log\frac{1}{2}|\det\cI(\theta)|,
+    \end{equation}
+where $f_\pi$ is the function expressed in \cref{nonasympt:thm:refnoconstr}. 
+Finally, within this heuristic, denoting $J$ the Jeffreys prior density: $J(\theta)=\sqrt{|\det\cI(\theta)|}$, we obtain that, asymptotically, 
+\begin{enumerate}
+    \item the solution of \cref{nonasympt:thm:refnoconstr} becomes proportional to the Jeffreys prior,
+    \item the solution of \cref{nonasympt:thm:constr} becomes proportional to $\tilde\pi^\infty$ defined as a modified Jeffreys prior:
+        \begin{equation}
+            \tilde\pi^\infty(\theta) = J(\theta)\cdot\exp\left(\sum_{j=1}^{q}\lambda_jg_j\right).
+        \end{equation}
+\end{enumerate}
+
+
+We conclude by highlighting that the expression of the functional $f_\pi$ in \cref{nonasympt:thm:refnoconstr} echoes the one of the functional that formally tends to the asymptotic reference priors in the theorem stated by \citet{berger_formal_2009} (see \cref{chap:intro-ref}, \cref{sec:intro-ref:mutalinfo-ref-priors}, where this theorem is expressed).
+In their theorem, they leverage the statement according to which the posterior should become independent of the prior asymptotically. Indeed, they replace in $f_\pi$ the posterior that is derived from $\pi$ by the posterior that is derived from another suitable prior. %They proved that 
+
+
+
 
 
 
@@ -83,7 +271,7 @@ Following the idea provided in \cref{chap:constrained-prior}, we suggest also th
 
 
 
-\section{Discussion}
+% \section{Discussion}
 
 
 
