@@ -138,7 +138,7 @@ Numerous mathematical tools support the aforementioned steps of uncertainty quan
     in one or more parameters of the studied model. The uncertainty encoded in the Bayesian framework typically appears in the form of a prior distribution. Propagation of uncertainties within this framework is achieved by computing the posterior distribution, based on statistical observations $(\mbf x_1, y_1), \ldots, (\mbf x_k, y_k)$.
       The choice of the prior is critical: it belongs to the step of uncertainty identification and significantly influences the posterior. As such, in the context of probabilistic risk assessments, it directly affects safety evaluations.
 
-      Since Bayesian analysis —--which is a paradigm in its own—-- is central to this thesis, the next section is fully dedicated to it.
+      Bayesian analysis is whole paradigm. Since it is central to this thesis, the next section is fully dedicated to it.
 \end{itemize}
 
 
@@ -151,24 +151,204 @@ Numerous mathematical tools support the aforementioned steps of uncertainty quan
 
 \subsection{The choice of the prior in Bayesian studies}
 
-\subsection{Motivating prior elicitation research for SPRA studies}
+Bayesian analysis is a branch of statistics built upon an interpretation of probability as a degree of plausibility of events, generally referred to as ``credibility''. Like any statistical method, it aims to establish a connection between observed data and their underlying probability distribution. It relies on Bayes’ theorem, treating the unknown parameter that define the data distribution as random. Statistical observations then inform the distribution of these unknow paramters, updating the credibility attributed to one possible distribution of the data over another.
+
+By contrast, the frequentist approach views probability as a 
+%long-run 
+frequency of occurrence, observable through repeated experimentations. In this paradigm, the unknown quantity exists as a fixed value, and the frequencies observed through repeated trials are more or less probable depending on which value of the unknown we assume to be true. This leads to what is typically termed ``confidence''.
+
+It is important to note that these two approaches are complementary %rather than contradictory**, 
+and they often intersect, depending on the specific context. In practical applications, the nature of the case study and its particular constraints may lead to favoring one approach over the other.
+
+This thesis focuses on Bayesian analysis within the context of statistical inference. Here, a variable of interest $Y \in \mathcal{Y}$ is modeled using a parametric distribution $P_{Y|\theta}$, where $\theta \in \Theta$ is the unknown parameter, now treated as a random variable under the Bayesian framework. Accordingly, $\theta$ is assigned a distribution known as the \textbf{prior}. When we observe successive and conditionally independent realizations of $Y$, the \textbf{posterior} is defined as the distribution of $\theta$ conditionally to those observations.
+A credibility region at level $r$ is defined as a region within $\Theta$ that holds at least probability $r$ under the posterior distribution. We note that various results establish links between the Bayesian and frequentist approaches to estimating $\theta$. One such result is the Bernstein–von Mises theorem (see e.g. \cite{van_der_vaart_asymptotic_1992}), which shows convergence between the two perspectives under certain conditions.
+
+Let $\mbf y = (y_1, \ldots, y_k)$ represent the observed values from $k$ realizations of $Y$. Assuming all necessary quantities are well-defined, let:
+$\pi$ be the density of the prior (with respect to some measure $\nu$), $\ell(\cdot|\theta)$ be the density of $P_{Y|\theta}$ (with respect to a measure $\mu$),
+and $\ell_k(\mbf y|\theta) = \prod_{i=1}^k \ell(y_i|\theta)$ be the likelihood of the model.
+With these notations, Bayes’ theorem defines the posterior density (with respect to $\nu$) as:
+\begin{equation}
+    p(\theta|y) = \frac{\ell_k(y|\theta)\pi(\theta)}{\int_\Theta \ell_k(y|\theta)\pi(\theta) \, d\nu(\theta)}.
+\end{equation}
+This formula formalizes the link between the prior, the model (represented via the likelihood), the data, and the posterior, which ultimately reflects the updated, credible prediction. It illustrates the Bayesian framework as an information transmission chain leading to the \emph{a posteriori}, from  two sources: the ``real''  (the observations) and the \emph{a priori}. This structure is illustrated in the diagram below.
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+
+        \draw[-{Latex[length=1.5mm]}] (0, 0) -- (.9, 0); % english (0, 0) -- (.9, 0); 
+        \draw (0, 0) node[left] {Dataset $\mbf y=(y_i)_{i=1}^k\in\cY^k$}; %english (0,0)
+         
+        \draw (2.5, 0) node {likelihood ${\ell_k(\mbf y|\theta)}$}; %englih (2.5,0)
+        
+        \draw[-{Latex[length=1.5mm]}] (0, -0.6) -- (0.9, -0.6); % english (0, -0.6) -- (0.9, -0.6); 
+        \draw (0,-0.6) node[left] {Parameter $\theta\in\Theta$}; %english (0,-0.6)
+        
+        \draw (2.5,-0.6) node {prior $\pi(\theta)$}; % english (2.5,-0.6)
+
+        \draw [-] plot [smooth] coordinates {(4.3,0) (4.6,-0.03) (5.05,-0.27) (5.5,-0.3)};
+        \draw [-{Latex[length=1.5mm]}] plot [smooth] coordinates {(4.3,-0.6) (4.6,-0.57) (5.05,-0.33) (5.5,-0.3)};
+
+        \draw (5.7,-0.3) node[right] {posterior $p(\theta|\mbf y)\propto{\ell_k(\mbf y|\theta)}{\pi(\theta)}$};
+        
+    \end{tikzpicture}
+\end{figure}
+
+If the information provided by the data is generally not questionned, it is the prior information that captures the most attention. By nature, the prior is the source of uncertainty in the result. Thus, its construction must be handled with care during the modeling stage and cannot be arbitrary. Yet the Bayesian formulation 
+let it significantly influence   the posterior, especially in situations where the dataset is limited in size. 
+An illustration of this phenomenon is proposed \cref{fig:intro-english:intro-differentsposteriors}, where different priors —--that seem similar—-- lead to very different posteriors, all based on the same observations. As always, the devil is in the detail: here, it is the tails of the prior distributions —--barely visible in the figure—-- that account for the discrepancy. Still, this example rightly raises concerns about the choice of prior.
+
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=5cm]{figures/intro/posterior1.pdf}
+    \includegraphics[width=5cm]{figures/intro/posterior2.pdf}
+    \includegraphics[width=5cm]{figures/intro/posterior3.pdf}   
+    \caption{Different posteriors (dashed lines) derived from the same likelihood (blue) but different priors (red).%De gauche à droite le prior est : une gaussienne $\cN(5,)}
+    }
+    \label{fig:intro-english:intro-differentsposteriors}
+\end{figure}
+
+The question of how to construct a prior remains an open issue in the literature. For some, it is an opportunity to incorporate information from external sources, such as expert judgment, historical data, or known properties expected of the result. Such priors are typically described as informative. For others, the prior is instead a way for injecting uncertainty into the model. In other term, a way of expressing a lack of prior knowledge and allowing the data to speak for themselves. These practitioners place their trust in the modeling of the likelihood and their prior will be qualified as non-informative.
+
+What emerges from these introductory paragraphs is that the question is unsolvable: there can be no universally accepted method for selecting a prior. This issue represents one of the ``holes'' in the Bayesian workflow identified by \citet{gelman_holes_2020}: overly informative priors can undermine confidence in the results, while excessively vague priors can lead to credibility regions so wide they become impractical. That said, this does not diminish the relevance of the Bayesian approach, this section is not intended to discredit it, and the remainder of the manuscript will prove that. But it must leave the one who use it aware of the impact and limitations of their choices. The selection of a prior is as critical as the choice of the model itself.
+
+
+
+
+
+
+
+
+
+
+
+\subsection{What motivates research on prior elicitation for SPRA studies}
+
+Bayesian analysis has become increasingly popular across many fields, including reliability and safety studies. Indeed, it is widely appreciated for its ability (i)~to introduce and propagate uncertainty in an inference problem, and (ii)~to exhibit more regular behavior than many frequentist methods, particularly when the number of observed data is limited.
+
+The Bayesian inference framework naturally aligns with the  uncertainty quantification process. Identifying uncertainties in the input $\mbf X$ or within the model $\cM$ itself (or a surrogate, when applicable) can be achieved through their parameterization, resulting in a parametric distribution of the output $Y$: $P_{Y|X,\theta}$. The variable $\theta$, which is treated as random under the Bayesian paradigm, can represent various sources of uncertainty, differing in nature depending on the context \citep{bousquet_contributions_2024}. This approach has been widely employed across a range of models, including Gaussian processes (e.g., \cite{gu_parallel_2016}) and neural networks \citep{arbel_bayes_2023}.
+
+Sometimes, the methodology is adopted specifically for the flexibility it offers in incorporating expert judgment or prior knowledge. Yet, it is this possibility that also questions, as it introduces a degree of subjectivity that is often difficult to justify. In the context of SPRA in the nuclear industry, demonstrating robustness is essential. Given the high complexity of such case studies, 
+one xould find as many priors as there are experts if we follow this approach.
+Such a caricatural situation puts at risk the auditability of any resulting posterior credibility region.
+
+It becomes clear that in an auditable safety study, a ``good'' credibility region for an estimated parameter is not necessarily a narrow one, even if it seems to suggest that safety is achieved. Conversely, a region that is too wide is not inherently ``good'' either, as it fails to demonstrate the expected robustness of the equipment. The appropriate balance is complex, and the ``right'' prior is the one that produces results that inspire trust, while accurately reflecting the equipment’s ability or inability to handle the hazard.
+
+All these reflections highlight the importance of constructing the prior in a methodical and disciplined way within the context of SPRA, using a rigorous framework that seeks, as much as possible, to avoid the introduction of any form of subjectivity into the process.
+
+
 
 
 
 \section{Outline of the manuscript and contributions}
 
-\subsection{Problems statement and organization of the thesis}
+\subsection{Problem statement and organization of the thesis}
+
+
+
+Several central questions emerge from this introduction and the preceding reflections. They are listed below and represent the major issues that arose during this thesis, which the work presented in this manuscript aims to address.\\
+
+\ques{i}{How can one define and support the objectivity of a prior?}
+
+
+\ques{ii}{What are the limitations of implementing such non-informative priors, and how can their use be reconciled  with practical needs?}
+
+\ques{iii}{How can such priors be constructed and derived in practice?}
+
+\ques{iv}{In the context of SPRA, what forms do these objective priors take within a seismic fragility curve model?}
+
+\ques{v}{What are the implications of information scarcity in such models, and how can they be addressed?}
+
+\ques{vi}{How can the different sources of information (\emph{a priori} information and data-based information) be best integrated across the full Bayesian workflow of the model under study?}\\[1pt]
+
+
+In this thesis, we aim to address these six questions through a study structured along two axes.
+The first axis is theoretical in nature and tackles the issues surrounding the construction of so-called ``objective'' priors. It focuses on the development of a theoretical framework known as reference prior theory.
+The second axis is more practical, examining the application of the theoretical developments to real-world case studies. It focuses  on the estimation of seismic fragility curves, which are a key tool in the framework of seismic probabilistic risk assessment studies.
+It is important to emphasize that, although distinct, these two major axes of work are deeply interconnected. Practical concerns inspired the theoretical investigations, just as theoretical insights have been applied to serve practical studies.\\
+
+
+
+The \cref{part:ref-theory} of this manuscript is devoted to the development of the reference prior theory.
+
+\noindent
+In \cref{chap:intro-ref}, the theory is introduced and its state of the art is reviewed. This chapter presents the notion of reference prior as it is commonly defined in the literature and situates it within the objective priors. This chapter allows to formalize the mathematical framework that will be used throughout the rest of this part.
+
+\noindent
+In \cref{chap:ref-generalized}, we observe that the definition of reference priors relies on a dissimilarity measure. The chapter seeks to generalize this measure in order to reinforce the objectivity of reference priors. This work provides an answer to \textbf{question i}.
+
+\noindent
+In \cref{chap:constrained-prior}, the theory is extended to address the practical challenges that arise when reference priors, are difficult to use. The chapter introduces the concept of constrained reference priors, whose solutions propose an answer to \textbf{question ii}.
+
+\noindent
+In \cref{chap:varp}, a numerical method is developed to approximate reference priors. This method is based on variational inference, defining the prior as the output of a neural network in order to avoid an explicit calculation. This chapter provides an answer to \textbf{question iii}.\\
+
+
+The \cref{part:spra}
+of this manuscript address the topic of objective Bayesian estimation of seismic fragility curves.
+
+\noindent
+In \cref{chap:frags-intro}, seismic fragility curves are introduced along with their definition, historical background, and role within the SPRA. A review of the main estimation methods, based on the types of available data, is presented.
+
+\noindent
+In \cref{chap:prem}, a detailed computation and study of the reference prior is carried out for a classical model used to estimate fragility curves. Bayesian inference using this prior is then compared to other methods. This chapter addresses \textbf{question iv}.
+
+\noindent
+In \cref{chap:constrained-frags}, the limitations of the model used for fragility curve estimation are taken into account. A solution is proposed, supported by the theoretical developments from the first part. This chapter proposes an answer to \textbf{question v}.
+
+\noindent
+In \cref{chap:doe}, the study is concluded with a method designed to enhance Bayesian estimation, not only by optimizing the prior selection, but also by improving data selection itself through an experimental design strategy. This chapter provides an answer to \textbf{question vi}.\\
+
+A general conclusion ends the manuscript in the final \cref{part:conclusion}.
 
 
 
 \subsection{List of contributions}
 
 
+The research conducted through this thesis led to the production of several contributions to the scientific litterature. Hereafter are listed the published and submitted works.
+
+
+
+\subsubsection{Journal papers}
+
+
+
+\begin{itemize}
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, C. Feau \& J. Garnier (2025). ``Robust a posteriori estimation of probit-lognormal seismic fragility curves via sequential design of experiments and constrained reference prior''. \emph{arXiv} 2503.07343. \textsc{doi:} \href{https://dx.doi.org/10.48550/arXiv.2503.07343}{10.48550/arXiv.2503.07343}.
+    \item N. Baillie, \textbf{A. Van Biesbroeck} \& C. Gauchy (2025). ``Variational inference for approximate reference priors using neural networks''. \emph{arXiv} 2502.02364. \textsc{doi:} \href{https://dx.doi.org/10.48550/arXiv.2502.02364}{10.48550/arXiv.2502.02364}
+    \item \textbf{A. Van Biesbroeck} (2024). ``Properly constrained reference priors decay rates for efficient and robust posterior inference'', \emph{arXiv} 2409.13041. \textsc{doi:} \href{https://dx.doi.org/10.48550/arXiv.2409.13041}{10.48550/arXiv.2409.13041}
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, C. Feau \& J. Garnier (2025). ``Design of experiments based on a low fidelity model for seismic fragility curves estimation''. \emph{ESAIM: ProcS} (to appear). \textsc{hal:} \href{https://hal.science/hal-04719458v1}{hal-04719458v1}
+    \item \textbf{A. Van Biesbroeck} (2023). ``Generalized mutual information and their reference priors under Csizar f-divergence''. \emph{arXiv} 2310.10530. \textsc{doi:} \href{https://dx.doi.org/10.48550/arXiv.2310.10530}{10.48550/arXiv.2310.10530}
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, C. Feau \& J. Garnier (2024). ``Reference prior for Bayesian estimation of seismic fragility curves''. \emph{Probabilistic Engineering Mechanics}, 76, pp 103622. \textsc{doi:} \href{https://dx.doi.org/10.1016/j.probengmech.2024.103622}{10.1016/j.probengm\-ech.2024.103622}
+\end{itemize}
 
 
 
 
 
+
+\subsubsection{Proceedings papers}
+
+
+
+\begin{itemize}
+    \item \textbf{A. Van Biesbroeck}, C. Feau \& J. Garnier (2025). ``Design of experiments for efficient and conform Bayesian learning of seismic fragility curves''. \emph{Proceedings of the 28th conference on Structural Mechanics in Reactor Techology (SMiRT).}
+    \item N. Baillie, \textbf{A. Van Biesbroeck}, C. Feau \& C. Gauchy (2025). ``Bayesian estimation of seismic fragility curves based on variational reference priors using neural networks''. \emph{Proceedings of the 6th Thematic Conference on Uncertainty Quantification in Computational Sciences and Engineering (UNCECOMP)}.
+    % \item C. Gauchy, \textbf{A. Van Biesbroeck}, C. Feau \& J. Garnier (2023). ``Inférence variationelle de lois a priori de référence''. \emph{Proceedings des 54èmes Journées de Statistiques (JdS)}. \textsc{url}
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, J. Garnier \& C. Feau (2023). ``Connections between reference prior theory and global sensitivity analysis, an illustration with f-divergences''. \emph{Proceedings des 54èmes Journées de Statistiques (JdS)}. \textsc{hal:} \href{https://hal.science/hal-04171446}{hal-04171446}
+    \item \textbf{A. Van Biesbroeck}, C. Gauchy, C. Feau \& J. Garnier (2023). ``Influence of the choice of the seismic intensity measure on fragility curves estimation in a Bayesian framework based on reference prior''. \emph{Proceedings of the 5th Thematic Conference on Uncertainty Quantification in Computational Sciences and Engineering (UNCECOMP)}, pp. 94-111. \textsc{doi:} \href{https://dx.doi.org/10.7712/120223.10327.19899}{10.7712/120223.10327.19899}
+\end{itemize}
+
+
+
+
+Each of these publications, whether it takes the form of a journal paper or a proceedings paper propose an original contribution that is tied to this thesis.
+Naturally, the contributions presented as journal papers are considered as richer.
+
+Apart from two exceptions, each of these contributions lies in the center of a chapter or an appendix of this manuscript.
+The first exception is the proceedings paper published at JdS in 2023. Indeed, this work constituted an introduction to the study which led to the journal paper entitled ``Generalized mutual information and their reference priors under Csizar f-divergence''. In this manuscript, the proceedings paper is incorporated to the chapter tied with the latter (\cref{chap:ref-generalized}). The second exception is the proceedings paper published at SMiRT in 2025. The original methodology presented in this paper remains conceptual and its development faced the end of  the thesis.
+The study thus lacks for an in-depht-look that might be conducted in the future.
 
 
 
