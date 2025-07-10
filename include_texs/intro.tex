@@ -17,10 +17,9 @@
 
 
 \begin{abstract}
-    In this chapter, we introduce and motivate the research work carried out through this thesis. The work is motivated
-    mainly by the need to evolve seismic probabilistic risk assessment study methods, but also by the lack of response provided by the state of the art to the question of the choice of prior in Bayesian inference.
-       These issues are detailed, and
-    the work is then introduced from their analyses, resulting in a consistent organization of the manuscript.
+    First of all, we present and motivate the research work carried out as part of this thesis. The aim is to improve
+methods for seismic probabilistic risk assessment studies, given the lack of response provided by the state of the art regarding the choice of the prior in Bayesian inference. Secondly, we present the organization of the manuscript, which is based on a reformulation of the problematic under
+in the form of six main questions.
 \end{abstract}
 
 \minitoc
@@ -62,7 +61,9 @@ In this dialogue, the ASNR acts as a kind of referee. Among other responsibiliti
 
 This arbitration is thus both sensitive and critical.
 The incident that occurred in 2011 at the Fukushima-Daiichi nuclear power plant illustrates this clearly. The seismic hazard (which triggered the tsunami) had been underestimated by the consensus of Japanese experts, and it is ultimately this underestimation that led to the accident (see the report by the international atomic energy agency, \cite{iaea_fukushima_2015}). In the wake of this event,
- the ASNR decided to amplify the ``augmented safety earthquake'' by a factor of 1.5 in France, requiring operators to provide an amplified demonstration of the robustness of their installations.
+ the ASNR decided to amplify the ``augmented safety earthquake'' by a factor of 1.5 in France\footnote{Defining in this respect the ``hard core earthquake''.}
+ for the equipments that belong to the ``hard core'' (a limited list of systems, structures, and essential components to the upkeep of a nuclear installation).
+ This led to require operators to provide an amplified demonstration of the robustness of their installations.
 
 Within this context, the role of the CEA is ambivalent in the French nuclear landscape. On one hand, it operates research nuclear facilities and is therefore responsible for demonstrating the seismic robustness of its own equipment. On the other hand, it is also involved in collaborative research related to the civil nuclear fleet operated by EDF. A part of the research and expertise on the consequences of seismic hazards is carried out at the CEA’s EMSI laboratory, which is equipped with an experimental platform (called Tamaris). This facility enables mechanical testing of equipment under simulated seismic conditions.
 Advancing methods for the SPRA framework is a focus area for the CEA that falls within the mission of this laboratory. As the CEA is accountable to safety authorities for its installations, it seeks to develop increasingly rigorous methods to justify their seismic performance.
@@ -131,7 +132,17 @@ Numerous mathematical tools support the aforementioned steps of uncertainty quan
       \begin{equation}
         \text{MMD}^2(\mathcal{H};\, P||Q) = \mathbb{E}_{X, X' \sim P \otimes P}[k(X, X')] + \mathbb{E}_{Y, Y' \sim Q \otimes Q}[k(Y, Y')] - 2 \mathbb{E}_{X,Y \sim P\otimes Q}[k(X, Y)].
       \end{equation}
-    
+
+    \item Reproducing kernel Hilbert spaces, although not widely used in this thesis, represent a powerful tool for modeling and representing complex objects. Through the use of their 
+    kernel, they enable the manipulation of non-linear objects in a Hilbert linear space. In the case of the
+    MMD defined above, RKHSs are used to represent and compare probability measures.
+
+    A RKHS consists in a given Hilbert space $\cH$, sub-space of a functional space $\cF=\{f:\cX\to\CC\}$, such that for any $x\in\cX$, the mapping $f\mapsto f(x)$ is continuous on $\cH$. Then, the reproducing kernel is the unique mapping $k:\cX\times\cX\to\CC$ such that for all $x\in\cX$, $f\in\cH$,
+      \begin{equation}
+        f(x) = \langle f,k(x,\cdot) \rangle_\cH,
+      \end{equation}
+    where $\langle\cdot,\cdot\rangle_\cH$ denotes the scalar product on $\cH$. Among other fundamental properties of the theory, Aronszajn's theorem \citep{aronszajn_theory_1950} states the existence of the an RKHS from a given kernel that is symetric and postitve definite on $\cX$. For an in-depht look to the theory, we invite the interested reader to refer to \cite{scholkopf_learning_2001}.
+
     \item  Bayesian analysis is a fundamental tool in uncertainty quantification, 
     as it fundamentally introduces a form of uncertainty
     % as it introduces a formal representation of uncertainty 
@@ -198,7 +209,7 @@ let it significantly influence   the posterior, especially in situations where t
 An illustration of this phenomenon is proposed \cref{fig:intro-english:intro-differentsposteriors}, where different priors —--that seem similar—-- lead to very different posteriors, all based on the same observations. As always, the devil is in the detail: here, it is the tails of the prior distributions —--barely visible in the figure—-- that account for the discrepancy. Still, this example rightly raises concerns about the choice of prior.
 
 
-\begin{figure}[t]
+\begin{figure}[h]
     \centering
     \includegraphics[width=5cm]{figures/intro/posterior1.pdf}
     \includegraphics[width=5cm]{figures/intro/posterior2.pdf}
@@ -363,10 +374,8 @@ The study thus lacks for an in-depht examination that might be conducted in the 
 
 \begin{abstract}[Résumé]
     Ce chapitre ne diffère du \hyperref[chap:intro-english]{chapitre 1} que par sa rédaction en langue française.
-    Dans ce chapitre, nous introduisons et motivons les travaux de recherche qui ont été conduits au cours de cette thèse. Les travaux sont motivés
-    principalement par le besoin d'évolution des méthodes d'études sismiques probabilistes de sûreté, mais aussi par le manque de réponse qu'apporte l'état de l'art à la question du choix du prior en inférence bayésienne.
-    Ces problématiques sont détaillées et
-    les travaux sont alors introduits comme s'inscrivant dans celles-ci, le tout donnant lieu à une organisation consistante du manuscrit.
+    En premier lieu, nous introduisons et motivons les travaux de recherche qui ont été menés au cours de cette thèse. Ils s’inscrivent dans une problématique qui vise à améliorer les méthodes d’études sismiques probabilistes du fait du manque de réponse qu’apporte l’état de l’art à la question du choix du prior en inférence bayésienne. En second lieu, nous présentons l’organisation du manuscrit qui s’appuie sur une reformulation de la problématique sous la forme de six principales questions.
+    %Dans ce chapitre, nous introduisons et motivons les travaux de recherche qui ont été conduits au cours de cette thèse. Les travaux sont motivés principalement par le besoin d'évolution des méthodes d'études sismiques probabilistes de sûreté, mais aussi par le manque de réponse qu'apporte l'état de l'art à la question du choix du prior en inférence bayésienne. Ces problématiques sont détaillées et les travaux sont alors introduits comme s'inscrivant dans celles-ci, le tout donnant lieu à une organisation consistante du manuscrit.
     %en introduisant à la fois leur inscription dans le cadre des études sismiques probabilistes de sûreté et dans le
     %
     %D'une part, nous introduisons le cadre des études sismiques probabilistes de dûreté, et 
@@ -432,7 +441,7 @@ Pour le premier, la robustesse de l'installation n'est normalement pas remise en
 Le second pense au contraire que la robustesse est une question perpétuelle et que la marge n’est pas faite pour être mordue au fil des connaissances qui s’ajoutent (\cite{roger_seisme_2020}). 
 % L'évolution des méthodes EPS reste un champ de voies ouverte, pour lequel les approches s'opposent fondamentalement.
 %Il est complxe de définir une voie d'évolution des EPS, et il n'y a pas de vision qui fait l'unanimté
-L'ASNR se place alors en arbitre dans ce dialogue, entre autre elle définit le ``séisme majoré de sécurité''\footnote{Aujourd'hui plutôt appelé ``séisme noyau dur''.} (il s'agit d'une majoration du spectre du ``séisme maximal historiquement vraisemblable''\footnote{Aujourd'hui plutôt appelé ``séisme de dimensionnement''.}) qui produit la marge de référence dans la démonstration de robustesse parasismique d'un équipement. % la marge de fiablité et séisme maximal à prendre en compte. %En ce qui concerne l'aléa sismique, le dialogue 
+L'ASNR se place alors en arbitre dans ce dialogue, entre autre elle définit le ``séisme majoré de sécurité''\footnote{Aujourd'hui plutôt appelé ``séisme de dimensionnement''.} (il s'agit d'une majoration du spectre du ``séisme maximal historiquement vraisemblable'' qui est définit par les sismologues) qui produit la marge de référence dans la démonstration de robustesse parasismique d'un équipement. % la marge de fiablité et séisme maximal à prendre en compte. %En ce qui concerne l'aléa sismique, le dialogue 
 %
 %Un tel dialogue n'est pas propre à la France, et 
 
@@ -442,8 +451,11 @@ L'incident survenu en 2011 à la centrale nucléaire de Fukushima-Daiichi le dé
 %fixé par le concensus des experts japonais
 a été sous-évalué par le consensus des experts japonais, et c'est cette sous-évaluation qui est au final la cause de l'incident (cf. le rapport de l'agence internationale de l'énergie atomique, \cite{iaea_fukushima_2015}).
 %En 2011, a eu lieu un incident 
-Suite à cet événement, l'ASNR a pris la décision de majorer d'un facteur 1.5 le séisme majoré de sécurité en France, imposant une démonstration amplifiée de la robustesse des différentes installations par leur exploitant.
+Suite à cet événement, l'ASNR a pris la décision de majorer d'un facteur 1.5 le séisme majoré de sécurité\footnote{Définissant alors le ``séisme noyau dur''.} en France pour les équipements du ``noyau dur'' (liste limitée de systèmes, structures et composants essentiels au maintien des fonctions de sûreté d'une installation nucléaire). Ceci imposant alors une démonstration amplifiée de la robustesse des différentes installations par leur exploitant.
 
+
+
+%valable pour certains éléments de l'installation faisant partie de ce que l'on appelle le "noyau dur" (liste limitée de systèmes, structures et composants essentiels au maintien des fonctions de sûreté des installations nucléaires)
 
 
 %En 2011, à la suite de l'incident à la centrale de Fukushima suite au séisme survenu au large des côtes japonaises, ce dialogue s'est conclut par une imposition de la part de l'autorité de sûreté d'une majoration d'un facteur de 1.5 de ce séisme majoré de sécurité en France. % de la marge de fiabilité sismique des équipements nucléaires en France. 
@@ -502,7 +514,7 @@ il cherche à développer des méthodes toujours rigoureuses pour justifier de l
 
 % Au CEA, la recherche sur les études sismiques probabilistes de sûerté est portée par le laboratoire EMSI, qui dispose d'une plateforme experimentale (Tamaris) qui permet de procéeder à divers tests mécaniques sur des équipements sous séismes. 
 
-Cette thèse s'inscrit dans la démarche d'évolution du SPRA et de démonstration de sûreté. Financée par le CEA dans le cadre d'un contrat de formation par la recherche, elle a pour objectif d'étoffer l'état de l'art en terme d'estimation de fragilité sismique des équipements et des installations.
+Cette thèse s'inscrit dans la démarche d'évolution du SPRA et de démonstration de sûreté. Financée par le CEA dans le cadre d'un contrat de formation par la recherche, elle a pour objectif d'étoffer l'état de l'art en terme d'estimation de la fragilité sismique des équipements et des installations.
 L'objectif est de développer des méthodes qui doivent le plus possible être (i) efficaces devant la complexité des objets étudiés et de l'aléa, (ii) être robustes dans le temps et devant une potentielle réévaluation des critères de sûreté, et (iii) être transparentes et auditables par les autorités de sûreté.
 
 %lieu à des méthodes qui savent être efficace devant la complexité technique représentée efficaces devant la c
@@ -597,7 +609,7 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
             D_{f_\delta}(P||Q) = \text{KL}(P||Q)\ \text{si\ }\delta=1,\quad D_{f_\delta}(P||Q) = \text{KL}(Q||P)\ \text{si\ }\delta=0.
         \end{equation}
 
-    Bien sûr, il existe aussi de nombreuses mesures de dissimilarité qui ne sont pas des $f$-divergences, à ce titre, les indices de Sobol' du premier ordre évoqués plus haut font office d'exemple. Un autre exemple notable présenté ici est celui des normes maximales de discrépances (MMD). Soient $P$, $Q$ deux mesures de probabilité définies sur un ensemble $\cX$, et soit $\cH$ un espace de Hilbert à noyau reproduisant (RKHS~; un rappel sur cette notion et ses définitions est proposé en annexe) sur $\cX$,  dont le noyau reproduisant est noté $k:\cX\times\cX\to\CC$. %On peut définir les imbrications moyennes  \cite{gretton_kernel_2012}
+    Bien sûr, il existe aussi de nombreuses mesures de dissimilarité qui ne sont pas des $f$-divergences, à ce titre, les indices de Sobol' du premier ordre évoqués plus haut font office d'exemple. Un autre exemple notable présenté ici est celui des normes maximales de discrépances (MMD). Soient $P$, $Q$ deux mesures de probabilité définies sur un ensemble $\cX$, et soit $\cH$ un espace de Hilbert à noyau reproduisant (RKHS~; un rappel sur cette notion et ses définitions est proposé dans le point suivant) sur $\cX$,  dont le noyau reproduisant est noté $k:\cX\times\cX\to\CC$. %On peut définir les imbrications moyennes  \cite{gretton_kernel_2012}
     On définit la MMD (\cite{gretton_kernel_2012}) par
         \begin{equation}
             \text{MMD}(\cH;\,P||Q) = \sup_{\substack{f\in\cH\\ \|f\|_\cH\leq1}} |\EE_{X\sim P}f(X) - \EE_{X\sim Q}f(X)|,
@@ -607,6 +619,30 @@ De nombreux outils mathématiques viennent appuyer les étapes sus-mentionnées.
             \text{MMD}^2(\cH;\,P||Q) = \EE_{X,X'\sim P\otimes P}[k(X,X')] + \EE_{Y,Y'\sim Q\otimes Q}[k(Y,Y')] - 2\EE_{X,Y\sim P\otimes Q}[k(X,Y)].
         \end{equation}
         %
+
+    \item Les espace de Hilbert à noyau reproduisant, bien que peu utilisés dans cette thèse, représentent un outil performant 
+   pour modéliser et repésenter des objets complexes.
+   Ils permettent, via l'emploi de leur noyau, de manipuler des objets non linéaires dans un espace linéaire de Hilbert.
+        Dans le cas de la MMD définie précedemment, les RKHS sont employés pour représenter et comparer des mesures de probabilité.
+
+        Un RKHS consiste en la donnée d'un espace de hilbert $\cH$, sous-espace d'un ensemble de fonction $\cF=\{f:\cX\to\CC\}$, et tel que pour tout $x\in\cX$, l'application $f\mapsto f(x)$ est continue sur $\cH$.
+        Le noyau reproduisant est alors l'unique application $k:\cX\times\cX\to\CC$ telle que pour tout $x\in\cX$, $f\in\cH$, 
+            \begin{equation}
+                f(x)= \langle f,k(x,\cdot) \rangle_\cH,
+            \end{equation}
+        où $\langle\cdot,\cdot\rangle_\cH$ exprime le produit scalaire sur $\cH$. %the scalar product on $\cH$.
+        %Nous invitons le lecteur intéréssé à se référrer à ?? pour plus de détail sur les propriétés des RKHS. 
+        Entre autres propriétés fondamentales de la théorie, le théorème d'Aronszajn \citep{aronszajn_theory_1950} assure l'existence d'un RKHS par la donnée seule d'un noyau symétrique et défini positif sur l'ensemble $\cX$. Pour approfondir la théorie, nous renvoyons le lecteur intéréssé vers \cite{scholkopf_learning_2001}.
+        
+        %Among popular RKHS, we can cite the Gaussian one
+        Parmis les RKHS populaires, on peut citer celui défini par le noyau Gaussien (appelé aussi RBF) sur $\RR^d$: $k(x,y)=\exp(-\tau\|x-y\|^2_2)$ pour un certain $\tau>0$.
+
+%    à partir de données, en exploitant une intuition géométrique simple : ils permettent de manipuler des objets non linéaires (comme des courbes ou des surfaces) à l’aide d’outils linéaires dans un espace de grande dimension.
+%     L’idée clé est la suivante : au lieu de travailler directement dans l’espace original des données, on les "projette" implicitement dans un espace de Hilbert (potentiellement infini-dimensionnel) où les relations deviennent plus simples — souvent linéaires. Grâce au noyau reproduisant, on peut effectuer ces calculs sans jamais avoir besoin de manipuler explicitement les vecteurs de cet espace élevé : tout se fait via des produits scalaires, calculés efficacement par une fonction noyau.
+%     Cela permet de construire des algorithmes d’apprentissage puissants et flexibles, tout en gardant des garanties théoriques solides et une bonne efficacité computationnelle.
+
+
+
     \item L'analyse bayésienne est un outil incontournable de la quantification d'incertitude, puisqu'elle a pour principe fondamental d'introduire une forme d'incertitude dans un ou plusieurs des paramètres du modèle étudié. 
     L'incertitude incorporée par le cadre bayésien peut prendre diverses formes, et se traduit au travers de la définition de l'\emph{a priori}. 
     La propagation d'incertitudes au travers de ce canevas se quantifie en calculant l'\emph{a posteriori}, à partir d'observations statistiques $(\mbf x_1,y_1),\dots,(\mbf x_k, y_k)$.
