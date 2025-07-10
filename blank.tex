@@ -1,48 +1,116 @@
 \documentclass[a4paper]{book}
-
 \include{preambule/commons}
-
-
-\usepackage[osf]{mathpazo} %sc
-\linespread{1.05} 
-
-\setlength{\parskip}{0.25em}
+% \usepackage[utf8]{inputenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+% \usepackage{geometry}
 \geometry{
 	left=20mm,
 	top=30mm,
 	right=20mm,
 	bottom=30mm
 }
+% \usepackage{xcolor}
+\usepackage[absolute,overlay]{textpos}
+% \usepackage{graphicx}
+\usepackage{lipsum}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{multicol}
+\setlength{\columnseprule}{0pt}
+\setlength\columnsep{10pt}
+% \usepackage[english]{babel}
+\usepackage{anyfontsize}
+\usepackage{ifxetex}
+
+ 
+\ifxetex
+  \DeclareGraphicsRule{.ai}{QTm}{QTm}{#1}
+\else
+  \DeclareGraphicsRule{.ai}{pdf}{.ai}{}
+\fi
 
 
 \usepackage[backend=biber, style=authoryear, natbib=true, maxnames=4, maxcitenames=3, maxbibnames=5]{biblatex}
 \addbibresource{biblio.bib}
 
+
+
+\usepackage[osf]{mathpazo} %sc
+\linespread{1.05} 
 \include{preambule/template-blank}
 
-\title{Brouillon de manuscrit de thèse:\\ \PhDTitle}
-\author{Antoine Van Biesbroeck}
+
+%
+%\vfill
+%\begin{center}
+%    
+%\end{center}
+
+
+\setlength{\parskip}{0.25em}
 
 \begin{document}
 
-\pagestyle{empty}
+% \pagestyle{empty}
+% \include{1ere}
 
-\maketitle
+% \ 
+% \newpage 
+\normalsize
+\renewcommand{\familydefault}{\rmdefault}
+\normalfont
+
+
+\ \vfill
+\begin{center}
+	\LARGE
+	\textbf{\PhDTitleEN}\\[1em]
+
+	\Large
+	Manuscrit de thèse de\\
+	Antoine Van Biesbroeck\\
+
+	\today
+\end{center}
+\vfill
+
+%tests
+%\newpage
+
+
+% \newpage
+% \mainmatter
+\pagestyle{plain}
+
+% \chapter*{Remerciements}
+
+% Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour moi (même si elle rechigne à lire mes articles de thèse). Je t'aime fort. 
+
+% \newpage
 
 \chapter*{Abstract}
 
+
+
 \abstractEN
+
+
 
 \chapter*{Résumé}
 
+
 \abstractFR
+
 
 \dominitoc
 \setcounter{tocdepth}{1}
 \tableofcontents
-
-\pagestyle{fancy}
+\newpage
 %\section{}
+
+\pagestyle{fancy}\thispagestyle{plain}
+
 \include{include_texs/intro}
 
 
