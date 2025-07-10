@@ -12,7 +12,8 @@ an efficient modeling for the estimation of seismic fragility curves in the Baye
 %enable their estimation within the difficult context of limited data availability.  Yet, the probit- lognormal modeling over which most of them are based requires the use of computationally expensive {Markov chain Monte Carlo} methods for providing Bayesian estimators.  %
 % In this work, we propose an efficient modeling for the estimation of fragility curves in the Bayesian context, 
 We implement instead a low fidelity model of the structure's response to the ground motion signal and an objective prior. In this work, we do not limit the knowledge about the state of the structure to a  binary outcome.
-The analytical expression of our modeling {allows} fast generation of estimates. Also, the representative bias arisen by the modeling choice is partly handled with a  design of experiments methodology. Finally, our approach is evaluated on a real case study, and the results highlight its ability to overcome the irreducible bias when coupled with the design of experiments we propose.
+The analytical expression of our modeling {allows} fast generation of estimates. Also, the representative bias arisen by the modeling choice is partly handled with a  design of experiments methodology. Finally, our approach is evaluated on a real case study. Our results prove its ability to satisfyingly overcome the irreducible bias when coupled with the design of experiments we propose. However,
+they also highlight the strong limitations of such simple model, even if it takes richer information about the structural responses as inputs than only binary outcomes.
 \end{abstract}
 
 
@@ -23,7 +24,7 @@ The analytical expression of our modeling {allows} fast generation of estimates.
 
 
 
-The probabilistic seismic risk assessment framework (SPRA) introduced in the 1980s for the nuclear industry is based on the estimation of seismic fragility curves, for the structures and components (SCs) of interest \citep{kennedy_probabilistic_1980,kennedy_seismic_1984,park_survey_1998,kennedy_risk_1999,cornell_hazard_2004}. These curves are defined as the conditional probability that an engineering demand parameter (EDP) -- such as the interstory drift ratio -- exceeds a limit threshold, given a scalar value derived from the seismic ground motion and called intensity measure (IM). The IM can be for instance the peak ground acceleration (PGA) or a pseudo-spectral acceleration (PSA) evaluated for a given frequency and damping ratio \citep{ciano_role_2020,sainct_efficient_2020,ciano_novel_2022}. As explained in \cite{cornell_hazard_2004}, it is therefore assumed that the seismic hazard, on a given site, can be reduced to such a single indicator.
+The probabilistic seismic risk assessment framework (SPRA) introduced in the 1980s for the nuclear industry is based on the estimation of seismic fragility curves, for the structures and components (SCs) of interest \citep{kennedy_probabilistic_1980,kennedy_seismic_1984,park_survey_1998,kennedy_risk_1999,cornell_hazard_2004}. These curves are defined as the conditional probability that an engineering demand parameter (EDP) ---such as the interstory drift ratio--- exceeds a limit threshold, given a scalar value derived from the seismic ground motion and called intensity measure (IM). The IM can be for instance the peak ground acceleration (PGA) or a pseudo-spectral acceleration (PSA) evaluated for a given frequency and damping ratio \citep{ciano_role_2020,sainct_efficient_2020,ciano_novel_2022}. As explained in \cite{cornell_hazard_2004}, it is therefore assumed that the seismic hazard, on a given site, can be reduced to such a single indicator.
 
 
 Practitioners have several data sources at their disposal to estimate fragility curves, namely: expert judgments supported by test data \citep{kennedy_probabilistic_1980,kennedy_seismic_1984,park_survey_1998,zentner_fragility_2017}, experimental data \citep{park_survey_1998,gardoni_probabilistic_2002,choe_closed-form_2007}, results of damage collected on existing structures that have been subjected to earthquakes \citep{shinozuka_statistical_2000,lallemant_statistical_2015,straub_improved_2008} as well as analytical results given by more or less refined numerical models using synthetic or real seismic excitations \citep{zentner_numerical_2010,wang_influence_2020,mandal_seismic_2016,wang_bayesian_2018,wang_seismic_2018,zhao_seismic_2020}. Over the years, many methods have been developed to estimate these curves \citep{shinozuka_statistical_2000,lallemant_statistical_2015,zentner_fragility_2017}. Nowadays, even though machine learning techniques are becoming very popular  \citep{park_rapid_2014,seo_use_2013,gidaris_kriging_2015,wang_seismic_2018,sainct_efficient_2020}, parametric fragility curves historically introduced in the SPRA framework are ubiquitous in practice and the log-normal model is the most widely used model due to its proven ability to handle limited data \citep{shinozuka_statistical_2000,lallemant_statistical_2015,straub_improved_2008,zentner_numerical_2010,wang_influence_2020,mandal_seismic_2016,hariri-ardebili_probabilistic_2016,wang_bayesian_2018,wang_seismic_2018,zhao_seismic_2020,ellingwood_earthquake_2001,kim_development_2004,mai_seismic_2017,trevlopoulos_parametric_2019,katayama_bayesian-estimation-based_2021}.
@@ -240,7 +241,7 @@ This case study concerns the seismic behavior of a piping system forming part of
 
 The mock-up comprises a carbon steel TU42C pipe with an outer diameter of 114.3 mm, a thickness of 8.56 mm, and a 0.47 elbow characteristic parameter. This pipe, filled with water without pressure, includes three elbows, with a valve-mimicking mass of 120 kg, constituting over 30\% of the mock-up's total mass. One end of the mock-up is clamped, while the other is guided to restrict displacements in the X and Y directions. Additionally, a rod is positioned atop the specimen to limit mass displacements in the Z direction (refer to Figure 1-right). During testing, excitation was applied exclusively in the X direction.
 
-The numerous simulations carried out for this case study were obtained with artificial seismic signals generated with the stochastic generator proposed by \citet{rezaeian_stochastic_2010}. This generator implemented in \cite{sainct_efficient_2020} was calibrated from 97 real accelerograms selected in the European Strong Motion Database for a magnitude $M$ such that $5.5 \leq M \leq 6.5$, and a source-to-site distance $R < 20$~km \citep{ambraseys_dissemination_2000}. Note that enrichment is not a necessity in the Bayesian framework -- especially if a sufficient number of real signals is available -- but it allows comparative performance studies, such as those presented in this work.
+The numerous simulations carried out for this case study were obtained with artificial seismic signals generated with the stochastic generator proposed by \citet{rezaeian_stochastic_2010}. This generator implemented in \cite{sainct_efficient_2020} was calibrated from 97 real accelerograms selected in the European Strong Motion Database for a magnitude $M$ such that $5.5 \leq M \leq 6.5$, and a source-to-site distance $R < 20$~km \citep{ambraseys_dissemination_2000}. Note that enrichment is not a necessity in the Bayesian framework ---especially if a sufficient number of real signals is available--- but it allows comparative performance studies, such as those presented in this work.
 
 As in practice the piping system is located in a building, the artificial signals were filtered using a fictitious 2\% damped linear single-mode building at 5 Hz, which corresponds to the first eigenfrequency of the 1\% damped piping system. The chosen failure criterion is based on the assessment of excessive out-of-plane rotation of the elbow near the clamped end of the mock-up, following the recommendation in \cite{touboul_enhanced_2006}. {The chosen IM is the PSA which is calculated here at 5 Hz for a damping ratio of 1\%.}
 
@@ -301,25 +302,10 @@ For the forthcoming implementation of these metrics, numerous \emph{a posteriori
 %Both estimations differ only from their observation samples. 
 The results presented in \cref{lowdoe:fig:examples}-(c) come from our planning-of-experiments (PE) methodology while the results presented in \namecrefs{lowdoe:fig:examples}~\ref{lowdoe:fig:examples}-(a) and~\ref{lowdoe:fig:examples}-(b) come from independent random samples, with IMs that have been drawn w.r.t. their original standard distribution or w.r.t. a uniform distribution. These qualitative results clearly illustrate the contribution of our methodology.
 
-%Indeed, under a standardly drawn sample (understand here that the observed IM are independently sampled  w.r.t.{ }their original distribution), a fast convergence of the estimate is performed when the number of observation rises, with credibility intervals that get thinner accordingly.
-%However, such strong convergence targets an incorrect value, that we suppose being due to the  bias of the linear model.
-
-When samples are randomly drawn from the original IM distribution {or from a uniform distribution}, the results show a rapid convergence of the estimates -- in the sense that the associated credibility intervals decrease rapidly -- towards biased estimations of the fragility curves. Conversely, when the samples come from the PE methodology, the bias decreases but the convergence is slower.
-
-These observations are confirmed on a larger scale by the results presented in \cref{lowdoe:fig:errors,lowdoe:fig:credibility}. 
-These are issued from computations of the metrics $\cB^{|\mbf a,\mbf y}$, $\cE^{|\mbf a,\mbf y}$, $\cW^{|\mbf a,\mbf y}$ and $\cP^{|\mbf a,\mbf y}$ described in \cref{lowdoe:sec:benchamrk}, for various observation sets $(\mbf a,\mbf y)$. They compare the performances of our PE methodology with the two methods that are based on independently drawn observations: the one that involves  IM samples drawn from their standard distribution, and the one that involves IM samples drawn from a uniform distribution over the range $[0,A_{\rm max}]$.
-
-\Cref{lowdoe:fig:errors} shows empirical comparisons of the bias and of the quadratic error between the method involving a design of experiments and without. These two results clearly illustrate that the PE approach outperforms the standard {and the uniform} approaches. Although the quadratic error is strongly related to the variance of the estimates it is significantly offset by the fact that the bias is smaller with the PE approach. Indeed, \cref{lowdoe:fig:credibility}-left illustrates that the $95\%$-square credibility width is smaller with the standard {and uniform} approaches than with the PE-based approach. This good result nevertheless masks a lack of robustness of the standard {or uniform}  approaches since the estimate turns out to be strongly biased, as shown in \cref{lowdoe:fig:credibility}-right. This figure shows indeed the coverage probability for the both methods, as a function of the dataset size. %It measures the average inclusion of the reference fragility curves to the \emph{a posteriori} credibility intervals.
-It measures the average inclusion of reference fragility curves in posterior credibility intervals.
-
-
-%Secondly, that last point is emphasized by what is shown in  Indeed, the standard method is there exposed to provide credibility intervals that get strongly thinner than the ones benefiting from P.E. 
-%Yet, \cref{lowdoe:fig:credibility}-right unveils their lack of robustness under the first method. That last figure plots the coverage probability of both methods as a function of the dataset size. It measures the average belonging of the reference within the \emph{a posteriori} credibility intervals. The P.E. handles to avoid the trap of the model bias within the reliable credibility intervals it issues.
 
 
 
-
-\begin{figure}
+\begin{figure}[h]
     \centering%
     \includegraphics[width=5cm]{figures/low-doe/curves_standard.pdf}%
     \includegraphics[width=5cm]{figures/low-doe/curves_unif.pdf}%
@@ -339,7 +325,26 @@ It measures the average inclusion of reference fragility curves in posterior cre
 \end{figure}
 
 
-\begin{figure}[h]
+%Indeed, under a standardly drawn sample (understand here that the observed IM are independently sampled  w.r.t.{ }their original distribution), a fast convergence of the estimate is performed when the number of observation rises, with credibility intervals that get thinner accordingly.
+%However, such strong convergence targets an incorrect value, that we suppose being due to the  bias of the linear model.
+
+When samples are randomly drawn from the original IM distribution {or from a uniform distribution}, the results show a rapid convergence of the estimates ---in the sense that the associated credibility intervals decrease rapidly--- towards biased estimations of the fragility curves. Conversely, when the samples come from the PE methodology, the bias decreases but the convergence is slower.
+
+These observations are confirmed on a larger scale by the results presented in \cref{lowdoe:fig:errors,lowdoe:fig:credibility}. 
+These are issued from computations of the metrics $\cB^{|\mbf a,\mbf y}$, $\cE^{|\mbf a,\mbf y}$, $\cW^{|\mbf a,\mbf y}$ and $\cP^{|\mbf a,\mbf y}$ described in \cref{lowdoe:sec:benchamrk}, for various observation sets $(\mbf a,\mbf y)$. They compare the performances of our PE methodology with the two methods that are based on independently drawn observations: the one that involves  IM samples drawn from their standard distribution, and the one that involves IM samples drawn from a uniform distribution over the range $[0,A_{\rm max}]$.
+
+\Cref{lowdoe:fig:errors} shows empirical comparisons of the bias and of the quadratic error between the method involving a design of experiments and without. These two results clearly illustrate that the PE approach outperforms the standard {and the uniform} approaches. Although the quadratic error is strongly related to the variance of the estimates it is significantly offset by the fact that the bias is smaller with the PE approach. Indeed, \cref{lowdoe:fig:credibility}-left illustrates that the $95\%$-square credibility width is smaller with the standard {and uniform} approaches than with the PE-based approach. This good result nevertheless masks a lack of robustness of the standard {or uniform}  approaches since the estimate turns out to be strongly biased, as shown in \cref{lowdoe:fig:credibility}-right. This figure shows indeed the coverage probability for the both methods, as a function of the dataset size. %It measures the average inclusion of the reference fragility curves to the \emph{a posteriori} credibility intervals.
+It measures the average inclusion of reference fragility curves in posterior credibility intervals.
+
+
+%Secondly, that last point is emphasized by what is shown in  Indeed, the standard method is there exposed to provide credibility intervals that get strongly thinner than the ones benefiting from P.E. 
+%Yet, \cref{lowdoe:fig:credibility}-right unveils their lack of robustness under the first method. That last figure plots the coverage probability of both methods as a function of the dataset size. It measures the average belonging of the reference within the \emph{a posteriori} credibility intervals. The P.E. handles to avoid the trap of the model bias within the reliable credibility intervals it issues.
+
+
+
+
+
+\begin{figure}[h!]
     \centering%
     \includegraphics[width=5cm]{figures/low-doe/errB.pdf}%
     \includegraphics[width=5cm]{figures/low-doe/errE.pdf}%    
@@ -349,7 +354,7 @@ It measures the average inclusion of reference fragility curves in posterior cre
 \end{figure}
 
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering%
     \includegraphics[width=5cm]{figures/low-doe/errW.pdf}%
     \includegraphics[width=5cm]{figures/low-doe/errP.pdf}%    
