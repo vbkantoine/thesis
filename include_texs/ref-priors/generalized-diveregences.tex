@@ -1,6 +1,6 @@
 
 \begin{abstract}[\hspace*{-10pt}]
-    This chapter draws mainly on the submitted work: \fullcite{van_biesbroeck_generalized_2024}  % Ce chapitre reprend principalement les travaux publiés dans: 
+    This chapter is mainly based on the submitted work: \fullcite{van_biesbroeck_generalized_2024}  % Ce chapitre reprend principalement les travaux publiés dans: 
 \end{abstract}
 
 \begin{abstract}
@@ -64,7 +64,7 @@ We consider a statistical modeling characterized by a collection of distribution
 The Bayesian framework is constructed as described in \cref{chap:intro-ref} (\cref{sec:intro-refs:limits}). We suppose that $\Theta\subset\RR^d$ and denote by $\nu$ the Lebesgue measure on $\RR^d$. 
 The priors considered are absolutely continuous distributions w.r.t. $\nu$.
 
-We consider the same notations as in \cref{chap:intro-ref}: $\mbf Y_k$ denote a random vector of $k$ data items whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y_k|\theta}:=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$ (which is not necessarily a probability distribution, see \cref{sec:intro-ref:novelframework}). The density of $\varPi$ is denoted by $\pi$.
+We consider the same notations as in \cref{chap:intro-ref}: $\mbf Y_k$ denotes a random vector of $k$ data items whose distribution conditionally to $T=\theta$ is $\PP_{\mbf Y_k|\theta}:=\PP_{Y|\theta}^{\otimes k}$, where $T$ is an r.v. whose distribution is the prior $\varPi$ (which is not necessarily a probability distribution, see \cref{sec:intro-ref:novelframework}). The density of $\varPi$ is denoted by $\pi$.
 
 We suppose that the modeling admits a likelihood, denoted by $\ell$ with $\forall\theta\in\Theta,\mbf y\in\cY^k,\, \ell_k(\mbf y|\theta)=\prod_{i=1}^k\ell(y_i|\theta) $. For all $\theta$, $\ell(\cdot|\theta)$ is the density of $\PP_{T|\theta}$ w.r.t. a common measure $\mu$ on $\cY$. We denote by $p_{\mbf Y^k}$ the marginal density of $\mbf Y_k$, and by $p(\cdot|\mbf y)$ the posterior density given the observations $\mbf y\in\cY^k$. %We recall that even though those quantities are defined (when they exist) only up to a constant, their definition is the usual o
 Furthermore, we suppose the modeling to be regular (i.e. \cref{assu:intro-ref:jeffreysexist} in \cref{chap:intro-ref} is verified), so that the Fisher information matrix (that we denote $\cI$) and the Jeffreys prior exist. A density of the Jeffreys prior is denoted by $J$.
@@ -169,7 +169,7 @@ Reference priors are defined as asymptotic maximizers of the mutual information.
 This definition matches with the original one when the dissimilarity measure is the Kullback-Leibler divergence. Nevertheless, it introduces the definition of an associated rate proposed by ourselves. In fact, our
 work provides elements showing that such rate exists and may vary as a function of the dissimilarity measure
 considered.
-The idea behind $\varphi$ is to look for an asymptotic expansion of $\sI^k_D(P_1)-\sI^k_D(P_2)$ that stands for any tuple of probability distributions $(P_1,P_2)$:
+The idea behind $\varphi$ is to look for an asymptotic expansion of $\sI^k_D(P_1)-\sI^k_D(P_2)$ that stands for any pair of probability distributions $(P_1,P_2)$:
     \begin{equation}
         \sI^k_D(P_1)-\sI^k_D(P_2) \aseq{k\rightarrow\infty} \varphi(k)(L(P_1)-L(P_2)) + o(\varphi(k)),
     \end{equation}
@@ -190,7 +190,7 @@ The results provided below ensure that the generalized reference priors verify s
     Consider a reparametrization $\phi=g(\theta)$ with $g$ being a diffeomorphism and $\cP$ a set of priors on $\Theta$.
     Then if $\varPi$ is  a reference prior over $\cP$ for the model parameterized by $\theta$, $\tilde{\varPi}$ is a reference prior over $\tilde\cP$ for the model parameterized by $\phi$, where: 
     \begin{equation}
-        \tilde\cP = \{ M(\pi |\det g_\phi^{-1}|),\,M(\pi)\in\cP ) \},
+        \tilde\cP = \{ M(\pi \cdot|\det dg_\phi|^{-1}),\,M(\pi)\in\cP ) \},
     \end{equation}
     with $M:f\in\sR\longmapsto (B\mapsto\int_B f(\theta)d\theta)\in\sM^\nu$. %mapping a function to the distribution whose it is the density.
 \end{prop}
@@ -201,7 +201,7 @@ The results provided below ensure that the generalized reference priors verify s
         \begin{equation}
             \sI^k_D(\varPi(\cdot|\tilde\Theta)) = \EE_{T\sim\varPi(\cdot|\tilde\Theta)}[D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T} )] = \EE_{\Phi\sim\tilde\varPi(\cdot|\tilde\Xi)} [D(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|g^{-1}(\Phi)} )] =: \tilde\sI^k_D(\tilde\varPi(\cdot|\tilde\Xi))
         \end{equation}
-    where $\tilde\varPi$ is defined by its density $\tilde\pi = \pi|\det d_\phi g^{-1}|$, and $\tilde\sI^k_D$ denoted the $D$-mutual information on the reparameterized model.
+    where $\tilde\varPi$ is defined by its density $\tilde\pi = \pi\cdot|\det d_\phi g|^{-1}$, and $\tilde\sI^k_D$ denoted the $D$-mutual information on the reparameterized model.
 \end{proof}
 
 \begin{prop}[Consistency with compact cases]
@@ -227,7 +227,7 @@ The results provided below ensure that the generalized reference priors verify s
         \end{equation}
     Then the $D_f$-mutual information value of $\varPi(\cdot|\tilde\Theta)$ is finite. %restricted to compacts are always finite. 
         \item
-    If there exist $K\geq0$ such that for any $x>0$, $|f(x)\indic_{f(x)<0}|\leq Kx $ then the $D_f$-mutual information restricted to compact expression can be inverted back:
+    If there exists $K\geq0$ such that for any $x>0$, $|f(x)\indic_{f(x)<0}|\leq Kx $ then the $D_f$-mutual information restricted to compact expression can be inverted back:
         \begin{equation}\label{eq:PS:fubDf}
             \EE_{T\sim\varPi(\cdot|\tilde\Theta)}[D_f(\PP_{\mbf Y_k}||\PP_{\mbf Y_k|T})] 
                 =\EE_{\mbf Y_k\sim\PP_{\mbf Y_k}} [D(\varPi(\cdot|\tilde\Theta)|| \PP_{T|\mbf Y_k} ) ]. 

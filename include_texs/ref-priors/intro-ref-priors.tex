@@ -203,7 +203,7 @@ We recall below the expression of the Kullback-Leibler divergence between two di
     \begin{equation}
         \text{KL}(Q||P)=\int_\cX\log\left(\frac{q(x)}{p(x)}\right)q(x)d\omega(x).
     \end{equation}
-We extend the definition of the Kullback-Leibler divergence when $P$ and $Q$ are not probability distributions, but are such that $P(\cX),Q(\cX)<\infty$ as $\text{KL}(Q||P):=\text{KL}(\tilde Q||\tilde P)$ where $\tilde P$, $\tilde Q$ respectively equal $P/P(\cX)$ and $Q/Q(\cX)$.
+We extend the definition of the Kullback-Leibler divergence when $P$ and $Q$ are not probability distributions, but are such that $P(\cX),Q(\cX)<\infty$ by writing $\text{KL}(Q||P):=\text{KL}(\tilde Q||\tilde P)$ where $\tilde P$, $\tilde Q$ respectively equal $P/P(\cX)$ and $Q/Q(\cX)$.
 
 Thus, the idea is to maximize the divergence $\text{KL}(\PP_{T|\mbf y}||\varPi)$. As the observed sample $\mbf y$ is unknown, the average value of the divergence is considered:
 \begin{defi}[Mutual information]\label{def:intro-ref-MI}
@@ -426,7 +426,7 @@ Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive func
 
 \begin{ex}[A proper Jeffreys prior in the multinomial case]
     The multinomial model is defined as $\theta\in(0,1)^d$, $\cY=\{y\in\{0,\dots,n\}^d,\,\sum_{i=1}^dy^i=n\} $ for a fixed $n\in\NN^\ast$.
-    And with 
+    The likelihood is 
         \begin{equation}
             \ell(y|\theta) = \frac{n!}{y^1!\dots y^d!}\prod_{i=1}^d\theta_i^{y^i}.
         \end{equation}
@@ -618,7 +618,7 @@ In the following section, we develop the compatibility of this framework with th
 \subsection{Notations and compatibility with the usual framework}\label{sec:intro-ref:frameworkcompatibility}
 
 
-Given the construction proposed in \cref{sec:intro-ref:novelframework}, the Bayesian framework is defined from the given of probability measure $(\PP_{Y|\theta})_{\theta\in\Theta}$ and a prior $\varPi$ which is a representative of an element $[\varPi]\in\sM/\!\simeq$, under the assumptions in \cref{prop:intro-ref:kolmog}.
+Given the construction proposed in \cref{sec:intro-ref:novelframework}, the Bayesian framework is defined on the basis of probability measures $(\PP_{Y|\theta})_{\theta\in\Theta}$ and a prior $\varPi$ which is a representative of an element $[\varPi]\in\sM/\!\simeq$, under the assumptions in \cref{prop:intro-ref:kolmog}.
 %It is important to remind that the construction 
 The consideration of another representative $\tilde\varPi$ of  $[\varPi]$ does not alter the construction.
 
@@ -737,7 +737,7 @@ In most cases, one would work on sets $\Theta$ that are ``almost'' open or ``alm
     then we can write $\Theta$ as an increasing countable union of open balls: %that are strictly included in $\Theta$:
         \begin{equation}
             %\Theta &= \bigcup_{\substack{\theta\in\Theta\cap\QQ^d\\ \tau\in R(\theta)}} B(\theta,\tau) \quad\text{with}\quad R(\theta)=\{\tau\in\QQ_+^\ast,\, B(\theta,\tau)\subset\Theta \}\\
-            \Theta = \bigcup_{n\in\NN^\ast}\bigcup_{\theta\in\Theta\cap\RR^d} B(\theta, \min(R(\theta)-\frac{1}{n},n) ) \quad \text{with} \quad R(\theta) = \sup\{\tau>0,\,B(\theta,\tau)\subset\Theta\}. 
+            \Theta = \bigcup_{n\in\NN^\ast}\bigcup_{\theta\in\Theta\cap\QQ^d} B(\theta, \min(R(\theta)-\frac{1}{n},n) ) \quad \text{with} \quad R(\theta) = \sup\{\tau>0,\,B(\theta,\tau)\subset\Theta\}. 
         \end{equation}
     We write $\Theta\cap\QQ^d=\{\theta_i,\,i\in\NN^\ast\}$, and write $\Theta=\bigcup_{n\in\NN^\ast}V_n$ with $V_n=\bigcup_{i=1}^nB(\theta_i,\hat R^i_n)$, where $\hat R^i_n =\min(R(\theta_i)-\frac{1}{n},n)$. This way, each $V_n$ is a finite union of closed balls, so that $\overline{V_n}$ is compact. Also, $V_{n+1}$ contains balls with the same center as the one that constitute $V_n$, yet with higher radius. Thus, $\overline{V_n}\subset V_{n+1}$. Therefore, setting $\Theta_i=\overline{V_i}$ for all $i$ makes $(\Theta_i)_{i\in\NN^\ast}$ being an openly incresing sequence of compact subsets that cover $\Theta$.
 
@@ -760,7 +760,7 @@ That makes $(\Theta_i)_{i\in\NN}$ being an openly increasing sequence of subsets
 \end{proof}
 
 \begin{cor}
-    If $\Theta$ is an open subset of $\RR^d$ and $f:\Theta\to\RR$ is a $\nu$-a.e. continuous function of $\Theta$, there exists an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$  such that $\bigcup_{i\in\NN}\Theta_i = \Theta\setminus E$. Where $E$ is the negligible set of points on which $f$ is discontinuous.
+    If $\Theta$ is an open subset of $\RR^d$ and $f:\Theta\to\RR$ is a $\nu$-a.e. continuous function of $\Theta$, there exists an openly increasing sequence of compact subsets $(\Theta_i)_{i\in\NN}$  such that $\bigcup_{i\in\NN}\Theta_i = \Theta\setminus E$, where $E$ is the negligible set of points on which $f$ is discontinuous.
 \end{cor}
 
 \begin{proof}
@@ -813,7 +813,7 @@ When $\varPi(U_i)=0$, we denote by $\varPi(\cdot|U_i)$ an arbitrary probability 
             \PP_{\mbf Y_k,T}^i(A_1\times\dots\times A_k\times B) = \int_B \PP_{Y|\theta}^{\otimes k}(A_1\times\dots\times A_k)d\varPi(\theta|U_i),
         \end{equation}
      so that $\PP^i_{\mbf Y_k,T}$ is a probability distribution on $\cY^k\times U_i$. 
-    Therefore, using Kolmogorov extension theorem, there exist a probability space $(\Omega^i,\sX^i,\PP^i)$, a random process $\overline{\mbf Y^i}=(Y^i_j)_{j\geq1}$, $Y_j^i:\Omega^i\to\cY$, and a random variable $T^i:\Omega^i\to\Theta$ such as  their joint distribution is uniquely defined by the distribution
+    Therefore, using Kolmogorov extension theorem, there exist a probability space $(\Omega^i,\sX^i,\PP^i)$, a random process $\overline{\mbf Y^i}=(Y^i_j)_{j\geq1}$, $Y_j^i:\Omega^i\to\cY$, and a random variable $T^i:\Omega^i\to\Theta$ such that their joint distribution is uniquely defined by the distribution
     %$(T^i,\mbf Y_k^i)\sim
     $\PP^i_{\mbf Y_k,T}$ of $(T^i,\mbf Y_k^i)$ for any $k$, with $\mbf Y_k^i=(Y_j^i)_{j=1}^k$.
 
@@ -822,7 +822,7 @@ When $\varPi(U_i)=0$, we denote by $\varPi(\cdot|U_i)$ an arbitrary probability 
 %\color{red}
 Denote $\mbf\Omega= I \times\prod_{i\in I}\Omega^i$. A natural $\sigma$-algebra on $\mbf\Omega$ is the one generated by the cylinder sets:
 \begin{equation}
-    \mbf\Xi := \sigma\big(N\times E_0\times\dots\times E_{k-1}\times\prod_{k\leq i<\mbf i}\Omega^i,\,N\in\sP(I),\, E_0,\dots,E_k\in\sX^i,\,k<\mbf i \big).
+    \mbf\Xi := \sigma\big(N\times E_0\times\dots\times E_{k-1}\times\prod_{k\leq i<\mbf i}\Omega^i,\,N\in\sP(I),\, E_0,\dots,E_{k-1}\in\sX^i,\,k<\mbf i \big).
 \end{equation}
 We can define $\overline\varPi$ by
     \begin{equation}
@@ -964,7 +964,7 @@ This provides a better interpretability of the reference priors when it leads to
 However, some limits remain. 
 First, the theory is still built on some choices, such as the choice of the dissimilarity measure to quantify how different are the prior and the posterior.
 Second, the incorporation of improper priors is appealing yet can represent an issue in cases where they issue improper posteriors. Actually, reference priors are known to lead to improper posteriors in some cases.
-Last, the theoretical developments limit their studies to sets of priors that are the more general possible, and effects of its restriction are rarely focused.
+Last, the theoretical developments limit their studies to sets of priors that are as  general as possible, and effects of its restriction are rarely focused.
 
 
 

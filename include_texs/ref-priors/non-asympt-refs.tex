@@ -14,7 +14,7 @@
     Two case studies are considered for deriving those, 
     one involving the least possible assumption about the prior, and the other incorporating linear constraints to the framework.
     %one that involve the minimal assumption possible on the prior, and one that incorporates linear constraints to it.
-    This study provides further insights on the expression of the reference priors as well as the optimal characteristic of the Jeffreys prior in the thoery.
+    This study provides further insights on the expression of the reference priors as well as the optimal characteristic of the Jeffreys prior in the theory.
 \end{abstract}
 
 
@@ -27,9 +27,9 @@ The aim of that idea is to qualify the resulting prior as ``objective''.
 
 To achieve that goal, 
 instead of seeking to maximize the expected divergence between the prior and the posterior (i.e., the mutual information), 
-the authors who developed the theory \citep{bernardo_reference_1979,bernardo_bayesian_1994} suggested maximizing the asymptotic value of that quantity as the number of observation tends to infinity (see \cref{chap:intro-ref} for a complete review of the theory).
+the authors who developed the theory \citep{bernardo_reference_1979,bernardo_bayesian_1994} suggested maximizing the asymptotic value of that quantity as the number of observations tends to infinity (see \cref{chap:intro-ref} for a complete review of the theory).
 Indeed, it is seen as an issue that the mutual information ---and its maximal argument--- depends on the number of observations $k$, since the ``objective'' prior should, by nature, be adequate for any data samples, no matter their size.
-According to the \citet{bernardo_bayesian_1994}, when the number of observations $k$ is fixed, the distribution of the vector of the data is not fully described. They advance that, denoting $\sI^k$ the mutual information when $k$ data items are observed, the limit $\sI^\infty$ (if it exists) measures the knowledge missing from the prior.
+According to \citet{bernardo_bayesian_1994}, when the number of observations $k$ is fixed, the distribution of the vector of the data is not fully described. They advance that, denoting $\sI^k$ the mutual information when $k$ data items are observed, the limit $\sI^\infty$ (if it exists) measures the knowledge missing from the prior.
 
 
 
@@ -37,7 +37,7 @@ According to the \citet{bernardo_bayesian_1994}, when the number of observations
 
 However, there exist few elements that support formally this asymptotic definition of the reference prior in the literature.
 While there is consensus on the definition of the reference prior proposed by \citet{bernardo_reference_1979} that consists in asymptotically maximizing the mutual information, we are interested in the expression of the prior that maximizes it non-asymptotically.
-This study is motivated by the two following thoughts: (i)~in a case where the number of observations represents a fundamental element of the problem, a prior that takes it into account could be valorized; (ii)~expressing the non-asymptotic reference prior can help to understand or to express the asymptotic reference priors (i.e., the reference priors as they are originally defined).
+This study is motivated by the two following thoughts: (i)~in a case where the number of observations represents a fundamental element of the problem, a prior that takes it into account could be valued; (ii)~expressing the non-asymptotic reference prior can help to understand or to express the asymptotic reference priors (i.e., the reference priors as they are originally defined).
 
 We suggest in this short appendix two main results that express implicitly the non-asymptotic reference priors. First, we recall briefly the framework of the reference prior theory in the next section, then our results are developed in \cref{nonasympt:sec:nonasymptref}.
 Finally, we discuss our results in \cref{nonasympt:sec:discussion}, and we elucidate their link with classical asymptotic reference priors.
@@ -51,7 +51,7 @@ We remind that the original framework of the reference prior theory is comprehen
 We suppose that the model admits a likelihood denoted $\ell_k$ w.r.t. a measure $\mu$ on $\cY$.
 We also suppose that the prior admits a density $\pi$ w.r.t. a measure $\nu$ on $\Theta$.
 %, and that all the distributions admits densities. 
-The marginal density is denoted $p_{\mbf Y_k}$. Finally, given a sample of observations $\mbf y,\in\cY^k$, the posterior distribution (resp. density) is denoted $\PP_{T|\mbf y}$ (resp. $p(\cdot|\mbf y)$).
+The marginal density is denoted $p_{\mbf Y_k}$. Finally, given a sample of observations $\mbf y\in\cY^k$, the posterior distribution (resp. density) is denoted $\PP_{T|\mbf y}$ (resp. $p(\cdot|\mbf y)$).
 
 Under those settings, if $\varPi$ is proper, the mutual information given $k$ observations is defined   as
     \begin{equation}
@@ -61,9 +61,9 @@ Under those settings, if $\varPi$ is proper, the mutual information given $k$ ob
 
 \section{Non-asymptotic reference priors}\label{nonasympt:sec:nonasymptref}
 
-In this appendix, we define a non-asympotic reference prior as a maximal argument of the mutual information, as expressed in the definition below.
+In this appendix, we propose to define a non-asympotic reference prior as a maximal argument of the mutual information, as expressed in the definition below.
 \begin{defi}[Non-asymptotic reference prior]
-    Let $\cP\subset\sM^\nu$ be a set of proper priors. A prior $\varPi\in\cP$ is called a non-asymptotic reference priors over $\cP$ if 
+    Let $\cP\subset\sM^\nu$ be a set of proper priors. A prior $\varPi\in\cP$ is called a non-asymptotic reference prior over $\cP$ if 
         \begin{equation}
             \varPi\in\argmax_{P\in\cP}\sI(\overline{P})
         \end{equation}
@@ -71,12 +71,12 @@ In this appendix, we define a non-asympotic reference prior as a maximal argumen
     $\varPi$ is said to be unique if for any other non-asymptotic reference prior $\varPi'$ over $\cP$, $\varPi\simeq\varPi'$.
 \end{defi}
 As a comparison with the original definition of reference priors (which we refer as asymptotic reference priors in this appendix), a non-asymptotic reference prior must be proper.
-Indeed, the proper characteristic of $\varPi$ is essential for the mutual information to be well-defined.
+Indeed, the proper characteristic of $\varPi$ is essential for the mutual information to be well-defined. We recall that, in this thesis, a proper prior is a measure that has a finite total mass, which does not necessarily equal $1$ (see \cref{chap:intro-ref} (\cref{sec:intro-ref:novelframework}) for more details).
 
 
 
 
-The result below gives an implicit expression of the non-asymptotic reference prior among a non-restrictive set of priors
+The result below is a conribution of ourselves. It gives an implicit expression of the non-asymptotic reference prior among a non-restrictive set of priors
 
 \begin{thm}\label{nonasympt:thm:refnoconstr}
     We assume that $\Theta$ is a compact subset of $\RR^d$, and that there exist $0<l_1<l_2$ such that $\ell_k(\mbf y|\theta)\in[l_1,l_2]$ for any $\mbf y\in\cY^k$, $\theta\in\Theta$. Let $\cP=\{\varPi\in\sM^\nu_\cC,\,\varPi>0,\,\varPi(\Theta)<\infty\}$ the set of continuous and positive proper priors. Then there exists a unique non-asymptotic reference prior over $\cP$. Its density $\pi$ verifies
@@ -120,34 +120,35 @@ with $\psi:x\mapsto-x\log(x)$, which is a strictly concave function. Reminding t
 hence  $\hat I_2$ is strictly concave. Since $\hat I_1$ is a linear function, we deduce that $\hat I$ is strictly concave on $\sR_{\cC^b}^\ast$.
 
 We call $E$ the set of $\nu$-a.e. continuous  and locally bounded functions.
-Note that $E$ provided with the supremum  norm $\|f\|=\sup_\Theta|f|$ is a Banach set whose $U=\sR_{\cC^b}^\ast\cap\{p,\,\int_\Theta pdnu\in]1-\xi,1+\xi[\}\,\xi\in]0,1[$ is an open and convex subset as $\Theta$ is supposed compact. Next part of the proof will be dedicated to show that $\hat I$ is differentiable on $U$.%, this way its strict concavity will imply the existence of an unique maximum reached in  $\pi$ such that $d\hat I(\pi)=0$. 
+Note that $E$ provided with the supremum  norm $\|f\|=\sup_\Theta|f|$ is a Banach set whose $U=\sR_{\cC^b}^\ast\cap\{p,\,\int_\Theta pd\nu\in(1-\xi,1+\xi)\}\,\xi\in(0,1)$ is an open and convex subset as $\Theta$ is supposed compact. Next part of the proof will be dedicated to show that $\hat I$ is differentiable on $U$.%, this way its strict concavity will imply the existence of an unique maximum reached in  $\pi$ such that $d\hat I(\pi)=0$. 
 
 As a consequence of the assumption on $\ell_k$, $|\log \ell_k(\cdot|\cdot)|$ is uniformly bounded on $\cY^k\times\Theta$. Then for any $p\in U$ we have:
     \begin{align}\label{eq:I1differ}
         |\hat I_1(p)| &\leq \int_{\cY^k}\int_\Theta \ell_k(\mbf y|\theta)d\nu(\theta)d\mu^{\otimes k}(\mbf y) \sup_{\mbf y,\theta}|\log \ell_k(\mbf y|\theta)|\|p\|\\
-            &\leq \nu(\Theta)\sup_{t,\theta}|\log \ell_k(\mbf y|\theta)|\|p\| \nonumber,
+            &\leq \nu(\Theta)\sup_{\mbf y,\theta}|\log \ell_k(\mbf y|\theta)|\|p\| \nonumber,
     \end{align}
 which implies that $\hat I_1$ is a differentiable linear form. Its differentiate in $p$ is $d\hat I_1(p)=\hat I_1$.
 
 We consider $0<\tilde l_1<(1-\xi)l_1\nu(\Theta)$ and $\tilde l_2>(1+\xi)l_2\nu(\Theta)$ and write $\hat I_2(p) = \Phi_1(p\times G(p))$, with $G := C - \varphi\circ\Phi_2$, and where $\Phi_1$, $\Phi_2$, $\varphi$ and $C$ are defined as folows:
-    \begin{equation}
+    \begin{equation*}
         \begin{aligned}
             \text{1.}\quad& \Phi_2\left\{\begin{array}{rcl}
-                U&\longrightarrow&\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde  l_2[) \\
+                U&\longrightarrow&\overset{\circ}{\cC}({\cY^k}\times\Theta,(\tilde l_1,\tilde  l_2)) \\
                 p&\longmapsto&\left[(t,\theta)\mapsto\int_\Theta \ell_k(\mbf y|\tilde\theta)p(\tilde\theta)d\nu(\tilde\theta)\right]
-            \end{array}\right.
-            \quad\text{where ${\cC}(A,B)=\{f:A\mapsto B,\,$continuous$\}$;}\\ %denotes the set of continuous functions from $A$ to $B$;}\\
+            \end{array}\right. ,\\
+            &
+            \text{where $\overset\circ{\cC}(A,B)$ denotes the interior of $\cC(A,B):=\{f:A\mapsto B,\,$continuous$\}$;\hspace*{4cm}}\\ %denotes the set of continuous functions from $A$ to $B$;}\\
             \text{2.}\quad& \varphi\left\{\begin{array}{rcl}
-                \overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde  l_2[)&\longrightarrow&\overset{\circ}{\cC}({\cY^k}\times\Theta,]\log\tilde l_1,\log\tilde  l_2[)\\
+                \overset{\circ}{\cC}({\cY^k}\times\Theta,(\tilde l_1,\tilde  l_2))&\longrightarrow&\overset{\circ}{\cC}({\cY^k}\times\Theta,(\log\tilde l_1,\log\tilde  l_2))\\
                 q&\longmapsto& \log\circ\, q
             \end{array}\right. ;\\
-            \text{3.}\quad& C\text{\ is the constant of  $\overset{\circ}{\cC}({\cY^k}\times\Theta,]\log\tilde l_1,\log\tilde  l_2[)$ that equals $\varphi(\ell_k)$ };\\
+            \text{3.}\quad& C\text{\ is the constant of  $\overset{\circ}{\cC}({\cY^k}\times\Theta,(\log\tilde l_1,\log\tilde  l_2))$ that equals $\varphi(\ell_k)$ };\\
             \text{4.}\quad& \Phi_1\left\{\begin{array}{rcl}
                 \overset{\circ}{\cC}({\cY^k}\times\Theta,]\hat l_1,\hat l_2[)&\longrightarrow&\RR\\
                 r&\longmapsto& \int_{\cY^k}\int_\Theta r(t,\theta)\ell_k(\mbf y|\theta)d\nu(\theta)d\mu^{\otimes k}(\mbf y)
             \end{array}\right.
         \end{aligned}
-    \end{equation}
+    \end{equation*}
     % \begin{align*}
     %     &\Phi_2\left\{\appli{U}{\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde  l_2[)}{p}{\left[(t,\theta)\mapsto\int_\Theta \ell_k(\mbf y|\tilde\theta)p(\tilde\theta)d\nu(\tilde\theta)\right]}\right. & 
     %     \varphi:q\mapsto\log\comp\,q\\ %  \left\{\appli{\cC({\cY^k}\times\Theta,]\tilde\alpha,\tilde\beta[)}{\cC({\cY^k}\times\Theta,]\hat\alpha,\hat\beta[)}{q}{\log\comp q}\right.\\
@@ -158,15 +159,15 @@ We consider $0<\tilde l_1<(1-\xi)l_1\nu(\Theta)$ and $\tilde l_2>(1+\xi)l_2\nu(\
     \begin{equation}
         (1-\xi)l_1\nu(\Theta)<\Phi_2(p)<(1+\xi)l_2\nu(\Theta)
     \end{equation}
-    this way $\Phi_2(p)\in\cC({\cY^k}\times\Theta,](1-\xi)l_1\nu(\Theta),(1+\xi)l_2\nu(\Theta)[)$ which is included in $\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde l_2[)$.
+    this way $\Phi_2(p)\in\cC({\cY^k}\times\Theta,((1-\xi)l_1\nu(\Theta),(1+\xi)l_2\nu(\Theta)))$ which is included in $\overset{\circ}{\cC}({\cY^k}\times\Theta,(\tilde l_1,\tilde l_2))$.
     
     Now we will show that all these functions are differentiable. $\Phi_2$ is linear, and for any $p\in U$,
         $\|\Phi_2(p)\| \leq\|p\| l_1\nu(\Theta)$
-    thus it is continuous and differentiable. $\Phi_1$ is also linear and for any $r\in\overset{\circ}{\cC}({\cY^k}\times\Theta,]\hat l_1,\hat l_2[)$, $\|\Phi_1(r)\|\leq \|r\|\nu(\Theta)$, which states its differentiability. As   the application $(q,p)\mapsto qp$ is a continuous and differentiable bi-linear application, last task we have to do is to demonstrate the differentiability of $\varphi$.\\
+    thus it is continuous and differentiable. $\Phi_1$ is also linear and for any $r\in\overset{\circ}{\cC}({\cY^k}\times\Theta,(\hat l_1,\hat l_2))$, $\|\Phi_1(r)\|\leq \|r\|\nu(\Theta)$, which states its differentiability. As   the application $(q,p)\mapsto qp$ is a continuous and differentiable bi-linear application, last task we have to do is to demonstrate the differentiability of $\varphi$.\\
     %Let $p$ be in $\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde\alpha,\tilde\beta[)$ and $h$ such
-    We consider $q\in\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde l_2[)$. Let $\eps>0$, there exists $\eta>0$ such that for any $x\in]-\eta,\eta[$, 
+    We consider $q\in\overset{\circ}{\cC}({\cY^k}\times\Theta,(\tilde l_1,\tilde l_2))$. Let $\eps>0$, there exists $\eta>0$ such that for any $x\in(-\eta,\eta)$, 
         $$|\log(1+x)-x| \leq \eps|x|\inf_{{\cY^k}\times\Theta}|p|$$
-    Therefore if we consider $\tau$ such that $\cB(q,\tau)\subset\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde l_2[)$ and $\tau/\inf_{{\cY^k}\times\Theta}|q|<\eta$ it comes for any $\mbf y,\theta$ and $h\in\cB(q,\tau)$,
+    Therefore if we consider $\tau$ such that $\cB(q,\tau)\subset\overset{\circ}{\cC}({\cY^k}\times\Theta,(\tilde l_1,\tilde l_2))$ and $\tau/\inf_{{\cY^k}\times\Theta}|q|<\eta$ it comes for any $\mbf y,\theta$ and $h\in\cB(q,\tau)$,
         \begin{align*}
             \left|\varphi(q+h)-\varphi(q)-\frac{h}{q}\right|(\mbf y,\theta) &= \left|\log\Big(1+\frac{h(\mbf y,\theta)}{q(\mbf y,\theta)}\Big)-\frac{h(\mbf y,\theta)}{q(\mbf y,\theta)}\right|\leq \eps |h(\mbf y,\theta)|\\
             \mbox{Thus }\left\|\varphi(q+h)-\varphi(q)-\frac{h}{q}\right\| &\leq\eps\|h\|
@@ -175,7 +176,7 @@ We consider $0<\tilde l_1<(1-\xi)l_1\nu(\Theta)$ and $\tilde l_2>(1+\xi)l_2\nu(\
     
     Finally, $\hat I_2$ is differentiable.
     Going back to $\hat I$, we have shown that is it differentiable.
-    Moreover, as $q\mapsto d\varphi(q)$ is continuous on $\overset{\circ}{\cC}({\cY^k}\times\Theta,]\tilde l_1,\tilde l_2[)$, we deduce that $\hat I$ continuously differentiable on $U$. 
+    Moreover, as $q\mapsto d\varphi(q)$ is continuous on $\overset{\circ}{\cC}({\cY^k}\times\Theta,(\tilde l_1,\tilde l_2))$, we deduce that $\hat I$ continuously differentiable on $U$. 
     We compute bellow its differentiate:
     \begin{align}\label{eq:differI}
         d\hat I(p)h &= \Phi_1(hG(p)-pd\varphi(\Phi_2 (p))\Phi_2(h))\\
@@ -238,7 +239,7 @@ The resolution of these equations to issue an explicit formulation of the priors
 However, further work could study the approximation of the priors, as the solutions of fixed-point problems.
 
 Furthermore, one should notice that the implicit formulations actually express the priors as a function of their posterior. This remark motivates their asymptotic study since, as $k\rightarrow\infty$, the dependence of the posterior in the prior should vanish.
-This heuristic takes the Bernstein-von Mises theorem as a support, which, under appropriate assumptions, states that the posterior density is asymptotically close to a Gaussian density whose mean is a frequentist asymptotically sufficient and consistent estimator, $\hat\theta_k$, and whose variance is $\frac{1}{\sqrt{k}}\cI(\theta)^{-1/2}$, where $\cI(\theta)$ denotes the Fisher information matrix.
+We develop this heuristic by taking the Bernstein-von Mises theorem as a support. Under appropriate assumptions, this theorem states that the posterior density is asymptotically close to a Gaussian density whose mean is a frequentist asymptotically sufficient and consistent estimator, $\hat\theta_k$, and whose variance is $\frac{1}{\sqrt{k}}\cI(\theta)^{-1/2}$, where $\cI(\theta)$ denotes the Fisher information matrix.
 Considering this statement, we write
     \begin{equation}
         \log p(\theta|\mbf y) \simeq \log \frac{k}{2\pi} - \frac{k}{2}\|\cI(\theta)^{1/2}(\theta-\hat\theta_k)\|^2 +\frac{1}{2}\log|\det\cI(\theta)|.
