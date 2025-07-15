@@ -361,7 +361,7 @@ Apart from two exceptions, each of these contributions lies in the center of a c
 The first exception is the proceedings paper published at JdS in 2023. Indeed, this work constituted an introduction to the study that led to the journal paper entitled ``Generalized mutual information and their reference priors under Csizar f-divergence''. In this manuscript, the proceedings paper is incorporated into the chapter tied with the latter (\cref{chap:ref-generalized}). The second exception is the proceedings paper published at SMiRT in 2025. The original methodology presented in this paper remains conceptual, and its development faced the end of  the thesis.
 The study thus lacks for an in-depht examination that might be conducted in the future.
 \newpage
-\thispagestyle{empty}
+\thispagestyle{plain}
 
 
 
@@ -372,6 +372,9 @@ The study thus lacks for an in-depht examination that might be conducted in the 
 \renewcommand{\chaptertitlenamelng}{Chapitre}
 \renewcommand{\partname}{Partie}
 
+\DeclareDelimFormat{finalnamedelim}{%
+  \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+  \addspace{\&}\space}
 
 \begin{abstract}[Résumé]
     Ce chapitre ne diffère du \hyperref[chap:intro-english]{chapitre 1} que par sa rédaction en langue française.
@@ -960,3 +963,6 @@ Elle manque alors d'un approfondissment qui pourrait lui être apporté dans le 
 \thispagestyle{plain}
 \renewcommand{\chaptertitlenamelng}{Chapter}
 \renewcommand{\partname}{Part}
+\DeclareDelimFormat{finalnamedelim}{%
+  \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+  \addspace\bibstring{and}\space}

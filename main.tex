@@ -139,18 +139,18 @@ A Pop\\
 et Maminette
 
 \vfill\normalshape
-Heureux sont les coeurs purs, car ils verront Dieu.\\[3pt]
-{\small Parole du Seigneur, Mt 5:8}
+Heureux sont les coeurs purs, car ils verront Dieu. %\\[3pt]
+% {\small Parole du Seigneur, Mt 5:8}
 
 
 \end{FlushRight}
 
 \newpage
 % \mainmatter
-\pagestyle{plain}
+
 
 \chapter*{Remerciements}
-
+\pagestyle{plain}
 Je remercie toutes les personnes qui m'ont accompagné, qui m'ont aidé, qui m'ont soutenu pendant ces 3 années, ainsi que celles et ceux qui lisent ces quelques mots...
 
 % Je souhaite remercier en prime abord, mon bebou, qui a toujours été là pour moi (même si elle rechigne à lire mes articles de thèse). Je t'aime fort. 
@@ -284,8 +284,52 @@ Je remercie toutes les personnes qui m'ont accompagné, qui m'ont aidé, qui m'o
 % \lastappsymbol
 
 % \fancyhead{}
-\chapter{Vulgarisation \lastappsymbol}
+\chapter{Ma thèse en quelques pages}
 % \renewcommand{\thechapter}{\symbolchapt{chapter}}%
+
+\begin{abstract}[\hspace*{-10pt}]
+    En quoi consiste cette thèse ? C'est la question à laquelle on cherche à répondre ici, 
+\end{abstract}
+
+\minitoc
+
+
+\fancyhead[EL]{\ref{chap::\arabic{part}.\arabic{chapter}}\color{niceBlue}\ %\hyperlink{chap::\thechapter}{\color{niceBlue}\chaptertitlename\ \thechapter.}\color{niceBlue}\ 
+\emph{\leftmark}}
+
+\section*{La thèse en quelques mots, et quelques phrases}
+\addcontentsline{toc}{section}{La thèse en quelques mots, et quelques phrases}
+
+La France est le pays qui admet le plus grand ratio de centrales nucleaires par habitants. Le nucléaire représente alors aujourd'hui une industrie importante et essentielle à notre pays. Il s'agit également d'une industrie hautement sensible, qui se doit d'être dimensionnée pour résister à des événements exceptionnels. En effet, on se souvient tous de l'incident survenu à Fukushima, au Japon, en 2011 : un tsunami est venu s'abattre sur la centrale nucléaire de Fukushima provoquant la fusion du coeur et une irradiation de la zone et des populations alentours. Les études et analyses sur cette catastrophe ont démontré que les signaux sismiques (le séisme ayant causé le tsunami) qui ont été pris en compte pour dimensionner la résistance de la centrale ont été sous évalués par les autorités japonaises. 
+
+En France, le rapport à la sûreté des installations nucléaires se construit autour d'un dialogue entre EDF, qui est l'exploitant du parc nucléaire civil, et l'autorité de sûreté nucléaire et de radioprotection (ASNR), qui doit fixer et veiller au respect des normes de sûreté nucléaires. Dans ce dialogue entre les experts de ces deux partis, le CEA intervient avec une place ambivalente ; tout d'abord au même titre qu'EDF, le CEA est responsable d'installations nucléaires (de recherche), qu'il opère. Aussi, il participe à des études d'expertise d'équipements nucléaires d'EDF. 
+
+Suite à l'incident de Fukushima, l'ASNR a imposé en France des normes encore plus strictes qu'auparavant relatives au risque sismique. C'est pourquoi, au CEA, la recherche sur l'évolution des méthodes d'études sismiques de sûreté est un enjeu permanent. C'est dans ce cadre que s'inscrit ma thèse.
+
+Pour .. la robustesse d'une installation, il y a plusieurs méthodes, 
+
+dans les apaproches qui permettent d'qffronter ce probleme, il est essentiel aujourdhui d'y introduire la notion d'alea, le seisme est la réponse de l'installation de ce sésieme, comportant ene ffet énormément d'inconnues au'on considère comme aléatoires. parmi les méthodes pour ce faire, on s'intéresse dans cette thèse à la méthode maths "bayesienne" qui reste cependant limitée par son choix de l'a priori et on en reparle dans la section suivante. 
+on cherche alors à relier recherhe math sur ce problème avec l'application aux études probabilistes sismiques de sureté. 
+
+L'objectif affiché est de produire des méthodes robustes et auditables de démonstration de fragilité (ou de non fragilité) des équipements mécaniques qui composent une centrale nucléaire. 
+
+et nous on s'intéresse 
+
+% le parc nucléaire est géré et opéré par EDF, qui doit doit rendre compte auprès de l'autorité de sûreté nucléire et de radioprotection (ASNR) de la robustesse de ses installations. C'est un dialogue entre les experts de l'un et les experts 
+
+
+\section*{Initiation à la reflexion sur l'a priori Bayésien}
+\addcontentsline{toc}{section}{Initiation à la reflexion sur l'a priori Bayésien}
+
+
+
+
+\section*{Le lien avec les séismes et les centrales nucléaires dans tout ça}
+
+
+
+\section*{Concrètement, qu'est ce qu'on a fait, qu'est-ce qu'on en conclut ?}
+
 
 
 % \titleformat{\chapter}[display]{\Huge\raggedleft}{\fontsize{40}{45}\selectfont\color{niceBlue}\thechapter}{0pt}{\vspace*{0.5em}}
