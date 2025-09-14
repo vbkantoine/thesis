@@ -451,7 +451,7 @@ Under \cref{assu:intro-ref:jeffreysexist}, $J$ is a continuous and positive func
 
 \citet{clarke_jeffreys_1994} have shown that the Jeffreys prior  is the reference prior over the priors with continuous and positive densities on $\Theta$. Their result can be expressed as follows.
     \begin{thm}\label{thm:intro-ref:clarke}
-        Under \cref{assu:intro-ref:jeffreysexist}. Call an ``appropriate'' increasing sequence of set $(\Theta)_i$, an increasing sequence such that for any $i$ $\Theta_i$ is compact. Assume $\nu$ is the Lebesgue measure and let $\cP$ be the set of priors admitting a continuous and positive density. Then the Jeffreys prior is the unique reference prior over $\cP$.
+        Under \cref{assu:intro-ref:jeffreysexist}. Call an ``appropriate'' increasing sequence of set $(\Theta_i)_i$, an increasing sequence such that for any $i$ $\Theta_i$ is compact. Assume $\nu$ is the Lebesgue measure and let $\cP$ be the set of priors admitting a continuous and positive density. Then the Jeffreys prior is the unique reference prior over $\cP$.
     \end{thm}
 \citet{mure_objective_2018} has shown that the above theorem still stands when ``appropriate'' refers to open subsets of $\Theta$. {This result can be anticipated by reminding that the form of the density maximizing the mutual information for a fixed $k$ is $\exp\left(\int_{\cY_k}\ell_k(\mbf y|\theta)\log(p(\theta|\mbf y) ) d\mu^{\otimes k}(\mbf y)\right)$. 
 Indeed, according to the Bernstein von Mises theorem (see e.g. \cite{van_der_vaart_asymptotic_1992}), under appropriate assumptions, the posterior density $p(\theta|\mbf y)$ is asymptotically close  to a %converges to a 
@@ -509,10 +509,10 @@ We also recall that the Jeffreys prior is known to be improper in most cases.
 
 During this brief review, we mentioned some limits in the framework of the reference priors definition.
 They are related to the incorporation of improper priors in the admissible priors. As a matter of fact, when dealing with non-informative distributions, it is common to find one of the main assumptions on probability distributions (that is, their total mass is $1$) limiting.
-The fact is that in some cases, improper distribution seems really ``close'' to proper ones.
+The fact is that in some cases, improper distributions seem really ``close'' to proper ones.
 As an example, we could mention that the improper uniform distribution on $\RR$ can be seen as a Gaussian distribution with a variance that diverges to infinity. A logarithmic re-parametrization of the latter gives the improper distribution of density proportional to $x\mapsto1/x$.
 
-Additionally, when dealing with densities, nothing strongly forbid the definition of the posterior density when the prior is improper (see \cref{sec:intro-ref:improperway-around}). It became therefore common to normalize the use of improper prior, and to carry out \emph{a posteriori} inference from them when the issued posterior is proper.
+Additionally, when dealing with densities, nothing strongly forbid the definition of the posterior density when the prior is improper (see \cref{sec:intro-ref:improperway-around}). It became therefore common to normalize the use of improper priors, and to carry out \emph{a posteriori} inference from them when the issued posterior is proper.
 
 Even though the way-around works, we lose the existence of a latent probability space with random variables expressing formally the existence of a path that links the ``chaos'' of a universe to the phenomena observed and modeled.
 This section is dedicated to the elucidation of such construction, in a framework that allows priors to be improper.
@@ -555,7 +555,7 @@ We let $(\Theta,\sT)$ be a measurable space. If $\varPi_1$ and $\varPi _2$ are t
     \end{equation}
 Define by $\sM$ the space of non-null, non-negative and $\sigma$-finite measures on $\Theta$. The following properties are verified:
     \begin{itemize}
-        \item The relation $\simeq$ is an equivalence relation on $\sM$. We note $[\varPi]$ the set of a $\varPi\in\sM$.
+        \item The relation $\simeq$ is an equivalence relation on $\sM$. We note $[\varPi]$ the class of a $\varPi\in\sM$.
         %\item If $(\Theta,\sT)$ is a Borel space, then $\widehat\sM$, the space of the non-null non-negative Radon measures, is stable by $\sim$, i.e., $\pi\in\widehat\sM\Longrightarrow[\pi]\subset\widehat\sM$. %It implies that $\sim$ is an equivalence relation on  and $\hat\sM$ with $\hat\sM/\!\simeq\,\subset\sM/\!\simeq$.
         \item Denote by $\sM^\nu$ the space of absolutely continuous measures w.r.t. $\nu\in\sM$. It is stable by $\simeq$.
         \item Define by $\sR$ the space of non-negative non-null measurable functions from $\Theta$ to $\RR$. The relation%Let $\nu\in\sM$, the relation $\propto$ defined by
@@ -944,7 +944,7 @@ That let them be elected for their lack of subjectivity in various practical stu
 and various statistical models, such as Gaussian process-based models \citep{paulo_default_2005,gu_parallel_2016}, generalized linear models \citep{natarajan_reference_2000} or general exponential family models \citep{clarke_reference_2010}.
 
 Moreover, the framework that we have introduced allows a rigorous incorporation of improper priors in Bayesian modelings.
-This provides a better interpretability of the reference priors when it leads to an improper prior distribution. 
+This provides a better interpretability of the reference priors framework when it leads to an improper prior distribution. 
 
 
 
@@ -964,7 +964,7 @@ This provides a better interpretability of the reference priors when it leads to
 However, some limits remain. 
 First, the theory is still built on some choices, such as the choice of the dissimilarity measure to quantify how different are the prior and the posterior.
 Second, the incorporation of improper priors is appealing yet can represent an issue in cases where they issue improper posteriors. Actually, reference priors are known to lead to improper posteriors in some cases.
-Last, the theoretical developments limit their studies to sets of priors that are as  general as possible, and effects of its restriction are rarely focused.
+Last, existing theoretical developments limit their studies to sets of priors that are as  general as possible, and effects of its restriction are rarely focused.
 
 
 

@@ -717,7 +717,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
         Let $\tilde\Theta\subset\Theta$ be compact. %This way, for a prior
         For some prior $\varPi\in\sM^\nu_\cC$, denoting $\pi\in\sR_{\cC^b}$ a  density of $\varPi(\cdot|\tilde\Theta)$ we then have
             \begin{multline}
-                \sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta)) =\frac{1}{(2\pi)^{3k/2} h^k\sigma^{2k}} \int_{\tilde\Theta}\int_{\RR^k\times\RR^k} \prod_{i=1}^ke^{-\frac{(y_i-y_i')^2}{2h^2}} e^{-\frac{(y_i-\theta)^2}{2\sigma^2} } e^{-\frac{(y_i'-\theta)^2}{2\sigma^2} }  d\mbf yd\mbf y'\pi(\theta)d\theta \\
+                \sI_{\text{MMD}^2}^k(\varPi(\cdot|\tilde\Theta)) =\frac{1}{(2\pi)^{3k/2} h^k\sigma^{2k}} \int_{\tilde\Theta}\int_{\RR^k\times\RR^k} \prod_{i=1}^ke^{-\frac{(y_i-y_i')^2}{2h^2}} e^{-\frac{(y_i-\theta)^2}{2\sigma^2} } e^{-\frac{(y_i'-\theta)^2}{2\sigma^2} }  d\mbf yd\mbf y'\pi(\theta)d\theta \\
                 - \frac{1}{(2\pi)^{3k/2}h^k\sigma^{2k}} \int_{\tilde\Theta\times\tilde\Theta}\int_{\RR^k\times\RR^k} \prod_{i=1}^ke^{-\frac{(y_i-y_i')^2}{2h^2}} e^{-\frac{(y_i-\theta)^2}{2\sigma^2} } e^{-\frac{(y_i'-\theta')^2}{2\sigma^2} }  d\mbf yd\mbf y'\pi(\theta)\pi(\theta')d\theta d\theta'.
             \end{multline}
 
@@ -728,7 +728,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
         \begin{enumerate}
             \item Let $\varPi,\,\tilde\varPi\in\sM^\nu_\cC$, we denote respectively $\pi$ and $\tilde\pi$ the densities of $\varPi(\cdot|\tilde\Theta)$ and $\tilde\varPi(\cdot|\tilde\Theta)$. We have:
             \begin{equation}
-                \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) = -\int_{\tilde\Theta}\pi(\theta)^2d\theta + \int_{\tilde\Theta}\tilde\pi(\theta)^2d\theta,
+                \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}^k(\varPi(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}^k(\tilde\varPi(\cdot|\tilde\Theta)) ) = -\int_{\tilde\Theta}\pi(\theta)^2d\theta + \int_{\tilde\Theta}\tilde\pi(\theta)^2d\theta,
             \end{equation}
             with $C_1=\frac{(2\sigma^2+h^2)^{-1/2}}{\sqrt{2\pi}}$.
             %If not jeffreys then $>0$.
@@ -736,7 +736,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
             \item For a density $\pi$ %such that $\int_{\tilde\Theta}\pi =1$ 
             we denote by $M(\pi)$ its associated normalized prior: $M(\pi)=B\mapsto\int_B\pi/\int_{\tilde\Theta}\pi$.
             %Denote $\cC(\tilde\Theta)$
-            Let $\pi^\ast_k$ be continuous densities such that for any $k$, $\sI_{\text{MMD}^2}(M(\pi^\ast_k))\geq \sI^k_{\text{MMD}^2}(M(\pi))$ for any other  $\pi\in\sM^\nu_\cC$.
+            Let $\pi^\ast_k$ be continuous densities such that for any $k$, $\sI_{\text{MMD}^2}^k(M(\pi^\ast_k))\geq \sI_{\text{MMD}^2}^k(M(\pi))$ for any other  $\pi\in\sM^\nu_\cC$.
             If $(\pi^\ast_k)_k$ converges uniformly to a function $\pi^\ast$ on $\tilde\Theta$, then $\pi^\ast$ is the Jeffreys prior density: $\pi^\ast\propto1$.
         \end{enumerate}
     \end{prop}
@@ -757,7 +757,7 @@ the asymptotic analysis further. %In their work, \citet{Clarke1997} have shown i
             \end{multline}
         That allows us to write
     \begin{equation}\label{eq:PSGSA:expr2IMMD}
-        \sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta)) = - C_1^k\int_{\tilde\Theta\times\tilde\Theta} e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)\pi(\theta')d\theta d\theta' + C_1^k,
+        \sI_{\text{MMD}^2}^k(\varPi(\cdot|\tilde\Theta)) = - C_1^k\int_{\tilde\Theta\times\tilde\Theta} e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta'-\theta)^2}\pi(\theta)\pi(\theta')d\theta d\theta' + C_1^k,
     \end{equation}
 with $C_1=\frac{\tilde\sigma\overline{\sigma}}{\sqrt{2\pi}h\sigma^2} = \frac{(2\sigma^2+h^2)^{-1/2}}{\sqrt{2\pi}}$. %From the above expression, it is possible to develop two approaches to construct a reference prior in this very specific case:
 %\begin{itemize}
@@ -775,15 +775,15 @@ with $C_1=\frac{\tilde\sigma\overline{\sigma}}{\sqrt{2\pi}h\sigma^2} = \frac{(2\
     That being stated, we can apply a dominated convergence theorem since for $\nu$-a.e. $\theta'$ and for all $k$, the terms $|C_1\sqrt{k}\int_{\tilde\Theta} e^{-\frac{k}{2}\frac{(\theta-\theta')^2}{2\sigma^2+h^2}}\pi(\theta)\pi(\theta')d\theta |\leq(\sup_{\tilde\Theta}\pi)^2$, which is summable on $\tilde\Theta$.
     We obtain
     \begin{equation}
-        \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) = -\int_{\tilde\Theta}\pi(\theta)^2d\theta + \int_{\tilde\Theta}\tilde\pi(\theta)^2d\theta.
+        \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}^k(\varPi(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}^k(\tilde\varPi(\cdot|\tilde\Theta)) ) = -\int_{\tilde\Theta}\pi(\theta)^2d\theta + \int_{\tilde\Theta}\tilde\pi(\theta)^2d\theta.
     \end{equation}
     We recall that the Jeffreys prior $\mbf J $ for this model is the uniform prior: $J\propto 1$.
     Since Chauchy-Schwarz inequality implies $\int_{\tilde\Theta}\tilde\pi(\theta)d\theta \leq \sqrt{\nu(\tilde\Theta)} \left(\int_{\tilde\Theta}\pi(\theta)^2d\theta \right)^{1/2}$, with equality if and only if $\tilde\pi\propto 1$, we deduce 
     \begin{equation}
-        \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}(\mbf J(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}(\tilde\varPi(\cdot|\tilde\Theta)) ) \geq 0 \text{\ with equality iff\ }\mbf J(\cdot|\tilde\Theta) = \tilde\varPi(\cdot|\tilde\Theta).
+        \lim_{k\rightarrow\infty} C_1^{-k+1}\sqrt{k}(\sI_{\text{MMD}^2}^k(\mbf J(\cdot|\tilde\Theta))-\sI_{\text{MMD}^2}^k(\tilde\varPi(\cdot|\tilde\Theta)) ) \geq 0 \text{\ with equality iff\ }\mbf J(\cdot|\tilde\Theta) = \tilde\varPi(\cdot|\tilde\Theta).
     \end{equation}
 
-\item We consider the vectorial space $\cC(\tilde\Theta)$ of continuous real functions defined on $\tilde\Theta$. It is a Banach space when equipped with the norm $\|p\|=\sup_{\tilde\Theta}|p|$. The expression of $\sI_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))$ elucidated in \cref{eq:PSGSA:expr2IMMD} can be seen as a functional of $\pi$ of the form $\pi\mapsto B(\pi,\pi)$, $B$ being a continuous bilinear form on $E^2$. This function is differentiable w.r.t. $\pi$. We thus  apply a Lagrange multipliers theorem to write that if $\pi_k^\ast\in E$ maximizes $\pi\mapsto\sI^k_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))$ on the constrained space $E\cap\{p\in E,\,\int_{\tilde\Theta}p=1\}$, then there exists $\lambda\in\RR$ such that for all $p\in E$:
+\item We consider the vectorial space $\cC(\tilde\Theta)$ of continuous real functions defined on $\tilde\Theta$. It is a Banach space when equipped with the norm $\|p\|=\sup_{\tilde\Theta}|p|$. The expression of $\sI_{\text{MMD}^2}^k(\varPi(\cdot|\tilde\Theta))$ elucidated in \cref{eq:PSGSA:expr2IMMD} can be seen as a functional of $\pi$ of the form $\pi\mapsto B(\pi,\pi)$, $B$ being a continuous bilinear form on $E^2$. This function is differentiable w.r.t. $\pi$. We thus  apply a Lagrange multipliers theorem to write that if $\pi_k^\ast\in E$ maximizes $\pi\mapsto\sI^k_{\text{MMD}^2}(\varPi(\cdot|\tilde\Theta))$ on the constrained space $E\cap\{p\in E,\,\int_{\tilde\Theta}p=1\}$, then there exists $\lambda\in\RR$ such that for all $p\in E$:
 \begin{equation}
     -2C_1^k\int_{\Theta\times\Theta} e^{-\frac{k}{2}\frac{1}{2\sigma^2+h^2}(\theta-\theta')^2} p(\theta)\pi^\ast_k(\theta')d\theta d\theta' - \lambda\int_\Theta p(\theta)d\theta = 0.
 \end{equation}
