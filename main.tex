@@ -458,6 +458,11 @@ L'objectif affiché est de développer cette méthode mathématique dans l'idée
 Imaginez un dé, simple et à six faces. Je le lance et vous demande, selon vous, quelle est la probabilité que le résultat soit 6. J'imagine que beaucoup diront une chance sur six, en partant du principe qu'il peut s'agir de chaque face du dé avec la même probabilité. Mettons alors maintenant que je vous donne une information~: le chiffre sur lequel le dé est tombé est pair. Et alors, à nouveau, je vous demande la probabilité que ce chiffre soit 6. Si vous êtes bien partis du principe initial selon lequel chaque face pouvait tomber de manière équiprobable, alors vous me répondrez sûrement une chance sur trois. Puisque si le résultat est pair il ne peut s'agir que de 2, 4 ou 6. Ce que vous avez donc fait, c'est que vous êtes partis d'une probabilité initiale que vous croyez et que vous avez mis à jour après observation d'une partie du réel. Mais tout cela, c'est sans compter votre voisin ou la personne derrière vous qui aurait pu vous dire ``Non. Son dé, je l'ai vu, pour moi il est truqué, je connais ça. Il y a deux fois plus de chances pour que le chiffre tombe sur 1, 2 ou 3.'' Ou bien ``les dés comme le sien je connais, j'en ai fabriqué plein, il n'y a pas plus d'une chance sur quarante-huit qu'il sorte un 6.'' 
 Finalement, ce problème revient exactement à ce que l'on appelle l'inférence bayésienne. En partant d'un \emph{a priori}, sur la distribution des probabilités des différentes faces du dé, vous avez mis à jour la probabilité d'obtenir 6 après connaissance d'information sur le réel (le chiffre est pair). Cette mise à jour et le résultat un tiers que vous avez déterminé constitue en un sens l'\emph{a posteriori}. 
 
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=5.5cm]{figures/scenefroide.png}
+\end{figure}
+
 Mais alors que croire, car si vous aviez écouté l'une des deux expertises qui proposait chacune son propre \emph{a priori}, vous seriez tombé sur un résultat final différent de probabilité d'obtenir 6 qu'en considérant votre jugement initial, que vous trouviez sûrement le plus logique et le plus objectif\footnote{Pour rassurer le lecteur, dans ce cas précis du dé son intuition est la bonne, puisque le prior le plus objectif mathématiquement est bien celui qui donne la même probabilité à chaque face du dé.} en l'absence de connaissance ou d'information sur le dé.  Le problème du choix \emph{a priori} est alors celui de pouvoir définir un \emph{a priori} objectif lorsque l'on n'a pas ou l'on ne croit pas en de telles expertises.
 
 %bebi aime bebou 
@@ -471,6 +476,12 @@ Ce problème est celui qui est au centre de ma thèse. Je cherche à définir et
 
 
 Dans cette thèse, le dé peut alors représenter une centrale, ou un équipement de cette centrale. Et plutôt qu'un dé à six faces, on imaginerait plutôt une structure empilée de dés à dix-huit mille faces (voire même une infinité). Au lieu d'être lancés, les dés bougent à la suite d'un tremblement de terre. Et on se demandera alors quelle est la probabilité que la structure s'effondre.  
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=5.5cm]{figures/des.png}
+\end{figure}
+
+
 
 Voici un exemple concret de ``dés'' que l'on étudie dans cette thèse:
 \begin{figure}[!h]
